@@ -51,4 +51,13 @@ public abstract class MrContainer<K,V extends MrIdentificable<K>> implements Ite
     public int size() {
         return mElements.size();
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (V v : mElements.values()) {
+            s += v.getElementId().toString();
+        }
+        return s;
+    }
 }

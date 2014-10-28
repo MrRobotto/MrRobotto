@@ -24,8 +24,6 @@ public class MrSceneLoader extends MrObjectLoader {
     @Override
     public MrSceneData parse() throws JSONException {
         MrSceneData scene = new MrSceneData(getName(), getClearColor());
-        parseChildren(scene);
-        scene.setActive(getActive());
         return scene;
     }
 

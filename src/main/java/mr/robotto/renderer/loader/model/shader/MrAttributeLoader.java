@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.loader.shader;
+package mr.robotto.renderer.loader.model.shader;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -9,17 +9,12 @@
 
 package mr.robotto.renderer.loader;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.renderer.data.object.MrObjectData;
 import mr.robotto.renderer.data.MrSceneObjType;
 import mr.robotto.renderer.loader.model.MrModelLoader;
-import mr.robotto.renderer.loader.shader.MrShaderProgramLoader;
-import mr.robotto.renderer.proposed.MrUniformKeyList;
-import mr.robotto.renderer.shaders.MrShaderProgram;
-import mr.robotto.renderer.shaders.MrUniformType;
 import mr.robotto.renderer.transform.MrTransform;
 
 //TODO: Aqui falta mucho trabajo de control de errores
@@ -43,44 +38,7 @@ public class MrObjectLoader extends MrAbstractLoader<MrObjectData> {
         return MrSceneObjType.valueOf(typeStr.toUpperCase());
     }
 
-    protected boolean getActive() throws JSONException {
-        return mRoot.getBoolean("Active");
-    }
-
-    protected void parseChildren(MrObjectData object) throws JSONException {
-        JSONArray children = mRoot.getJSONArray("Children");
-        for (int i = 0; i < children.length(); i++) {
-            JSONObject childJson =  children.getJSONObject(i);
-            MrObjectLoader objectLoader = new MrObjectLoader(childJson);
-            MrObjectData child = objectLoader.parse();
-            if (child != null) {
-                object.addChild(child);
-            }
-        }
-    }
-
-    protected void parseAll(MrObjectData object) throws JSONException {
-        object.setActive(getActive());
-        parseChildren(object);
-    }
-
-    protected MrUniformKeyList getUniformKeyList() throws JSONException {
-        MrUniformKeyList uniformKeyList = new MrUniformKeyList();
-        JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
-        for (int i = 0; i < jsonUniformKeyList.length(); i++) {
-            String strUniformType = jsonUniformKeyList.getString(i).toUpperCase();
-            MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
-            uniformKeyList.addKey(uniformType);
-        }
-        return uniformKeyList;
-    }
-
-    protected MrShaderProgram getShaderProgram() throws JSONException {
-        JSONObject shaderProgramJson = mRoot.getJSONObject("ShaderProgram");
-        MrShaderProgramLoader shaderProgramLoader = new MrShaderProgramLoader(shaderProgramJson);
-        return shaderProgramLoader.parse();
-    }
-
+    //TODO: Camera
     @Override
     public MrObjectData parse() throws JSONException {
         switch (getSceneObjType()) {
