@@ -9,7 +9,9 @@
 
 package mr.robotto.renderer.proposed;
 
-//TODO: Make all dataobjects implement this
-public interface MrIdentificable<T> {
-    public T getElementId();
+
+import mr.robotto.renderer.data.object.MrObjectData;
+
+public class MrObjectDataList extends MrContainer<String, MrObjectData> {
+
 }

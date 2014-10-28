@@ -15,11 +15,11 @@ import org.json.JSONObject;
 public abstract class MrAbstractLoader<T>
 {
     //TODO: Cambiar en los parser a la versión opt
-    protected JSONObject root;
+    protected JSONObject mRoot;
 
     public MrAbstractLoader(JSONObject obj)
     {
-        root = obj;
+        mRoot = obj;
     }
 
     public abstract T parse() throws JSONException;

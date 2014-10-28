@@ -27,15 +27,15 @@ public class MrAttributeKeyLoader extends MrAbstractLoader<MrAttributeKey>
     @Override
     public MrAttributeKey parse() throws JSONException
     {
-        String attrstr = root.getString("Attribute");
+        String attrstr = mRoot.getString("Attribute");
         MrAttributeType attribute = getAttributeTypeFromString(attrstr);
-        String name = root.getString("Name");
-        int index = root.getInt("Index");
-        String dataTypeStr = root.getString("DataType");
-        int size = root.getInt("Size");
+        String name = mRoot.getString("Name");
+        int index = mRoot.getInt("Index");
+        String dataTypeStr = mRoot.getString("DataType");
+        int size = mRoot.getInt("Size");
         MrDataType dataType = getDataTypeFromString(dataTypeStr);
-        int stride = root.getInt("Stride");
-        int pointer = root.getInt("Pointer");
+        int stride = mRoot.getInt("Stride");
+        int pointer = mRoot.getInt("Pointer");
 
         return new MrAttributeKey(attribute, name, index, dataType, size, stride, pointer);
     }

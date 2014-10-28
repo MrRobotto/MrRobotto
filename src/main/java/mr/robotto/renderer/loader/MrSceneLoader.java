@@ -30,7 +30,7 @@ public class MrSceneLoader extends MrObjectLoader {
     }
 
     private MrVector4f getClearColor() throws JSONException {
-        JSONArray colorArray = root.getJSONArray("ClearColor");
+        JSONArray colorArray = mRoot.getJSONArray("ClearColor");
         MrVector4f clearColor = new MrVector4f();
         clearColor.w = (float)colorArray.getDouble(0);
         clearColor.x = (float)colorArray.getDouble(1);

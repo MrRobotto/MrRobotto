@@ -26,9 +26,9 @@ public class MrTransformLoader extends MrAbstractLoader<MrTransform>
     @Override
     public MrTransform parse() throws JSONException
     {
-        JSONArray locationData = root.getJSONArray("Location");
-        JSONArray rotationData = root.getJSONArray("Rotation");
-        JSONArray scaleData = root.getJSONArray("Scale");
+        JSONArray locationData = mRoot.getJSONArray("Location");
+        JSONArray rotationData = mRoot.getJSONArray("Rotation");
+        JSONArray scaleData = mRoot.getJSONArray("Scale");
         MrTransform transform = new MrTransform();
 
         loadLocation(transform.getLocation(), locationData);

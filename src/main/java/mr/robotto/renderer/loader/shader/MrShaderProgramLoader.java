@@ -35,17 +35,17 @@ public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
     }
 
     private MrVertexShader getVertexShader() throws JSONException {
-        String source = root.getString("VertexShaderSource");
+        String source = mRoot.getString("VertexShaderSource");
         return new MrVertexShader(source);
     }
 
     private MrFragmentShader getFragmentShader() throws JSONException {
-        String source = root.getString("FragmentShaderSource");
+        String source = mRoot.getString("FragmentShaderSource");
         return new MrFragmentShader(source);
     }
 
     private void loadUniforms(MrShaderProgram program) throws JSONException {
-        JSONArray uniformsJsonArray = root.getJSONArray("Uniforms");
+        JSONArray uniformsJsonArray = mRoot.getJSONArray("Uniforms");
         for (int i = 0; i < uniformsJsonArray.length(); i++) {
             JSONObject uniformJson = uniformsJsonArray.getJSONObject(i);
             MrUniformLoader uniformLoader = new MrUniformLoader(uniformJson);
@@ -55,7 +55,7 @@ public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
     }
 
     private void loadAttributes(MrShaderProgram program) throws JSONException {
-        JSONArray attributesJsonArray = root.getJSONArray("Attributes");
+        JSONArray attributesJsonArray = mRoot.getJSONArray("Attributes");
         for (int i = 0; i < attributesJsonArray.length(); i++) {
             JSONObject attributeJson = attributesJsonArray.getJSONObject(i);
             MrAttributeLoader attributeLoader = new MrAttributeLoader(attributeJson);

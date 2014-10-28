@@ -35,7 +35,7 @@ public class MrModelLoader extends MrObjectLoader
     }
 
     private MrMesh getMesh() throws JSONException {
-        JSONObject meshJson = root.getJSONObject("Mesh");
+        JSONObject meshJson = mRoot.getJSONObject("Mesh");
         MrMeshLoader meshLoader = new MrMeshLoader(meshJson);
         return meshLoader.parse();
     }
