@@ -1,13 +1,19 @@
 package mr.robotto.renderer.proposed;
 
 public class MrContext {
-    private MrObjectDataList mrObjectDatas;
+    private MrObjectDataList mrObjectsData;
+    private MrNode<String> mObjectsHierarchy;
 
-    public MrContext(MrObjectDataList objectDatas) {
-        mrObjectDatas = objectDatas;
+    public MrContext(MrObjectDataList objectDatas, MrNode<String> hierarchy) {
+        mrObjectsData = objectDatas;
+        mObjectsHierarchy = hierarchy;
     }
 
-    public MrObjectDataList getMrObjectDatas() {
-        return mrObjectDatas;
+    public MrObjectDataList getMrObjectsData() {
+        return mrObjectsData;
+    }
+
+    public MrNode<String> getObjectsHierarchy() {
+        return mObjectsHierarchy;
     }
 }
