@@ -16,6 +16,7 @@ import java.util.Iterator;
 import mr.robotto.renderer.shaders.MrUniformType;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
 
+//TODO: This should be extend MrContainer
 public class MrUniformKeyList implements Iterable<MrUniformKey> {
 
     private HashMap<MrUniformType, MrUniformKey> uniforms;

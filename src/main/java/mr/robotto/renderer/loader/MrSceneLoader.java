@@ -24,13 +24,11 @@ public class MrSceneLoader extends MrObjectLoader {
     @Override
     public MrSceneData parse() throws JSONException {
         MrSceneData scene = new MrSceneData(getName(), getClearColor());
-        parseChildren(scene);
-        scene.setActive(getActive());
         return scene;
     }
 
     private MrVector4f getClearColor() throws JSONException {
-        JSONArray colorArray = root.getJSONArray("ClearColor");
+        JSONArray colorArray = mRoot.getJSONArray("ClearColor");
         MrVector4f clearColor = new MrVector4f();
         clearColor.w = (float)colorArray.getDouble(0);
         clearColor.x = (float)colorArray.getDouble(1);

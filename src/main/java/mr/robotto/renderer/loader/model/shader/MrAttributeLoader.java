@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.loader.shader;
+package mr.robotto.renderer.loader.model.shader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,20 +28,20 @@ public class MrAttributeLoader extends MrAbstractLoader<MrAttribute> {
     }
 
     private MrAttributeType getAttributeType() throws JSONException {
-        String attribTypeStr = root.getString("Attribute");
+        String attribTypeStr = mRoot.getString("Attribute");
         return MrAttributeType.valueOf(attribTypeStr.toUpperCase());
     }
 
     private MrDataType getDataType() throws JSONException {
-        String dataTypeStr = root.getString("DataType");
+        String dataTypeStr = mRoot.getString("DataType");
         return MrDataType.valueOf(dataTypeStr.toUpperCase());
     }
 
     private int getIndex() throws JSONException {
-        return root.getInt("Index");
+        return mRoot.getInt("Index");
     }
 
     private String getName() throws JSONException {
-        return root.getString("Name");
+        return mRoot.getString("Name");
     }
 }

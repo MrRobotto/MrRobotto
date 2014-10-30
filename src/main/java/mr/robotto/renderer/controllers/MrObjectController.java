@@ -44,6 +44,10 @@ public abstract class MrObjectController<T extends MrObjectData, R extends MrObj
         return data;
     }
 
+    public String getName() {
+        return data.getName();
+    }
+
     public R getRender() {
         return render;
     }

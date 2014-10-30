@@ -33,12 +33,12 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh>
     @Override
     public MrMesh parse() throws JSONException
     {
-        int count            = root.getInt("Count");
-        String drawTypeData  = root.getString("DrawType");
-        String name          = root.getString("Name");
-        JSONArray vertexData = root.getJSONArray("VertexData");
-        JSONArray indexData  = root.getJSONArray("IndexData");
-        JSONArray keysData   = root.getJSONArray("AttributeKeys");
+        int count            = mRoot.getInt("Count");
+        String drawTypeData  = mRoot.getString("DrawType");
+        String name          = mRoot.getString("Name");
+        JSONArray vertexData = mRoot.getJSONArray("VertexData");
+        JSONArray indexData  = mRoot.getJSONArray("IndexData");
+        JSONArray keysData   = mRoot.getJSONArray("AttributeKeys");
 
         MrMeshDrawType drawType = getDrawTypeFromString(drawTypeData);
         MrAttributeKeyList keys = new MrAttributeKeyList();

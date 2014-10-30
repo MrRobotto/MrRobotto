@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.proposed.MrIdentificable;
 import mr.robotto.renderer.proposed.MrUniformKeyList;
 import mr.robotto.renderer.renderer.rendereables.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.shaders.MrShaderProgram;
 import mr.robotto.renderer.transform.MrTransform;
 
-public abstract class MrObjectData implements Comparable<MrObjectData> {
+public abstract class MrObjectData implements Comparable<MrObjectData>,MrIdentificable<String> {
 
 
     //TODO: Convert the arraylist to some other custom class
@@ -57,6 +58,11 @@ public abstract class MrObjectData implements Comparable<MrObjectData> {
         children = new ArrayList<MrObjectData>();
         initialized = false;
         active = false;
+    }
+
+    @Override
+    public String getElementId() {
+        return getName();
     }
 
     public String getName() {
