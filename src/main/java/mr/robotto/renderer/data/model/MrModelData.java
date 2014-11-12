@@ -9,10 +9,10 @@
 
 package mr.robotto.renderer.data.model;
 
+import mr.robotto.renderer.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.data.object.MrObjectData;
-import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.data.commons.MrSceneObjType;
 import mr.robotto.renderer.data.model.mesh.MrMesh;
-import mr.robotto.renderer.proposed.MrUniformKeyList;
 import mr.robotto.renderer.renderer.rendereables.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.shaders.MrShaderProgram;
 import mr.robotto.renderer.transform.MrTransform;

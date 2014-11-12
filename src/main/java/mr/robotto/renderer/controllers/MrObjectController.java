@@ -17,7 +17,7 @@ import mr.robotto.renderer.data.object.MrObjectData;
 import mr.robotto.renderer.proposed.MrAction;
 import mr.robotto.renderer.renderer.rendereables.objectrenderers.MrObjectRender;
 
-public abstract class MrObjectController<T extends MrObjectData, R extends MrObjectRender<T>> {
+public class MrObjectController<T extends MrObjectData, R extends MrObjectRender<T>> {
     private T data;
     private R render;
     private Queue<MrAction<T>> actions;

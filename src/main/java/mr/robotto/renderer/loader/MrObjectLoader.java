@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.renderer.data.object.MrObjectData;
-import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.data.commons.MrSceneObjType;
 import mr.robotto.renderer.loader.model.MrModelLoader;
 import mr.robotto.renderer.transform.MrTransform;
 

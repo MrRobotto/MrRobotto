@@ -10,7 +10,7 @@
 package mr.robotto.renderer.renderer.rendereables.objectrenderers;
 
 import mr.robotto.renderer.data.model.MrModelData;
-import mr.robotto.renderer.proposed.MrUniformKeyList;
+import mr.robotto.renderer.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.renderer.rendereables.core.MrDrawable;
 import mr.robotto.renderer.renderer.rendereables.resources.MrMeshDrawer;
 import mr.robotto.renderer.renderer.rendereables.resources.MrShaderProgramBinder;

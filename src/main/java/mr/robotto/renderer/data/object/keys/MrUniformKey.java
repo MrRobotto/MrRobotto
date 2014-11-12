@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.proposed;
+package mr.robotto.renderer.data.object.keys;
 
 import mr.robotto.renderer.shaders.MrUniformType;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;

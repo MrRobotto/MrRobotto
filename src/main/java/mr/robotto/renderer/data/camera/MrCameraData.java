@@ -10,7 +10,7 @@
 package mr.robotto.renderer.data.camera;
 
 import mr.robotto.renderer.data.object.MrObjectData;
-import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.data.commons.MrSceneObjType;
 import mr.robotto.renderer.linearalgebra.MrMatrix4f;
 import mr.robotto.renderer.linearalgebra.MrVector3f;
 

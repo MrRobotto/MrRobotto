@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.renderer.rendereables.core;
 
-import mr.robotto.renderer.proposed.MrUniformKeyList;
+import mr.robotto.renderer.data.object.keys.MrUniformKeyList;
 
 public interface MrUniformReciever {
     public void setUniforms(MrUniformKeyList uniformList);

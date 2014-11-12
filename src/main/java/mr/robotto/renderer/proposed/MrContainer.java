@@ -3,7 +3,7 @@ package mr.robotto.renderer.proposed;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public abstract class MrContainer<K,V extends MrIdentificable<K>> implements Iterable<V> {
+public class MrContainer<K,V extends MrIdentificable<K>> implements Iterable<V> {
 
     private HashMap<K, V> mElements;
 

@@ -20,6 +20,11 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
         return context;
     }
 
+    /**
+     * Gets all objects-data stored in the JSONObject
+     * @return
+     * @throws JSONException
+     */
     private MrObjectDataList getObjectsData() throws JSONException {
         MrObjectDataList objectDataList = new MrObjectDataList();
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
@@ -30,6 +35,12 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
         return objectDataList;
     }
 
+    /**
+     * Gets all children of node recursively
+     * @param jsonNode
+     * @param node
+     * @throws JSONException
+     */
     private void getNodes(JSONObject jsonNode, MrNode<String> node) throws JSONException {
         JSONArray jsonChildren = jsonNode.getJSONArray("Children");
         for (int i = 0; i < jsonChildren.length(); i++) {
@@ -40,6 +51,11 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
         }
     }
 
+    /**
+     * Gets all the hierarchy
+     * @return
+     * @throws JSONException
+     */
     private MrNode<String> getHierarchy() throws JSONException {
         JSONObject jsonRoot = mRoot.getJSONObject("Hierarchy");
         String rootData = jsonRoot.getString("Name");

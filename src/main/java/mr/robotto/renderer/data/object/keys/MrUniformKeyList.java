@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.proposed;
+package mr.robotto.renderer.data.object.keys;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -12,7 +12,7 @@ package mr.robotto.renderer.data.scene;
 import java.util.HashMap;
 
 import mr.robotto.renderer.data.object.MrObjectData;
-import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.data.commons.MrSceneObjType;
 import mr.robotto.renderer.data.model.MrModelData;
 import mr.robotto.renderer.renderer.rendereables.objectrenderers.MrSceneRender;
 import mr.robotto.renderer.linearalgebra.MrVector4f;

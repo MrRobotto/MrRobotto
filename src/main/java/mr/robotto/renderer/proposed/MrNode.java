@@ -2,8 +2,9 @@ package mr.robotto.renderer.proposed;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
-public class MrNode<T> implements Comparable<MrNode> {
+public class MrNode<T> implements Comparable<MrNode>, Iterable<T> {
     private MrNode mParent;
     private T mData;
     private ArrayList<MrNode> mChildren;
@@ -66,6 +67,12 @@ public class MrNode<T> implements Comparable<MrNode> {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+
+        return null;
     }
 
     @Override
