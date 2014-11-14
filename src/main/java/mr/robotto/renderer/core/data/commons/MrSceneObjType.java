@@ -7,11 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.proposed;
+package mr.robotto.renderer.core.data.commons;
 
-
-import mr.robotto.renderer.core.data.object.MrObjectData;
-
-public class MrObjectDataList extends MrIdentifcableContainer<String, MrObjectData> {
-
+public enum MrSceneObjType {
+    CAMERA,
+    MODEL,
+    SCENE
 }

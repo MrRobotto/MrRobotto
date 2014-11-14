@@ -11,13 +11,12 @@ package mr.robotto.renderer.renderer;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import mr.robotto.renderer.controllers.MrModelController;
-import mr.robotto.renderer.data.scene.MrSceneData;
+import mr.robotto.renderer.core.controller.MrModelController;
+import mr.robotto.renderer.core.data.scene.MrSceneData;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 

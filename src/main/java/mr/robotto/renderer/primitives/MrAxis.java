@@ -10,14 +10,14 @@
 package mr.robotto.renderer.primitives;
 
 import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.data.model.mesh.MrMesh;
-import mr.robotto.renderer.data.model.mesh.MrMeshDrawType;
-import mr.robotto.renderer.data.model.mesh.buffers.MrBuffer;
-import mr.robotto.renderer.data.model.mesh.keys.MrAttributeKey;
-import mr.robotto.renderer.data.model.mesh.keys.MrAttributeKeyList;
+import mr.robotto.renderer.core.data.model.mesh.MrMesh;
+import mr.robotto.renderer.core.data.model.mesh.MrMeshDrawType;
+import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
+import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
+import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKeyList;
 import mr.robotto.renderer.shaders.MrAttributeType;
-import mr.robotto.renderer.data.model.mesh.buffers.MrIndexBuffer;
-import mr.robotto.renderer.data.model.mesh.buffers.MrVertexBuffer;
+import mr.robotto.renderer.core.data.model.mesh.buffers.MrIndexBuffer;
+import mr.robotto.renderer.core.data.model.mesh.buffers.MrVertexBuffer;
 
 public class MrAxis extends MrMesh {
 

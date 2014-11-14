@@ -9,12 +9,12 @@
 
 package mr.robotto.renderer.loader.model;
 
-import mr.robotto.renderer.data.model.mesh.MrMesh;
-import mr.robotto.renderer.data.model.MrModelData;
+import mr.robotto.renderer.core.data.model.mesh.MrMesh;
+import mr.robotto.renderer.core.data.model.MrModelData;
 import mr.robotto.renderer.loader.MrObjectLoader;
 import mr.robotto.renderer.loader.model.shader.MrShaderProgramLoader;
-import mr.robotto.renderer.data.object.keys.MrUniformKeyList;
-import mr.robotto.renderer.renderer.rendereables.objectrenderers.MrModelRender;
+import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
+import mr.robotto.renderer.core.view.objectrenderers.MrModelRender;
 import mr.robotto.renderer.shaders.MrShaderProgram;
 import mr.robotto.renderer.shaders.MrUniformType;
 

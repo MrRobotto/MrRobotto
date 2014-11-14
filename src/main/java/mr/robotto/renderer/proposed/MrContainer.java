@@ -1,63 +1,27 @@
 package mr.robotto.renderer.proposed;
 
-import java.util.HashMap;
 import java.util.Iterator;
 
-public class MrContainer<K,V extends MrIdentificable<K>> implements Iterable<V> {
+public interface MrContainer<K, V> extends Iterable<V> {
 
-    private HashMap<K, V> mElements;
+    boolean add(V v);
 
-    public MrContainer() {
-        mElements = new HashMap<K, V>();
-    }
+    void clear();
 
-    public boolean add(V v) {
-        return mElements.put(v.getElementId(), v) != null;
-    }
+    boolean containsKey(K k);
 
-    public void clear() {
-        mElements.clear();
-    }
+    boolean containsValue(V v);
 
-    public boolean contains(K k) {
-        return mElements.containsKey(k);
-    }
+    V get(K k);
 
-    public boolean contains(V v) {
-        return mElements.containsKey(v.getElementId());
-    }
-
-    public V get(K k) {
-        return mElements.get(k);
-    }
-
-    public boolean isEmpty() {
-        return mElements.isEmpty();
-    }
+    boolean isEmpty();
 
     @Override
-    public Iterator<V> iterator() {
-        return mElements.values().iterator();
-    }
+    Iterator<V> iterator();
 
-    public boolean remove(K k) {
-        return mElements.remove(k) != null;
-    }
+    boolean removeByKey(K k);
 
-    public boolean remove(V v) {
-        return remove(v.getElementId());
-    }
+    boolean removeValue(V v);
 
-    public int size() {
-        return mElements.size();
-    }
-
-    @Override
-    public String toString() {
-        String s = "";
-        for (V v : mElements.values()) {
-            s += v.getElementId().toString();
-        }
-        return s;
-    }
+    int size();
 }
