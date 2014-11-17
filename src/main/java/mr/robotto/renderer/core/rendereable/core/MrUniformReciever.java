@@ -7,9 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.core;
+package mr.robotto.renderer.core.rendereable.core;
 
-public interface MrDrawable<T> extends MrBindable<T> {
-    public void update();
-    public void draw();
+import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
+
+public interface MrUniformReciever {
+    public void setUniforms(MrUniformKeyList uniformList);
 }

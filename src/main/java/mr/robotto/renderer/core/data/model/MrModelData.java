@@ -13,7 +13,7 @@ import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.model.mesh.MrMesh;
-import mr.robotto.renderer.core.view.objectrenderers.MrObjectRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.shaders.MrShaderProgram;
 import mr.robotto.renderer.transform.MrTransform;
 

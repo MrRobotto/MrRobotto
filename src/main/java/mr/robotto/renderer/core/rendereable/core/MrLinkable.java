@@ -7,9 +7,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.core;
+package mr.robotto.renderer.core.rendereable.core;
 
-public interface MrInitializable<T> extends MrLinkable<T> {
-    public void initialize();
-    public boolean isInitialized();
+public interface MrLinkable<T> {
+    public void linkWith(T link);
+    public boolean isLinked();
 }

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.resources;
+package mr.robotto.renderer.core.rendereable.resources;
 
 import android.opengl.GLES20;
 
@@ -16,7 +16,7 @@ import java.nio.IntBuffer;
 import mr.robotto.renderer.core.data.model.mesh.MrMesh;
 import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
-import mr.robotto.renderer.core.view.core.MrDrawable;
+import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 
 //TODO: Controlar errores
 public class MrMeshDrawer implements MrDrawable<MrMesh> {

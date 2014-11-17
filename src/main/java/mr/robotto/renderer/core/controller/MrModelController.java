@@ -10,7 +10,7 @@
 package mr.robotto.renderer.core.controller;
 
 import mr.robotto.renderer.core.data.model.MrModelData;
-import mr.robotto.renderer.core.view.objectrenderers.MrModelRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrModelRender;
 
 
 public class MrModelController extends MrObjectController<MrModelData, MrModelRender> {

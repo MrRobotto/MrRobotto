@@ -1,0 +1,173 @@
+package mr.robotto.renderer.proposed.containers;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import mr.robotto.renderer.proposed.MrIdentificable;
+
+/**
+ * Created by Aarón on 17/11/2014.
+ */
+public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrINode<V>, Iterable<MrMapNode<K,V>> {
+
+    private MrMapNode<K,V> mParent;
+    private V mData;
+    private HashMap<K, MrMapNode<K,V>> mChildren;
+    private HashMap<K, MrMapNode<K,V>> mTree;
+    private int mDepth;
+
+    //TODO: Check the constructor
+    public MrMapNode(MrMapNode<K,V> parent, V data) {
+        init();
+        if (parent != null) {
+            parent.addChild(this);
+        }
+        mData = data;
+    }
+
+    private void init() {
+        mChildren = new HashMap<K, MrMapNode<K, V>>();
+        mTree = new HashMap<K, MrMapNode<K, V>>();
+        mParent = null;
+        mDepth = 0;
+    }
+
+    private void setParent(MrMapNode<K,V> parent) {
+        mParent = parent;
+        if (mParent != null) {
+            mDepth = mParent.getDepth() + 1;
+        } else {
+            mDepth = 0;
+        }
+    }
+
+    @Override
+    public K getElementId() {
+        return mData.getElementId();
+    }
+
+    @Override
+    public V getData() {
+        return mData;
+    }
+
+    @Override
+    public int getDepth() {
+        return mDepth;
+    }
+
+    @Override
+    public boolean hasParent() {
+        return mParent != null;
+    }
+
+    @Override
+    public MrMapNode<K,V> getParent() {
+        return mParent;
+    }
+
+    @Override
+    public Collection<MrMapNode<K,V>> getChildren() {
+        return mChildren.values();
+    }
+
+    @Override
+    public boolean addChild(MrINode<V> node) {
+        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
+        if (n.hasParent()) {
+            n.getParent().removeChild(n);
+        }
+        n.setParent(this);
+        for (MrINode<V> m : n) {
+            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+            mTree.put(aux.getElementId(), aux);
+        }
+        return mChildren.put(n.getElementId(), n) != null;
+    }
+
+    @Override
+    public boolean removeChild(MrINode<V> node) {
+        MrMapNode<K,V> n = (MrMapNode<K,V>) node;
+        if (mChildren.remove(n.getElementId()) != null ) {
+            n.setParent(null);
+            for (MrINode<V> m : n) {
+                MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+                mTree.remove(aux.getElementId());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void clearChildren() {
+        for (MrINode<V> child : mChildren.values()) {
+            removeChild(child);
+        }
+    }
+
+    @Override
+    public void clearParent() {
+        mParent.removeChild(this);
+    }
+
+    @Override
+    public MrMapNode<K,V> getRoot() {
+        MrMapNode<K,V> node = this;
+        while (node.hasParent()) {
+            node = node.getParent();
+        }
+        return node;
+    }
+
+    @Override
+    public int compareTo(MrINode<V> node) {
+        if (node.getDepth() < mDepth) {
+            return 1;
+        } else if (node.getDepth() > mDepth) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public Iterator<MrMapNode<K,V>> iterator() {
+        return new MrNodeMapIterator(this);
+    }
+
+    public MrMapNode<K,V> find(K k) {
+        return mTree.get(k);
+    }
+
+    private class MrNodeMapIterator implements Iterator<MrMapNode<K, V>> {
+        private MrMapNode<K, V> mCurrent;
+        private LinkedList<MrMapNode<K, V>> mQueue;
+
+        public MrNodeMapIterator(MrMapNode<K, V> root) {
+            mCurrent = root;
+            mQueue = new LinkedList<MrMapNode<K, V>>();
+            mQueue.add(root);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !mQueue.isEmpty();
+        }
+
+        @Override
+        public MrMapNode<K, V> next() {
+            mQueue.addAll(mCurrent.getChildren());
+            MrMapNode<K, V> aux = mCurrent;
+            mCurrent = mQueue.pollFirst();
+            return aux;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+    }
+}

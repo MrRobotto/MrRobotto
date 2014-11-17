@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.renderer.proposed.MrContext;
-import mr.robotto.renderer.proposed.MrNode;
+import mr.robotto.renderer.proposed.containers.MrNode;
 import mr.robotto.renderer.proposed.MrObjectDataList;
 
 public class MrContextLoader extends MrAbstractLoader<MrContext> {

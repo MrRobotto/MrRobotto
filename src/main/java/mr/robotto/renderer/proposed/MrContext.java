@@ -1,10 +1,11 @@
 package mr.robotto.renderer.proposed;
 
 import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.proposed.containers.MrNode;
 
 /*
-TODO: Has de crear un get al menos que te busque en los objectsdata
-Ese get te devolverá un nodo, con los hijos ya colgando de él
+TODO: Has de crear un find al menos que te busque en los objectsdata
+Ese find te devolverá un nodo, con los hijos ya colgando de él
 además podrás decirle cuando construya "Oye quiero que para el objeto
 con nombre fulanito le apliques el controlador o el renderer este
  */
@@ -37,7 +38,7 @@ public class MrContext {
             MrNode<MrObjectData> dataNode;
             for (MrNode<String> node : mObjectsHierarchy) {
                 String name = node.getData();
-                MrObjectData objectData = mrObjectsData.get(name);
+                MrObjectData objectData = mrObjectsData.find(name);
 
             }
         }

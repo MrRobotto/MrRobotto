@@ -11,7 +11,8 @@ package mr.robotto.renderer.proposed;
 
 
 import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.proposed.containers.MrMapContainer;
 
-public class MrObjectDataList extends MrIdentifcableContainer<String, MrObjectData> {
+public class MrObjectDataList extends MrMapContainer<String, MrObjectData> {
 
 }

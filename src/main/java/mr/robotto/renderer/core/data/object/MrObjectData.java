@@ -15,7 +15,7 @@ import java.util.List;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.proposed.MrIdentificable;
 import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
-import mr.robotto.renderer.core.view.objectrenderers.MrObjectRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.shaders.MrShaderProgram;
 import mr.robotto.renderer.transform.MrTransform;
 
@@ -144,7 +144,7 @@ public abstract class MrObjectData implements Comparable<MrObjectData>,MrIdentif
     public void setParent(MrObjectData parent) {
         //If this node has already a parent
         if (hasParent()) {
-            //We removeValue the children from the parent
+            //We remove the children from the parent
             this.parent.children.remove(this);
         }
         if (parent == null) {

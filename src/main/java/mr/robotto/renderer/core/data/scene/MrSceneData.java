@@ -14,7 +14,7 @@ import java.util.HashMap;
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.model.MrModelData;
-import mr.robotto.renderer.core.view.objectrenderers.MrSceneRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrSceneRender;
 import mr.robotto.renderer.linearalgebra.MrVector4f;
 
 public class MrSceneData extends MrObjectData {

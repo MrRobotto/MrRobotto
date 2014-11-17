@@ -15,7 +15,7 @@ import java.util.Queue;
 
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.proposed.MrAction;
-import mr.robotto.renderer.core.view.objectrenderers.MrObjectRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
 
 public class MrObjectController<T extends MrObjectData, R extends MrObjectRender<T>> {
     private T data;

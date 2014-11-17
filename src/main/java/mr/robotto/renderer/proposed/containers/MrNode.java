@@ -1,4 +1,4 @@
-package mr.robotto.renderer.proposed;
+package mr.robotto.renderer.proposed.containers;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,7 +50,7 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return mParent;
     }
 
-    public Collection<MrNode<T>> getChildren() {
+    public Collection<? extends MrNode<T>> getChildren() {
         return mChildren;
     }
 
@@ -70,9 +70,27 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return false;
     }
 
+    public void clearChildren() {
+        for (MrNode<T> child : mChildren) {
+            removeChild(child);
+        }
+    }
+
+    public void clearParent() {
+        mParent.removeChild(this);
+    }
+
+    public MrNode<T> getRoot() {
+        MrNode<T> node = this;
+        while (node.hasParent()) {
+            node = node.getParent();
+        }
+        return node;
+    }
+
     @Override
     public Iterator<MrNode<T>> iterator() {
-        return new MrNodeIterator(this);
+        return new MrNodeIterator<MrNode<T>>(this);
     }
 
     @Override
@@ -91,14 +109,14 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return "MrNode{" + mData.toString() +'}';
     }
 
-    public class MrNodeIterator implements Iterator<MrNode<T>> {
+    public class MrNodeIterator<V extends MrNode<T>> implements Iterator<V> {
 
-        private MrNode<T> mCurrent;
-        private LinkedList<MrNode<T>> mQueue;
+        private V mCurrent;
+        private LinkedList<V> mQueue;
 
-        public MrNodeIterator(MrNode<T> root) {
+        public MrNodeIterator(V root) {
             mCurrent = root;
-            mQueue = new LinkedList<MrNode<T>>();
+            mQueue = new LinkedList<V>();
             mQueue.add(root);
         }
 
@@ -108,9 +126,13 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         }
 
         @Override
-        public MrNode<T> next() {
-            mQueue.addAll(mCurrent.getChildren());
-            MrNode<T> aux = mCurrent;
+        public V next() {
+            for (MrNode<T> node : mCurrent.getChildren()) {
+                V aux = (V) node;
+            }
+
+            // mQueue.addAll(mCurrent.getChildren());
+            V aux = mCurrent;
             mCurrent = mQueue.pollFirst();
             return aux;
         }

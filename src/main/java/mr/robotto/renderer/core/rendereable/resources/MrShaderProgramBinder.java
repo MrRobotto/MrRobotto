@@ -7,11 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.resources;
+package mr.robotto.renderer.core.rendereable.resources;
 
 import android.opengl.GLES20;
 
-import mr.robotto.renderer.core.view.core.MrBindable;
+import mr.robotto.renderer.core.rendereable.core.MrBindable;
 import mr.robotto.renderer.shaders.MrAttribute;
 import mr.robotto.renderer.shaders.MrShader;
 import mr.robotto.renderer.shaders.MrShaderProgram;

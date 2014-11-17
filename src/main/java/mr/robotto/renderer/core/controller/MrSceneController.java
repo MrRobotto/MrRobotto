@@ -10,7 +10,7 @@
 package mr.robotto.renderer.core.controller;
 
 import mr.robotto.renderer.core.data.scene.MrSceneData;
-import mr.robotto.renderer.core.view.objectrenderers.MrSceneRender;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrSceneRender;
 
 public class MrSceneController extends MrObjectController<MrSceneData, MrSceneRender> {
     public MrSceneController(MrSceneData data, MrSceneRender render) {

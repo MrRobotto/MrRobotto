@@ -7,13 +7,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.objectrenderers;
+package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import mr.robotto.renderer.core.data.model.MrModelData;
 import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
-import mr.robotto.renderer.core.view.core.MrDrawable;
-import mr.robotto.renderer.core.view.resources.MrMeshDrawer;
-import mr.robotto.renderer.core.view.resources.MrShaderProgramBinder;
+import mr.robotto.renderer.core.rendereable.core.MrDrawable;
+import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;
+import mr.robotto.renderer.core.rendereable.resources.MrShaderProgramBinder;
 
 public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable<MrModelData> {
 

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.view.objectrenderers;
+package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import android.opengl.GLES20;
 
