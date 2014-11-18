@@ -1,7 +1,8 @@
 package mr.robotto.renderer.proposed;
 
+import mr.robotto.renderer.collections.MrListNode;
 import mr.robotto.renderer.core.data.object.MrObjectData;
-import mr.robotto.renderer.proposed.containers.MrNode;
+import mr.robotto.renderer.proposed.containersold.MrNode2;
 
 /*
 TODO: Has de crear un find al menos que te busque en los objectsdata
@@ -11,9 +12,9 @@ con nombre fulanito le apliques el controlador o el renderer este
  */
 public class MrContext {
     private MrObjectDataList mrObjectsData;
-    private MrNode<String> mObjectsHierarchy;
+    private MrListNode<String> mObjectsHierarchy;
 
-    public MrContext(MrObjectDataList objectDatas, MrNode<String> hierarchy) {
+    public MrContext(MrObjectDataList objectDatas, MrListNode<String> hierarchy) {
         mrObjectsData = objectDatas;
         mObjectsHierarchy = hierarchy;
     }
@@ -22,7 +23,7 @@ public class MrContext {
         return mrObjectsData;
     }
 
-    public MrNode<String> getObjectsHierarchy() {
+    public MrListNode<String> getObjectsHierarchy() {
         return mObjectsHierarchy;
     }
 
@@ -35,8 +36,8 @@ public class MrContext {
         }
 
         public void build() {
-            MrNode<MrObjectData> dataNode;
-            for (MrNode<String> node : mObjectsHierarchy) {
+            MrNode2<MrObjectData> dataNode;
+            for (MrListNode<String> node : mObjectsHierarchy) {
                 String name = node.getData();
                 MrObjectData objectData = mrObjectsData.find(name);
 

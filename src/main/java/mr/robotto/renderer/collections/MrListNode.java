@@ -1,4 +1,4 @@
-package mr.robotto.renderer.proposed.containers;
+package mr.robotto.renderer.collections;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,13 +8,13 @@ import java.util.LinkedList;
 /**
  * Created by Aarón on 17/11/2014.
  */
-public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
+public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
     private MrListNode<T> mParent;
     private T mData;
     private ArrayList<MrListNode<T>> mChildren;
     private int mDepth;
 
-    public MrListNode(MrINode<T> parent, T data) {
+    public MrListNode(MrNode<T> parent, T data) {
         init();
         if (parent != null) {
             parent.addChild(this);
@@ -30,6 +30,10 @@ public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
 
     private void setParent(MrListNode<T> parent) {
         mParent = parent;
+        setDepth();
+    }
+
+    private void setDepth() {
         if (mParent != null) {
             mDepth = mParent.getDepth() + 1;
         } else {
@@ -45,6 +49,11 @@ public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
         return mDepth;
     }
 
+    @Override
+    public boolean isLeaf() {
+        return mChildren.isEmpty();
+    }
+
     public boolean hasParent() {
         return mParent != null;
     }
@@ -58,26 +67,34 @@ public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
     }
 
     //TODO: Change order of set parent and deletion/insertion
-    public boolean addChild(MrINode<T> node) {
+    public boolean addChild(MrNode<T> node) {
         MrListNode<T> n = (MrListNode<T>) node;
         if (node.hasParent()) {
             node.getParent().removeChild(node);
         }
         n.setParent(this);
+        for (MrNode<T> m : n) {
+            MrListNode<T> aux = (MrListNode<T>) m;
+            aux.setDepth();
+        }
         return mChildren.add(n);
     }
 
-    public boolean removeChild(MrINode<T> node) {
+    public boolean removeChild(MrNode<T> node) {
         MrListNode<T> n = (MrListNode<T>) node;
         if (mChildren.remove(node)) {
             n.setParent(null);
+            for (MrNode<T> m : n) {
+                MrListNode<T> aux = (MrListNode<T>) m;
+                aux.setDepth();
+            }
             return true;
         }
         return false;
     }
 
     public void clearChildren() {
-        for (MrINode<T> child : mChildren) {
+        for (MrNode<T> child : mChildren) {
             removeChild(child);
         }
     }
@@ -86,8 +103,8 @@ public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
         mParent.removeChild(this);
     }
 
-    public MrINode<T> getRoot() {
-        MrINode<T> node = this;
+    public MrNode<T> getRoot() {
+        MrNode<T> node = this;
         while (node.hasParent()) {
             node = node.getParent();
         }
@@ -100,7 +117,7 @@ public class MrListNode<T> implements MrINode<T>, Iterable<MrListNode<T>> {
     }
 
     @Override
-    public int compareTo(MrINode<T> node) {
+    public int compareTo(MrNode<T> node) {
         if (node.getDepth() < mDepth) {
             return 1;
         } else if (node.getDepth() > mDepth) {

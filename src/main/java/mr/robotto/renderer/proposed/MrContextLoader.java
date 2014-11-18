@@ -1,12 +1,12 @@
-package mr.robotto.renderer.loader;
+package mr.robotto.renderer.proposed;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.renderer.proposed.MrContext;
-import mr.robotto.renderer.proposed.containers.MrNode;
-import mr.robotto.renderer.proposed.MrObjectDataList;
+import mr.robotto.renderer.collections.MrListNode;
+import mr.robotto.renderer.loader.MrAbstractLoader;
+import mr.robotto.renderer.loader.MrObjectLoader;
 
 public class MrContextLoader extends MrAbstractLoader<MrContext> {
 
@@ -41,12 +41,12 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
      * @param node
      * @throws JSONException
      */
-    private void getNodes(JSONObject jsonNode, MrNode<String> node) throws JSONException {
+    private void getNodes(JSONObject jsonNode, MrListNode<String> node) throws JSONException {
         JSONArray jsonChildren = jsonNode.getJSONArray("Children");
         for (int i = 0; i < jsonChildren.length(); i++) {
             JSONObject jsonChildNode = jsonChildren.getJSONObject(i);
             String childNodeData = jsonChildNode.getString("Name");
-            MrNode<String> childNode = new MrNode<String>(node, childNodeData);
+            MrListNode<String> childNode = new MrListNode<String>(node, childNodeData);
             getNodes(jsonChildNode, childNode);
         }
     }
@@ -56,10 +56,10 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
      * @return
      * @throws JSONException
      */
-    private MrNode<String> getHierarchy() throws JSONException {
+    private MrListNode<String> getHierarchy() throws JSONException {
         JSONObject jsonRoot = mRoot.getJSONObject("Hierarchy");
         String rootData = jsonRoot.getString("Name");
-        MrNode<String> rootNode = new MrNode<String>(null, rootData);
+        MrListNode<String> rootNode = new MrListNode<String>(null, rootData);
         getNodes(jsonRoot, rootNode);
         return rootNode;
     }

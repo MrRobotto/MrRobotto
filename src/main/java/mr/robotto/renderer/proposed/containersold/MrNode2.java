@@ -1,17 +1,17 @@
-package mr.robotto.renderer.proposed.containers;
+package mr.robotto.renderer.proposed.containersold;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
-    private MrNode<T> mParent;
+public class MrNode2<T> implements Comparable<MrNode2<T>>, Iterable<MrNode2<T>> {
+    private MrNode2<T> mParent;
     private T mData;
-    private ArrayList<MrNode<T>> mChildren;
+    private ArrayList<MrNode2<T>> mChildren;
     private int mDepth;
 
-    public MrNode(MrNode<T> parent, T data) {
+    public MrNode2(MrNode2<T> parent, T data) {
         init();
         if (parent != null) {
             parent.addChild(this);
@@ -20,12 +20,12 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
     }
 
     private void init() {
-        mChildren = new ArrayList<MrNode<T>>();
+        mChildren = new ArrayList<MrNode2<T>>();
         mParent = null;
         mDepth = 0;
     }
 
-    private void setParent(MrNode<T> parent) {
+    private void setParent(MrNode2<T> parent) {
         mParent = parent;
         if (mParent != null) {
             mDepth = mParent.getDepth() + 1;
@@ -46,15 +46,15 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return mParent != null;
     }
 
-    public MrNode<T> getParent() {
+    public MrNode2<T> getParent() {
         return mParent;
     }
 
-    public Collection<? extends MrNode<T>> getChildren() {
+    public Collection<? extends MrNode2<T>> getChildren() {
         return mChildren;
     }
 
-    public boolean addChild(MrNode<T> node) {
+    public boolean addChild(MrNode2<T> node) {
         if (node.hasParent()) {
             node.getParent().removeChild(node);
         }
@@ -62,7 +62,7 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return mChildren.add(node);
     }
 
-    public boolean removeChild(MrNode<T> node) {
+    public boolean removeChild(MrNode2<T> node) {
         if (mChildren.remove(node)) {
             node.setParent(null);
             return true;
@@ -71,7 +71,7 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
     }
 
     public void clearChildren() {
-        for (MrNode<T> child : mChildren) {
+        for (MrNode2<T> child : mChildren) {
             removeChild(child);
         }
     }
@@ -80,8 +80,8 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         mParent.removeChild(this);
     }
 
-    public MrNode<T> getRoot() {
-        MrNode<T> node = this;
+    public MrNode2<T> getRoot() {
+        MrNode2<T> node = this;
         while (node.hasParent()) {
             node = node.getParent();
         }
@@ -89,12 +89,12 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
     }
 
     @Override
-    public Iterator<MrNode<T>> iterator() {
-        return new MrNodeIterator<MrNode<T>>(this);
+    public Iterator<MrNode2<T>> iterator() {
+        return new MrNodeIterator<MrNode2<T>>(this);
     }
 
     @Override
-    public int compareTo(MrNode<T> node) {
+    public int compareTo(MrNode2<T> node) {
         if (node.getDepth() < mDepth) {
             return 1;
         } else if (node.getDepth() > mDepth) {
@@ -109,7 +109,7 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
         return "MrNode{" + mData.toString() +'}';
     }
 
-    public class MrNodeIterator<V extends MrNode<T>> implements Iterator<V> {
+    public class MrNodeIterator<V extends MrNode2<T>> implements Iterator<V> {
 
         private V mCurrent;
         private LinkedList<V> mQueue;
@@ -127,7 +127,7 @@ public class MrNode<T> implements Comparable<MrNode<T>>, Iterable<MrNode<T>> {
 
         @Override
         public V next() {
-            for (MrNode<T> node : mCurrent.getChildren()) {
+            for (MrNode2<T> node : mCurrent.getChildren()) {
                 V aux = (V) node;
             }
 

@@ -1,4 +1,4 @@
-package mr.robotto.renderer.proposed.containers;
+package mr.robotto.renderer.collections;
 
 public interface MrMap<K, V> {
     public boolean removeByKey(K k);

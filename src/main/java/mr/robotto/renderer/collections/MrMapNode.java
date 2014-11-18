@@ -1,4 +1,4 @@
-package mr.robotto.renderer.proposed.containers;
+package mr.robotto.renderer.collections;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import mr.robotto.renderer.proposed.MrIdentificable;
 /**
  * Created by Aarón on 17/11/2014.
  */
-public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrINode<V>, Iterable<MrMapNode<K,V>> {
+public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrNode<V>, Iterable<MrMapNode<K,V>> {
 
     private MrMapNode<K,V> mParent;
     private V mData;
@@ -36,6 +36,10 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
 
     private void setParent(MrMapNode<K,V> parent) {
         mParent = parent;
+        setDepth();
+    }
+
+    private void setDepth() {
         if (mParent != null) {
             mDepth = mParent.getDepth() + 1;
         } else {
@@ -59,6 +63,11 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
+    public boolean isLeaf() {
+        return mChildren.isEmpty();
+    }
+
+    @Override
     public boolean hasParent() {
         return mParent != null;
     }
@@ -74,26 +83,28 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
-    public boolean addChild(MrINode<V> node) {
+    public boolean addChild(MrNode<V> node) {
         MrMapNode<K,V> n = (MrMapNode<K, V>) node;
         if (n.hasParent()) {
             n.getParent().removeChild(n);
         }
         n.setParent(this);
-        for (MrINode<V> m : n) {
+        for (MrNode<V> m : n) {
             MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+            aux.setDepth();
             mTree.put(aux.getElementId(), aux);
         }
         return mChildren.put(n.getElementId(), n) != null;
     }
 
     @Override
-    public boolean removeChild(MrINode<V> node) {
+    public boolean removeChild(MrNode<V> node) {
         MrMapNode<K,V> n = (MrMapNode<K,V>) node;
         if (mChildren.remove(n.getElementId()) != null ) {
             n.setParent(null);
-            for (MrINode<V> m : n) {
+            for (MrNode<V> m : n) {
                 MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+                aux.setDepth();
                 mTree.remove(aux.getElementId());
             }
             return true;
@@ -103,7 +114,7 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
 
     @Override
     public void clearChildren() {
-        for (MrINode<V> child : mChildren.values()) {
+        for (MrNode<V> child : mChildren.values()) {
             removeChild(child);
         }
     }
@@ -123,7 +134,7 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
-    public int compareTo(MrINode<V> node) {
+    public int compareTo(MrNode<V> node) {
         if (node.getDepth() < mDepth) {
             return 1;
         } else if (node.getDepth() > mDepth) {

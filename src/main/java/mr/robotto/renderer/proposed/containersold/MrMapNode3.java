@@ -1,15 +1,16 @@
-package mr.robotto.renderer.proposed.containers;
+package mr.robotto.renderer.proposed.containersold;
 
 import java.util.Collection;
 import java.util.Iterator;
 
 import mr.robotto.renderer.proposed.MrIdentificable;
+import mr.robotto.renderer.collections.MrMapContainer;
 
-public class MrMapNode3<K, V extends MrIdentificable<K>> extends MrNode<V> implements MrIdentificable<K> {
+public class MrMapNode3<K, V extends MrIdentificable<K>> extends MrNode2<V> implements MrIdentificable<K> {
 
     private MrMapContainer<K, MrMapNode3<K,V>> mMapContainer;
 
-    public MrMapNode3(MrNode<V> parent, V data) {
+    public MrMapNode3(MrNode2<V> parent, V data) {
         super(parent, data);
         init();
     }
@@ -33,25 +34,25 @@ public class MrMapNode3<K, V extends MrIdentificable<K>> extends MrNode<V> imple
 
     //TODO
     @Override
-    public Collection<MrNode<V>> getChildren() {
+    public Collection<MrNode2<V>> getChildren() {
         return null;//super.getChildren();
     }
 
     //TODO
     @Override
-    public Iterator<MrNode<V>> iterator() {
+    public Iterator<MrNode2<V>> iterator() {
         return super.iterator();
     }
 
     public boolean addChild(MrMapNode3<K,V> node) {
-        for (MrNode<V> n : node) {
+        for (MrNode2<V> n : node) {
             mMapContainer.add((MrMapNode3<K, V>) n);
         }
         return super.addChild(node);
     }
 
     public boolean removeChild(MrMapNode3<K,V> node) {
-        for (MrNode<V> n : node) {
+        for (MrNode2<V> n : node) {
             mMapContainer.removeByKey(((MrMapNode3<K, V>)n).getElementId());
         }
         return super.removeChild(node);
@@ -59,7 +60,7 @@ public class MrMapNode3<K, V extends MrIdentificable<K>> extends MrNode<V> imple
 
     @Override
     public void clearChildren() {
-        for (MrNode<V> n : this) {
+        for (MrNode2<V> n : this) {
             mMapContainer.removeByKey(((MrMapNode3<K, V>)n).getElementId());
         }
         super.clearChildren();
