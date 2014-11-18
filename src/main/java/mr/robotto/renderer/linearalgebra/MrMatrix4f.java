@@ -86,6 +86,12 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         setValueAt(k,f);
     }
 
+    /**
+     * Gets the value of row i and column j
+     * @param i
+     * @param j
+     * @return
+     */
     public float getValueAt(int i, int j)
     {
         int k = 4*j+i;

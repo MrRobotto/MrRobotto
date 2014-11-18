@@ -10,12 +10,6 @@ import mr.robotto.renderer.collections.MrMapContainer;
  */
 public class CollectionTests extends TestCase {
 
-    //private MrMapContainer<String, Integer> mContainer;
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
 
     public void testNodeList() {
         MrListNode<String> root = new MrListNode<String>(null, "Root");

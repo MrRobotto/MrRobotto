@@ -214,7 +214,7 @@ public class MrTransform
         MrMatrix4f.ops.multV(right,matrix,right);
     }
 
-    //TODO: Remove this
+    //TODO: Remove this method
     public MrMatrix4f getAsMatrix()
     {
         checkChange();

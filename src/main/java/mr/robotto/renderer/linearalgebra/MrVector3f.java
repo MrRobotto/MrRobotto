@@ -76,6 +76,10 @@ public class MrVector3f implements MrLinearAlgebraObject
         return MrDataType.VEC3;
     }
 
+    /**
+     * Copy values from vector v to this
+     * @param v
+     */
     public void copyValues(MrVector3f v)
     {
         setValues(v.x,v.y,v.z);

@@ -161,7 +161,6 @@ public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
 
         @Override
         public void remove() {
-
         }
     }
 
