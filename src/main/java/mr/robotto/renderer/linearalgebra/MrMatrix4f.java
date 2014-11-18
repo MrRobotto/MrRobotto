@@ -69,7 +69,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
      * @param i index of matrix seen as an array of 16 elements
      * @param f new value
      */
-    public void setValueAt(int i, float f)
+    private void setValueAt(int i, float f)
     {
         values[i] = f;
     }
@@ -102,7 +102,8 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         setValues(m.values);
     }
 
-
+    //TODO: All operations can be optimized by checking if operators points to the same
+    //memory location, in that case we copy data
     public static class ops
     {
         private static MrMatrix4f op1Mult = new MrMatrix4f();

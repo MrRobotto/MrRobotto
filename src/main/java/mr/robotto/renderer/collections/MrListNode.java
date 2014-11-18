@@ -94,13 +94,16 @@ public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
     }
 
     public void clearChildren() {
-        for (MrNode<T> child : mChildren) {
+        while (!mChildren.isEmpty()) {
+            MrNode<T> child = mChildren.get(0);
             removeChild(child);
         }
     }
 
     public void clearParent() {
-        mParent.removeChild(this);
+        if (mParent != null) {
+            mParent.removeChild(this);
+        }
     }
 
     public MrNode<T> getRoot() {

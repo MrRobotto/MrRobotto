@@ -39,9 +39,9 @@ public class MrVector3f implements MrLinearAlgebraObject
 
     public MrVector3f(float[] values)
     {
-        this.values = new float[3];
         if (values.length == 3)
         {
+            this.values = new float[3];
             setValues(values[0],values[1],values[2]);
         }
         else
