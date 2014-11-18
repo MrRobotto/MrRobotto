@@ -1,5 +1,8 @@
 package mr.robotto;
 
+/**
+ * Created by Aarón on 18/11/2014.
+ */
 import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -12,10 +15,6 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.renderer.core.controller.MrModelController;
-import mr.robotto.renderer.core.data.model.MrModelData;
-import mr.robotto.renderer.core.data.scene.MrSceneData;
-import mr.robotto.renderer.core.rendereable.objectrenderers.MrModelRender;
 import mr.robotto.renderer.proposed.MrContext;
 import mr.robotto.renderer.proposed.MrContextLoader;
 import mr.robotto.renderer.utils.MrFileReader;
@@ -52,6 +51,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void testCollections() {
-        
+
     }
 }
