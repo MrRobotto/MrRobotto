@@ -10,7 +10,7 @@
 package mr.robotto.renderer.loader.model;
 
 import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.data.model.mesh.keys.MrAttributeKey;
+import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
 import mr.robotto.renderer.loader.MrAbstractLoader;
 import mr.robotto.renderer.shaders.MrAttributeType;
 

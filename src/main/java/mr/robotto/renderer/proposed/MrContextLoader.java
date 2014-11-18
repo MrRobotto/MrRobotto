@@ -1,0 +1,66 @@
+package mr.robotto.renderer.proposed;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import mr.robotto.renderer.collections.MrListNode;
+import mr.robotto.renderer.loader.MrAbstractLoader;
+import mr.robotto.renderer.loader.MrObjectLoader;
+
+public class MrContextLoader extends MrAbstractLoader<MrContext> {
+
+    public MrContextLoader(JSONObject obj) {
+        super(obj);
+    }
+
+    @Override
+    public MrContext parse() throws JSONException {
+        MrContext context = new MrContext(getObjectsData(),getHierarchy());
+        return context;
+    }
+
+    /**
+     * Gets all objects-data stored in the JSONObject
+     * @return
+     * @throws JSONException
+     */
+    private MrObjectDataList getObjectsData() throws JSONException {
+        MrObjectDataList objectDataList = new MrObjectDataList();
+        JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
+        for (int i = 0; i < jsonObjects.length(); i++) {
+            MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));
+            objectDataList.add(objectLoader.parse());
+        }
+        return objectDataList;
+    }
+
+    /**
+     * Gets all children of node recursively
+     * @param jsonNode
+     * @param node
+     * @throws JSONException
+     */
+    private void getNodes(JSONObject jsonNode, MrListNode<String> node) throws JSONException {
+        JSONArray jsonChildren = jsonNode.getJSONArray("Children");
+        for (int i = 0; i < jsonChildren.length(); i++) {
+            JSONObject jsonChildNode = jsonChildren.getJSONObject(i);
+            String childNodeData = jsonChildNode.getString("Name");
+            MrListNode<String> childNode = new MrListNode<String>(node, childNodeData);
+            getNodes(jsonChildNode, childNode);
+        }
+    }
+
+    /**
+     * Gets all the hierarchy
+     * @return
+     * @throws JSONException
+     */
+    private MrListNode<String> getHierarchy() throws JSONException {
+        JSONObject jsonRoot = mRoot.getJSONObject("Hierarchy");
+        String rootData = jsonRoot.getString("Name");
+        MrListNode<String> rootNode = new MrListNode<String>(null, rootData);
+        getNodes(jsonRoot, rootNode);
+        return rootNode;
+    }
+}

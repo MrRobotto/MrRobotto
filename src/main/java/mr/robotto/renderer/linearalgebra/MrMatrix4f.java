@@ -94,10 +94,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
 
     public void setValues(float[] values)
     {
-        for (int i = 0; i < 16; i++)
-        {
-            this.values[i] = values[i];
-        }
+        System.arraycopy(values, 0, this.values, 0, 16);
     }
 
     public void copyValues(MrMatrix4f m)

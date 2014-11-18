@@ -9,9 +9,6 @@
 
 package mr.robotto.renderer.primitives;
 
-import android.opengl.GLES20;
-import mr.robotto.renderer.opengl.Texture;
-
 public class Sprite  {
 
         /*public Sprite(Texture tex) {

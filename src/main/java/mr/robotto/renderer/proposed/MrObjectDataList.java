@@ -10,8 +10,9 @@
 package mr.robotto.renderer.proposed;
 
 
-import mr.robotto.renderer.data.object.MrObjectData;
+import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.collections.MrMapContainer;
 
-public class MrObjectDataList extends MrContainer<String, MrObjectData> {
+public class MrObjectDataList extends MrMapContainer<String, MrObjectData> {
 
 }

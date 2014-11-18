@@ -12,8 +12,8 @@ package mr.robotto.renderer.loader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.renderer.data.object.MrObjectData;
-import mr.robotto.renderer.data.MrSceneObjType;
+import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.loader.model.MrModelLoader;
 import mr.robotto.renderer.transform.MrTransform;
 

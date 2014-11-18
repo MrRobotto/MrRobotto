@@ -9,8 +9,6 @@
 
 package mr.robotto.renderer.commons;
 
-import android.opengl.GLES20;
-
 public class MrConstants {
     public final static int FLOAT_SIZE = Float.SIZE/8;
     public final static int SHORT_SIZE = Short.SIZE/8;
