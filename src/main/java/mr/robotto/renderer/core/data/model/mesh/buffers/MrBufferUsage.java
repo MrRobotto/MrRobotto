@@ -15,15 +15,15 @@ public enum MrBufferUsage
 {
     STATIC_DRAW(GLES20.GL_STATIC_DRAW);
 
-    private int value;
+    private int mValue;
 
     MrBufferUsage(int value)
     {
-        this.value = value;
+        this.mValue = value;
     }
 
     public int getValue()
     {
-        return value;
+        return mValue;
     }
 }

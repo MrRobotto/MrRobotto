@@ -12,22 +12,22 @@ package mr.robotto.renderer.core.data.camera;
 import mr.robotto.renderer.linearalgebra.MrMatrix4f;
 
 public class MrPerspectiveLens extends MrLens {
-    private float fovy;
-    private float aspectRation;
-    private float clipStart;
-    private float clipEnd;
+    private float mFovy;
+    private float mAspectRatio;
+    private float mClipStart;
+    private float mClipEnd;
 
-    public MrPerspectiveLens(float fovy, float aspectRation, float clipStart, float clipEnd) {
-        this.fovy = fovy;
-        this.aspectRation = aspectRation;
-        this.clipStart = clipStart;
-        this.clipEnd = clipEnd;
+    public MrPerspectiveLens(float fovy, float aspectRatio, float clipStart, float clipEnd) {
+        mFovy = fovy;
+        mAspectRatio = aspectRatio;
+        mClipStart = clipStart;
+        mClipEnd = clipEnd;
     }
 
     //TODO: Do not recalc this everytime
     @Override
     public MrMatrix4f getProjectionMatrix() {
-        MrMatrix4f.ops.perspective(matrix, fovy, aspectRation, clipStart, clipEnd);
+        MrMatrix4f.ops.perspective(matrix, mFovy, mAspectRatio, mClipStart, mClipEnd);
         return matrix;
     }
 }

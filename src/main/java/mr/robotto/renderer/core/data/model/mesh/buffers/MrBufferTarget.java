@@ -16,15 +16,15 @@ public enum MrBufferTarget
     ARRAY_BUFFER(GLES20.GL_ARRAY_BUFFER),
     ELEMENT_ARRAY_BUFFER(GLES20.GL_ELEMENT_ARRAY_BUFFER);
 
-    private int value;
+    private int mValue;
 
     MrBufferTarget(int value)
     {
-        this.value = value;
+        this.mValue = value;
     }
 
     public int getValue()
     {
-        return value;
+        return mValue;
     }
 }

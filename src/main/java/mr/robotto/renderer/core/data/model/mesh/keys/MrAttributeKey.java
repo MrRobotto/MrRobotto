@@ -14,71 +14,72 @@ import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
 
 public class MrAttributeKey
 {
-    private MrAttributeType attributeType;
-    private String name;
-    private int index;
-    private int size;
-    private MrDataType dataType;
-    private int stride;
-    private int pointer;
+    private MrAttributeType mAttributeType;
+    private String mName;
+    private int mIndex;
+    private int mSize;
+    private MrDataType mDataType;
+    private int mStride;
+    private int mPointer;
 
+    //TODO: I believe that this class doesn't need a name
     public MrAttributeKey(MrAttributeType attribute, String name, int index, MrDataType dataType, int size, int stride, int pointer)
     {
-        this.attributeType = attribute;
-        this.name = name;
-        this.index = index;
-        this.dataType = dataType;
-        this.size = size;
-        this.stride = stride * dataType.getSize();
-        this.pointer = pointer * dataType.getSize();
+        this.mAttributeType = attribute;
+        this.mName = name;
+        this.mIndex = index;
+        this.mDataType = dataType;
+        this.mSize = size;
+        this.mStride = stride * dataType.getSize();
+        this.mPointer = pointer * dataType.getSize();
     }
 
     public MrAttributeType getAttributeType()
     {
-        return attributeType;
+        return mAttributeType;
     }
 
     /*public String getName()
     {
-        return name;
+        return mName;
     }*/
 
     public int getSize()
     {
-        return size;
+        return mSize;
     }
 
     public int getStride()
     {
-        return this.stride;
+        return this.mStride;
     }
 
     public int getIndex()
     {
-        return index;
+        return mIndex;
     }
 
     public int getPointer()
     {
-        return pointer;
+        return mPointer;
     }
 
     public MrDataType getDataType()
     {
-        return dataType;
+        return mDataType;
     }
 
     @Override
     public String toString()
     {
         return "MrBufferKey{" +
-                "attributeType=" + attributeType +
-                ", name='" + name + '\'' +
-                ", index=" + index +
-                ", size=" + size +
-                ", bufferDataType=" + dataType +
-                ", stride=" + stride +
-                ", pointer=" + pointer +
+                "AttributeType=" + mAttributeType +
+                ", Name='" + mName + '\'' +
+                ", Index=" + mIndex +
+                ", Size=" + mSize +
+                ", BufferDataType=" + mDataType +
+                ", Stride=" + mStride +
+                ", Pointer=" + mPointer +
                 '}';
     }
 }

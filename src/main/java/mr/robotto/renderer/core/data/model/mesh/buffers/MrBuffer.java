@@ -18,141 +18,141 @@ import mr.robotto.renderer.commons.MrDataType;
 
 public class MrBuffer
 {
-    private ByteBuffer bufferData;
-    private int bufferPosition;
-    private MrDataType bufferDataType;
-    private MrBufferUsage bufferUsage;
-    private MrBufferTarget bufferTarget;
-    private IntBuffer bufferId;
-    private int bufferCapacity;
+    private ByteBuffer mBufferData;
+    private int mBufferPosition;
+    private MrDataType mBufferDataType;
+    private MrBufferUsage mBufferUsage;
+    private MrBufferTarget mBufferTarget;
+    private IntBuffer mBufferId;
+    private int mBufferCapacity;
 
     public MrBuffer(int capacity, MrDataType dataType, MrBufferTarget target, MrBufferUsage usage)
     {
-        bufferPosition = 0;
-        bufferDataType = dataType;
-        bufferTarget = target;
-        bufferUsage = usage;
-        bufferData = ByteBuffer.allocate(capacity * bufferDataType.getSize());
-        bufferData.order(ByteOrder.nativeOrder());
-        bufferCapacity = capacity;
+        mBufferPosition = 0;
+        mBufferDataType = dataType;
+        mBufferTarget = target;
+        mBufferUsage = usage;
+        mBufferData = ByteBuffer.allocate(capacity * mBufferDataType.getSize());
+        mBufferData.order(ByteOrder.nativeOrder());
+        mBufferCapacity = capacity;
     }
 
     public void setBufferId(IntBuffer bufferId)
     {
-        this.bufferId = bufferId;
+        this.mBufferId = bufferId;
     }
 
     public IntBuffer getBufferId()
     {
-        return bufferId;
+        return mBufferId;
     }
 
     public int getId()
     {
-        return bufferId.get(0);
+        return mBufferId.get(0);
     }
 
     public void setId(int id)
     {
-        bufferId.put(0,id);
+        mBufferId.put(0, id);
     }
 
     public MrBufferTarget getBufferTarget()
     {
-        return bufferTarget;
+        return mBufferTarget;
     }
 
     public void setBufferTarget(MrBufferTarget bufferTarget)
     {
-        this.bufferTarget = bufferTarget;
+        this.mBufferTarget = bufferTarget;
     }
 
     public MrDataType getBufferDataType()
     {
-        return bufferDataType;
+        return mBufferDataType;
     }
 
     public void setBufferDataType(MrDataType bufferDataType)
     {
-        this.bufferDataType = bufferDataType;
+        this.mBufferDataType = bufferDataType;
     }
 
     public MrBufferUsage getBufferUsage()
     {
-        return bufferUsage;
+        return mBufferUsage;
     }
 
     public void setBufferUsage(MrBufferUsage bufferUsage)
     {
-        this.bufferUsage = bufferUsage;
+        this.mBufferUsage = bufferUsage;
     }
 
     public int getBufferSize()
     {
-        return bufferCapacity;
+        return mBufferCapacity;
     }
 
     public Buffer asBuffer()
     {
-        bufferData.position(0);
-        return bufferData;
+        mBufferData.position(0);
+        return mBufferData;
     }
 
     //TODO: Make buffer invariant once it is "released", change the name...
     public void releaseBuffer()
     {
-        bufferData.limit(0);
-        bufferData = null;
+        mBufferData.limit(0);
+        mBufferData = null;
     }
 
     //TODO: Check buffer overflow
     public void putByte(Byte b)
     {
-        bufferData.position(bufferPosition);
-        bufferData.put(b);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.put(b);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putChar(char c)
     {
-       bufferData.position(bufferPosition);
-       bufferData.putChar(c);
-       bufferPosition = bufferData.position();
+       mBufferData.position(mBufferPosition);
+       mBufferData.putChar(c);
+       mBufferPosition = mBufferData.position();
     }
 
     public void putDouble(double d)
     {
-        bufferData.position(bufferPosition);
-        bufferData.putDouble(d);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.putDouble(d);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putFloat(float f)
     {
-        bufferData.position(bufferPosition);
-        bufferData.putFloat(f);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.putFloat(f);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putInt(int i)
     {
-        bufferData.position(bufferPosition);
-        bufferData.putInt(i);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.putInt(i);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putLong(long l)
     {
-        bufferData.position(bufferPosition);
-        bufferData.putLong(l);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.putLong(l);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putShort(short s)
     {
-        bufferData.position(bufferPosition);
-        bufferData.putShort(s);
-        bufferPosition = bufferData.position();
+        mBufferData.position(mBufferPosition);
+        mBufferData.putShort(s);
+        mBufferPosition = mBufferData.position();
     }
 
     public void putBytes(byte[] bytes)
