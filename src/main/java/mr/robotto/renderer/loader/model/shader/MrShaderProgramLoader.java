@@ -14,11 +14,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.shaders.MrAttribute;
-import mr.robotto.renderer.shaders.MrFragmentShader;
-import mr.robotto.renderer.shaders.MrShaderProgram;
-import mr.robotto.renderer.shaders.MrUniform;
-import mr.robotto.renderer.shaders.MrVertexShader;
+import mr.robotto.renderer.core.data.model.shaders.MrAttribute;
+import mr.robotto.renderer.core.data.model.shaders.MrFragmentShader;
+import mr.robotto.renderer.core.data.model.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.model.shaders.MrUniform;
+import mr.robotto.renderer.core.data.model.shaders.MrVertexShader;
 
 public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
 

@@ -22,7 +22,7 @@ public class MrCameraData extends MrObjectData {
     private int height;
 
     public MrCameraData(String name, MrLens lens, MrVector3f lookAt) {
-        super(name, MrSceneObjType.CAMERA, null);
+        super(name, MrSceneObjType.CAMERA);
         this.lens = lens;
         this.lookAt = lookAt;
     }

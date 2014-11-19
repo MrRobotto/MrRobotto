@@ -15,30 +15,33 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import mr.robotto.renderer.core.controller.MrModelController;
+import mr.robotto.renderer.core.controller.MrModel;
+import mr.robotto.renderer.core.controller.MrScene;
 import mr.robotto.renderer.core.data.scene.MrSceneData;
+import mr.robotto.renderer.core.rendereable.objectrenderers.MrSceneRender;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
-    private MrSceneData scene;
     private boolean initialized;
 
     //TODO: Remove this
-    public MrModelController model;
+    public MrModel model;
+    public MrScene mScene;
 
     public MrRenderer() {
-        scene = new MrSceneData("Scene");
+        //scene = new MrSceneData("Scene");
+        mScene = new MrScene(new MrSceneData("Scene"),new MrSceneRender());
     }
 
     public MrRenderer(MrSceneData scene) {
-        this.scene = scene;
+        //this.scene = scene;
     }
 
     public void setScene(MrSceneData scene) {
-        this.scene = scene;
+        /*this.scene = scene;
         if (isInitialized()) {
             this.scene.initialize();
-        }
+        }*/
     }
 
     public boolean isInitialized() {
@@ -47,10 +50,11 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        scene.getRenderer().initialize();
+        //scene.getRenderer().initialize();
         initialized = true;
 
         model.initialize();
+        mScene.initialize();
     }
 
     //TODO: De esto se encarga la camara en teoria
@@ -61,8 +65,8 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        scene.getRenderer().render();
-
+        //scene.getRenderer().render();
+        mScene.render();
         model.render();
     }
 }

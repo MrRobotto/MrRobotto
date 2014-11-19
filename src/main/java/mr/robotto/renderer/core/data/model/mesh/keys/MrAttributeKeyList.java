@@ -14,30 +14,30 @@ import java.util.Iterator;
 
 //TODO: Change the arraylist for a hashmap
 public class MrAttributeKeyList implements Iterable<MrAttributeKey> {
-    private ArrayList<MrAttributeKey> keys;
+    private ArrayList<MrAttributeKey> mKeys;
 
     public MrAttributeKeyList() {
         init();
     }
 
     private void init() {
-        keys = new ArrayList<MrAttributeKey>();
+        mKeys = new ArrayList<MrAttributeKey>();
     }
 
     public MrAttributeKey getAttributeKeyAt(int i) {
-        return keys.get(i);
+        return mKeys.get(i);
     }
 
     public int getNumBufferKeys() {
-        return keys.size();
+        return mKeys.size();
     }
 
     public void addAttributeKey(MrAttributeKey key) {
-        keys.add(key);
+        mKeys.add(key);
     }
 
     @Override
     public Iterator<MrAttributeKey> iterator() {
-        return keys.iterator();
+        return mKeys.iterator();
     }
 }

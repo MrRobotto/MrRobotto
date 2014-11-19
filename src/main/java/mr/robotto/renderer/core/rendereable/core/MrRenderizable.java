@@ -9,6 +9,6 @@
 
 package mr.robotto.renderer.core.rendereable.core;
 
-public interface MrRenderizable<T> extends MrInitializable<T>, MrUniformReciever {
+public interface MrRenderizable extends MrInitializable, MrUniformReciever {
     public void render();
 }

@@ -15,16 +15,16 @@ public enum MrMeshDrawType
 {
     LINES(GLES20.GL_LINES), TRIANGLES(GLES20.GL_TRIANGLES);
 
-    private int value;
+    private int mValue;
 
     MrMeshDrawType(int value)
     {
-        this.value = value;
+        this.mValue = value;
     }
 
     public int getValue()
     {
-        return value;
+        return mValue;
     }
 }
 

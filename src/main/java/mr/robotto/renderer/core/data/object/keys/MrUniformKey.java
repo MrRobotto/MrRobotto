@@ -9,29 +9,29 @@
 
 package mr.robotto.renderer.core.data.object.keys;
 
-import mr.robotto.renderer.shaders.MrUniformType;
+import mr.robotto.renderer.core.data.model.shaders.MrUniformType;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
 
 public class MrUniformKey {
 
-    private MrUniformType uniformType;
-    private MrLinearAlgebraObject value;
+    private MrUniformType mUniformType;
+    private MrLinearAlgebraObject mValue;
     private int id;
 
     public MrUniformKey(MrUniformType uniformType) {
-        this.uniformType = uniformType;
-        this.value = null;
+        mUniformType = uniformType;
+        mValue = null;
     }
 
     public MrUniformType getUniformType() {
-        return uniformType;
+        return mUniformType;
     }
 
     public MrLinearAlgebraObject getValue() {
-        return value;
+        return mValue;
     }
 
     public void setValue(MrLinearAlgebraObject value) {
-        this.value = value;
+        this.mValue = value;
     }
 }

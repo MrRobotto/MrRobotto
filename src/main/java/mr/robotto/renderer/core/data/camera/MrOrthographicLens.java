@@ -12,10 +12,10 @@ package mr.robotto.renderer.core.data.camera;
 import mr.robotto.renderer.linearalgebra.MrMatrix4f;
 
 public class MrOrthographicLens extends MrLens{
-    private float orthographicScale;
+    private float mOrthographicScale;
 
     public MrOrthographicLens(float orthographicScale) {
-        this.orthographicScale = orthographicScale;
+        mOrthographicScale = orthographicScale;
     }
 
     @Override

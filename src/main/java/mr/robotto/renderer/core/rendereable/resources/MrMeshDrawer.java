@@ -17,36 +17,37 @@ import mr.robotto.renderer.core.data.model.mesh.MrMesh;
 import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
+import mr.robotto.renderer.core.rendereable.core.MrLinkable;
 
 //TODO: Controlar errores
-public class MrMeshDrawer implements MrDrawable<MrMesh> {
+public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
 
-    private MrMesh mesh;
-    private boolean initialized = false;
-    private boolean linked = false;
-    private boolean binded = false;
+    private MrMesh mMesh;
+    private boolean mInitialized = false;
+    private boolean mLinked = false;
+    private boolean mBinded = false;
 
     @Override
     public void linkWith(MrMesh link) {
-        this.mesh = link;
-        linked = true;
+        mMesh = link;
+        mLinked = true;
     }
 
     @Override
     public boolean isLinked() {
-        return linked;
+        return mLinked;
     }
 
     @Override
     public void initialize() {
-        initialize(mesh.getVertexBuffer());
-        initialize(mesh.getIndexBuffer());
-        initialized = true;
+        initialize(mMesh.getVertexBuffer());
+        initialize(mMesh.getIndexBuffer());
+        mInitialized = true;
     }
 
     @Override
     public boolean isInitialized() {
-        return initialized;
+        return mInitialized;
     }
 
     private void initialize(MrBuffer buffer)
@@ -61,21 +62,21 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
 
     @Override
     public void bind() {
-        bind(mesh.getVertexBuffer());
-        bind(mesh.getIndexBuffer());
-        for (MrAttributeKey key : mesh.getKeys()) { bind(key); }
-        binded = true;
+        bind(mMesh.getVertexBuffer());
+        bind(mMesh.getIndexBuffer());
+        for (MrAttributeKey key : mMesh.getKeys()) { bind(key); }
+        mBinded = true;
     }
 
     @Override
     public void unbind() {
-        for (MrAttributeKey key : mesh.getKeys()) { unbind(key); }
-        binded = false;
+        for (MrAttributeKey key : mMesh.getKeys()) { unbind(key); }
+        mBinded = false;
     }
 
     @Override
     public boolean isBinded() {
-        return binded;
+        return mBinded;
     }
 
     //TODO: Mirar el false este con el normalized
@@ -103,6 +104,6 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
     //TODO: Check the cullface of objects
     @Override
     public void draw() {
-        GLES20.glDrawElements(mesh.getDrawType().getValue(), mesh.getCount(), mesh.getIndexBuffer().getBufferDataType().getValue(), 0);
+        GLES20.glDrawElements(mMesh.getDrawType().getValue(), mMesh.getCount(), mMesh.getIndexBuffer().getBufferDataType().getValue(), 0);
     }
 }

@@ -14,57 +14,57 @@ import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKeyList;
 
 public class MrMesh
 {
-    private String name;
-    private int count;
-    private MrMeshDrawType drawType;
-    private MrAttributeKeyList keys;
-    private MrBuffer vertexBuffer;
-    private MrBuffer indexBuffer;
+    private String mName;
+    private int mCount;
+    private MrMeshDrawType mDrawType;
+    private MrAttributeKeyList mKeys;
+    private MrBuffer mVertexBuffer;
+    private MrBuffer mIndexBuffer;
 
     public MrMesh(String name, int count, MrMeshDrawType drawType, MrAttributeKeyList keys, MrBuffer vertexBuffer, MrBuffer indexBuffer)
     {
-        this.name = name;
-        this.count = count;
-        this.drawType = drawType;
-        this.keys = keys;
-        this.vertexBuffer = vertexBuffer;
-        this.indexBuffer = indexBuffer;
+        mName = name;
+        mCount = count;
+        mDrawType = drawType;
+        mKeys = keys;
+        mVertexBuffer = vertexBuffer;
+        mIndexBuffer = indexBuffer;
     }
 
     public MrMesh(MrMesh mesh)
     {
-        this(mesh.name, mesh.count, mesh.drawType, mesh.keys, mesh.vertexBuffer, mesh.indexBuffer);
+        this(mesh.mName, mesh.mCount, mesh.mDrawType, mesh.mKeys, mesh.mVertexBuffer, mesh.mIndexBuffer);
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public int getCount()
     {
-        return count;
+        return mCount;
     }
 
     public MrMeshDrawType getDrawType()
     {
-        return drawType;
+        return mDrawType;
     }
 
     public void setDrawType(MrMeshDrawType drawType)
     {
-        this.drawType = drawType;
+        this.mDrawType = drawType;
     }
 
     public MrBuffer getVertexBuffer()
     {
-        return vertexBuffer;
+        return mVertexBuffer;
     }
 
     public MrBuffer getIndexBuffer()
     {
-        return indexBuffer;
+        return mIndexBuffer;
     }
 
-    public MrAttributeKeyList getKeys() {return keys;}
+    public MrAttributeKeyList getKeys() {return mKeys;}
 
 }

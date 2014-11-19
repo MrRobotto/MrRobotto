@@ -10,7 +10,8 @@
 package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.core.rendereable.core.MrLinkable;
 import mr.robotto.renderer.core.rendereable.core.MrRenderizable;
 
-public interface MrObjectRender<T extends MrObjectData> extends MrRenderizable<T> {
+public interface MrObjectRender extends MrLinkable<MrObjectData>, MrRenderizable {
 }

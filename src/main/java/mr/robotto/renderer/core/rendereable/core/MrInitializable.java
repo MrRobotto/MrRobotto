@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.rendereable.core;
 
-public interface MrInitializable<T> extends MrLinkable<T> {
+public interface MrInitializable {
     public void initialize();
     public boolean isInitialized();
 }

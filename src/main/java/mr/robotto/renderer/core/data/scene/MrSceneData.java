@@ -9,24 +9,16 @@
 
 package mr.robotto.renderer.core.data.scene;
 
-import java.util.HashMap;
-
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
-import mr.robotto.renderer.core.data.model.MrModelData;
-import mr.robotto.renderer.core.rendereable.objectrenderers.MrSceneRender;
 import mr.robotto.renderer.linearalgebra.MrVector4f;
 
 public class MrSceneData extends MrObjectData {
-    private MrVector4f clearColor;
-    private HashMap<String,MrObjectData> objects;
-    private HashMap<String,MrModelData> models;
-
-
+    private MrVector4f mClearColor;
 
     public MrSceneData(String name, MrVector4f clearColor) {
-        super(name, MrSceneObjType.SCENE, new MrSceneRender());
-        this.clearColor = clearColor;
+        super(name, MrSceneObjType.SCENE);
+        this.mClearColor = clearColor;
         init();
     }
 
@@ -35,45 +27,18 @@ public class MrSceneData extends MrObjectData {
     }
 
     private void init() {
-        objects = new HashMap<String, MrObjectData>();
-        models = new HashMap<String, MrModelData>();
-        //setRenderer(new MrSceneRender());
+
     }
 
     public MrVector4f getClearColor() {
-        return clearColor;
+        return mClearColor;
     }
 
     public void setClearColor(float r, float g, float b, float a) {
-        this.clearColor = new MrVector4f(r,g,b,a);
-    }
-
-    @Override
-    public void addChild(MrObjectData node) {
-        super.addChild(node);
-        switch (node.getSceneObjType()) {
-            case MODEL:
-                models.put(node.getName(), (MrModelData)node);
-        }
+        this.mClearColor = new MrVector4f(r,g,b,a);
     }
 
     public void setClearColor(MrVector4f clearColor) {
-        this.clearColor = clearColor;
-    }
-
-    public void addObject(MrObjectData object) {
-        objects.put(object.getName(), object);
-    }
-
-    public MrObjectData getObject(String name) {
-        return objects.get(name);
-    }
-
-    public MrModelData getModel(String name) {
-        return models.get(name);
-    }
-
-    public void initializeSizeDependant(int width, int height) {
-
+        this.mClearColor = clearColor;
     }
 }
