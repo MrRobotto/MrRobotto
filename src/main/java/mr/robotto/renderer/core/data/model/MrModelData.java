@@ -13,23 +13,25 @@ import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.model.mesh.MrMesh;
-import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
-import mr.robotto.renderer.shaders.MrShaderProgram;
-import mr.robotto.renderer.transform.MrTransform;
+import mr.robotto.renderer.core.data.model.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.object.MrTransform;
 
 public class MrModelData extends MrObjectData
 {
-    private MrMesh mesh;
+    private MrMesh mMesh;
+    private MrShaderProgram mShaderProgram;
 
-    private MrShaderProgram shaderProgram;
-
-    public MrModelData(String name, MrTransform transform, MrUniformKeyList uniformKeys, MrShaderProgram shaderProgram, MrObjectRender renderer, MrMesh mesh) {
-        super(name, MrSceneObjType.MODEL, transform, uniformKeys, shaderProgram, renderer);
-        this.mesh = mesh;
-        setRenderer(renderer);
+    public MrModelData(String name, MrTransform transform, MrUniformKeyList uniformKeys, MrShaderProgram shaderProgram,  MrMesh mesh) {
+        super(name, MrSceneObjType.MODEL, transform, uniformKeys);
+        mMesh = mesh;
+        mShaderProgram = shaderProgram;
     }
 
     public MrMesh getMesh() {
-        return mesh;
+        return mMesh;
+    }
+
+    public MrShaderProgram getShaderProgram() {
+        return mShaderProgram;
     }
 }

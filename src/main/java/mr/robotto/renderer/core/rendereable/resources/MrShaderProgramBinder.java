@@ -12,41 +12,42 @@ package mr.robotto.renderer.core.rendereable.resources;
 import android.opengl.GLES20;
 
 import mr.robotto.renderer.core.rendereable.core.MrBindable;
-import mr.robotto.renderer.shaders.MrAttribute;
-import mr.robotto.renderer.shaders.MrShader;
-import mr.robotto.renderer.shaders.MrShaderProgram;
-import mr.robotto.renderer.shaders.MrShaderType;
-import mr.robotto.renderer.shaders.MrUniform;
+import mr.robotto.renderer.core.data.model.shaders.MrAttribute;
+import mr.robotto.renderer.core.data.model.shaders.MrShader;
+import mr.robotto.renderer.core.data.model.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.model.shaders.MrShaderType;
+import mr.robotto.renderer.core.data.model.shaders.MrUniform;
+import mr.robotto.renderer.core.rendereable.core.MrLinkable;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: Controlar errores
-public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
+public class MrShaderProgramBinder implements MrLinkable<MrShaderProgram>, MrBindable {
 
-    private MrShaderProgram program;
-    private boolean initialized;
-    private boolean linked;
-    private boolean binded = false;
+    private MrShaderProgram mShaderProgram;
+    private boolean mInitialized;
+    private boolean mLinked;
+    private boolean mBinded = false;
 
     @Override
     public void bind() {
-        GLES20.glUseProgram(program.getId());
-        binded = true;
+        GLES20.glUseProgram(mShaderProgram.getId());
+        mBinded = true;
     }
 
     @Override
     public void unbind() {
         GLES20.glUseProgram(0);
-        binded = false;
+        mBinded = false;
     }
 
     @Override
     public boolean isBinded() {
-        return binded;
+        return mBinded;
     }
 
     //TODO: Check uniform/element count, uniform/element datatype
     public void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
-        int programId = program.getId();
+        int programId = mShaderProgram.getId();
         int uniformId = uniform.getId();
         int uniformCount = uniform.getCount();
         float[] values = element.getValues();
@@ -89,24 +90,25 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
     }
 
     private void initialize(MrAttribute attribute) {
-        GLES20.glBindAttribLocation(program.getId(), attribute.getIndex(), attribute.getName());
+        GLES20.glBindAttribLocation(mShaderProgram.getId(), attribute.getIndex(), attribute.getName());
     }
 
     private void initialize(MrUniform uniform) {
-        int location = GLES20.glGetUniformLocation(program.getId(), uniform.getName());
+        int location = GLES20.glGetUniformLocation(mShaderProgram.getId(), uniform.getName());
         uniform.setId(location);
     }
 
+    //TODO: Check runtime errors
     @Override
     public void initialize() {
-        initialize(program.getVertexShader());
-        initialize(program.getFragmentShader());
+        initialize(mShaderProgram.getVertexShader());
+        initialize(mShaderProgram.getFragmentShader());
 
         int id = GLES20.glCreateProgram();
-        program.setId(id);
-        GLES20.glAttachShader(id, program.getVertexShader().getId());
-        GLES20.glAttachShader(id, program.getFragmentShader().getId());
-        for (MrAttribute attribute : program.getAttributes()) {
+        mShaderProgram.setId(id);
+        GLES20.glAttachShader(id, mShaderProgram.getVertexShader().getId());
+        GLES20.glAttachShader(id, mShaderProgram.getFragmentShader().getId());
+        for (MrAttribute attribute : mShaderProgram.getAttributes()) {
             initialize(attribute);
         }
 
@@ -118,22 +120,22 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
             GLES20.glDeleteProgram(id);
             throw new RuntimeException("Error creating program.");
         }
-        initialized = true;
+        mInitialized = true;
     }
 
     @Override
     public boolean isInitialized() {
-        return initialized;
+        return mInitialized;
     }
 
     @Override
     public void linkWith(MrShaderProgram link) {
-        program = link;
-        linked = true;
+        mShaderProgram = link;
+        mLinked = true;
     }
 
     @Override
     public boolean isLinked() {
-        return linked;
+        return mLinked;
     }
 }

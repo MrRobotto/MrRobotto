@@ -10,68 +10,69 @@
 package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import mr.robotto.renderer.core.data.model.MrModelData;
+import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.renderer.core.rendereable.resources.MrShaderProgramBinder;
 
-public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable<MrModelData> {
+public class MrModelRender implements MrObjectRender, MrDrawable {
 
-    private MrMeshDrawer meshDrawer;
-    private MrShaderProgramBinder shaderProgramBinder;
-    private MrModelData model;
-    private MrUniformKeyList uniformKeyList;
-    private boolean initialized = false;
-    private boolean linked = false;
-    private boolean binded = false;
+    private MrMeshDrawer mMeshDrawer;
+    private MrShaderProgramBinder mShaderProgramBinder;
+    private MrModelData mModelData;
+    private MrUniformKeyList mUniformKeyList;
+    private boolean mInitialized = false;
+    private boolean mLinked = false;
+    private boolean mBinded = false;
 
     public MrModelRender() {
-        meshDrawer = new MrMeshDrawer();
-        shaderProgramBinder = new MrShaderProgramBinder();
+        mMeshDrawer = new MrMeshDrawer();
+        mShaderProgramBinder = new MrShaderProgramBinder();
     }
 
     @Override
     public boolean isLinked() {
-        return linked;
+        return mLinked;
     }
 
     @Override
     public boolean isInitialized() {
-        return initialized;
+        return mInitialized;
     }
 
     @Override
     public boolean isBinded() {
-        return binded;
+        return mBinded;
     }
 
     @Override
     public void initialize() {
-        meshDrawer.initialize();
-        shaderProgramBinder.initialize();
-        initialized = true;
+        mMeshDrawer.initialize();
+        mShaderProgramBinder.initialize();
+        mInitialized = true;
     }
 
     @Override
-    public void linkWith(MrModelData link) {
-        model = link;
-        meshDrawer.linkWith(model.getMesh());
-        shaderProgramBinder.linkWith(model.getShaderProgram());
-        linked = true;
+    public void linkWith(MrObjectData link) {
+        mModelData = (MrModelData) link;
+        mMeshDrawer.linkWith(mModelData.getMesh());
+        mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
+        mLinked = true;
     }
 
     @Override
     public void bind() {
-        shaderProgramBinder.bind();
-        meshDrawer.bind();
-        binded = true;
+        mShaderProgramBinder.bind();
+        mMeshDrawer.bind();
+        mBinded = true;
     }
 
     @Override
     public void unbind() {
-        meshDrawer.unbind();
-        shaderProgramBinder.unbind();
-        binded = false;
+        mMeshDrawer.unbind();
+        mShaderProgramBinder.unbind();
+        mBinded = false;
     }
 
     @Override
@@ -86,7 +87,7 @@ public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable<Mr
 
     @Override
     public void draw() {
-        meshDrawer.draw();
+        mMeshDrawer.draw();
     }
 
     @Override

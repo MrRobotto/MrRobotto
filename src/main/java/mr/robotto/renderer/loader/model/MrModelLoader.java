@@ -15,8 +15,8 @@ import mr.robotto.renderer.loader.MrObjectLoader;
 import mr.robotto.renderer.loader.model.shader.MrShaderProgramLoader;
 import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrModelRender;
-import mr.robotto.renderer.shaders.MrShaderProgram;
-import mr.robotto.renderer.shaders.MrUniformType;
+import mr.robotto.renderer.core.data.model.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.model.shaders.MrUniformType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +32,7 @@ public class MrModelLoader extends MrObjectLoader
     @Override
     public MrModelData parse() throws JSONException
     {
-        MrModelData model = new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), new MrModelRender(), getMesh());
+        MrModelData model = new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh());
         return model;
     }
 

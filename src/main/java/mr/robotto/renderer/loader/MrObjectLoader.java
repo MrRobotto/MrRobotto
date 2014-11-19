@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.commons.MrSceneObjType;
 import mr.robotto.renderer.loader.model.MrModelLoader;
-import mr.robotto.renderer.transform.MrTransform;
+import mr.robotto.renderer.core.data.object.MrTransform;
 
 //TODO: Aqui falta mucho trabajo de control de errores
 public class MrObjectLoader extends MrAbstractLoader<MrObjectData> {

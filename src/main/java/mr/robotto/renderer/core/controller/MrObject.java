@@ -14,53 +14,59 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import mr.robotto.renderer.core.data.object.MrObjectData;
-import mr.robotto.renderer.proposed.MrAction;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
+import mr.robotto.renderer.proposed.MrAction;
+import mr.robotto.renderer.proposed.MrIdentificable;
 
-public class MrObjectController<T extends MrObjectData, R extends MrObjectRender<T>> {
-    private T data;
-    private R render;
-    private Queue<MrAction<T>> actions;
+public class MrObject<T extends MrObjectData, R extends MrObjectRender> implements MrIdentificable<String> {
+    private T mData;
+    private R mRender;
+    private Queue<MrAction<T>> mActions;
 
-    protected MrObjectController(T data, R render) {
-        this.data = data;
-        this.render = render;
-        this.render.linkWith(data);
+    protected MrObject(T data, R render) {
+        mData = data;
+        mRender = render;
+        mRender.linkWith(data);
     }
 
     private void init() {
-        actions = new LinkedList<MrAction<T>>();
+        mActions = new LinkedList<MrAction<T>>();
     }
 
     public void initialize() {
-        render.initialize();
+        mRender.initialize();
     }
 
     public void render() {
-        render.render();
+        mRender.render();
     }
 
     public T getData() {
-        return data;
+        return mData;
+    }
+
+    @Override
+    public String getElementId() {
+        return getName();
     }
 
     public String getName() {
-        return data.getName();
+        return mData.getName();
     }
 
     public R getRender() {
-        return render;
+        return mRender;
     }
 
     public void setRender(R render) {
-        this.render = render;
+        this.mRender = render;
     }
 
     public void addAction(final MrAction<T> action) {
-        actions.add(action);
+        mActions.add(action);
     }
 
     public Collection<MrAction<T>> getActions() {
-        return actions;
+        return mActions;
     }
 }

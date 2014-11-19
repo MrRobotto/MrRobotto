@@ -11,40 +11,41 @@ package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import android.opengl.GLES20;
 
+import mr.robotto.renderer.core.data.object.MrObjectData;
 import mr.robotto.renderer.core.data.scene.MrSceneData;
 import mr.robotto.renderer.linearalgebra.MrVector4f;
 import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
 
-public class MrSceneRender implements MrObjectRender<MrSceneData> {
+public class MrSceneRender implements MrObjectRender {
 
-    private MrSceneData scene;
-    private boolean linked;
-    private boolean initialized;
+    private MrSceneData mSceneData;
+    private boolean mLinked;
+    private boolean mInitialized;
 
     public MrSceneRender() {
-        linked = false;
-        initialized = false;
+        mLinked = false;
+        mInitialized = false;
     }
 
     @Override
     public boolean isLinked() {
-        return linked;
+        return mLinked;
     }
 
     @Override
     public boolean isInitialized() {
-        return initialized;
+        return mInitialized;
     }
 
     @Override
-    public void linkWith(MrSceneData link) {
-        scene = link;
-        linked = true;
+    public void linkWith(MrObjectData link) {
+        mSceneData = (MrSceneData) link;
+        mLinked = true;
     }
 
     @Override
     public void initialize() {
-        MrVector4f clearColor = scene.getClearColor();
+        MrVector4f clearColor = mSceneData.getClearColor();
         GLES20.glClearColor(clearColor.w, clearColor.x, clearColor.y, clearColor.z);
         GLES20.glClearDepthf(1.0f);
         //GLES20.glEnable(GLES20.GL_CULL_FACE);
@@ -56,7 +57,7 @@ public class MrSceneRender implements MrObjectRender<MrSceneData> {
         //GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         GLES20.glDisable(GLES20.GL_BLEND);
 
-        initialized = true;
+        mInitialized = true;
     }
 
     @Override

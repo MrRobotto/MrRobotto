@@ -13,33 +13,33 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import mr.robotto.renderer.shaders.MrUniformType;
+import mr.robotto.renderer.core.data.model.shaders.MrUniformType;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: This should be extend MrContainer
 public class MrUniformKeyList implements Iterable<MrUniformKey> {
 
-    private HashMap<MrUniformType, MrUniformKey> uniforms;
+    private HashMap<MrUniformType, MrUniformKey> mUniforms;
 
     public MrUniformKeyList() {
         init();
     }
 
     private void init() {
-        uniforms = new HashMap<MrUniformType, MrUniformKey>();
+        mUniforms = new HashMap<MrUniformType, MrUniformKey>();
     }
 
 
     public void addKey(MrUniformType uniformType) {
-        uniforms.put(uniformType, new MrUniformKey(uniformType));
+        mUniforms.put(uniformType, new MrUniformKey(uniformType));
     }
 
     public boolean hasKey(MrUniformType key) {
-        return uniforms.containsKey(key);
+        return mUniforms.containsKey(key);
     }
 
     public MrUniformKey getUniformKey(MrUniformType type) {
-        return uniforms.get(type);
+        return mUniforms.get(type);
     }
 
 
@@ -62,11 +62,11 @@ public class MrUniformKeyList implements Iterable<MrUniformKey> {
     }
 
     public Collection<MrUniformType> keys() {
-        return uniforms.keySet();
+        return mUniforms.keySet();
     }
 
     @Override
     public Iterator<MrUniformKey> iterator() {
-        return uniforms.values().iterator();
+        return mUniforms.values().iterator();
     }
 }

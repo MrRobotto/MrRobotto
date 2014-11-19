@@ -13,8 +13,8 @@ import mr.robotto.renderer.core.data.model.MrModelData;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrModelRender;
 
 
-public class MrModelController extends MrObjectController<MrModelData, MrModelRender> {
-    public MrModelController(MrModelData data, MrModelRender render) {
+public class MrModel extends MrObject<MrModelData, MrModelRender> {
+    public MrModel(MrModelData data, MrModelRender render) {
         super(data, render);
     }
 }

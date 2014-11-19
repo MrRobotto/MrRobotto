@@ -12,7 +12,7 @@ package mr.robotto.renderer.loader.model;
 import mr.robotto.renderer.commons.MrDataType;
 import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.shaders.MrAttributeType;
+import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;

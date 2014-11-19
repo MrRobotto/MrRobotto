@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.rendereable.core;
 
-public interface MrDrawable<T> extends MrBindable<T> {
+public interface MrDrawable extends MrBindable {
     public void update();
     public void draw();
 }

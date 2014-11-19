@@ -15,7 +15,7 @@ import mr.robotto.renderer.core.data.model.mesh.MrMeshDrawType;
 import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
 import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKeyList;
-import mr.robotto.renderer.shaders.MrAttributeType;
+import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
 import mr.robotto.renderer.core.data.model.mesh.buffers.MrIndexBuffer;
 import mr.robotto.renderer.core.data.model.mesh.buffers.MrVertexBuffer;
 
