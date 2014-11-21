@@ -17,6 +17,7 @@ import java.util.LinkedList;
 /**
  * Created by Aarón on 17/11/2014.
  */
+@Deprecated
 public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
     private MrListNode<T> mParent;
     private T mData;
@@ -120,6 +121,11 @@ public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
             node = node.getParent();
         }
         return node;
+    }
+
+    @Override
+    public int childrenSize() {
+        return mChildren.size();
     }
 
     @Override

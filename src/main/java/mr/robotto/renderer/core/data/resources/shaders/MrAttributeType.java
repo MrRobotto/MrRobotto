@@ -10,11 +10,21 @@
 package mr.robotto.renderer.core.data.resources.shaders;
 
 public enum MrAttributeType {
-    VERTICES,
-    NORMALS,
-    COLOR,
-    MATERIALINDEX,
-    TEXTURE,
-    WEIGHT,
-    BONEINDICES
+    VERTICES(0),
+    NORMALS(1),
+    COLOR(2),
+    MATERIALINDEX(3),
+    TEXTURE(4),
+    WEIGHT(5),
+    BONEINDICES(6);
+
+    private int mValue;
+
+    MrAttributeType(int value) {
+        this.mValue = value;
+    }
+
+    public int getValue() {
+        return mValue;
+    }
 }

@@ -15,19 +15,15 @@ import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
 public class MrBufferKey
 {
     private MrAttributeType mAttributeType;
-    private String mName;
     private int mIndex;
     private int mSize;
     private MrDataType mDataType;
     private int mStride;
     private int mPointer;
 
-    //TODO: I believe that this class doesn't need a name
-    public MrBufferKey(MrAttributeType attribute, String name, int index, MrDataType dataType, int size, int stride, int pointer)
+    public MrBufferKey(MrAttributeType attribute, MrDataType dataType, int size, int stride, int pointer)
     {
         this.mAttributeType = attribute;
-        this.mName = name;
-        this.mIndex = index;
         this.mDataType = dataType;
         this.mSize = size;
         this.mStride = stride * dataType.getSize();
@@ -49,6 +45,10 @@ public class MrBufferKey
         return this.mStride;
     }
 
+    public void setIndex(int index) {
+        mIndex = index;
+    }
+
     public int getIndex()
     {
         return mIndex;
@@ -65,11 +65,15 @@ public class MrBufferKey
     }
 
     @Override
+    public int hashCode() {
+        return mAttributeType.getValue();
+    }
+
+    @Override
     public String toString()
     {
         return "MrBufferKey{" +
                 "AttributeType=" + mAttributeType +
-                ", Name='" + mName + '\'' +
                 ", Index=" + mIndex +
                 ", Size=" + mSize +
                 ", BufferDataType=" + mDataType +

@@ -37,7 +37,7 @@ public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey>
         int stride = mRoot.getInt("Stride");
         int pointer = mRoot.getInt("Pointer");
 
-        return new MrBufferKey(attribute, name, index, dataType, size, stride, pointer);
+        return new MrBufferKey(attribute, dataType, size, stride, pointer);
     }
 
     private MrAttributeType getAttributeTypeFromString(String attrstr)

@@ -48,8 +48,8 @@ public class MrAxis extends MrMesh {
     //TODO: Too much hardocre for my eyes!
     private static MrBufferKeyList genKeyList() {
         MrBufferKeyList keyList = new MrBufferKeyList();
-        MrBufferKey vertexKey = new MrBufferKey(MrAttributeType.VERTICES, "vertices", 0, MrDataType.FLOAT, 3, 6, 0);
-        MrBufferKey colorKey = new MrBufferKey(MrAttributeType.COLOR, "color", 1, MrDataType.FLOAT, 3, 6, 3);
+        MrBufferKey vertexKey = new MrBufferKey(MrAttributeType.VERTICES, MrDataType.FLOAT, 3, 6, 0);
+        MrBufferKey colorKey = new MrBufferKey(MrAttributeType.COLOR, MrDataType.FLOAT, 3, 6, 3);
         keyList.addAttributeKey(vertexKey);
         keyList.addAttributeKey(colorKey);
         return keyList;

@@ -142,6 +142,15 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
+    public int childrenSize() {
+        return mChildren.size();
+    }
+
+    public int size() {
+        return mTree.size();
+    }
+
+    @Override
     public int compareTo(MrNode<V> node) {
         if (node.getDepth() < mDepth) {
             return 1;

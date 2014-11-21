@@ -37,4 +37,6 @@ public interface MrNode<T> extends Comparable<MrNode<T>> {
     public void clearParent();
 
     public MrNode<T> getRoot();
+
+    public int childrenSize();
 }

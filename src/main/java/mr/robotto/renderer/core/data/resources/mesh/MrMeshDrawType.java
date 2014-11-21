@@ -11,19 +11,16 @@ package mr.robotto.renderer.core.data.resources.mesh;
 
 import android.opengl.GLES20;
 
-public enum MrMeshDrawType
-{
+public enum MrMeshDrawType {
     LINES(GLES20.GL_LINES), TRIANGLES(GLES20.GL_TRIANGLES);
 
     private int mValue;
 
-    MrMeshDrawType(int value)
-    {
+    MrMeshDrawType(int value) {
         this.mValue = value;
     }
 
-    public int getValue()
-    {
+    public int getValue() {
         return mValue;
     }
 }
