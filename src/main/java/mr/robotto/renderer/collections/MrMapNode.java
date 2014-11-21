@@ -27,7 +27,6 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     private HashMap<K, MrMapNode<K,V>> mTree;
     private int mDepth;
 
-    //TODO: Check the constructor
     public MrMapNode(MrMapNode<K,V> parent, V data) {
         init();
         if (parent != null) {

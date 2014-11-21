@@ -7,10 +7,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.rendereable.core;
+package mr.robotto.renderer.core.data.resources.shaders;
 
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
-
-public interface MrUniformReciever {
-    public void setUniforms(MrUniformKeyList uniformList);
+public enum MrAttributeType {
+    VERTICES,
+    NORMALS,
+    COLOR,
+    MATERIALINDEX,
+    TEXTURE,
+    WEIGHT,
+    BONEINDICES
 }

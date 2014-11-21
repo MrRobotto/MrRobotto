@@ -14,8 +14,8 @@ import org.json.JSONObject;
 
 import mr.robotto.renderer.commons.MrDataType;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.core.data.model.shaders.MrAttribute;
-import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
+import mr.robotto.renderer.core.data.resources.shaders.MrAttribute;
+import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
 
 public class MrAttributeLoader extends MrAbstractLoader<MrAttribute> {
     public MrAttributeLoader(JSONObject obj) {

@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.rendereable.objectrenderers;
 
-import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.rendereable.core.MrLinkable;
 import mr.robotto.renderer.core.rendereable.core.MrRenderizable;
 

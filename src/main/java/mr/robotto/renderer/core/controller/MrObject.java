@@ -13,12 +13,12 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.proposed.MrAction;
 import mr.robotto.renderer.proposed.MrIdentificable;
 
-public class MrObject<T extends MrObjectData, R extends MrObjectRender> implements MrIdentificable<String> {
+public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender> implements MrIdentificable<String> {
     private T mData;
     private R mRender;
     private Queue<MrAction<T>> mActions;
@@ -35,6 +35,10 @@ public class MrObject<T extends MrObjectData, R extends MrObjectRender> implemen
 
     public void initialize() {
         mRender.initialize();
+    }
+
+    public boolean isInitialized() {
+        return mRender.isInitialized();
     }
 
     public void render() {

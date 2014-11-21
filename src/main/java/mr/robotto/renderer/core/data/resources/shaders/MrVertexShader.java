@@ -7,10 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.rendereable.core;
+package mr.robotto.renderer.core.data.resources.shaders;
 
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+public class MrVertexShader extends MrShader {
 
-public interface MrUniformReciever {
-    public void setUniforms(MrUniformKeyList uniformList);
+    public MrVertexShader(String source) {
+        super(MrShaderType.VERTEX_SHADER, source);
+    }
 }

@@ -14,8 +14,8 @@ import org.json.JSONObject;
 
 import mr.robotto.renderer.commons.MrDataType;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.core.data.model.shaders.MrUniform;
-import mr.robotto.renderer.core.data.model.shaders.MrUniformType;
+import mr.robotto.renderer.core.data.resources.shaders.MrUniform;
+import mr.robotto.renderer.core.data.resources.shaders.MrUniformType;
 
 public class MrUniformLoader extends MrAbstractLoader<MrUniform> {
 

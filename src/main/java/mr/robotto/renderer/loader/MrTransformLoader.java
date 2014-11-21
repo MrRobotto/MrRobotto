@@ -10,7 +10,7 @@
 package mr.robotto.renderer.loader;
 
 import mr.robotto.renderer.linearalgebra.MrQuaternion;
-import mr.robotto.renderer.core.data.object.MrTransform;
+import mr.robotto.renderer.core.data.resources.MrTransform;
 import mr.robotto.renderer.linearalgebra.MrVector3f;
 import org.json.JSONArray;
 import org.json.JSONException;

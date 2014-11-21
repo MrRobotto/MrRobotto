@@ -13,9 +13,9 @@ import android.opengl.GLES20;
 
 import java.nio.IntBuffer;
 
-import mr.robotto.renderer.core.data.model.mesh.MrMesh;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
+import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.core.MrLinkable;
 
@@ -64,13 +64,13 @@ public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
     public void bind() {
         bind(mMesh.getVertexBuffer());
         bind(mMesh.getIndexBuffer());
-        for (MrAttributeKey key : mMesh.getKeys()) { bind(key); }
+        for (MrBufferKey key : mMesh.getKeys()) { bind(key); }
         mBinded = true;
     }
 
     @Override
     public void unbind() {
-        for (MrAttributeKey key : mMesh.getKeys()) { unbind(key); }
+        for (MrBufferKey key : mMesh.getKeys()) { unbind(key); }
         mBinded = false;
     }
 
@@ -80,7 +80,7 @@ public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
     }
 
     //TODO: Mirar el false este con el normalized
-    private void bind(MrAttributeKey key)
+    private void bind(MrBufferKey key)
     {
         GLES20.glEnableVertexAttribArray(key.getIndex());
         GLES20.glVertexAttribPointer(key.getIndex(), key.getSize(), key.getDataType().getValue(), false, key.getStride(), key.getPointer());
@@ -91,7 +91,7 @@ public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
         GLES20.glBindBuffer(buffer.getBufferTarget().getValue(), buffer.getBufferId().get(0));
     }
 
-    private void unbind(MrAttributeKey key)
+    private void unbind(MrBufferKey key)
     {
         GLES20.glDisableVertexAttribArray(key.getIndex());
     }

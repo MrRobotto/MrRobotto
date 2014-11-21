@@ -9,9 +9,9 @@
 
 package mr.robotto.renderer.core.rendereable.objectrenderers;
 
-import mr.robotto.renderer.core.data.model.MrModelData;
-import mr.robotto.renderer.core.data.object.MrObjectData;
-import mr.robotto.renderer.core.data.object.keys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.MrModelData;
+import mr.robotto.renderer.core.data.MrObjectData;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.renderer.core.rendereable.resources.MrShaderProgramBinder;

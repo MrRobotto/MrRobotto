@@ -10,14 +10,14 @@
 package mr.robotto.renderer.loader.model;
 
 import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
+import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MrAttributeKeyLoader extends MrAbstractLoader<MrAttributeKey>
+public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey>
 {
     public MrAttributeKeyLoader(JSONObject obj)
     {
@@ -25,7 +25,7 @@ public class MrAttributeKeyLoader extends MrAbstractLoader<MrAttributeKey>
     }
 
     @Override
-    public MrAttributeKey parse() throws JSONException
+    public MrBufferKey parse() throws JSONException
     {
         String attrstr = mRoot.getString("Attribute");
         MrAttributeType attribute = getAttributeTypeFromString(attrstr);
@@ -37,7 +37,7 @@ public class MrAttributeKeyLoader extends MrAbstractLoader<MrAttributeKey>
         int stride = mRoot.getInt("Stride");
         int pointer = mRoot.getInt("Pointer");
 
-        return new MrAttributeKey(attribute, name, index, dataType, size, stride, pointer);
+        return new MrBufferKey(attribute, name, index, dataType, size, stride, pointer);
     }
 
     private MrAttributeType getAttributeTypeFromString(String attrstr)

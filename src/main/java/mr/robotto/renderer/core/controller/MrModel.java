@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.controller;
 
-import mr.robotto.renderer.core.data.model.MrModelData;
+import mr.robotto.renderer.core.data.MrModelData;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrModelRender;
 
 

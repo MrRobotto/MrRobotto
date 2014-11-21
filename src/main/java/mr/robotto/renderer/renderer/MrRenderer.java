@@ -17,7 +17,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import mr.robotto.renderer.core.controller.MrModel;
 import mr.robotto.renderer.core.controller.MrScene;
-import mr.robotto.renderer.core.data.scene.MrSceneData;
+import mr.robotto.renderer.core.data.MrSceneData;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrSceneRender;
 
 public class MrRenderer implements GLSurfaceView.Renderer {

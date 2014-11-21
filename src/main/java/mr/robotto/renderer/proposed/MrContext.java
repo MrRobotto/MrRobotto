@@ -10,7 +10,7 @@
 package mr.robotto.renderer.proposed;
 
 import mr.robotto.renderer.collections.MrListNode;
-import mr.robotto.renderer.core.data.object.MrObjectData;
+import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.proposed.containersold.MrNode2;
 
 /*
