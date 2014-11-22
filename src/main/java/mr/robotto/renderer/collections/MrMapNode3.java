@@ -1,10 +1,10 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 3014, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * License, v. 3.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/3.0/.
  */
 
 package mr.robotto.renderer.collections;
@@ -13,21 +13,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import mr.robotto.renderer.proposed.MrIdentificable;
+import java.util.Map;
 
 /**
- * Created by Aarón on 17/11/2014.
+ * Created by Aarón on 17/11/3014.
  */
-public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iterable<MrMapNode<K,V>> {
+public class MrMapNode3<K, V> implements MrNode<V>, MrMap<K,MrMapNode3<K,V>>, Iterable<MrMapNode3<K,V>> {
 
-    private MrMapNode<K,V> mParent;
+
+    private MrMapNode3<K,V> mParent;
     private V mData;
-    private HashMap<K, MrMapNode<K,V>> mChildren;
-    private HashMap<K, MrMapNode<K,V>> mTree;
+    private Map<Integer, MrMapNode3<K,V>> mChildren;
+    private Map<Integer, MrMapNode3<K,V>> mTree;
     private int mDepth;
 
-    public MrMapNode(MrMapNode<K,V> parent, V data) {
+    public MrMapNode3(MrMapNode3<K,V> parent, V data) {
         init();
         if (parent != null) {
             parent.addChild(this);
@@ -36,13 +36,13 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     private void init() {
-        mChildren = new HashMap<K, MrMapNode<K, V>>();
-        mTree = new HashMap<K, MrMapNode<K, V>>();
+        mChildren = new HashMap<Integer, MrMapNode3<K, V>>();
+        mTree = new HashMap<Integer, MrMapNode3<K, V>>();
         mParent = null;
         mDepth = 0;
     }
 
-    private void setParent(MrMapNode<K,V> parent) {
+    private void setParent(MrMapNode3<K,V> parent) {
         mParent = parent;
         setDepth();
     }
@@ -53,11 +53,6 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
         } else {
             mDepth = 0;
         }
-    }
-
-    @Override
-    public K getElementId() {
-        return mData.getElementId();
     }
 
     @Override
@@ -81,39 +76,39 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
-    public MrMapNode<K,V> getParent() {
+    public MrMapNode3<K,V> getParent() {
         return mParent;
     }
 
     @Override
-    public Collection<MrMapNode<K,V>> getChildren() {
+    public Collection<MrMapNode3<K,V>> getChildren() {
         return mChildren.values();
     }
 
     @Override
     public boolean addChild(MrNode<V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
+        MrMapNode3<K,V> n = (MrMapNode3<K, V>) node;
         if (n.hasParent()) {
             n.getParent().removeChild(n);
         }
         n.setParent(this);
         for (MrNode<V> m : n) {
-            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+            MrMapNode3<K,V> aux = (MrMapNode3<K, V>) m;
             aux.setDepth();
-            mTree.put(aux.getElementId(), aux);
+            mTree.put(aux.hashCode(), aux);
         }
-        return mChildren.put(n.getElementId(), n) != null;
+        return mChildren.put(n.hashCode(), n) != null;
     }
 
     @Override
     public boolean removeChild(MrNode<V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K,V>) node;
-        if (mChildren.remove(n.getElementId()) != null ) {
+        MrMapNode3<K,V> n = (MrMapNode3<K,V>) node;
+        if (mChildren.remove(n.hashCode()) != null ) {
             n.setParent(null);
             for (MrNode<V> m : n) {
-                MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+                MrMapNode3<K,V> aux = (MrMapNode3<K, V>) m;
                 aux.setDepth();
-                mTree.remove(aux.getElementId());
+                mTree.remove(aux.hashCode());
             }
             return true;
         }
@@ -133,8 +128,8 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
-    public MrMapNode<K,V> getRoot() {
-        MrMapNode<K,V> node = this;
+    public MrMapNode3<K,V> getRoot() {
+        MrMapNode3<K,V> node = this;
         while (node.hasParent()) {
             node = node.getParent();
         }
@@ -162,45 +157,49 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
-    public Iterator<MrMapNode<K,V>> iterator() {
+    public Iterator<MrMapNode3<K,V>> iterator() {
         return new MrNodeMapIterator(this);
     }
 
-    public MrMapNode<K,V> find(K key) {
-        return mTree.get(key);
+    public MrMapNode3<K,V> find(K key) {
+        return mTree.get(key.hashCode());
     }
 
     public boolean removeByKey(K key) {
-        MrMapNode<K,V> n = find(key);
+        MrMapNode3<K,V> n = find(key);
         return n.getParent().removeChild(n);
     }
 
     public boolean containsKey(K key) {
-        return mTree.containsKey(key);
+        return mTree.containsKey(key.hashCode());
     }
 
     @Override
-    public boolean put(K key, MrMapNode<K, V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
+    public boolean put(K key, MrMapNode3<K, V> node) {
+        MrMapNode3<K,V> n = (MrMapNode3<K, V>) node;
         if (n.hasParent()) {
             n.getParent().removeChild(n);
         }
         n.setParent(this);
         for (MrNode<V> m : n) {
-            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+            MrMapNode3<K,V> aux = (MrMapNode3<K, V>) m;
             aux.setDepth();
-            mTree.put(aux.getElementId(), aux);
+            mTree.put(aux.hashCode(), aux);
         }
-        return mChildren.put(key, n) != null;
+        return mChildren.put(key.hashCode(), n) != null;
     }
 
-    private class MrNodeMapIterator implements Iterator<MrMapNode<K, V>> {
-        private MrMapNode<K, V> mCurrent;
-        private LinkedList<MrMapNode<K, V>> mQueue;
+    public int hashCode() {
+        return super.hashCode();
+    }
 
-        public MrNodeMapIterator(MrMapNode<K, V> root) {
+    private class MrNodeMapIterator implements Iterator<MrMapNode3<K, V>> {
+        private MrMapNode3<K, V> mCurrent;
+        private LinkedList<MrMapNode3<K, V>> mQueue;
+
+        public MrNodeMapIterator(MrMapNode3<K, V> root) {
             mCurrent = root;
-            mQueue = new LinkedList<MrMapNode<K, V>>();
+            mQueue = new LinkedList<MrMapNode3<K, V>>();
             mQueue.add(root);
         }
 
@@ -210,9 +209,9 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
         }
 
         @Override
-        public MrMapNode<K, V> next() {
+        public MrMapNode3<K, V> next() {
             mQueue.addAll(mCurrent.getChildren());
-            MrMapNode<K, V> aux = mCurrent;
+            MrMapNode3<K, V> aux = mCurrent;
             mCurrent = mQueue.pollFirst();
             return aux;
         }
