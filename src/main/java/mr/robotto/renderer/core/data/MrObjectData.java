@@ -9,12 +9,11 @@
 
 package mr.robotto.renderer.core.data;
 
-import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.resources.MrTransform;
-import mr.robotto.renderer.proposed.MrIdentificable;
+import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
 
-public abstract class MrObjectData implements MrIdentificable<String> {
+public abstract class MrObjectData {
 
     private boolean mInitialized;
 
@@ -38,11 +37,6 @@ public abstract class MrObjectData implements MrIdentificable<String> {
 
     private void init() {
         mInitialized = false;
-    }
-
-    @Override
-    public String getElementId() {
-        return getName();
     }
 
     public String getName() {

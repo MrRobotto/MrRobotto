@@ -7,46 +7,36 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.data.resources.shaders;
+package mr.robotto.renderer.core.data.resources.shaders.input;
 
 import mr.robotto.renderer.commons.MrDataType;
 
-public class MrUniform {
-    private MrUniformType uniformType;
+public class MrAttribute {
+    private MrAttributeType attributeType;
     private String name;
+    private int index;
     private MrDataType dataType;
-    private int count;
-    private int id;
 
-    public MrUniform(MrUniformType uniformType, String name, MrDataType dataType, int count) {
+    public MrAttribute(MrAttributeType attributeType, String name, int index, MrDataType dataType) {
+        this.attributeType = attributeType;
         this.name = name;
-        this.uniformType = uniformType;
+        this.index = index;
         this.dataType = dataType;
-        this.count = count;
+    }
+
+    public MrAttributeType getAttributeType() {
+        return attributeType;
     }
 
     public String getName() {
         return name;
     }
 
-    public MrUniformType getUniformType() {
-        return uniformType;
+    public int getIndex() {
+        return index;
     }
 
     public MrDataType getDataType() {
         return dataType;
     }
-
-    public int getCount() {
-        return count;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }
-

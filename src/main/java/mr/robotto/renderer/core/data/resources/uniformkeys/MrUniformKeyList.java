@@ -9,46 +9,26 @@
 
 package mr.robotto.renderer.core.data.resources.uniformkeys;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import mr.robotto.renderer.collections.MrMapContainer;
+import mr.robotto.renderer.collections.MrMapFunction;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniformType;
 
-import mr.robotto.renderer.core.data.resources.shaders.MrUniformType;
-import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
+/**
+ * Created by Aarón on 23/11/2014.
+ */
+public class MrUniformKeyList extends MrMapContainer<MrUniformType, MrUniformKey> {
 
-//TODO: This should be extend MrContainer
-public class MrUniformKeyList implements Iterable<MrUniformKey> {
-
-    private HashMap<MrUniformType, MrUniformKey> mUniforms;
+    private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
+        return new MrMapFunction<MrUniformType, MrUniformKey>() {
+            @Override
+            public MrUniformType getIdOf(MrUniformKey mrUniformKey) {
+                return mrUniformKey.getUniformType();
+            }
+        };
+    }
 
     public MrUniformKeyList() {
-        init();
-    }
-
-    private void init() {
-        mUniforms = new HashMap<MrUniformType, MrUniformKey>();
-    }
-
-
-    public void addKey(MrUniformType uniformType) {
-        mUniforms.put(uniformType, new MrUniformKey(uniformType));
-    }
-
-    public boolean hasKey(MrUniformType key) {
-        return mUniforms.containsKey(key);
-    }
-
-    public MrUniformKey getUniformKey(MrUniformType type) {
-        return mUniforms.get(type);
-    }
-
-
-
-    public void setUniformKeyValues(MrUniformType type, MrLinearAlgebraObject value) {
-        if (hasKey(type)) {
-            MrUniformKey key = getUniformKey(type);
-            key.setValue(value);
-        }
+        super(getMapFunction());
     }
 
     /**
@@ -57,16 +37,7 @@ public class MrUniformKeyList implements Iterable<MrUniformKey> {
      */
     public void mergeWith(MrUniformKeyList list) {
         for (MrUniformKey uniformKey : list) {
-            setUniformKeyValues(uniformKey.getUniformType(), uniformKey.getValue());
+            add(uniformKey);
         }
-    }
-
-    public Collection<MrUniformType> keys() {
-        return mUniforms.keySet();
-    }
-
-    @Override
-    public Iterator<MrUniformKey> iterator() {
-        return mUniforms.values().iterator();
     }
 }

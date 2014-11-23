@@ -9,8 +9,8 @@
 
 package mr.robotto.renderer.core.data;
 
-import mr.robotto.renderer.core.data.resources.lens.MrLens;
 import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.renderer.core.data.resources.lens.MrLens;
 import mr.robotto.renderer.linearalgebra.MrMatrix4f;
 import mr.robotto.renderer.linearalgebra.MrVector3f;
 

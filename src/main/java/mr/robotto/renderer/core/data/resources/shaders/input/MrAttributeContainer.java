@@ -7,27 +7,26 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.data.resources.uniformkeys;
+package mr.robotto.renderer.core.data.resources.shaders.input;
 
 import mr.robotto.renderer.collections.MrMapContainer;
 import mr.robotto.renderer.collections.MrMapFunction;
-import mr.robotto.renderer.core.data.resources.shaders.MrUniformType;
 
 /**
  * Created by Aarón on 23/11/2014.
  */
-public class MrUniformKeyList2 extends MrMapContainer<MrUniformType, MrUniformKey> {
+public class MrAttributeContainer extends MrMapContainer<MrAttributeType, MrAttribute> {
 
-    private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
-        return new MrMapFunction<MrUniformType, MrUniformKey>() {
+    private static MrMapFunction<MrAttributeType, MrAttribute> getMapFunction() {
+        return new MrMapFunction<MrAttributeType, MrAttribute>() {
             @Override
-            public MrUniformType getIdOf(MrUniformKey mrUniformKey) {
-                return mrUniformKey.getUniformType();
+            public MrAttributeType getIdOf(MrAttribute mrAttribute) {
+                return mrAttribute.getAttributeType();
             }
         };
     }
 
-    public MrUniformKeyList2() {
+    public MrAttributeContainer() {
         super(getMapFunction());
     }
 }

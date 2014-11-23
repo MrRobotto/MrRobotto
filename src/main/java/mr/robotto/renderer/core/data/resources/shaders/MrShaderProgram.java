@@ -9,8 +9,10 @@
 
 package mr.robotto.renderer.core.data.resources.shaders;
 
-import java.util.ArrayList;
-import java.util.List;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttribute;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeContainer;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniform;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniformContainer;
 
 //TODO: Change the arraylist for hashmaps or specialized classes
 public class MrShaderProgram {

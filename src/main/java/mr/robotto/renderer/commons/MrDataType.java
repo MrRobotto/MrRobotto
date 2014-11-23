@@ -11,8 +11,6 @@ package mr.robotto.renderer.commons;
 
 import android.opengl.GLES20;
 
-import mr.robotto.renderer.commons.MrConstants;
-
 public enum MrDataType
 {
     UNSIGNED_SHORT(GLES20.GL_UNSIGNED_SHORT, MrConstants.SHORT_SIZE, 1),

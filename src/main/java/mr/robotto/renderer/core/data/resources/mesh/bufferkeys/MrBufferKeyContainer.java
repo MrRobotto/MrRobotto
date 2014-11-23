@@ -11,7 +11,7 @@ package mr.robotto.renderer.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.renderer.collections.MrMapContainer;
 import mr.robotto.renderer.collections.MrMapFunction;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeType;
 
 /**
  * Created by Aarón on 22/11/2014.

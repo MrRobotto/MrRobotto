@@ -13,8 +13,8 @@ import android.opengl.GLES20;
 
 import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.data.MrSceneData;
-import mr.robotto.renderer.linearalgebra.MrVector4f;
 import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.linearalgebra.MrVector4f;
 
 public class MrSceneRender implements MrObjectRender {
 

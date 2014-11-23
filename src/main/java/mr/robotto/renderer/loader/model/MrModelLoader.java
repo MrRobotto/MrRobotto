@@ -9,17 +9,18 @@
 
 package mr.robotto.renderer.loader.model;
 
-import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
-import mr.robotto.renderer.core.data.MrModelData;
-import mr.robotto.renderer.loader.MrObjectLoader;
-import mr.robotto.renderer.loader.model.shader.MrShaderProgramLoader;
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
-import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
-import mr.robotto.renderer.core.data.resources.shaders.MrUniformType;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import mr.robotto.renderer.core.data.MrModelData;
+import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
+import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniformType;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKey;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.loader.MrObjectLoader;
+import mr.robotto.renderer.loader.model.shader.MrShaderProgramLoader;
 
 public class MrModelLoader extends MrObjectLoader
 {
@@ -48,7 +49,8 @@ public class MrModelLoader extends MrObjectLoader
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
             String strUniformType = jsonUniformKeyList.getString(i).toUpperCase();
             MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
-            uniformKeyList.addKey(uniformType);
+            MrUniformKey uniformKey = new MrUniformKey(uniformType);
+            uniformKeyList.add(uniformKey);
         }
         return uniformKeyList;
     }

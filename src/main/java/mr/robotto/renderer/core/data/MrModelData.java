@@ -9,11 +9,11 @@
 
 package mr.robotto.renderer.core.data;
 
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.resources.MrTransform;
 import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
 import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
-import mr.robotto.renderer.core.data.resources.MrTransform;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
 
 public class MrModelData extends MrObjectData
 {

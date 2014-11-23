@@ -16,9 +16,8 @@ import java.util.Queue;
 import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.renderer.proposed.MrAction;
-import mr.robotto.renderer.proposed.MrIdentificable;
 
-public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender> implements MrIdentificable<String> {
+public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender> {
     private T mData;
     private R mRender;
     private Queue<MrAction<T>> mActions;
@@ -47,11 +46,6 @@ public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender>
 
     public T getData() {
         return mData;
-    }
-
-    @Override
-    public String getElementId() {
-        return getName();
     }
 
     public String getName() {

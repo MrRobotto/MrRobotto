@@ -9,13 +9,13 @@
 
 package mr.robotto.renderer.loader.model;
 
-import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
-import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import mr.robotto.renderer.commons.MrDataType;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeType;
+import mr.robotto.renderer.loader.MrAbstractLoader;
 
 public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey>
 {

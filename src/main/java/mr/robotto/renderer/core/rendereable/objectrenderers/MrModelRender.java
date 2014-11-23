@@ -11,10 +11,7 @@ package mr.robotto.renderer.core.rendereable.objectrenderers;
 
 import mr.robotto.renderer.core.data.MrModelData;
 import mr.robotto.renderer.core.data.MrObjectData;
-import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttribute;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttributeContainer;
-import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttribute;
 import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;

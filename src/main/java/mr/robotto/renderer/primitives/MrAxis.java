@@ -15,9 +15,9 @@ import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrVertexBuffer;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeType;
 
 public class MrAxis extends MrMesh {
 

@@ -10,8 +10,7 @@
 package mr.robotto.renderer.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
-import mr.robotto.renderer.proposed.MrIdentificable;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeType;
 
 public class MrBufferKey
 {

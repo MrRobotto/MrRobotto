@@ -9,12 +9,13 @@
 
 package mr.robotto.renderer.loader;
 
-import mr.robotto.renderer.linearalgebra.MrQuaternion;
-import mr.robotto.renderer.core.data.resources.MrTransform;
-import mr.robotto.renderer.linearalgebra.MrVector3f;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import mr.robotto.renderer.core.data.resources.MrTransform;
+import mr.robotto.renderer.linearalgebra.MrQuaternion;
+import mr.robotto.renderer.linearalgebra.MrVector3f;
 
 public class MrTransformLoader extends MrAbstractLoader<MrTransform>
 {

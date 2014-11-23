@@ -10,8 +10,8 @@
 package mr.robotto.renderer.proposed;
 
 import mr.robotto.renderer.core.data.MrCameraData;
-import mr.robotto.renderer.core.data.resources.lens.MrLens;
 import mr.robotto.renderer.core.data.MrModelData;
+import mr.robotto.renderer.core.data.resources.lens.MrLens;
 import mr.robotto.renderer.linearalgebra.MrMatrix4f;
 
 public class MrUniformGenerator {

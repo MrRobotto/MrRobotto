@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.core.data.resources.shaders;
+package mr.robotto.renderer.core.data.resources.shaders.input;
 
 public enum MrAttributeType {
     VERTICES(0),

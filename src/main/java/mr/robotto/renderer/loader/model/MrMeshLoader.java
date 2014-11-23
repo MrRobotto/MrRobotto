@@ -9,18 +9,18 @@
 
 package mr.robotto.renderer.loader.model;
 
-import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
+import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrVertexBuffer;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh>
 {

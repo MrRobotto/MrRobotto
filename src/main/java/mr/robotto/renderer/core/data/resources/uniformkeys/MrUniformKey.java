@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.data.resources.uniformkeys;
 
-import mr.robotto.renderer.core.data.resources.shaders.MrUniformType;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniformType;
 import mr.robotto.renderer.linearalgebra.MrLinearAlgebraObject;
 
 public class MrUniformKey {
@@ -20,7 +20,6 @@ public class MrUniformKey {
 
     public MrUniformKey(MrUniformType uniformType) {
         mUniformType = uniformType;
-        mValue = null;
     }
 
     public MrUniformType getUniformType() {
