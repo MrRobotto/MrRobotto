@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.core.data.resources.mesh;
 
-import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyList;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
 
 public class MrMesh
@@ -17,11 +17,11 @@ public class MrMesh
     private String mName;
     private int mCount;
     private MrMeshDrawType mDrawType;
-    private MrBufferKeyList mKeys;
+    private MrBufferKeyContainer mKeys;
     private MrBuffer mVertexBuffer;
     private MrBuffer mIndexBuffer;
 
-    public MrMesh(String name, int count, MrMeshDrawType drawType, MrBufferKeyList keys, MrBuffer vertexBuffer, MrBuffer indexBuffer)
+    public MrMesh(String name, int count, MrMeshDrawType drawType, MrBufferKeyContainer keys, MrBuffer vertexBuffer, MrBuffer indexBuffer)
     {
         mName = name;
         mCount = count;
@@ -65,6 +65,6 @@ public class MrMesh
         return mIndexBuffer;
     }
 
-    public MrBufferKeyList getKeys() {return mKeys;}
+    public MrBufferKeyContainer getKeys() {return mKeys;}
 
 }

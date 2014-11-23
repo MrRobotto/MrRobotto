@@ -11,6 +11,7 @@ package mr.robotto.renderer.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.renderer.commons.MrDataType;
 import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
+import mr.robotto.renderer.proposed.MrIdentificable;
 
 public class MrBufferKey
 {
@@ -28,6 +29,7 @@ public class MrBufferKey
         this.mSize = size;
         this.mStride = stride * dataType.getSize();
         this.mPointer = pointer * dataType.getSize();
+        this.mIndex = -1;
     }
 
     public MrAttributeType getAttributeType()

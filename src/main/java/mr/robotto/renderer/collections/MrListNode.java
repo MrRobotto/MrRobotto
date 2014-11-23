@@ -17,7 +17,6 @@ import java.util.LinkedList;
 /**
  * Created by Aarón on 17/11/2014.
  */
-@Deprecated
 public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
     private MrListNode<T> mParent;
     private T mData;

@@ -12,6 +12,9 @@ package mr.robotto.renderer.core.rendereable.objectrenderers;
 import mr.robotto.renderer.core.data.MrModelData;
 import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
+import mr.robotto.renderer.core.data.resources.shaders.MrAttribute;
+import mr.robotto.renderer.core.data.resources.shaders.MrAttributeContainer;
+import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
 import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;
@@ -59,12 +62,23 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
+        /*for (MrBufferKey key : mModelData.getMesh().getKeys()) {
+            int index;
+            MrShaderProgram p = mModelData.getShaderProgram();
+            MrAttributeContainer ac = p.getAttributes();
+            MrAttribute a = ac.find(key.getAttributeType());
+            index = a.getIndex();
+            key.setIndex(index);
+        }*/
+        for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
+            mModelData.getMesh().getKeys().find(attribute.getAttributeType()).setIndex(attribute.getIndex());
+        }
         //for (MrBufferKey key : mModelData.getMesh().getKeys()) {
         //    int index;
         //    index = mModelData.getShaderProgram().getAttributes().
         //}
         //for (BufferKey key : mesh.getKeys()) {
-        //      key.setIndex(shader.getAttributes().find(key.getElementId()).getIndex());
+        //      key.setIndex(shader.getAttributes().find(key.getIdOf()).getIndex());
         //}
         mLinked = true;
     }

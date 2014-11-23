@@ -34,8 +34,8 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
      * @return
      * @throws JSONException
      */
-    private MrObjectDataList getObjectsData() throws JSONException {
-        MrObjectDataList objectDataList = new MrObjectDataList();
+    private MrObjectDataContainer getObjectsData() throws JSONException {
+        MrObjectDataContainer objectDataList = new MrObjectDataContainer();
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
         for (int i = 0; i < jsonObjects.length(); i++) {
             MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));

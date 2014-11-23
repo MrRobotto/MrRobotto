@@ -13,7 +13,7 @@ import mr.robotto.renderer.commons.MrDataType;
 import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
 import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
-import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyList;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.resources.shaders.MrAttributeType;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
@@ -46,12 +46,12 @@ public class MrAxis extends MrMesh {
     }
 
     //TODO: Too much hardocre for my eyes!
-    private static MrBufferKeyList genKeyList() {
-        MrBufferKeyList keyList = new MrBufferKeyList();
+    private static MrBufferKeyContainer genKeyList() {
+        MrBufferKeyContainer keyList = new MrBufferKeyContainer();
         MrBufferKey vertexKey = new MrBufferKey(MrAttributeType.VERTICES, MrDataType.FLOAT, 3, 6, 0);
         MrBufferKey colorKey = new MrBufferKey(MrAttributeType.COLOR, MrDataType.FLOAT, 3, 6, 3);
-        keyList.addAttributeKey(vertexKey);
-        keyList.addAttributeKey(colorKey);
+        keyList.add(vertexKey);
+        keyList.add(colorKey);
         return keyList;
     }
 

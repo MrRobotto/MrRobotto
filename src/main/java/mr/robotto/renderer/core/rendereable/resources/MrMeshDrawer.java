@@ -38,6 +38,7 @@ public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
         return mLinked;
     }
 
+    //TODO: If a MrBuffer has a negative index it should not be considered
     @Override
     public void initialize() {
         initialize(mMesh.getVertexBuffer());

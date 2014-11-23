@@ -12,7 +12,7 @@ package mr.robotto.renderer.loader.model;
 import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
 import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
 import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
-import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyList;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
 import mr.robotto.renderer.core.data.resources.mesh.buffers.MrVertexBuffer;
@@ -41,7 +41,7 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh>
         JSONArray keysData   = mRoot.getJSONArray("AttributeKeys");
 
         MrMeshDrawType drawType = getDrawTypeFromString(drawTypeData);
-        MrBufferKeyList keys = new MrBufferKeyList();
+        MrBufferKeyContainer keys = new MrBufferKeyContainer();
         MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
         MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
 
@@ -82,14 +82,15 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh>
         }
     }
 
-    private void loadKeys(MrBufferKeyList list, JSONArray keys) throws JSONException
+    private void loadKeys(MrBufferKeyContainer list, JSONArray keys) throws JSONException
     {
         for (int i = 0; i < keys.length(); i++)
         {
             JSONObject jsonKey = keys.getJSONObject(i);
             MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);
             MrBufferKey key = loader.parse();
-            list.addAttributeKey(key);
+            //list.addAttributeKey(key);
+            list.add(key);
         }
     }
 }

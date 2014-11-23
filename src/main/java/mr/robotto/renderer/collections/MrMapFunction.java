@@ -7,12 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.proposed;
+package mr.robotto.renderer.collections;
 
-
-import mr.robotto.renderer.core.data.MrObjectData;
-import mr.robotto.renderer.collections.MrMapContainer;
-
-public class MrObjectDataList extends MrMapContainer<String, MrObjectData> {
-
+/**
+ * Created by Aarón on 23/11/2014.
+ */
+public interface MrMapFunction<K,V> {
+    public K getIdOf(V v);
 }

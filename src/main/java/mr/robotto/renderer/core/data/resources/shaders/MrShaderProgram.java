@@ -14,53 +14,53 @@ import java.util.List;
 
 //TODO: Change the arraylist for hashmaps or specialized classes
 public class MrShaderProgram {
-    private MrVertexShader vertexShader;
-    private MrFragmentShader fragmentShader;
-    private ArrayList<MrUniform> uniforms;
-    private ArrayList<MrAttribute> attributes;
+    private MrVertexShader mVertexShader;
+    private MrFragmentShader mFragmentShader;
+    private MrUniformContainer mUniforms;
+    private MrAttributeContainer mAttributes;
 
-    private int id;
+    private int mId;
 
     public MrShaderProgram(MrVertexShader vertexShader, MrFragmentShader fragmentShader) {
-        this.vertexShader = vertexShader;
-        this.fragmentShader = fragmentShader;
+        mVertexShader = vertexShader;
+        mFragmentShader = fragmentShader;
         init();
     }
 
     private void init() {
-        uniforms = new ArrayList<MrUniform>();
-        attributes = new ArrayList<MrAttribute>();
+        mUniforms = new MrUniformContainer();
+        mAttributes = new MrAttributeContainer();
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public MrVertexShader getVertexShader() {
-        return vertexShader;
+        return mVertexShader;
     }
 
     public MrFragmentShader getFragmentShader() {
-        return fragmentShader;
+        return mFragmentShader;
     }
 
     public void addUniform(MrUniform uniform) {
-        uniforms.add(uniform);
+        mUniforms.add(uniform);
     }
 
-    public List<MrUniform> getUniforms() {
-        return uniforms;
+    public MrUniformContainer getUniforms() {
+        return mUniforms;
     }
 
     public void addAttribute(MrAttribute attribute) {
-        attributes.add(attribute);
+        mAttributes.add(attribute);
     }
 
-    public List<MrAttribute> getAttributes() {
-        return attributes;
+    public MrAttributeContainer getAttributes() {
+        return mAttributes;
     }
 }

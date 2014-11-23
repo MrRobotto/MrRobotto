@@ -14,12 +14,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import mr.robotto.renderer.proposed.MrIdentificable;
-
 /**
  * Created by Aarón on 17/11/2014.
  */
-public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iterable<MrMapNode<K,V>> {
+public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iterable<MrMapNode<K,V>> {
 
     private MrMapNode<K,V> mParent;
     private V mData;
@@ -27,12 +25,15 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     private HashMap<K, MrMapNode<K,V>> mTree;
     private int mDepth;
 
-    public MrMapNode(MrMapNode<K,V> parent, V data) {
+    private MrMapFunction<K,V> mMapFunction;
+
+    public MrMapNode(MrMapNode<K,V> parent, V data, MrMapFunction<K, V> mapFunction) {
         init();
         if (parent != null) {
             parent.addChild(this);
         }
         mData = data;
+        mMapFunction = mapFunction;
     }
 
     private void init() {
@@ -55,9 +56,8 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
         }
     }
 
-    @Override
-    public K getElementId() {
-        return mData.getElementId();
+    private K getElementId() {
+        return mMapFunction.getIdOf(mData);
     }
 
     @Override
