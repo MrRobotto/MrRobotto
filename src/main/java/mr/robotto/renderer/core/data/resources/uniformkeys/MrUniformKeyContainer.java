@@ -16,7 +16,7 @@ import mr.robotto.renderer.core.data.resources.shaders.input.MrUniformType;
 /**
  * Created by Aarón on 23/11/2014.
  */
-public class MrUniformKeyList extends MrMapContainer<MrUniformType, MrUniformKey> {
+public class MrUniformKeyContainer extends MrMapContainer<MrUniformType, MrUniformKey> {
 
     private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
         return new MrMapFunction<MrUniformType, MrUniformKey>() {
@@ -27,7 +27,7 @@ public class MrUniformKeyList extends MrMapContainer<MrUniformType, MrUniformKey
         };
     }
 
-    public MrUniformKeyList() {
+    public MrUniformKeyContainer() {
         super(getMapFunction());
     }
 
@@ -35,7 +35,7 @@ public class MrUniformKeyList extends MrMapContainer<MrUniformType, MrUniformKey
      * Puts all the elements of list in this
      * @param list
      */
-    public void mergeWith(MrUniformKeyList list) {
+    public void mergeWith(MrUniformKeyContainer list) {
         for (MrUniformKey uniformKey : list) {
             add(uniformKey);
         }

@@ -12,7 +12,7 @@ package mr.robotto.renderer.core.rendereable.objectrenderers;
 import mr.robotto.renderer.core.data.MrModelData;
 import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.data.resources.shaders.input.MrAttribute;
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.renderer.core.rendereable.core.MrDrawable;
 import mr.robotto.renderer.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.renderer.core.rendereable.resources.MrShaderProgramBinder;
@@ -22,7 +22,7 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
     private MrModelData mModelData;
-    private MrUniformKeyList mUniformKeyList;
+    private MrUniformKeyContainer mUniformKeyList;
     private boolean mInitialized = false;
     private boolean mLinked = false;
     private boolean mBinded = false;
@@ -59,24 +59,9 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
-        /*for (MrBufferKey key : mModelData.getMesh().getKeys()) {
-            int index;
-            MrShaderProgram p = mModelData.getShaderProgram();
-            MrAttributeContainer ac = p.getAttributes();
-            MrAttribute a = ac.find(key.getAttributeType());
-            index = a.getIndex();
-            key.setIndex(index);
-        }*/
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
             mModelData.getMesh().getKeys().find(attribute.getAttributeType()).setIndex(attribute.getIndex());
         }
-        //for (MrBufferKey key : mModelData.getMesh().getKeys()) {
-        //    int index;
-        //    index = mModelData.getShaderProgram().getAttributes().
-        //}
-        //for (BufferKey key : mesh.getKeys()) {
-        //      key.setIndex(shader.getAttributes().find(key.getIdOf()).getIndex());
-        //}
         mLinked = true;
     }
 
@@ -95,7 +80,7 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
     }
 
     @Override
-    public void setUniforms(MrUniformKeyList uniformList) {
+    public void setUniforms(MrUniformKeyContainer uniformList) {
 
     }
 

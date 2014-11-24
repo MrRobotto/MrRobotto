@@ -13,7 +13,7 @@ import android.opengl.GLES20;
 
 import mr.robotto.renderer.core.data.MrObjectData;
 import mr.robotto.renderer.core.data.MrSceneData;
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.renderer.linearalgebra.MrVector4f;
 
 public class MrSceneRender implements MrObjectRender {
@@ -61,7 +61,7 @@ public class MrSceneRender implements MrObjectRender {
     }
 
     @Override
-    public void setUniforms(MrUniformKeyList uniformList) {
+    public void setUniforms(MrUniformKeyContainer uniformList) {
 
     }
 

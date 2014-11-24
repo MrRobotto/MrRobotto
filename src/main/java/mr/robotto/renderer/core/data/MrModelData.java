@@ -13,14 +13,14 @@ import mr.robotto.renderer.core.data.resources.MrTransform;
 import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
 import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
 import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
 public class MrModelData extends MrObjectData
 {
     private MrMesh mMesh;
     private MrShaderProgram mShaderProgram;
 
-    public MrModelData(String name, MrTransform transform, MrUniformKeyList uniformKeys, MrShaderProgram shaderProgram,  MrMesh mesh) {
+    public MrModelData(String name, MrTransform transform, MrUniformKeyContainer uniformKeys, MrShaderProgram shaderProgram,  MrMesh mesh) {
         super(name, MrSceneObjType.MODEL, transform, uniformKeys);
         mMesh = mesh;
         mShaderProgram = shaderProgram;

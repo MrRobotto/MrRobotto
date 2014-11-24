@@ -29,11 +29,16 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
 
     public MrMapNode(MrMapNode<K,V> parent, V data, MrMapFunction<K, V> mapFunction) {
         init();
-        if (parent != null) {
-            parent.addChild(this);
+        setParent(parent);
+        if (hasParent()) {
+            mParent.addChild(this);
         }
         mData = data;
         mMapFunction = mapFunction;
+    }
+
+    public MrMapNode(V data, MrMapFunction<K,V> mapFunction) {
+        this(null, data, mapFunction);
     }
 
     private void init() {

@@ -11,7 +11,7 @@ package mr.robotto.renderer.core.data;
 
 import mr.robotto.renderer.core.data.resources.MrTransform;
 import mr.robotto.renderer.core.data.resources.commons.MrSceneObjType;
-import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyList;
+import mr.robotto.renderer.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
 public abstract class MrObjectData {
 
@@ -20,9 +20,9 @@ public abstract class MrObjectData {
     private String mName;
     private MrSceneObjType mSceneObjType;
     private MrTransform mTransform;
-    private MrUniformKeyList mUniformKeys;
+    private MrUniformKeyContainer mUniformKeys;
 
-    public MrObjectData(String name, MrSceneObjType sceneObjType, MrTransform transform, MrUniformKeyList uniformKeys) {
+    public MrObjectData(String name, MrSceneObjType sceneObjType, MrTransform transform, MrUniformKeyContainer uniformKeys) {
         mName = name;
         mTransform = transform;
         mSceneObjType = sceneObjType;
@@ -32,7 +32,7 @@ public abstract class MrObjectData {
 
     //TODO: Review this constructor
     public MrObjectData(String name, MrSceneObjType sceneObjType) {
-        this(name, sceneObjType, new MrTransform(), new MrUniformKeyList());
+        this(name, sceneObjType, new MrTransform(), new MrUniformKeyContainer());
     }
 
     private void init() {
@@ -51,10 +51,6 @@ public abstract class MrObjectData {
         mInitialized = true;
     }
 
-    public void deInitialize() {
-        mInitialized = false;
-    }
-
     public MrSceneObjType getSceneObjType() {
         return mSceneObjType;
     }
@@ -67,11 +63,11 @@ public abstract class MrObjectData {
         this.mTransform = transform;
     }
 
-    public MrUniformKeyList getUniformKeys() {
+    public MrUniformKeyContainer getUniformKeys() {
         return mUniformKeys;
     }
 
-    public void setUniformKeys(MrUniformKeyList uniformKeys) {
+    public void setUniformKeys(MrUniformKeyContainer uniformKeys) {
         this.mUniformKeys = uniformKeys;
     }
 }
