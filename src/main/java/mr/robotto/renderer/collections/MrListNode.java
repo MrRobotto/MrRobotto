@@ -75,7 +75,6 @@ public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
         return mChildren;
     }
 
-    //TODO: Change order of set parent and deletion/insertion
     public boolean addChild(MrNode<T> node) {
         MrListNode<T> n = (MrListNode<T>) node;
         if (node.hasParent()) {
@@ -121,6 +120,11 @@ public class MrListNode<T> implements MrNode<T>, Iterable<MrListNode<T>> {
             node = node.getParent();
         }
         return node;
+    }
+
+    @Override
+    public int childrenSize() {
+        return mChildren.size();
     }
 
     @Override

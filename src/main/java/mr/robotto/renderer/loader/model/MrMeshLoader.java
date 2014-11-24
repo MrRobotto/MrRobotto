@@ -9,18 +9,18 @@
 
 package mr.robotto.renderer.loader.model;
 
-import mr.robotto.renderer.core.data.model.mesh.MrMeshDrawType;
-import mr.robotto.renderer.core.data.model.mesh.MrMesh;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrIndexBuffer;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrVertexBuffer;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKeyList;
-import mr.robotto.renderer.loader.MrAbstractLoader;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
+import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrVertexBuffer;
+import mr.robotto.renderer.loader.MrAbstractLoader;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh>
 {
@@ -41,7 +41,7 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh>
         JSONArray keysData   = mRoot.getJSONArray("AttributeKeys");
 
         MrMeshDrawType drawType = getDrawTypeFromString(drawTypeData);
-        MrAttributeKeyList keys = new MrAttributeKeyList();
+        MrBufferKeyContainer keys = new MrBufferKeyContainer();
         MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
         MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
 
@@ -82,14 +82,15 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh>
         }
     }
 
-    private void loadKeys(MrAttributeKeyList list, JSONArray keys) throws JSONException
+    private void loadKeys(MrBufferKeyContainer list, JSONArray keys) throws JSONException
     {
         for (int i = 0; i < keys.length(); i++)
         {
             JSONObject jsonKey = keys.getJSONObject(i);
             MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);
-            MrAttributeKey key = loader.parse();
-            list.addAttributeKey(key);
+            MrBufferKey key = loader.parse();
+            //list.addAttributeKey(key);
+            list.add(key);
         }
     }
 }

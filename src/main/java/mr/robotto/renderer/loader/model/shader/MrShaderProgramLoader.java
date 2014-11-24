@@ -13,12 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.renderer.core.data.resources.shaders.MrFragmentShader;
+import mr.robotto.renderer.core.data.resources.shaders.MrShaderProgram;
+import mr.robotto.renderer.core.data.resources.shaders.MrVertexShader;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttribute;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrUniform;
 import mr.robotto.renderer.loader.MrAbstractLoader;
-import mr.robotto.renderer.core.data.model.shaders.MrAttribute;
-import mr.robotto.renderer.core.data.model.shaders.MrFragmentShader;
-import mr.robotto.renderer.core.data.model.shaders.MrShaderProgram;
-import mr.robotto.renderer.core.data.model.shaders.MrUniform;
-import mr.robotto.renderer.core.data.model.shaders.MrVertexShader;
 
 public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
 

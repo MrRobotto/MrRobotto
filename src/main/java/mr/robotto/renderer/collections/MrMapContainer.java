@@ -12,14 +12,15 @@ package mr.robotto.renderer.collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import mr.robotto.renderer.proposed.MrIdentificable;
-
-public class MrMapContainer<K,V extends MrIdentificable<K>> implements MrContainer<V>, MrMap<K, V> {
+public class MrMapContainer<K,V> implements MrContainer<V>, MrMap<K, V> {
 
     private HashMap<K, V> mElements;
 
-    public MrMapContainer() {
+    private MrMapFunction<K,V> mMapFunction;
+
+    public MrMapContainer(MrMapFunction<K, V> mapFunction) {
         init();
+        mMapFunction = mapFunction;
     }
 
     private void init() {
@@ -28,7 +29,7 @@ public class MrMapContainer<K,V extends MrIdentificable<K>> implements MrContain
 
     @Override
     public boolean add(V v) {
-        return mElements.put(v.getElementId(), v) != null;
+        return mElements.put(mMapFunction.getIdOf(v), v) != null;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class MrMapContainer<K,V extends MrIdentificable<K>> implements MrContain
 
     @Override
     public boolean contains(V v) {
-        return mElements.containsKey(v.getElementId());
+        return mElements.containsKey(mMapFunction.getIdOf(v));
     }
 
     @Override
@@ -53,7 +54,7 @@ public class MrMapContainer<K,V extends MrIdentificable<K>> implements MrContain
 
     @Override
     public boolean remove(V v) {
-        return removeByKey(v.getElementId());
+        return removeByKey(mMapFunction.getIdOf(v));
     }
 
     @Override
@@ -85,7 +86,7 @@ public class MrMapContainer<K,V extends MrIdentificable<K>> implements MrContain
     public String toString() {
         String s = "";
         for (V v : mElements.values()) {
-            s += v.getElementId().toString();
+            s += v.toString();
         }
         return s;
     }

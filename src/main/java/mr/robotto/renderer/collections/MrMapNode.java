@@ -14,12 +14,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import mr.robotto.renderer.proposed.MrIdentificable;
-
 /**
  * Created by Aarón on 17/11/2014.
  */
-public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificable<K>, MrNode<V>, Iterable<MrMapNode<K,V>> {
+public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iterable<MrMapNode<K,V>> {
 
     private MrMapNode<K,V> mParent;
     private V mData;
@@ -27,13 +25,20 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     private HashMap<K, MrMapNode<K,V>> mTree;
     private int mDepth;
 
-    //TODO: Check the constructor
-    public MrMapNode(MrMapNode<K,V> parent, V data) {
+    private MrMapFunction<K,V> mMapFunction;
+
+    public MrMapNode(MrMapNode<K,V> parent, V data, MrMapFunction<K, V> mapFunction) {
         init();
-        if (parent != null) {
-            parent.addChild(this);
+        setParent(parent);
+        if (hasParent()) {
+            mParent.addChild(this);
         }
         mData = data;
+        mMapFunction = mapFunction;
+    }
+
+    public MrMapNode(V data, MrMapFunction<K,V> mapFunction) {
+        this(null, data, mapFunction);
     }
 
     private void init() {
@@ -56,9 +61,8 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
         }
     }
 
-    @Override
-    public K getElementId() {
-        return mData.getElementId();
+    private K getElementId() {
+        return mMapFunction.getIdOf(mData);
     }
 
     @Override
@@ -143,6 +147,15 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
     }
 
     @Override
+    public int childrenSize() {
+        return mChildren.size();
+    }
+
+    public int size() {
+        return mTree.size();
+    }
+
+    @Override
     public int compareTo(MrNode<V> node) {
         if (node.getDepth() < mDepth) {
             return 1;
@@ -158,8 +171,32 @@ public class MrMapNode<K, V extends MrIdentificable<K>> implements MrIdentificab
         return new MrNodeMapIterator(this);
     }
 
-    public MrMapNode<K,V> find(K k) {
-        return mTree.get(k);
+    public MrMapNode<K,V> find(K key) {
+        return mTree.get(key);
+    }
+
+    public boolean removeByKey(K key) {
+        MrMapNode<K,V> n = find(key);
+        return n.getParent().removeChild(n);
+    }
+
+    public boolean containsKey(K key) {
+        return mTree.containsKey(key);
+    }
+
+    @Override
+    public boolean put(K key, MrMapNode<K, V> node) {
+        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
+        if (n.hasParent()) {
+            n.getParent().removeChild(n);
+        }
+        n.setParent(this);
+        for (MrNode<V> m : n) {
+            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
+            aux.setDepth();
+            mTree.put(aux.getElementId(), aux);
+        }
+        return mChildren.put(key, n) != null;
     }
 
     private class MrNodeMapIterator implements Iterator<MrMapNode<K, V>> {

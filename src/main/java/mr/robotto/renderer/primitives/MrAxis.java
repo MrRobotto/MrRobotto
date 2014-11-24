@@ -10,14 +10,14 @@
 package mr.robotto.renderer.primitives;
 
 import mr.robotto.renderer.commons.MrDataType;
-import mr.robotto.renderer.core.data.model.mesh.MrMesh;
-import mr.robotto.renderer.core.data.model.mesh.MrMeshDrawType;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrBuffer;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKey;
-import mr.robotto.renderer.core.data.model.mesh.keys.MrAttributeKeyList;
-import mr.robotto.renderer.core.data.model.shaders.MrAttributeType;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrIndexBuffer;
-import mr.robotto.renderer.core.data.model.mesh.buffers.MrVertexBuffer;
+import mr.robotto.renderer.core.data.resources.mesh.MrMesh;
+import mr.robotto.renderer.core.data.resources.mesh.MrMeshDrawType;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKey;
+import mr.robotto.renderer.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrBuffer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrIndexBuffer;
+import mr.robotto.renderer.core.data.resources.mesh.buffers.MrVertexBuffer;
+import mr.robotto.renderer.core.data.resources.shaders.input.MrAttributeType;
 
 public class MrAxis extends MrMesh {
 
@@ -46,12 +46,12 @@ public class MrAxis extends MrMesh {
     }
 
     //TODO: Too much hardocre for my eyes!
-    private static MrAttributeKeyList genKeyList() {
-        MrAttributeKeyList keyList = new MrAttributeKeyList();
-        MrAttributeKey vertexKey = new MrAttributeKey(MrAttributeType.VERTICES, "vertices", 0, MrDataType.FLOAT, 3, 6, 0);
-        MrAttributeKey colorKey = new MrAttributeKey(MrAttributeType.COLOR, "color", 1, MrDataType.FLOAT, 3, 6, 3);
-        keyList.addAttributeKey(vertexKey);
-        keyList.addAttributeKey(colorKey);
+    private static MrBufferKeyContainer genKeyList() {
+        MrBufferKeyContainer keyList = new MrBufferKeyContainer();
+        MrBufferKey vertexKey = new MrBufferKey(MrAttributeType.VERTICES, MrDataType.FLOAT, 3, 6, 0);
+        MrBufferKey colorKey = new MrBufferKey(MrAttributeType.COLOR, MrDataType.FLOAT, 3, 6, 3);
+        keyList.add(vertexKey);
+        keyList.add(colorKey);
         return keyList;
     }
 
