@@ -7,18 +7,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto;
+package mr.robotto.collections;
 
-import junit.framework.TestCase;
+public interface MrMap<K, V> {
+    public boolean removeByKey(K k);
 
-import mr.robotto.linearalgebra.MrMatrix4f;
+    public boolean containsKey(K k);
 
-/**
- * Created by Aarón on 18/11/2014.
- */
-public class MathTest extends TestCase {
+    public boolean put(K k, V v);
 
-    public void testMatrix4() {
-        MrMatrix4f m = new MrMatrix4f();
-    }
+    public V find(K k);
 }

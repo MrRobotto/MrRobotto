@@ -13,7 +13,7 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 
-import mr.robotto.renderer.renderer.MrRenderer;
+import mr.robotto.renderer.MrRenderer;
 
 public class MrSurfaceView extends GLSurfaceView {
 

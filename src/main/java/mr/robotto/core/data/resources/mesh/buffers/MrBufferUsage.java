@@ -7,18 +7,23 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto;
+package mr.robotto.core.data.resources.mesh.buffers;
 
-import junit.framework.TestCase;
+import android.opengl.GLES20;
 
-import mr.robotto.linearalgebra.MrMatrix4f;
+public enum MrBufferUsage
+{
+    STATIC_DRAW(GLES20.GL_STATIC_DRAW);
 
-/**
- * Created by Aarón on 18/11/2014.
- */
-public class MathTest extends TestCase {
+    private int mValue;
 
-    public void testMatrix4() {
-        MrMatrix4f m = new MrMatrix4f();
+    MrBufferUsage(int value)
+    {
+        this.mValue = value;
+    }
+
+    public int getValue()
+    {
+        return mValue;
     }
 }

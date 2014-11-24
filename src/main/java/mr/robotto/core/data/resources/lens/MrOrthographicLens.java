@@ -7,18 +7,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto;
-
-import junit.framework.TestCase;
+package mr.robotto.core.data.resources.lens;
 
 import mr.robotto.linearalgebra.MrMatrix4f;
 
-/**
- * Created by Aarón on 18/11/2014.
- */
-public class MathTest extends TestCase {
+public class MrOrthographicLens extends MrLens{
+    private float mOrthographicScale;
 
-    public void testMatrix4() {
-        MrMatrix4f m = new MrMatrix4f();
+    public MrOrthographicLens(float orthographicScale) {
+        mOrthographicScale = orthographicScale;
+    }
+
+    @Override
+    public MrMatrix4f getProjectionMatrix() {
+        return null;
     }
 }

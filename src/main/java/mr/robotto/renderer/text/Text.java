@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.text;
 
-import mr.robotto.renderer.primitives.Sprite;
+import mr.robotto.primitives.Sprite;
 
 public class Text extends Sprite{
 	

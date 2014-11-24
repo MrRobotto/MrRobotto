@@ -7,18 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto;
+package mr.robotto.core.rendereable.core;
 
-import junit.framework.TestCase;
+import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
-import mr.robotto.linearalgebra.MrMatrix4f;
-
-/**
- * Created by Aarón on 18/11/2014.
- */
-public class MathTest extends TestCase {
-
-    public void testMatrix4() {
-        MrMatrix4f m = new MrMatrix4f();
-    }
+public interface MrUniformReciever {
+    public void setUniforms(MrUniformKeyContainer uniformList);
 }
