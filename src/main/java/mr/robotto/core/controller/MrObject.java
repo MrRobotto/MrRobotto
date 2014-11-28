@@ -17,10 +17,12 @@ import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.proposed.MrAction;
+import mr.robotto.proposed.MrRenderingContext;
 
 public abstract class MrObject {
     private MrObjectData mData;
     private MrObjectRender mRender;
+    private MrRenderingContext mContext;
     private Queue<MrAction<MrObjectData>> mActions;
 
     protected MrObject(MrObjectData data, MrObjectRender render) {
@@ -39,6 +41,14 @@ public abstract class MrObject {
 
     public boolean isInitialized() {
         return mRender.isInitialized();
+    }
+
+    public MrRenderingContext getRenderingContext() {
+        return mContext;
+    }
+
+    public void setRenderingContext(MrRenderingContext context) {
+        mContext = context;
     }
 
     public void render() {

@@ -9,29 +9,29 @@
 
 package mr.robotto.collections;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import mr.robotto.collections.core.MrMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.collections.core.MrNode;
 
 /**
  * Created by Aarón on 17/11/2014.
  */
-public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iterable<MrMapNode<K,V>> {
+public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
 
-    private MrMapNode<K,V> mParent;
+    private MrMapNode<K, V> mParent;
     private V mData;
-    private HashMap<K, MrMapNode<K,V>> mChildren;
-    private HashMap<K, MrMapNode<K,V>> mTree;
+    private ArrayList<MrMapNode<K, V>> mChildren;
+    private HashMap<K, MrMapNode<K, V>> mTree;
+    private HashMap<K, V> mTreeValues;
     private int mDepth;
 
-    private MrMapFunction<K,V> mMapFunction;
+    private MrMapFunction<K, V> mMapFunction;
 
-    public MrMapNode(MrMapNode<K,V> parent, V data, MrMapFunction<K, V> mapFunction) {
+    public MrMapNode(MrMapNode<K, V> parent, V data, MrMapFunction<K, V> mapFunction) {
         init();
         setParent(parent);
         if (hasParent()) {
@@ -41,18 +41,19 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         mMapFunction = mapFunction;
     }
 
-    public MrMapNode(V data, MrMapFunction<K,V> mapFunction) {
+    public MrMapNode(V data, MrMapFunction<K, V> mapFunction) {
         this(null, data, mapFunction);
     }
 
     private void init() {
-        mChildren = new HashMap<K, MrMapNode<K, V>>();
+        mChildren = new ArrayList<MrMapNode<K, V>>();
         mTree = new HashMap<K, MrMapNode<K, V>>();
+        mTreeValues = new HashMap<K, V>();
         mParent = null;
         mDepth = 0;
     }
 
-    private void setParent(MrMapNode<K,V> parent) {
+    private void setParent(MrMapNode<K, V> parent) {
         mParent = parent;
         setDepth();
     }
@@ -69,86 +70,74 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         return mMapFunction.getIdOf(mData);
     }
 
-    @Override
     public V getData() {
         return mData;
     }
 
-    @Override
     public int getDepth() {
         return mDepth;
     }
 
-    @Override
     public boolean isLeaf() {
         return mChildren.isEmpty();
     }
 
-    @Override
     public boolean hasParent() {
         return mParent != null;
     }
 
-    @Override
-    public MrMapNode<K,V> getParent() {
+    public MrMapNode<K, V> getParent() {
         return mParent;
     }
 
-    @Override
-    public Collection<MrMapNode<K,V>> getChildren() {
-        return mChildren.values();
+    public Collection<MrMapNode<K, V>> getChildren() {
+        return mChildren;
     }
 
-    @Override
-    public boolean addChild(MrNode<V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
-        if (n.hasParent()) {
-            n.getParent().removeChild(n);
+    public boolean addChild(MrMapNode<K,V> node) {
+        if (node.hasParent()) {
+            node.getParent().removeChild(node);
         }
-        n.setParent(this);
-        for (MrMapNode<K,V> m : n) {
+        node.setParent(this);
+        for (MrMapNode<K, V> m : node) {
             m.setDepth();
             mTree.put(m.getElementId(), m);
+            mTreeValues.put(m.getElementId(), m.getData());
         }
-        return mChildren.put(n.getElementId(), n) != null;
+        return mChildren.add(node);
     }
 
-    @Override
-    public boolean removeChild(MrNode<V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K,V>) node;
-        if (mChildren.remove(n.getElementId()) != null ) {
-            n.setParent(null);
-            for (MrMapNode<K,V> m : n) {
+    public boolean removeChild(MrMapNode<K,V> node) {
+        if (mChildren.remove(node)) {
+            node.setParent(null);
+            for (MrMapNode<K, V> m : node) {
                 m.setDepth();
                 mTree.remove(m.getElementId());
+                mTreeValues.remove(m.getElementId());
             }
             return true;
         }
         return false;
     }
 
-    @Override
     public void clearChildren() {
-        for (MrMapNode<K,V> child : mChildren.values()) {
-            removeChild(child);
+        while (!mChildren.isEmpty()) {
+            removeChild(mChildren.get(0));
         }
     }
 
-    @Override
     public void clearParent() {
         mParent.removeChild(this);
     }
 
-    @Override
-    public MrMapNode<K,V> getRoot() {
-        MrMapNode<K,V> node = this;
+    public MrMapNode<K, V> getRoot() {
+        MrMapNode<K, V> node = this;
         while (node.hasParent()) {
             node = node.getParent();
         }
         return node;
     }
 
-    @Override
     public int childrenSize() {
         return mChildren.size();
     }
@@ -157,8 +146,7 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         return mTree.size();
     }
 
-    @Override
-    public int compareTo(MrNode<V> node) {
+    public int compareTo(MrMapNode<K,V> node) {
         if (node.getDepth() < mDepth) {
             return 1;
         } else if (node.getDepth() > mDepth) {
@@ -169,38 +157,24 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
     }
 
     @Override
-    public Iterator<MrMapNode<K,V>> iterator() {
+    public Iterator<MrMapNode<K, V>> iterator() {
         return new MrNodeMapIterator(this);
     }
 
-    public MrMapNode<K,V> findByKey(K key) {
+    public MrMapNode<K, V> findByKey(K key) {
         return mTree.get(key);
     }
 
-    //TODO: Check existence of key
     public boolean removeByKey(K key) {
-        MrMapNode<K,V> n = findByKey(key);
+        if (!hasKey(key)) {
+            return false;
+        }
+        MrMapNode<K, V> n = findByKey(key);
         return n.getParent().removeChild(n);
     }
 
-    public boolean containsKey(K key) {
+    public boolean hasKey(K key) {
         return mTree.containsKey(key);
-    }
-
-    //TODO: Remove this method
-    @Override
-    public boolean put(K key, MrMapNode<K, V> node) {
-        MrMapNode<K,V> n = (MrMapNode<K, V>) node;
-        if (n.hasParent()) {
-            n.getParent().removeChild(n);
-        }
-        n.setParent(this);
-        for (MrMapNode<K,V> m : n) {
-            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
-            aux.setDepth();
-            mTree.put(aux.getElementId(), aux);
-        }
-        return mChildren.put(key, n) != null;
     }
 
     private class MrNodeMapIterator implements Iterator<MrMapNode<K, V>> {
@@ -232,17 +206,15 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         }
     }
 
-    public Collection<MrMapNode<K,V>> getNodes() {
+    public Collection<MrMapNode<K, V>> getNodes() {
         return mTree.values();
     }
 
     public Collection<K> keys() {
-        return null;
+        return mTree.keySet();
     }
 
     public Collection<V> values() {
-        return null;
+        return mTreeValues.values();
     }
-
-
 }
