@@ -9,7 +9,7 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.lens.MrLens;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -22,7 +22,7 @@ public class MrCameraData extends MrObjectData {
     private int height;
 
     public MrCameraData(String name, MrLens lens, MrVector3f lookAt) {
-        super(name, MrSceneObjType.CAMERA);
+        super(name, MrSceneObjectType.CAMERA);
         this.lens = lens;
         this.lookAt = lookAt;
     }

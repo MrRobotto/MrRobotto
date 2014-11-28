@@ -7,14 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.collections;
+package mr.robotto.collections.core;
 
-public interface MrMap<K, V> {
-    public boolean removeByKey(K k);
-
-    public boolean containsKey(K k);
-
-    public boolean put(K k, V v);
-
-    public V find(K k);
+/**
+ * Created by Aarón on 23/11/2014.
+ */
+public interface MrMapFunction<K,V> {
+    public K getIdOf(V v);
 }

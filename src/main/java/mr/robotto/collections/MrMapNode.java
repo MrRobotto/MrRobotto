@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import mr.robotto.collections.core.MrMap;
+import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.collections.core.MrNode;
+
 /**
  * Created by Aarón on 17/11/2014.
  */
@@ -102,10 +106,9 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
             n.getParent().removeChild(n);
         }
         n.setParent(this);
-        for (MrNode<V> m : n) {
-            MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
-            aux.setDepth();
-            mTree.put(aux.getElementId(), aux);
+        for (MrMapNode<K,V> m : n) {
+            m.setDepth();
+            mTree.put(m.getElementId(), m);
         }
         return mChildren.put(n.getElementId(), n) != null;
     }
@@ -115,10 +118,9 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         MrMapNode<K,V> n = (MrMapNode<K,V>) node;
         if (mChildren.remove(n.getElementId()) != null ) {
             n.setParent(null);
-            for (MrNode<V> m : n) {
-                MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
-                aux.setDepth();
-                mTree.remove(aux.getElementId());
+            for (MrMapNode<K,V> m : n) {
+                m.setDepth();
+                mTree.remove(m.getElementId());
             }
             return true;
         }
@@ -127,7 +129,7 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
 
     @Override
     public void clearChildren() {
-        for (MrNode<V> child : mChildren.values()) {
+        for (MrMapNode<K,V> child : mChildren.values()) {
             removeChild(child);
         }
     }
@@ -171,12 +173,13 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         return new MrNodeMapIterator(this);
     }
 
-    public MrMapNode<K,V> find(K key) {
+    public MrMapNode<K,V> findByKey(K key) {
         return mTree.get(key);
     }
 
+    //TODO: Check existence of key
     public boolean removeByKey(K key) {
-        MrMapNode<K,V> n = find(key);
+        MrMapNode<K,V> n = findByKey(key);
         return n.getParent().removeChild(n);
     }
 
@@ -184,6 +187,7 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
         return mTree.containsKey(key);
     }
 
+    //TODO: Remove this method
     @Override
     public boolean put(K key, MrMapNode<K, V> node) {
         MrMapNode<K,V> n = (MrMapNode<K, V>) node;
@@ -191,7 +195,7 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
             n.getParent().removeChild(n);
         }
         n.setParent(this);
-        for (MrNode<V> m : n) {
+        for (MrMapNode<K,V> m : n) {
             MrMapNode<K,V> aux = (MrMapNode<K, V>) m;
             aux.setDepth();
             mTree.put(aux.getElementId(), aux);
@@ -227,4 +231,18 @@ public class MrMapNode<K, V> implements MrNode<V>, MrMap<K,MrMapNode<K,V>>, Iter
 
         }
     }
+
+    public Collection<MrMapNode<K,V>> getNodes() {
+        return mTree.values();
+    }
+
+    public Collection<K> keys() {
+        return null;
+    }
+
+    public Collection<V> values() {
+        return null;
+    }
+
+
 }

@@ -7,11 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.collections;
+package mr.robotto.core.data.resources.commons;
 
-/**
- * Created by Aarón on 23/11/2014.
- */
-public interface MrMapFunction<K,V> {
-    public K getIdOf(V v);
+public enum MrSceneObjectType {
+    CAMERA,
+    MODEL,
+    SCENE
 }

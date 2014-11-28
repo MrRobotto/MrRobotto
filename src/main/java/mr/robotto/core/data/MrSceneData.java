@@ -9,14 +9,14 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrSceneData extends MrObjectData {
     private MrVector4f mClearColor;
 
     public MrSceneData(String name, MrVector4f clearColor) {
-        super(name, MrSceneObjType.SCENE);
+        super(name, MrSceneObjectType.SCENE);
         this.mClearColor = clearColor;
         init();
     }

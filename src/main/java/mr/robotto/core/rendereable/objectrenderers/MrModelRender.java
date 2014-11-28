@@ -60,7 +60,7 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
-            mModelData.getMesh().getKeys().find(attribute.getAttributeType()).setIndex(attribute.getIndex());
+            mModelData.getMesh().getKeys().findByKey(attribute.getAttributeType()).setIndex(attribute.getIndex());
         }
         mLinked = true;
     }

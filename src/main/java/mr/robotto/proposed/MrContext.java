@@ -12,8 +12,8 @@ package mr.robotto.proposed;
 import mr.robotto.collections.MrListNode;
 
 /*
-TODO: Has de crear un find al menos que te busque en los objectsdata
-Ese find te devolverá un nodo, con los hijos ya colgando de él
+TODO: Has de crear un findByKey al menos que te busque en los objectsdata
+Ese findByKey te devolverá un nodo, con los hijos ya colgando de él
 además podrás decirle cuando construya "Oye quiero que para el objeto
 con nombre fulanito le apliques el controlador o el renderer este
  */
@@ -46,7 +46,7 @@ public class MrContext {
             /*MrNode2<MrObjectData> dataNode;
             for (MrListNode<String> node : mObjectsHierarchy) {
                 String name = node.getData();
-                MrObjectData objectData = mrObjectsData.find(name);
+                MrObjectData objectData = mrObjectsData.findByKey(name);
 
             }*/
         }

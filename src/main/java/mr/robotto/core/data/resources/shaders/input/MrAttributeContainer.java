@@ -10,7 +10,7 @@
 package mr.robotto.core.data.resources.shaders.input;
 
 import mr.robotto.collections.MrMapContainer;
-import mr.robotto.collections.MrMapFunction;
+import mr.robotto.collections.core.MrMapFunction;
 
 /**
  * Created by Aarón on 23/11/2014.

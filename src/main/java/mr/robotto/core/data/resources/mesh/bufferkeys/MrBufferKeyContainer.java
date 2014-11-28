@@ -10,7 +10,7 @@
 package mr.robotto.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.collections.MrMapContainer;
-import mr.robotto.collections.MrMapFunction;
+import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.data.resources.shaders.input.MrAttributeType;
 
 /**

@@ -14,22 +14,23 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.rendereable.objectrenderers.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 
-public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender> {
-    private T mData;
-    private R mRender;
-    private Queue<MrAction<T>> mActions;
+public abstract class MrObject {
+    private MrObjectData mData;
+    private MrObjectRender mRender;
+    private Queue<MrAction<MrObjectData>> mActions;
 
-    protected MrObject(T data, R render) {
+    protected MrObject(MrObjectData data, MrObjectRender render) {
         mData = data;
         mRender = render;
         mRender.linkWith(data);
     }
 
     private void init() {
-        mActions = new LinkedList<MrAction<T>>();
+        mActions = new LinkedList<MrAction<MrObjectData>>();
     }
 
     public void initialize() {
@@ -44,7 +45,7 @@ public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender>
         mRender.render();
     }
 
-    public T getData() {
+    public MrObjectData getData() {
         return mData;
     }
 
@@ -52,19 +53,23 @@ public abstract class MrObject<T extends MrObjectData, R extends MrObjectRender>
         return mData.getName();
     }
 
-    public R getRender() {
+    public MrObjectRender getRender() {
         return mRender;
     }
 
-    public void setRender(R render) {
+    public void setRender(MrObjectRender render) {
         this.mRender = render;
     }
 
-    public void addAction(final MrAction<T> action) {
+    public MrSceneObjectType getSceneObjectType() {
+        return mData.getSceneObjectType();
+    }
+
+    public void addAction(final MrAction<MrObjectData> action) {
         mActions.add(action);
     }
 
-    public Collection<MrAction<T>> getActions() {
+    public Collection<MrAction<MrObjectData>> getActions() {
         return mActions;
     }
 }

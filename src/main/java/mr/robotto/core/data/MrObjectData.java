@@ -10,7 +10,7 @@
 package mr.robotto.core.data;
 
 import mr.robotto.core.data.resources.MrTransform;
-import mr.robotto.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
 public abstract class MrObjectData {
@@ -18,11 +18,11 @@ public abstract class MrObjectData {
     private boolean mInitialized;
 
     private String mName;
-    private MrSceneObjType mSceneObjType;
+    private MrSceneObjectType mSceneObjType;
     private MrTransform mTransform;
     private MrUniformKeyContainer mUniformKeys;
 
-    public MrObjectData(String name, MrSceneObjType sceneObjType, MrTransform transform, MrUniformKeyContainer uniformKeys) {
+    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyContainer uniformKeys) {
         mName = name;
         mTransform = transform;
         mSceneObjType = sceneObjType;
@@ -31,7 +31,7 @@ public abstract class MrObjectData {
     }
 
     //TODO: Review this constructor
-    public MrObjectData(String name, MrSceneObjType sceneObjType) {
+    public MrObjectData(String name, MrSceneObjectType sceneObjType) {
         this(name, sceneObjType, new MrTransform(), new MrUniformKeyContainer());
     }
 
@@ -51,7 +51,7 @@ public abstract class MrObjectData {
         mInitialized = true;
     }
 
-    public MrSceneObjType getSceneObjType() {
+    public MrSceneObjectType getSceneObjectType() {
         return mSceneObjType;
     }
 

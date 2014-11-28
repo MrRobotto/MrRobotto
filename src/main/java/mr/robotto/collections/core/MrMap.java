@@ -7,10 +7,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.data.resources.commons;
+package mr.robotto.collections.core;
 
-public enum MrSceneObjType {
-    CAMERA,
-    MODEL,
-    SCENE
+public interface MrMap<K, V> {
+    public boolean removeByKey(K k);
+
+    public boolean containsKey(K k);
+
+    public boolean put(K k, V v);
+
+    public V findByKey(K k);
 }

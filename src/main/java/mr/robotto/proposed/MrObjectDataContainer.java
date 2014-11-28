@@ -10,7 +10,7 @@
 package mr.robotto.proposed;
 
 import mr.robotto.collections.MrMapContainer;
-import mr.robotto.collections.MrMapFunction;
+import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.data.MrObjectData;
 
 /**

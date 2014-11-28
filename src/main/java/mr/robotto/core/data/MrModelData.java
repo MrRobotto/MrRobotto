@@ -10,7 +10,7 @@
 package mr.robotto.core.data;
 
 import mr.robotto.core.data.resources.MrTransform;
-import mr.robotto.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.mesh.MrMesh;
 import mr.robotto.core.data.resources.shaders.MrShaderProgram;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
@@ -21,7 +21,7 @@ public class MrModelData extends MrObjectData
     private MrShaderProgram mShaderProgram;
 
     public MrModelData(String name, MrTransform transform, MrUniformKeyContainer uniformKeys, MrShaderProgram shaderProgram,  MrMesh mesh) {
-        super(name, MrSceneObjType.MODEL, transform, uniformKeys);
+        super(name, MrSceneObjectType.MODEL, transform, uniformKeys);
         mMesh = mesh;
         mShaderProgram = shaderProgram;
     }

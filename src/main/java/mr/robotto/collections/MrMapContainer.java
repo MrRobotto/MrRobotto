@@ -12,6 +12,10 @@ package mr.robotto.collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import mr.robotto.collections.core.MrContainer;
+import mr.robotto.collections.core.MrMap;
+import mr.robotto.collections.core.MrMapFunction;
+
 public class MrMapContainer<K,V> implements MrContainer<V>, MrMap<K, V> {
 
     private HashMap<K, V> mElements;
@@ -68,7 +72,7 @@ public class MrMapContainer<K,V> implements MrContainer<V>, MrMap<K, V> {
     }
 
     @Override
-    public V find(K k) {
+    public V findByKey(K k) {
         return mElements.get(k);
     }
 

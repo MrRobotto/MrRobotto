@@ -46,11 +46,11 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
             /*MrObjectLoader loader = new MrObjectLoader(drac);
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);
-            getRenderer().model = new MrModelController((MrModelData)ob.getChildren().find(0), new MrModelRender());*/
+            getRenderer().model = new MrModelController((MrModelData)ob.getChildren().findByKey(0), new MrModelRender());*/
             MrContextLoader loader = new MrContextLoader(drac);
             context1 = loader.parse();
-            //getRenderer().setScene((MrSceneData)context1.getObjectsData().find("Scene"));
-            //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().find("Cube"), new MrModelRender());
+            //getRenderer().setScene((MrSceneData)context1.getObjectsData().findByKey("Scene"));
+            //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().findByKey("Cube"), new MrModelRender());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
