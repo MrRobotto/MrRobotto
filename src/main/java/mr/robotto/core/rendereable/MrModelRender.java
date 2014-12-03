@@ -7,17 +7,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.rendereable.objectrenderers;
+package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.resources.shaders.input.MrAttribute;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.core.rendereable.core.MrDrawable;
 import mr.robotto.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.core.rendereable.resources.MrShaderProgramBinder;
 
-public class MrModelRender implements MrObjectRender, MrDrawable {
+public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable {
 
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
@@ -55,8 +54,8 @@ public class MrModelRender implements MrObjectRender, MrDrawable {
     }
 
     @Override
-    public void linkWith(MrObjectData link) {
-        mModelData = (MrModelData) link;
+    public void linkWith(MrModelData link) {
+        mModelData = link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {

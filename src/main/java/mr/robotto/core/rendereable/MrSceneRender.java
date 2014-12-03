@@ -7,16 +7,15 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.rendereable.objectrenderers;
+package mr.robotto.core.rendereable;
 
 import android.opengl.GLES20;
 
-import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.linearalgebra.MrVector4f;
 
-public class MrSceneRender implements MrObjectRender {
+public class MrSceneRender implements MrObjectRender<MrSceneData> {
 
     private MrSceneData mSceneData;
     private boolean mLinked;
@@ -38,9 +37,13 @@ public class MrSceneRender implements MrObjectRender {
     }
 
     @Override
-    public void linkWith(MrObjectData link) {
-        mSceneData = (MrSceneData) link;
+    public void linkWith(MrSceneData link) {
+        mSceneData = link;
         mLinked = true;
+    }
+
+    public void initializeSizeDependant(int w, int h) {
+
     }
 
     @Override

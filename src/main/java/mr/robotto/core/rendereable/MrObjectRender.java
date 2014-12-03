@@ -7,11 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.rendereable.objectrenderers;
+package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.rendereable.core.MrLinkable;
 import mr.robotto.core.rendereable.core.MrRenderizable;
 
-public interface MrObjectRender extends MrLinkable<MrObjectData>, MrRenderizable {
+public interface MrObjectRender<T extends MrObjectData> extends MrLinkable<T>, MrRenderizable {
 }

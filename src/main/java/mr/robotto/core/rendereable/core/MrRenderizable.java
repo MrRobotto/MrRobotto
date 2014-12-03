@@ -9,6 +9,9 @@
 
 package mr.robotto.core.rendereable.core;
 
-public interface MrRenderizable extends MrInitializable, MrUniformReciever {
+import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
+
+public interface MrRenderizable extends MrInitializable {
+    public void setUniforms(MrUniformKeyContainer uniformList);
     public void render();
 }
