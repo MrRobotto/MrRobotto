@@ -19,7 +19,7 @@ import mr.robotto.core.rendereable.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
 
-public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender<D>> {
+public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender> {
     private D mData;
     private R mRender;
     private MrRenderingContext mContext;
@@ -28,7 +28,7 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender<
     protected MrObject(D data, R render) {
         mData = data;
         mRender = render;
-        mRender.linkWith(data);
+        mRender.linkWith(data, mContext);
     }
 
     private void init() {
@@ -36,7 +36,7 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender<
     }
 
     public void initialize() {
-        mRender.initialize();
+        mRender.initializeRender();
     }
 
     public boolean isInitialized() {

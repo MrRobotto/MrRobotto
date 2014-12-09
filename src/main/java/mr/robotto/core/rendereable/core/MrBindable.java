@@ -9,7 +9,7 @@
 
 package mr.robotto.core.rendereable.core;
 
-public interface MrBindable extends MrInitializable {
+public interface MrBindable<T> extends MrInitializable<T> {
     public boolean isBinded();
     public void bind();
     public void unbind();

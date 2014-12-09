@@ -10,13 +10,14 @@
 package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.resources.shaders.input.MrAttribute;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
-import mr.robotto.core.rendereable.core.MrDrawable;
 import mr.robotto.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.core.rendereable.resources.MrShaderProgramBinder;
+import mr.robotto.proposed.MrRenderingContext;
 
-public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable {
+public class MrModelRender implements MrObjectRender {
 
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
@@ -42,20 +43,20 @@ public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable {
     }
 
     @Override
-    public boolean isBinded() {
-        return mBinded;
-    }
-
-    @Override
-    public void initialize() {
+    public void initializeRender() {
         mMeshDrawer.initialize();
         mShaderProgramBinder.initialize();
         mInitialized = true;
     }
 
     @Override
-    public void linkWith(MrModelData link) {
-        mModelData = link;
+    public void initializeSizeDependant(int w, int h) {
+
+    }
+
+    @Override
+    public void linkWith(MrObjectData link, MrRenderingContext context) {
+        mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
@@ -65,39 +66,32 @@ public class MrModelRender implements MrObjectRender<MrModelData>, MrDrawable {
     }
 
     @Override
-    public void bind() {
+    public void render() {
+        bind();
+        draw();
+        unbind();
+    }
+
+
+    private void bind() {
         mShaderProgramBinder.bind();
         mMeshDrawer.bind();
         mBinded = true;
     }
 
-    @Override
-    public void unbind() {
+    private boolean isBinded() {
+        return mBinded;
+    }
+
+
+    private void unbind() {
         mMeshDrawer.unbind();
         mShaderProgramBinder.unbind();
         mBinded = false;
     }
 
-    @Override
-    public void setUniforms(MrUniformKeyContainer uniformList) {
-
-    }
-
-    @Override
-    public void update() {
-
-    }
-
-    @Override
-    public void draw() {
+    private void draw() {
         mMeshDrawer.draw();
     }
 
-    @Override
-    public void render() {
-        bind();
-        update();
-        draw();
-        unbind();
-    }
 }

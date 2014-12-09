@@ -10,12 +10,13 @@
 package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrCameraData;
-import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.proposed.MrRenderingContext;
 
 /**
  * Created by Aarón on 01/12/2014.
  */
-public class MrCameraRender implements MrObjectRender<MrCameraData> {
+public class MrCameraRender implements MrObjectRender {
 
     private MrCameraData mCameraData;
 
@@ -28,37 +29,36 @@ public class MrCameraRender implements MrObjectRender<MrCameraData> {
     }
 
     @Override
-    public void linkWith(MrCameraData link) {
-        mCameraData = link;
-        mLinked = true;
-    }
-
-    @Override
     public boolean isLinked() {
         return mLinked;
     }
 
+
     @Override
-    public void setUniforms(MrUniformKeyContainer uniformList) {
+    public boolean isInitialized() {
+        return mInitialized;
+    }
+
+
+    @Override
+    public void linkWith(MrObjectData link, MrRenderingContext context) {
+        mCameraData = (MrCameraData) link;
+        mLinked = true;
+    }
+
+    @Override
+    public void initializeRender() {
+        mInitialized = true;
+    }
+
+
+    @Override
+    public void initializeSizeDependant(int w, int h) {
 
     }
 
     @Override
     public void render() {
 
-    }
-
-    public void initializeSizeDependant(int w, int h) {
-
-    }
-
-    @Override
-    public void initialize() {
-        mInitialized = true;
-    }
-
-    @Override
-    public boolean isInitialized() {
-        return mInitialized;
     }
 }

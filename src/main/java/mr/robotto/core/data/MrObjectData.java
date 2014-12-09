@@ -14,9 +14,6 @@ import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
 public abstract class MrObjectData {
-
-    private boolean mInitialized;
-
     private String mName;
     private MrSceneObjectType mSceneObjType;
     private MrTransform mTransform;
@@ -36,19 +33,11 @@ public abstract class MrObjectData {
     }
 
     private void init() {
-        mInitialized = false;
+
     }
 
     public String getName() {
         return mName;
-    }
-
-    public boolean isInitialized() {
-        return mInitialized;
-    }
-
-    public void initialize() {
-        mInitialized = true;
     }
 
     public MrSceneObjectType getSceneObjectType() {

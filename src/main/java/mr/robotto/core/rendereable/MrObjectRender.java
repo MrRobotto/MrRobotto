@@ -10,8 +10,21 @@
 package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.rendereable.core.MrLinkable;
-import mr.robotto.core.rendereable.core.MrRenderizable;
+import mr.robotto.proposed.MrRenderingContext;
 
-public interface MrObjectRender<T extends MrObjectData> extends MrLinkable<T>, MrRenderizable {
+/**
+ * Created by Aarón on 09/12/2014.
+ */
+public interface MrObjectRender {
+    public void linkWith(MrObjectData link, MrRenderingContext context);
+
+    public void initializeRender();
+
+    public void initializeSizeDependant(int w, int h);
+
+    public void render();
+
+    public boolean isLinked();
+
+    public boolean isInitialized();
 }

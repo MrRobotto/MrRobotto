@@ -11,11 +11,12 @@ package mr.robotto.core.rendereable;
 
 import android.opengl.GLES20;
 
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.MrSceneData;
-import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.linearalgebra.MrVector4f;
+import mr.robotto.proposed.MrRenderingContext;
 
-public class MrSceneRender implements MrObjectRender<MrSceneData> {
+public class MrSceneRender implements MrObjectRender {
 
     private MrSceneData mSceneData;
     private boolean mLinked;
@@ -37,17 +38,18 @@ public class MrSceneRender implements MrObjectRender<MrSceneData> {
     }
 
     @Override
-    public void linkWith(MrSceneData link) {
-        mSceneData = link;
+    public void linkWith(MrObjectData link, MrRenderingContext context) {
+        mSceneData = (MrSceneData) link;
         mLinked = true;
     }
 
+    @Override
     public void initializeSizeDependant(int w, int h) {
 
     }
 
     @Override
-    public void initialize() {
+    public void initializeRender() {
         MrVector4f clearColor = mSceneData.getClearColor();
         GLES20.glClearColor(clearColor.w, clearColor.x, clearColor.y, clearColor.z);
         GLES20.glClearDepthf(1.0f);
@@ -61,11 +63,6 @@ public class MrSceneRender implements MrObjectRender<MrSceneData> {
         GLES20.glDisable(GLES20.GL_BLEND);
 
         mInitialized = true;
-    }
-
-    @Override
-    public void setUniforms(MrUniformKeyContainer uniformList) {
-
     }
 
     @Override
