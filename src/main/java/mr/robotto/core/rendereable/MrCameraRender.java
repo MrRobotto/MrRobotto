@@ -20,34 +20,21 @@ public class MrCameraRender implements MrObjectRender {
 
     private MrCameraData mCameraData;
 
-    private boolean mLinked;
     private boolean mInitialized;
 
     public MrCameraRender() {
-        mLinked = false;
         mInitialized = false;
     }
-
-    @Override
-    public boolean isLinked() {
-        return mLinked;
-    }
-
 
     @Override
     public boolean isInitialized() {
         return mInitialized;
     }
 
-
     @Override
-    public void linkWith(MrObjectData link, MrRenderingContext context) {
+    public void initializeRender(MrObjectData link, MrRenderingContext context) {
         mCameraData = (MrCameraData) link;
-        mLinked = true;
-    }
 
-    @Override
-    public void initializeRender() {
         mInitialized = true;
     }
 

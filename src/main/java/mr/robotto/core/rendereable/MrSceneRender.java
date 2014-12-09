@@ -19,17 +19,10 @@ import mr.robotto.proposed.MrRenderingContext;
 public class MrSceneRender implements MrObjectRender {
 
     private MrSceneData mSceneData;
-    private boolean mLinked;
     private boolean mInitialized;
 
     public MrSceneRender() {
-        mLinked = false;
         mInitialized = false;
-    }
-
-    @Override
-    public boolean isLinked() {
-        return mLinked;
     }
 
     @Override
@@ -38,18 +31,14 @@ public class MrSceneRender implements MrObjectRender {
     }
 
     @Override
-    public void linkWith(MrObjectData link, MrRenderingContext context) {
-        mSceneData = (MrSceneData) link;
-        mLinked = true;
-    }
-
-    @Override
     public void initializeSizeDependant(int w, int h) {
 
     }
 
     @Override
-    public void initializeRender() {
+    public void initializeRender(MrObjectData link, MrRenderingContext context) {
+        mSceneData = (MrSceneData) link;
+
         MrVector4f clearColor = mSceneData.getClearColor();
         GLES20.glClearColor(clearColor.w, clearColor.x, clearColor.y, clearColor.z);
         GLES20.glClearDepthf(1.0f);

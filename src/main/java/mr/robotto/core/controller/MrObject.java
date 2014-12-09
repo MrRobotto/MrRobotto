@@ -28,7 +28,6 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender>
     protected MrObject(D data, R render) {
         mData = data;
         mRender = render;
-        mRender.linkWith(data, mContext);
     }
 
     private void init() {
@@ -36,7 +35,7 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender>
     }
 
     public void initialize() {
-        mRender.initializeRender();
+        mRender.initializeRender(mData, mContext);
     }
 
     public boolean isInitialized() {

@@ -16,15 +16,11 @@ import mr.robotto.proposed.MrRenderingContext;
  * Created by Aarón on 09/12/2014.
  */
 public interface MrObjectRender {
-    public void linkWith(MrObjectData link, MrRenderingContext context);
-
-    public void initializeRender();
+    public void initializeRender(MrObjectData link, MrRenderingContext context);
 
     public void initializeSizeDependant(int w, int h);
 
     public void render();
-
-    public boolean isLinked();
 
     public boolean isInitialized();
 }

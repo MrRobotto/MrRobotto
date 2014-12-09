@@ -24,7 +24,6 @@ public class MrModelRender implements MrObjectRender {
     private MrModelData mModelData;
     private MrUniformKeyContainer mUniformKeyList;
     private boolean mInitialized = false;
-    private boolean mLinked = false;
     private boolean mBinded = false;
 
     public MrModelRender() {
@@ -33,17 +32,19 @@ public class MrModelRender implements MrObjectRender {
     }
 
     @Override
-    public boolean isLinked() {
-        return mLinked;
-    }
-
-    @Override
     public boolean isInitialized() {
         return mInitialized;
     }
 
     @Override
-    public void initializeRender() {
+    public void initializeRender(MrObjectData link, MrRenderingContext context) {
+        mModelData = (MrModelData) link;
+        mMeshDrawer.linkWith(mModelData.getMesh());
+        mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
+        for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
+            mModelData.getMesh().getKeys().findByKey(attribute.getAttributeType()).setIndex(attribute.getIndex());
+        }
+
         mMeshDrawer.initialize();
         mShaderProgramBinder.initialize();
         mInitialized = true;
@@ -52,17 +53,6 @@ public class MrModelRender implements MrObjectRender {
     @Override
     public void initializeSizeDependant(int w, int h) {
 
-    }
-
-    @Override
-    public void linkWith(MrObjectData link, MrRenderingContext context) {
-        mModelData = (MrModelData) link;
-        mMeshDrawer.linkWith(mModelData.getMesh());
-        mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
-        for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
-            mModelData.getMesh().getKeys().findByKey(attribute.getAttributeType()).setIndex(attribute.getIndex());
-        }
-        mLinked = true;
     }
 
     @Override
