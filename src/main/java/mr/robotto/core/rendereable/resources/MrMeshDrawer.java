@@ -17,10 +17,9 @@ import mr.robotto.core.data.resources.mesh.MrMesh;
 import mr.robotto.core.data.resources.mesh.bufferkeys.MrBufferKey;
 import mr.robotto.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.core.rendereable.core.MrDrawable;
-import mr.robotto.core.rendereable.core.MrLinkable;
 
 //TODO: Controlar errores
-public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
+public class MrMeshDrawer implements MrDrawable<MrMesh> {
 
     private MrMesh mMesh;
     private boolean mInitialized = false;
@@ -102,10 +101,6 @@ public class MrMeshDrawer implements MrLinkable<MrMesh>, MrDrawable{
         GLES20.glDisableVertexAttribArray(key.getIndex());
     }
 
-    @Override
-    public void update() {
-
-    }
 
     //TODO: Check the cullface of objects
     @Override

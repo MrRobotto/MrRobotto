@@ -9,17 +9,14 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.rendereable.MrModelRender;
-import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.core.data.MrCameraData;
+import mr.robotto.core.rendereable.MrCameraRender;
 
-
-public class MrModel extends MrObject<MrModelData, MrModelRender> {
-    public MrModel(MrModelData data, MrModelRender render) {
+/**
+ * Created by Aarón on 01/12/2014.
+ */
+public class MrCamera extends MrObject<MrCameraData, MrCameraRender> {
+    protected MrCamera(MrCameraData data, MrCameraRender render) {
         super(data, render);
-    }
-
-    public MrMatrix4f getModelMatrix() {
-        return getData().getTransform().getAsMatrix();
     }
 }

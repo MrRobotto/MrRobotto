@@ -18,19 +18,18 @@ import javax.microedition.khronos.opengles.GL10;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.MrSceneData;
-import mr.robotto.core.rendereable.objectrenderers.MrSceneRender;
+import mr.robotto.core.rendereable.MrSceneRender;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
-
-    private boolean initialized;
 
     //TODO: Remove this
     public MrModel model;
     public MrScene mScene;
+    private boolean initialized;
 
     public MrRenderer() {
         //scene = new MrSceneData("Scene");
-        mScene = new MrScene(new MrSceneData("Scene"),new MrSceneRender());
+        mScene = new MrScene(new MrSceneData("Scene"), new MrSceneRender());
     }
 
     public MrRenderer(MrSceneData scene) {

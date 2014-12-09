@@ -17,16 +17,21 @@ import mr.robotto.core.data.resources.shaders.MrShaderType;
 import mr.robotto.core.data.resources.shaders.input.MrAttribute;
 import mr.robotto.core.data.resources.shaders.input.MrUniform;
 import mr.robotto.core.rendereable.core.MrBindable;
-import mr.robotto.core.rendereable.core.MrLinkable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: Controlar errores
-public class MrShaderProgramBinder implements MrLinkable<MrShaderProgram>, MrBindable {
+public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
 
     private MrShaderProgram mShaderProgram;
     private boolean mInitialized;
     private boolean mLinked;
     private boolean mBinded = false;
+
+    @Override
+    public void linkWith(MrShaderProgram link) {
+        mShaderProgram = link;
+        mLinked = true;
+    }
 
     @Override
     public void bind() {
@@ -128,11 +133,6 @@ public class MrShaderProgramBinder implements MrLinkable<MrShaderProgram>, MrBin
         return mInitialized;
     }
 
-    @Override
-    public void linkWith(MrShaderProgram link) {
-        mShaderProgram = link;
-        mLinked = true;
-    }
 
     @Override
     public boolean isLinked() {

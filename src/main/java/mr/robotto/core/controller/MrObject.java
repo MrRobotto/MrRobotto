@@ -15,28 +15,28 @@ import java.util.Queue;
 
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.resources.commons.MrSceneObjectType;
-import mr.robotto.core.rendereable.objectrenderers.MrObjectRender;
+import mr.robotto.core.rendereable.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
 
-public abstract class MrObject {
-    private MrObjectData mData;
-    private MrObjectRender mRender;
+public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender> {
+    private D mData;
+    private R mRender;
     private MrRenderingContext mContext;
-    private Queue<MrAction<MrObjectData>> mActions;
+    private Queue<MrAction<D>> mActions;
 
-    protected MrObject(MrObjectData data, MrObjectRender render) {
+    protected MrObject(D data, R render) {
         mData = data;
         mRender = render;
-        mRender.linkWith(data);
+        mRender.linkWith(data, mContext);
     }
 
     private void init() {
-        mActions = new LinkedList<MrAction<MrObjectData>>();
+        mActions = new LinkedList<MrAction<D>>();
     }
 
     public void initialize() {
-        mRender.initialize();
+        mRender.initializeRender();
     }
 
     public boolean isInitialized() {
@@ -55,7 +55,7 @@ public abstract class MrObject {
         mRender.render();
     }
 
-    public MrObjectData getData() {
+    public D getData() {
         return mData;
     }
 
@@ -63,11 +63,11 @@ public abstract class MrObject {
         return mData.getName();
     }
 
-    public MrObjectRender getRender() {
+    public R getRender() {
         return mRender;
     }
 
-    public void setRender(MrObjectRender render) {
+    public void setRender(R render) {
         this.mRender = render;
     }
 
@@ -75,11 +75,11 @@ public abstract class MrObject {
         return mData.getSceneObjectType();
     }
 
-    public void addAction(final MrAction<MrObjectData> action) {
+    public void addAction(final MrAction<D> action) {
         mActions.add(action);
     }
 
-    public Collection<MrAction<MrObjectData>> getActions() {
+    public Collection<MrAction<D>> getActions() {
         return mActions;
     }
 }
