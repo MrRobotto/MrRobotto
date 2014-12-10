@@ -14,19 +14,16 @@ import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
 import mr.robotto.core.data.resources.mesh.bufferkeys.MrBufferKey;
-import mr.robotto.core.data.resources.shaders.input.MrAttributeType;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttributeType;
 import mr.robotto.loader.MrAbstractLoader;
 
-public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey>
-{
-    public MrAttributeKeyLoader(JSONObject obj)
-    {
+public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey> {
+    public MrAttributeKeyLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrBufferKey parse() throws JSONException
-    {
+    public MrBufferKey parse() throws JSONException {
         String attrstr = mRoot.getString("Attribute");
         MrAttributeType attribute = getAttributeTypeFromString(attrstr);
         String name = mRoot.getString("Name");
@@ -40,13 +37,11 @@ public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey>
         return new MrBufferKey(attribute, dataType, size, stride, pointer);
     }
 
-    private MrAttributeType getAttributeTypeFromString(String attrstr)
-    {
+    private MrAttributeType getAttributeTypeFromString(String attrstr) {
         return MrAttributeType.valueOf(attrstr.toUpperCase());
     }
 
-    private MrDataType getDataTypeFromString(String dataTypeStr)
-    {
+    private MrDataType getDataTypeFromString(String dataTypeStr) {
         return MrDataType.valueOf(dataTypeStr.toUpperCase());
     }
 }

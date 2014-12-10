@@ -9,7 +9,7 @@
 
 package mr.robotto.core.data.resources.uniformkeys;
 
-import mr.robotto.core.data.resources.shaders.input.MrUniformType;
+import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniformType;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: Id for uniformkey and bufferkey in the same way!

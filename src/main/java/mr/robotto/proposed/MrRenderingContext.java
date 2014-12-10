@@ -9,7 +9,7 @@
 
 package mr.robotto.proposed;
 
-import mr.robotto.core.data.resources.shaders.input.MrUniformContainer;
+import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniformContainer;
 
 /**
  * Created by Aarón on 28/11/2014.

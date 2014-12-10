@@ -10,10 +10,9 @@
 package mr.robotto.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.resources.shaders.input.MrAttributeType;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttributeType;
 
-public class MrBufferKey
-{
+public class MrBufferKey {
     private MrAttributeType mAttributeType;
     private int mIndex;
     private int mSize;
@@ -21,8 +20,7 @@ public class MrBufferKey
     private int mStride;
     private int mPointer;
 
-    public MrBufferKey(MrAttributeType attribute, MrDataType dataType, int size, int stride, int pointer)
-    {
+    public MrBufferKey(MrAttributeType attribute, MrDataType dataType, int size, int stride, int pointer) {
         this.mAttributeType = attribute;
         this.mDataType = dataType;
         this.mSize = size;
@@ -31,37 +29,31 @@ public class MrBufferKey
         this.mIndex = -1;
     }
 
-    public MrAttributeType getAttributeType()
-    {
+    public MrAttributeType getAttributeType() {
         return mAttributeType;
     }
 
-    public int getSize()
-    {
+    public int getSize() {
         return mSize;
     }
 
-    public int getStride()
-    {
+    public int getStride() {
         return this.mStride;
+    }
+
+    public int getIndex() {
+        return mIndex;
     }
 
     public void setIndex(int index) {
         mIndex = index;
     }
 
-    public int getIndex()
-    {
-        return mIndex;
-    }
-
-    public int getPointer()
-    {
+    public int getPointer() {
         return mPointer;
     }
 
-    public MrDataType getDataType()
-    {
+    public MrDataType getDataType() {
         return mDataType;
     }
 
@@ -71,8 +63,7 @@ public class MrBufferKey
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "MrBufferKey{" +
                 "AttributeType=" + mAttributeType +
                 ", Index=" + mIndex +

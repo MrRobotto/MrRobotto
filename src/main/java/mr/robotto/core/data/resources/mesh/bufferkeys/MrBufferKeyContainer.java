@@ -11,12 +11,16 @@ package mr.robotto.core.data.resources.mesh.bufferkeys;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.data.resources.shaders.input.MrAttributeType;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttributeType;
 
 /**
  * Created by Aarón on 22/11/2014.
  */
 public class MrBufferKeyContainer extends MrMapContainer<MrAttributeType, MrBufferKey> {
+
+    public MrBufferKeyContainer() {
+        super(getMapFunction());
+    }
 
     private static MrMapFunction<MrAttributeType, MrBufferKey> getMapFunction() {
         return new MrMapFunction<MrAttributeType, MrBufferKey>() {
@@ -25,9 +29,5 @@ public class MrBufferKeyContainer extends MrMapContainer<MrAttributeType, MrBuff
                 return mrBufferKey.getAttributeType();
             }
         };
-    }
-
-    public MrBufferKeyContainer() {
-        super(getMapFunction());
     }
 }

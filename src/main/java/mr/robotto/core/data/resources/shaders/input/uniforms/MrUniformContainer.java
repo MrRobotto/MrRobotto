@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.data.resources.shaders.input;
+package mr.robotto.core.data.resources.shaders.input.uniforms;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
@@ -17,6 +17,10 @@ import mr.robotto.collections.core.MrMapFunction;
  */
 public class MrUniformContainer extends MrMapContainer<String, MrUniform> {
 
+    public MrUniformContainer() {
+        super(getMapFunction());
+    }
+
     private static MrMapFunction<String, MrUniform> getMapFunction() {
         return new MrMapFunction<String, MrUniform>() {
             @Override
@@ -24,9 +28,5 @@ public class MrUniformContainer extends MrMapContainer<String, MrUniform> {
                 return mrUniform.getName();
             }
         };
-    }
-
-    public MrUniformContainer() {
-        super(getMapFunction());
     }
 }

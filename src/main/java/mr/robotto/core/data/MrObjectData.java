@@ -9,8 +9,8 @@
 
 package mr.robotto.core.data;
 
+import mr.robotto.core.data.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.MrTransform;
-import mr.robotto.core.data.resources.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 
 public abstract class MrObjectData {

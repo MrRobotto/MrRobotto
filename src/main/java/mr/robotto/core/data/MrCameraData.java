@@ -9,7 +9,7 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.commons.MrSceneObjectType;
+import mr.robotto.core.data.commons.MrSceneObjectType;
 import mr.robotto.core.data.resources.lens.MrLens;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -42,7 +42,7 @@ public class MrCameraData extends MrObjectData {
 
     public MrMatrix4f getViewProjectionMatrix() {
         MrMatrix4f vp = new MrMatrix4f();
-        MrMatrix4f.ops.mult(vp,lens.getProjectionMatrix(),getViewMatrix());
+        MrMatrix4f.ops.mult(vp, lens.getProjectionMatrix(), getViewMatrix());
         return vp;
     }
 

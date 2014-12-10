@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.resources.commons.MrSceneObjectType;
+import mr.robotto.core.data.commons.MrSceneObjectType;
 import mr.robotto.core.rendereable.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;

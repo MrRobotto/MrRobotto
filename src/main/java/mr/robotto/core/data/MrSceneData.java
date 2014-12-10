@@ -9,7 +9,7 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.commons.MrSceneObjectType;
+import mr.robotto.core.data.commons.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrSceneData extends MrObjectData {
@@ -33,11 +33,11 @@ public class MrSceneData extends MrObjectData {
         return mClearColor;
     }
 
-    public void setClearColor(float r, float g, float b, float a) {
-        this.mClearColor = new MrVector4f(r,g,b,a);
-    }
-
     public void setClearColor(MrVector4f clearColor) {
         this.mClearColor = clearColor;
+    }
+
+    public void setClearColor(float r, float g, float b, float a) {
+        this.mClearColor = new MrVector4f(r, g, b, a);
     }
 }

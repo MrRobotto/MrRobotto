@@ -11,12 +11,16 @@ package mr.robotto.core.data.resources.uniformkeys;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.data.resources.shaders.input.MrUniformType;
+import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniformType;
 
 /**
  * Created by Aarón on 23/11/2014.
  */
 public class MrUniformKeyContainer extends MrMapContainer<MrUniformType, MrUniformKey> {
+
+    public MrUniformKeyContainer() {
+        super(getMapFunction());
+    }
 
     private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
         return new MrMapFunction<MrUniformType, MrUniformKey>() {
@@ -27,12 +31,9 @@ public class MrUniformKeyContainer extends MrMapContainer<MrUniformType, MrUnifo
         };
     }
 
-    public MrUniformKeyContainer() {
-        super(getMapFunction());
-    }
-
     /**
      * Puts all the elements of list in this
+     *
      * @param list
      */
     public void mergeWith(MrUniformKeyContainer list) {

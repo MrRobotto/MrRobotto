@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.data.resources.commons;
+package mr.robotto.core.data.commons;
 
 public enum MrSceneObjectType {
     CAMERA,

@@ -11,7 +11,7 @@ package mr.robotto.core.rendereable;
 
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.resources.shaders.input.MrAttribute;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttribute;
 import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
 import mr.robotto.core.rendereable.resources.MrMeshDrawer;
 import mr.robotto.core.rendereable.resources.MrShaderProgramBinder;

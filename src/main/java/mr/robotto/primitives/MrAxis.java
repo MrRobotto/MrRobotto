@@ -17,28 +17,34 @@ import mr.robotto.core.data.resources.mesh.bufferkeys.MrBufferKeyContainer;
 import mr.robotto.core.data.resources.mesh.buffers.MrBuffer;
 import mr.robotto.core.data.resources.mesh.buffers.MrIndexBuffer;
 import mr.robotto.core.data.resources.mesh.buffers.MrVertexBuffer;
-import mr.robotto.core.data.resources.shaders.input.MrAttributeType;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttributeType;
 
 public class MrAxis extends MrMesh {
 
+    private final static String AXIS_NAME = "MrAxis";
+
+    public MrAxis() {
+        super(AXIS_NAME, 6, MrMeshDrawType.LINES, genKeyList(), genVertexBuffer(), genIndexBuffer());
+    }
+
     private static MrBuffer genVertexBuffer() {
-        float[] vertices = new float[] {
-               -10,  0,  0,     1,  0,  0,
-                10,  0,  0,     1,  0,  0,
-                 0,-10,  0,     0,  1,  0,
-                 0, 10,  0,     0,  1,  0,
-                 0,  0, -10,    0,  0,  1,
-                 0,  0,  10,    0,  0,  1};
+        float[] vertices = new float[]{
+                -10, 0, 0, 1, 0, 0,
+                10, 0, 0, 1, 0, 0,
+                0, -10, 0, 0, 1, 0,
+                0, 10, 0, 0, 1, 0,
+                0, 0, -10, 0, 0, 1,
+                0, 0, 10, 0, 0, 1};
         MrBuffer buffer = new MrVertexBuffer(vertices.length);
         buffer.putFloats(vertices);
         return buffer;
     }
 
     private static MrBuffer genIndexBuffer() {
-        short[] indices = new short[] {
-                0,1,
-                2,3,
-                4,5
+        short[] indices = new short[]{
+                0, 1,
+                2, 3,
+                4, 5
         };
         MrBuffer buffer = new MrIndexBuffer(indices.length);
         buffer.putShorts(indices);
@@ -53,11 +59,5 @@ public class MrAxis extends MrMesh {
         keyList.add(vertexKey);
         keyList.add(colorKey);
         return keyList;
-    }
-
-    private final static String AXIS_NAME = "MrAxis";
-
-    public MrAxis() {
-        super(AXIS_NAME, 6, MrMeshDrawType.LINES, genKeyList(), genVertexBuffer(), genIndexBuffer());
     }
 }

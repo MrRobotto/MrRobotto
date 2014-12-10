@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.data.resources.shaders.input;
+package mr.robotto.core.data.resources.shaders.input.attributes;
 
 import mr.robotto.commons.MrDataType;
 

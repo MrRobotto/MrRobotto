@@ -14,8 +14,8 @@ import android.opengl.GLES20;
 import mr.robotto.core.data.resources.shaders.MrShader;
 import mr.robotto.core.data.resources.shaders.MrShaderProgram;
 import mr.robotto.core.data.resources.shaders.MrShaderType;
-import mr.robotto.core.data.resources.shaders.input.MrAttribute;
-import mr.robotto.core.data.resources.shaders.input.MrUniform;
+import mr.robotto.core.data.resources.shaders.input.attributes.MrAttribute;
+import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniform;
 import mr.robotto.core.rendereable.core.MrBindable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
@@ -69,8 +69,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
         }
     }
 
-    private void initialize(MrShader shader)
-    {
+    private void initialize(MrShader shader) {
         int id = GLES20.glCreateShader(shader.getShaderType().getValue());
 
         GLES20.glShaderSource(id, shader.getSource());

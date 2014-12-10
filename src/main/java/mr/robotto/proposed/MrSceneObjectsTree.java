@@ -16,12 +16,24 @@ import java.util.List;
 import mr.robotto.collections.MrMapNode;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.data.resources.commons.MrSceneObjectType;
+import mr.robotto.core.data.commons.MrSceneObjectType;
 
 /**
  * Created by Aarón on 28/11/2014.
  */
-public class MrMapTreeSceneObjects extends MrMapNode<String, MrObject> {
+public class MrSceneObjectsTree extends MrMapNode<String, MrObject> {
+
+    private HashMap<MrSceneObjectType, List<MrObject>> mTags;
+
+    public MrSceneObjectsTree(MrMapNode<String, MrObject> parent, MrObject data) {
+        super(parent, data, getMapFunction());
+        init();
+    }
+
+    public MrSceneObjectsTree(MrObject data) {
+        super(data, getMapFunction());
+        init();
+    }
 
     private static MrMapFunction<String, MrObject> getMapFunction() {
         return new MrMapFunction<String, MrObject>() {
@@ -30,18 +42,6 @@ public class MrMapTreeSceneObjects extends MrMapNode<String, MrObject> {
                 return mrObject.getName();
             }
         };
-    }
-
-    private HashMap<MrSceneObjectType, List<MrObject>> mTags;
-
-    public MrMapTreeSceneObjects(MrMapNode<String, MrObject> parent, MrObject data) {
-        super(parent, data, getMapFunction());
-        init();
-    }
-
-    public MrMapTreeSceneObjects(MrObject data) {
-        super(data, getMapFunction());
-        init();
     }
 
     private void init() {
