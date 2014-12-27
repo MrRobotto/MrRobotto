@@ -16,7 +16,7 @@ import java.util.List;
 import mr.robotto.collections.MrMapNode;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.data.commons.MrSceneObjectType;
+import mr.robotto.core.data.types.MrSceneObjectType;
 
 /**
  * Created by Aarón on 28/11/2014.

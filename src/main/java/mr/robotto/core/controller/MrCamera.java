@@ -9,8 +9,8 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.MrCameraData;
-import mr.robotto.core.rendereable.MrCameraRender;
+import mr.robotto.core.data.camera.MrCameraData;
+import mr.robotto.core.renderer.MrCameraRender;
 
 /**
  * Created by Aarón on 01/12/2014.

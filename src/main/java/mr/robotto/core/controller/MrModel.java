@@ -9,8 +9,8 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.rendereable.MrModelRender;
+import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.linearalgebra.MrMatrix4f;
 
 

@@ -11,12 +11,16 @@ package mr.robotto.proposed;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.commons.MrObjectData;
 
 /**
  * Created by Aarón on 23/11/2014.
  */
 public class MrObjectDataContainer extends MrMapContainer<String, MrObjectData> {
+
+    public MrObjectDataContainer() {
+        super(getMapFunction());
+    }
 
     private static MrMapFunction<String, MrObjectData> getMapFunction() {
         return new MrMapFunction<String, MrObjectData>() {
@@ -25,10 +29,6 @@ public class MrObjectDataContainer extends MrMapContainer<String, MrObjectData> 
                 return mrObjectData.getName();
             }
         };
-    }
-
-    public MrObjectDataContainer() {
-        super(getMapFunction());
     }
 
 }

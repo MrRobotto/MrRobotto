@@ -13,8 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniform;
-import mr.robotto.core.data.resources.shaders.input.uniforms.MrUniformType;
+import mr.robotto.core.data.commons.shader.MrUniform;
+import mr.robotto.core.data.types.MrUniformType;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrUniformLoader extends MrAbstractLoader<MrUniform> {

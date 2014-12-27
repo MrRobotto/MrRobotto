@@ -13,20 +13,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.resources.MrTransform;
+import mr.robotto.core.data.commons.MrTransform;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrVector3f;
 
-public class MrTransformLoader extends MrAbstractLoader<MrTransform>
-{
-    public MrTransformLoader(JSONObject obj)
-    {
+public class MrTransformLoader extends MrAbstractLoader<MrTransform> {
+    public MrTransformLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrTransform parse() throws JSONException
-    {
+    public MrTransform parse() throws JSONException {
         JSONArray locationData = mRoot.getJSONArray("Location");
         JSONArray rotationData = mRoot.getJSONArray("Rotation");
         JSONArray scaleData = mRoot.getJSONArray("Scale");
@@ -39,28 +36,33 @@ public class MrTransformLoader extends MrAbstractLoader<MrTransform>
         return transform;
     }
 
-    private void loadLocation(MrVector3f v, JSONArray loc) throws JSONException
-    {
+    private void loadLocation(MrVector3f v, JSONArray loc) throws JSONException {
         int index = 0;
-        v.x = (float) loc.getDouble(index); index++;
-        v.y = (float) loc.getDouble(index); index++;
+        v.x = (float) loc.getDouble(index);
+        index++;
+        v.y = (float) loc.getDouble(index);
+        index++;
         v.z = (float) loc.getDouble(index);
     }
 
-    private void loadRotation(MrQuaternion q, JSONArray rot) throws JSONException
-    {
+    private void loadRotation(MrQuaternion q, JSONArray rot) throws JSONException {
         int index = 0;
-        q.w = (float) rot.getDouble(index); index++;
-        q.x = (float) rot.getDouble(index); index++;
-        q.y = (float) rot.getDouble(index); index++;
-        q.z = (float) rot.getDouble(index); index++;
+        q.w = (float) rot.getDouble(index);
+        index++;
+        q.x = (float) rot.getDouble(index);
+        index++;
+        q.y = (float) rot.getDouble(index);
+        index++;
+        q.z = (float) rot.getDouble(index);
+        index++;
     }
 
-    private void loadScale(MrVector3f s, JSONArray sca) throws JSONException
-    {
+    private void loadScale(MrVector3f s, JSONArray sca) throws JSONException {
         int index = 0;
-        s.x = (float) sca.getDouble(index); index++;
-        s.y = (float) sca.getDouble(index); index++;
+        s.x = (float) sca.getDouble(index);
+        index++;
+        s.y = (float) sca.getDouble(index);
+        index++;
         s.z = (float) sca.getDouble(index);
     }
 }

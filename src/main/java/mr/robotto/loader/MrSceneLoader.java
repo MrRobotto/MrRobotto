@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.MrSceneData;
+import mr.robotto.core.data.scene.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrSceneLoader extends MrObjectLoader {
@@ -30,10 +30,10 @@ public class MrSceneLoader extends MrObjectLoader {
     private MrVector4f getClearColor() throws JSONException {
         JSONArray colorArray = mRoot.getJSONArray("ClearColor");
         MrVector4f clearColor = new MrVector4f();
-        clearColor.w = (float)colorArray.getDouble(0);
-        clearColor.x = (float)colorArray.getDouble(1);
-        clearColor.y = (float)colorArray.getDouble(2);
-        clearColor.z = (float)colorArray.getDouble(3);
+        clearColor.w = (float) colorArray.getDouble(0);
+        clearColor.x = (float) colorArray.getDouble(1);
+        clearColor.y = (float) colorArray.getDouble(2);
+        clearColor.z = (float) colorArray.getDouble(3);
         return clearColor;
     }
 }

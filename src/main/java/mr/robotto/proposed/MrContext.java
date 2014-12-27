@@ -13,12 +13,12 @@ import mr.robotto.collections.MrListNode;
 import mr.robotto.collections.core.MrNode;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrScene;
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.MrSceneData;
-import mr.robotto.core.data.commons.MrSceneObjectType;
-import mr.robotto.core.rendereable.MrModelRender;
-import mr.robotto.core.rendereable.MrSceneRender;
+import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.data.scene.MrSceneData;
+import mr.robotto.core.data.types.MrSceneObjectType;
+import mr.robotto.core.renderer.MrModelRender;
+import mr.robotto.core.renderer.MrSceneRender;
 
 /*
 TODO: Has de crear un findByKey al menos que te busque en los objectsdata
@@ -45,13 +45,13 @@ public class MrContext {
 
     public class Builder {
 
-        private  MrContext mContext;
+        private MrContext mContext;
 
         public Builder(MrContext context) {
             mContext = context;
         }
 
-        private MrSceneObjectsTree getSceneNode(MrSceneObjectsTree parent, MrNode<String> node) {
+        private MrSceneObjectsTree buildSceneNode(MrSceneObjectsTree parent, MrNode<String> node) {
             MrObjectData objectData = getObjectsData().findByKey(node.getData());
             MrSceneObjectType type = objectData.getSceneObjectType();
             switch (type) {
@@ -67,7 +67,7 @@ public class MrContext {
 
         public void build() {
             MrNode<String> root = getObjectsHierarchy().getRoot();
-            MrSceneObjectsTree rootTree = getSceneNode(null, root);
+            MrSceneObjectsTree rootTree = buildSceneNode(null, root);
 
             //MrSceneObjectsTree sceneObjectsTree = new MrSceneObjectsTree();
             for (MrListNode<String> strNode : getObjectsHierarchy()) {

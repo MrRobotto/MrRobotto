@@ -12,9 +12,9 @@ package mr.robotto.loader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.commons.MrSceneObjectType;
-import mr.robotto.core.data.resources.MrTransform;
+import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.commons.MrTransform;
+import mr.robotto.core.data.types.MrSceneObjectType;
 import mr.robotto.loader.model.MrModelLoader;
 
 //TODO: Aqui falta mucho trabajo de control de errores
