@@ -24,24 +24,45 @@ import mr.robotto.collections.core.MrMapFunction;
  */
 public class MrMapTree<K, V> implements Iterable<V> {
 
-    private final MrMapFunction<K, V> mMapFunction;
-    private HashMap<K, MrMapTreeNode<V>> mTree;
-    private MrMapTreeNode<V> mRoot;
+    public final static int BREADTH_TRAVERSAL = 0;
+    public final static int DEPTH_TRAVERSAL = 1;
 
-    public MrMapTree(V root, MrMapFunction<K, V> mapFunction) {
+    private final MrMapFunction<K, V> mMapFunction;
+    private final MrMapTreeNode mRoot;
+    private HashMap<K, MrMapTreeNode> mTree;
+    private int mTraversalMode;
+
+    public MrMapTree(K rootKey, V root, MrMapFunction<K, V> mapFunction) {
         init();
         mMapFunction = mapFunction;
-        mRoot = new MrMapTreeNode<V>(root);
-        mTree.put(mMapFunction.getIdOf(root), mRoot);
+        mRoot = new MrMapTreeNode(rootKey, root);
+        mTree.put(rootKey, mRoot);
+        mTraversalMode = BREADTH_TRAVERSAL;
     }
 
-    private MrMapTree(MrMapTreeNode<V> root, MrMapTree<K, V> mapTree) {
-        this(root.getData(), mapTree.getMapFunction());
+    public MrMapTree(V root, MrMapFunction<K, V> mapFunction) {
+        this(mapFunction.getIdOf(root), root, mapFunction);
+    }
 
+    private MrMapTree(MrMapTreeNode root, MrMapTree<K, V> mapTree) {
+        this(root.getData(), mapTree.getMapFunction());
+        Iterator<Map.Entry<K, V>> it = mapTree.parentKeyChildValueTraversal(mRoot.getKey());
+        while (it.hasNext()) {
+            Map.Entry<K, V> entry = it.next();
+            addChild(entry.getKey(), entry.getValue());
+        }
     }
 
     private void init() {
-        mTree = new HashMap<K, MrMapTreeNode<V>>();
+        mTree = new HashMap<K, MrMapTreeNode>();
+    }
+
+    public int getTraversalMode() {
+        return mTraversalMode;
+    }
+
+    public void setTraversalMode(int traversalMode) {
+        mTraversalMode = traversalMode;
     }
 
     public MrMapFunction<K, V> getMapFunction() {
@@ -68,41 +89,75 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return mTree.size();
     }
 
-    public boolean addChild(K parentKey, V data) {
-        if (!mTree.containsKey(parentKey))
+    public boolean addChild(K parentKey, K childKey, V data) {
+        if (!mTree.containsKey(parentKey)) {
             return false;
-        K key = mMapFunction.getIdOf(data);
-        if (mTree.containsKey(key)) {
-            //quitarlo
         }
-        MrMapTreeNode<V> parent = mTree.get(parentKey);
-        MrMapTreeNode<V> node = new MrMapTreeNode<V>(data);
+        if (mTree.containsKey(childKey)) {
+            removeChild(childKey);
+        }
+        MrMapTreeNode parent = mTree.get(parentKey);
+        MrMapTreeNode node = new MrMapTreeNode(childKey, data);
         parent.addChild(node);
-        mTree.put(key, node);
+        mTree.put(childKey, node);
         return true;
     }
 
-    private void removeRecursive(MrMapTreeNode<V> node) {
+    public boolean addChild(K parentKey, V data) {
+        return addChild(parentKey, mMapFunction.getIdOf(data), data);
+    }
+
+    private void removeChildRecursive(MrMapTreeNode node) {
         if (node.hasChildren()) {
-            for (MrMapTreeNode<V> n : node.getChildren()) {
-                removeRecursive(n);
+            while (node.hasChildren()) {
+                removeChildRecursive(node.getChildren().get(0));
             }
         } else {
             node.getParent().removeChild(node);
-            mTree.remove(mMapFunction.getIdOf(node.getData()));
+            mTree.remove(node.getKey());
         }
     }
 
-    public boolean remove(K key) {
+    public boolean removeChild(K key) {
         if (!mTree.containsKey(key))
             return false;
-        removeRecursive(mTree.get(key));
+        MrMapTreeNode node = mTree.get(key);
+        removeChildRecursive(node);
+        if (node.hasParent()) {
+            node.getParent().removeChild(node);
+        }
+        mTree.remove(node.getKey());
         return true;
     }
 
-    /*public MrMapTree<K,V> getSubTree(K root) {
+    public List<V> getChildrenOf(K key) {
+        Collection<MrMapTreeNode> nodes = mTree.get(key).getChildren();
+        ArrayList<V> list = new ArrayList<>(nodes.size());
+        for (MrMapTreeNode node : nodes) {
+            list.add(node.getData());
+        }
+        return list;
+    }
 
-    }*/
+    public MrMapTree<K, V> getSubTree(K key) {
+        return new MrMapTree<K, V>(mTree.get(key), this);
+    }
+
+    public Iterator<V> parentTraversal(K key) {
+        return new MrParentTraversalIterator(mTree.get(key));
+    }
+
+    public Iterator<V> breadthTraversal(K key) {
+        return new MrBreadthTraversalIterator(mTree.get(key));
+    }
+
+    public Iterator<V> depthTraversal(K key) {
+        return new MrDepthTraversalIterator(mTree.get(key));
+    }
+
+    public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal(K key) {
+        return new MrParentKeyChildValueTraversalIterator(mTree.get(key));
+    }
 
     public Iterator<V> breadthTraversal() {
         return new MrBreadthTraversalIterator(mRoot);
@@ -112,34 +167,76 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return new MrDepthTraversalIterator(mRoot);
     }
 
-    public Iterator<V> parentTraversal(K key) {
-        return new MrParentTraversalIterator(mTree.get(key));
+    public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal() {
+        return new MrParentKeyChildValueTraversalIterator(mRoot);
     }
 
 
     @Override
     public Iterator<V> iterator() {
+        if (mTraversalMode == BREADTH_TRAVERSAL)
+            return breadthTraversal();
+        if (mTraversalMode == DEPTH_TRAVERSAL)
+            return depthTraversal();
         return null;
     }
 
     //implementar multiples traversals
 
-    private class MrParentKeyValueBreadthTraversalIterator implements Iterator<Map.Entry<K, V>> {
-        private LinkedList<Map.Entry<K, V>> mQueue;
+    private class MrParentKeyChildValueTraversalIterator implements Iterator<Map.Entry<K, V>> {
+        private final LinkedList<MrMapTreeNode> mQueue;
 
-        private MrParentKeyValueBreadthTraversalIterator(MrMapTreeNode<V> current) {
-            mQueue = new LinkedList<Map.Entry<K, V>>();
-            //mQueue.add(new Map.Entry<K,V>());
+        public MrParentKeyChildValueTraversalIterator(MrMapTreeNode current) {
+            mQueue = new LinkedList<MrMapTreeNode>();
+            mQueue.add(current);
+        }
+
+        private Map.Entry<K, V> createEntry(final MrMapTreeNode node) {
+            return new Map.Entry<K, V>() {
+                @Override
+                public boolean equals(Object object) {
+                    return false;
+                }
+
+                @Override
+                public K getKey() {
+                    if (node.hasParent())
+                        return node.getParent().getKey();
+                    else
+                        return null;
+                }
+
+                @Override
+                public V getValue() {
+                    return node.getData();
+                }
+
+                @Override
+                public int hashCode() {
+                    K key = getKey();
+                    if (key != null)
+                        return getKey().hashCode();
+                    else
+                        return 0;
+                }
+
+                @Override
+                public V setValue(V object) {
+                    return null;
+                }
+            };
         }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return !mQueue.isEmpty();
         }
 
         @Override
         public Map.Entry<K, V> next() {
-            return null;
+            MrMapTreeNode node = mQueue.pollFirst();
+            mQueue.addAll(node.getChildren());
+            return createEntry(node);
         }
 
         @Override
@@ -149,9 +246,9 @@ public class MrMapTree<K, V> implements Iterable<V> {
     }
 
     private class MrParentTraversalIterator implements Iterator<V> {
-        private MrMapTreeNode<V> mCurrent;
+        private MrMapTreeNode mCurrent;
 
-        public MrParentTraversalIterator(MrMapTreeNode<V> current) {
+        public MrParentTraversalIterator(MrMapTreeNode current) {
             mCurrent = current;
         }
 
@@ -174,10 +271,10 @@ public class MrMapTree<K, V> implements Iterable<V> {
     }
 
     private class MrDepthTraversalIterator implements Iterator<V> {
-        private LinkedList<MrMapTreeNode<V>> mStack;
+        private final LinkedList<MrMapTreeNode> mStack;
 
-        private MrDepthTraversalIterator(MrMapTreeNode<V> current) {
-            mStack = new LinkedList<MrMapTreeNode<V>>();
+        private MrDepthTraversalIterator(MrMapTreeNode current) {
+            mStack = new LinkedList<MrMapTreeNode>();
             mStack.add(current);
         }
 
@@ -188,7 +285,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
 
         @Override
         public V next() {
-            MrMapTreeNode<V> node = mStack.pollLast();
+            MrMapTreeNode node = mStack.pollLast();
             mStack.addAll(node.getChildren());
             return node.getData();
         }
@@ -200,10 +297,10 @@ public class MrMapTree<K, V> implements Iterable<V> {
     }
 
     private class MrBreadthTraversalIterator implements Iterator<V> {
-        private LinkedList<MrMapTreeNode<V>> mQueue;
+        private final LinkedList<MrMapTreeNode> mQueue;
 
-        public MrBreadthTraversalIterator(MrMapTreeNode<V> current) {
-            mQueue = new LinkedList<MrMapTreeNode<V>>();
+        public MrBreadthTraversalIterator(MrMapTreeNode current) {
+            mQueue = new LinkedList<MrMapTreeNode>();
             mQueue.add(current);
         }
 
@@ -214,13 +311,9 @@ public class MrMapTree<K, V> implements Iterable<V> {
 
         @Override
         public V next() {
-            MrMapTreeNode<V> node = mQueue.pollFirst();
+            MrMapTreeNode node = mQueue.pollFirst();
             mQueue.addAll(node.getChildren());
             return node.getData();
-            //mQueue.addAll(mCurrent.getChildren());
-            //MrMapTreeNode<V> aux = mCurrent;
-            //mCurrent = mQueue.pollFirst();
-            //return aux.getData();
         }
 
         @Override
@@ -229,26 +322,28 @@ public class MrMapTree<K, V> implements Iterable<V> {
         }
     }
 
-    private class MrMapTreeNode<V> {
-        private MrMapTreeNode<V> mParent;
-        private List<MrMapTreeNode<V>> mChildren;
-        private V mData;
+    private class MrMapTreeNode {
+        private final V mData;
+        private MrMapTreeNode mParent;
+        private List<MrMapTreeNode> mChildren;
+        private K mKey;
 
-        public MrMapTreeNode(V data) {
+        public MrMapTreeNode(K key, V data) {
             init();
+            mKey = key;
             mData = data;
         }
 
         private void init() {
-            mChildren = new ArrayList<MrMapTreeNode<V>>();
+            mChildren = new ArrayList<MrMapTreeNode>();
             mParent = null;
         }
 
-        public MrMapTreeNode<V> getParent() {
+        public MrMapTreeNode getParent() {
             return mParent;
         }
 
-        private void setParent(MrMapTreeNode<V> parent) {
+        private void setParent(MrMapTreeNode parent) {
             mParent = parent;
         }
 
@@ -256,17 +351,21 @@ public class MrMapTree<K, V> implements Iterable<V> {
             return mData;
         }
 
-        public boolean addChild(MrMapTreeNode<V> node) {
+        public K getKey() {
+            return mKey;
+        }
+
+        public boolean addChild(MrMapTreeNode node) {
             node.setParent(this);
             return mChildren.add(node);
         }
 
-        public boolean removeChild(MrMapTreeNode<V> node) {
+        public boolean removeChild(MrMapTreeNode node) {
             node.setParent(null);
             return mChildren.remove(node);
         }
 
-        public Collection<MrMapTreeNode<V>> getChildren() {
+        public List<MrMapTreeNode> getChildren() {
             return mChildren;
         }
 
@@ -276,6 +375,14 @@ public class MrMapTree<K, V> implements Iterable<V> {
 
         public boolean hasParent() {
             return mParent != null;
+        }
+
+        @Override
+        public String toString() {
+            return "MrMapTreeNode{" +
+                    "mKey=" + mKey +
+                    ", mData=" + mData +
+                    '}';
         }
     }
 }

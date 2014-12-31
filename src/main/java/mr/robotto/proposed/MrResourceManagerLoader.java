@@ -14,18 +14,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.collections.MrListNode;
+import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.loader.MrAbstractLoader;
 import mr.robotto.loader.MrObjectLoader;
 
-public class MrContextLoader extends MrAbstractLoader<MrContext> {
+public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager> {
 
-    public MrContextLoader(JSONObject obj) {
+    public MrResourceManagerLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrContext parse() throws JSONException {
-        MrContext context = new MrContext(getObjectsData(),getHierarchy());
+    public MrResourceManager parse() throws JSONException {
+        MrResourceManager context = new MrResourceManager(getObjectsData(), getHierarchy2());
         return context;
     }
 
@@ -42,6 +44,29 @@ public class MrContextLoader extends MrAbstractLoader<MrContext> {
             objectDataList.add(objectLoader.parse());
         }
         return objectDataList;
+    }
+
+    private void getNodes2(MrMapTree<String, String> tree, String parentKey, JSONObject node) throws JSONException {
+        JSONArray children = node.getJSONArray("Children");
+        for (int i = 0; i < children.length(); i++) {
+            JSONObject n = children.getJSONObject(i);
+            String key = n.getString("Name");
+            tree.addChild(parentKey, key);
+            getNodes2(tree, key, n);
+        }
+    }
+
+    private MrMapTree<String, String> getHierarchy2() throws JSONException {
+        JSONObject root = mRoot.getJSONObject("Hierarchy");
+        String rootKey = root.getString("Name");
+        MrMapTree<String, String> tree = new MrMapTree<String, String>(rootKey, new MrMapFunction<String, String>() {
+            @Override
+            public String getIdOf(String s) {
+                return s;
+            }
+        });
+        getNodes2(tree, rootKey, root);
+        return tree;
     }
 
     /**
