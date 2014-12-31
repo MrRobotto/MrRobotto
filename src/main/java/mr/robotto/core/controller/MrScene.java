@@ -10,22 +10,14 @@
 package mr.robotto.core.controller;
 
 import mr.robotto.core.data.scene.MrSceneData;
-import mr.robotto.core.renderer.MrSceneRender;
+import mr.robotto.core.renderer.MrObjectRender;
 
-public class MrScene extends MrObject<MrSceneData, MrSceneRender> {
-    public MrScene(MrSceneData data, MrSceneRender render) {
+public class MrScene extends MrObject<MrSceneData> {
+    public MrScene(MrSceneData data, MrObjectRender render) {
         super(data, render);
     }
 
     public void initializeSizeDependant(int width, int height) {
 
     }
-
-    /*public MrObjectData getObject(String name) {
-        return objects.get(name);
-    }
-
-    public MrModelData getModel(String name) {
-        return models.get(name);
-    }*/
 }

@@ -19,13 +19,13 @@ import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
 
-public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender> {
+public abstract class MrObject<D extends MrObjectData> {
     private D mData;
-    private R mRender;
+    private MrObjectRender mRender;
     private MrRenderingContext mContext;
     private Queue<MrAction<D>> mActions;
 
-    protected MrObject(D data, R render) {
+    protected MrObject(D data, MrObjectRender render) {
         mData = data;
         mRender = render;
     }
@@ -36,6 +36,10 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender>
 
     public void initialize() {
         mRender.initializeRender(mData, mContext);
+    }
+
+    public void initializeSizeDependant(int w, int h) {
+        mRender.initializeSizeDependant(w, h);
     }
 
     public boolean isInitialized() {
@@ -62,11 +66,11 @@ public abstract class MrObject<D extends MrObjectData, R extends MrObjectRender>
         return mData.getName();
     }
 
-    public R getRender() {
+    public MrObjectRender getRender() {
         return mRender;
     }
 
-    public void setRender(R render) {
+    public void setRender(MrObjectRender render) {
         this.mRender = render;
     }
 

@@ -9,11 +9,20 @@
 
 package mr.robotto.proposed;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import mr.robotto.collections.MrMapTree;
+import mr.robotto.core.controller.MrModel;
+import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.data.scene.MrSceneData;
+import mr.robotto.core.renderer.MrModelRender;
+import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.core.renderer.MrSceneRender;
 
 /*
 TODO: Has de crear un findByKey al menos que te busque en los objectsdata
@@ -38,25 +47,58 @@ public class MrResourceManager {
         return mKeysTree;
     }
 
-    public static class Builder2 {
+    public static class Builder {
         private MrResourceManager mManager;
+        private HashMap<String, MrObjectRender> mRenderers;
 
-        public Builder2(MrResourceManager manager) {
+        public Builder(MrResourceManager manager) {
             mManager = manager;
+        }
+
+        private MrObjectRender getRenderer(MrObjectData object) {
+            //si esta en los renderers cogelo de ahi, si no
+            switch (object.getSceneObjectType()) {
+                case CAMERA:
+                    return null;
+                case MODEL:
+                    return new MrModelRender();
+                case SCENE:
+                    return new MrSceneRender();
+                default:
+                    return null;
+            }
+        }
+
+        private MrObject getObject(MrObjectData objectData) {
+            MrObjectRender render = getRenderer(objectData);
+            switch (objectData.getSceneObjectType()) {
+                case CAMERA:
+                    return null;
+                case MODEL:
+                    return new MrModel((MrModelData) objectData, render);
+                case SCENE:
+                    return new MrScene((MrSceneData) objectData, render);
+                default:
+                    return null;
+            }
         }
 
         public MrSceneObjectTree buildSceneObjectsTree() {
             MrMapTree<String, String> keyTree = mManager.getKeysTree();
             MrObjectDataContainer objects = mManager.getObjectsData();
-            MrObjectData root = objects.findByKey(keyTree.getRoot());
-            MrSceneObjectTree tree = new MrSceneObjectTree(root);
+            MrObjectData rootData = objects.findByKey(keyTree.getRoot());
+            MrObjectRender render = getRenderer(rootData);
+            MrSceneObjectTree tree = new MrSceneObjectTree(getObject(rootData));
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             //Skip the root
             if (it.hasNext())
                 it.next();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
-                tree.addChild(entry.getKey(), objects.findByKey(entry.getValue()));
+                //Gets the value
+                MrObjectData objectData = objects.findByKey(entry.getValue());
+                //Gets the root key via entry.getKey
+                tree.addChild(entry.getKey(), getObject(objectData));
             }
             return tree;
         }

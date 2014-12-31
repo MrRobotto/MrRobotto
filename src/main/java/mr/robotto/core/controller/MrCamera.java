@@ -10,13 +10,13 @@
 package mr.robotto.core.controller;
 
 import mr.robotto.core.data.camera.MrCameraData;
-import mr.robotto.core.renderer.MrCameraRender;
+import mr.robotto.core.renderer.MrObjectRender;
 
 /**
  * Created by Aarón on 01/12/2014.
  */
-public class MrCamera extends MrObject<MrCameraData, MrCameraRender> {
-    protected MrCamera(MrCameraData data, MrCameraRender render) {
+public class MrCamera extends MrObject<MrCameraData> {
+    protected MrCamera(MrCameraData data, MrObjectRender render) {
         super(data, render);
     }
 }
