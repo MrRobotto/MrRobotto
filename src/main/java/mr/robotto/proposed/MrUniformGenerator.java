@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,46 +9,39 @@
 
 package mr.robotto.proposed;
 
-import mr.robotto.core.data.MrCameraData;
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.resources.lens.MrLens;
-import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.core.controller.MrObject;
+import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
-public class MrUniformGenerator {
+/**
+ * Created by Aarón on 05/01/2015.
+ */
+public abstract class MrUniformGenerator {
 
-    public static MrMatrix4f getModelViewProjectionMatrix(MrCameraData camera, MrModelData model) {
-        return null;
+    public final static int OBJECT_LEVEL = 0;
+    public final static int SCENE_LEVEL = 1;
+    public final static int USER_LEVEL = 2;
+
+    private String mObjectName;
+    private String mUniform;
+    private int mPriority;
+
+    public MrUniformGenerator(String objectName, String uniform, int priority) {
+        mObjectName = objectName;
+        mUniform = uniform;
+        mPriority = priority;
     }
 
-    public static MrMatrix4f getModelViewMatrix(MrCameraData camera) {
-        return null;
+    public String getObjectName() {
+        return mObjectName;
     }
 
-    public static MrMatrix4f getModelMatrix(MrModelData model) {
-        return null;
+    public String getUniform() {
+        return mUniform;
     }
 
-    public static MrMatrix4f getViewMatrix(MrCameraData camera) {
-        return null;
+    public int getPriority() {
+        return mPriority;
     }
 
-    public static MrMatrix4f getProjectionMatrix(MrLens lens) {
-        return null;
-    }
-
-    public static MrMatrix4f getViewProjectionMatrix(MrCameraData camera) {
-        return null;
-    }
-
-    public static MrMatrix4f getTransposedModelViewMatrix(MrCameraData camera, MrModelData model) {
-        return null;
-    }
-
-    public static MrMatrix4f getInvertedTransposedModelViewMatrix(MrCameraData camera, MrModelData model) {
-        return null;
-    }
-
-    /*public MrMatrix4f getTextureTransformationMatrix() {
-
-    }*/
+    public abstract MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrObject object);
 }

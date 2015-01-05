@@ -12,9 +12,9 @@ package mr.robotto.loader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.resources.MrTransform;
-import mr.robotto.core.data.resources.commons.MrSceneObjType;
+import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.commons.MrTransform;
+import mr.robotto.core.data.types.MrSceneObjectType;
 import mr.robotto.loader.model.MrModelLoader;
 
 //TODO: Aqui falta mucho trabajo de control de errores
@@ -33,9 +33,9 @@ public class MrObjectLoader extends MrAbstractLoader<MrObjectData> {
         return transformLoader.parse();
     }
 
-    protected MrSceneObjType getSceneObjType() throws JSONException {
+    protected MrSceneObjectType getSceneObjType() throws JSONException {
         String typeStr = mRoot.getString("Type");
-        return MrSceneObjType.valueOf(typeStr.toUpperCase());
+        return MrSceneObjectType.valueOf(typeStr.toUpperCase());
     }
 
     //TODO: Camera

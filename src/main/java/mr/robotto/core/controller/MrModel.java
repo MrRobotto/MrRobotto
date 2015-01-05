@@ -9,12 +9,16 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.rendereable.objectrenderers.MrModelRender;
+import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.linearalgebra.MrMatrix4f;
 
-
-public class MrModel extends MrObject<MrModelData, MrModelRender> {
-    public MrModel(MrModelData data, MrModelRender render) {
+public class MrModel extends MrObject<MrModelData> {
+    public MrModel(MrModelData data, MrObjectRender render) {
         super(data, render);
+    }
+
+    public MrMatrix4f getModelMatrix() {
+        return getData().getTransform().getAsMatrix();
     }
 }

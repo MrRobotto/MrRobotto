@@ -24,8 +24,8 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.proposed.MrContext;
-import mr.robotto.proposed.MrContextLoader;
+import mr.robotto.proposed.MrResourceManager;
+import mr.robotto.proposed.MrResourceManagerLoader;
 import mr.robotto.utils.MrFileReader;
 
 /**
@@ -39,18 +39,18 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testLoaders() {
         Context context = getContext();
         AssetManager am = context.getAssets();
-        MrContext context1 = null;
+        MrResourceManager context1 = null;
         try {
             InputStream stream = am.open("kingVer3.json");
             JSONObject drac = (JSONObject)new JSONTokener(MrFileReader.read(stream)).nextValue();
             /*MrObjectLoader loader = new MrObjectLoader(drac);
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);
-            getRenderer().model = new MrModelController((MrModelData)ob.getChildren().find(0), new MrModelRender());*/
-            MrContextLoader loader = new MrContextLoader(drac);
+            getRenderer().model = new MrModelController((MrModelData)ob.getChildren().findByKey(0), new MrModelRender());*/
+            MrResourceManagerLoader loader = new MrResourceManagerLoader(drac);
             context1 = loader.parse();
-            //getRenderer().setScene((MrSceneData)context1.getObjectsData().find("Scene"));
-            //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().find("Cube"), new MrModelRender());
+            //getRenderer().setScene((MrSceneData)context1.getObjectsData().findByKey("Scene"));
+            //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().findByKey("Cube"), new MrModelRender());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

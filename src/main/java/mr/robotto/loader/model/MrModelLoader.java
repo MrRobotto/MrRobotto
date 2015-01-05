@@ -13,25 +13,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.resources.mesh.MrMesh;
-import mr.robotto.core.data.resources.shaders.MrShaderProgram;
-import mr.robotto.core.data.resources.shaders.input.MrUniformType;
-import mr.robotto.core.data.resources.uniformkeys.MrUniformKey;
-import mr.robotto.core.data.resources.uniformkeys.MrUniformKeyContainer;
+import mr.robotto.core.data.commons.MrUniformKey;
+import mr.robotto.core.data.commons.shader.MrShaderProgram;
+import mr.robotto.core.data.containers.MrUniformKeyContainer;
+import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.data.model.mesh.MrMesh;
+import mr.robotto.core.data.types.MrUniformType;
 import mr.robotto.loader.MrObjectLoader;
 import mr.robotto.loader.model.shader.MrShaderProgramLoader;
 
-public class MrModelLoader extends MrObjectLoader
-{
-    public MrModelLoader(JSONObject obj)
-    {
+public class MrModelLoader extends MrObjectLoader {
+    public MrModelLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrModelData parse() throws JSONException
-    {
+    public MrModelData parse() throws JSONException {
         MrModelData model = new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh());
         return model;
     }
