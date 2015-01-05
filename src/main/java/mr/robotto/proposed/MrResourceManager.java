@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -83,12 +83,12 @@ public class MrResourceManager {
             }
         }
 
-        public MrSceneObjectTree buildSceneObjectsTree() {
+        public MrSceneObjectsTree buildSceneObjectsTree() {
             MrMapTree<String, String> keyTree = mManager.getKeysTree();
             MrObjectDataContainer objects = mManager.getObjectsData();
             MrObjectData rootData = objects.findByKey(keyTree.getRoot());
             MrObjectRender render = getRenderer(rootData);
-            MrSceneObjectTree tree = new MrSceneObjectTree(getObject(rootData));
+            MrSceneObjectsTree tree = new MrSceneObjectsTree(getObject(rootData));
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             //Skip the root
             if (it.hasNext())
@@ -98,7 +98,7 @@ public class MrResourceManager {
                 //Gets the value
                 MrObjectData objectData = objects.findByKey(entry.getValue());
                 //Gets the root key via entry.getKey
-                tree.addChild(entry.getKey(), getObject(objectData));
+                tree.addChildByKey(entry.getKey(), getObject(objectData));
             }
             return tree;
         }

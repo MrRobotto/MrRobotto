@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -53,11 +53,6 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         mDepth = 0;
     }
 
-    private void setParent(MrMapNode<K, V> parent) {
-        mParent = parent;
-        setDepth();
-    }
-
     private void setDepth() {
         if (mParent != null) {
             mDepth = mParent.getDepth() + 1;
@@ -67,7 +62,7 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
     }
 
     private K getElementId() {
-        return mMapFunction.getIdOf(mData);
+        return mMapFunction.getKeyOf(mData);
     }
 
     public V getData() {
@@ -90,11 +85,16 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         return mParent;
     }
 
+    private void setParent(MrMapNode<K, V> parent) {
+        mParent = parent;
+        setDepth();
+    }
+
     public Collection<MrMapNode<K, V>> getChildren() {
         return mChildren;
     }
 
-    public boolean addChild(MrMapNode<K,V> node) {
+    public boolean addChild(MrMapNode<K, V> node) {
         if (node.hasParent()) {
             node.getParent().removeChild(node);
         }
@@ -107,7 +107,7 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         return mChildren.add(node);
     }
 
-    public boolean removeChild(MrMapNode<K,V> node) {
+    public boolean removeChild(MrMapNode<K, V> node) {
         if (mChildren.remove(node)) {
             node.setParent(null);
             for (MrMapNode<K, V> m : node) {
@@ -146,7 +146,7 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         return mTree.size();
     }
 
-    public int compareTo(MrMapNode<K,V> node) {
+    public int compareTo(MrMapNode<K, V> node) {
         if (node.getDepth() < mDepth) {
             return 1;
         } else if (node.getDepth() > mDepth) {
@@ -177,6 +177,18 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         return mTree.containsKey(key);
     }
 
+    public Collection<MrMapNode<K, V>> getNodes() {
+        return mTree.values();
+    }
+
+    public Collection<K> keys() {
+        return mTree.keySet();
+    }
+
+    public Collection<V> values() {
+        return mTreeValues.values();
+    }
+
     private class MrNodeMapIterator implements Iterator<MrMapNode<K, V>> {
         private MrMapNode<K, V> mCurrent;
         private LinkedList<MrMapNode<K, V>> mQueue;
@@ -204,17 +216,5 @@ public class MrMapNode<K, V> implements Iterable<MrMapNode<K, V>> {
         public void remove() {
 
         }
-    }
-
-    public Collection<MrMapNode<K, V>> getNodes() {
-        return mTree.values();
-    }
-
-    public Collection<K> keys() {
-        return mTree.keySet();
-    }
-
-    public Collection<V> values() {
-        return mTreeValues.values();
     }
 }

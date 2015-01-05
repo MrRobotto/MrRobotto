@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,36 +9,32 @@
 
 package mr.robotto.proposed;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import mr.robotto.collections.MrMapNode;
+import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.types.MrSceneObjectType;
 
 /**
- * Created by Aarón on 28/11/2014.
+ * Created by Aarón on 31/12/2014.
  */
-public class MrSceneObjectsTree extends MrMapNode<String, MrObject> {
+public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
 
     private HashMap<MrSceneObjectType, List<MrObject>> mTags;
+    private MrRenderingContext mRenderingContext;
 
-    public MrSceneObjectsTree(MrMapNode<String, MrObject> parent, MrObject data) {
-        super(parent, data, getMapFunction());
+    public MrSceneObjectsTree(MrObject root) {
+        super(root, createMapFunction());
         init();
     }
 
-    public MrSceneObjectsTree(MrObject data) {
-        super(data, getMapFunction());
-        init();
-    }
-
-    private static MrMapFunction<String, MrObject> getMapFunction() {
+    private static MrMapFunction<String, MrObject> createMapFunction() {
         return new MrMapFunction<String, MrObject>() {
             @Override
-            public String getIdOf(MrObject mrObject) {
+            public String getKeyOf(MrObject mrObject) {
                 return mrObject.getName();
             }
         };
@@ -46,37 +42,51 @@ public class MrSceneObjectsTree extends MrMapNode<String, MrObject> {
 
     private void init() {
         mTags = new HashMap<MrSceneObjectType, List<MrObject>>();
+        for (MrSceneObjectType type : MrSceneObjectType.values()) {
+            mTags.put(type, new ArrayList<MrObject>());
+        }
+        mRenderingContext = new MrRenderingContext();
     }
 
-    private void addByTag(MrMapNode<String, MrObject> node) {
-        MrObject o = node.getData();
-        MrSceneObjectType type = o.getSceneObjectType();
-        mTags.get(type).add(o);
+    private void addByTag(MrObject object) {
+        MrSceneObjectType type = object.getSceneObjectType();
+        mTags.get(type).add(object);
+    }
+
+    private void removeByTag(MrObject object) {
+        MrSceneObjectType type = object.getSceneObjectType();
+        mTags.get(type).remove(object);
+    }
+
+    public MrRenderingContext getRenderingConte() {
+        return mRenderingContext;
     }
 
     @Override
-    public boolean addChild(MrMapNode<String, MrObject> node) {
-        for (MrMapNode<String, MrObject> n : node) {
-            addByTag(n);
-        }
-        return super.addChild(node);
-    }
-
-    private void removeByTag(MrMapNode<String, MrObject> node) {
-        MrObject o = node.getData();
-        MrSceneObjectType type = o.getSceneObjectType();
-        mTags.get(type).remove(o);
+    public boolean addChildByKey(String parentKey, MrObject data) {
+        addByTag(data);
+        return super.addChildByKey(parentKey, data);
     }
 
     @Override
-    public boolean removeChild(MrMapNode<String, MrObject> node) {
-        for (MrMapNode<String, MrObject> n : node) {
-            removeByTag(n);
-        }
-        return super.removeChild(node);
+    public boolean addChildByValue(MrObject parent, MrObject data) {
+        addByTag(data);
+        return super.addChildByValue(parent, data);
     }
 
-    public Collection<MrObject> getByType(MrSceneObjectType type) {
+    @Override
+    public boolean removeChildByKey(String key) {
+        removeByTag(findByKey(key));
+        return super.removeChildByKey(key);
+    }
+
+    @Override
+    public boolean removeChildByValue(MrObject data) {
+        removeByTag(data);
+        return super.removeChildByValue(data);
+    }
+
+    public List<MrObject> getByType(MrSceneObjectType type) {
         return mTags.get(type);
     }
 }

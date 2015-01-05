@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,5 +13,5 @@ package mr.robotto.collections.core;
  * Created by Aarón on 23/11/2014.
  */
 public interface MrMapFunction<K,V> {
-    public K getIdOf(V v);
+    public K getKeyOf(V v);
 }

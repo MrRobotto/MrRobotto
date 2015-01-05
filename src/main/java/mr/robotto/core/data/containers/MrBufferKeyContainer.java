@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,7 +26,7 @@ public class MrBufferKeyContainer extends MrMapContainer<MrAttributeType, MrBuff
     private static MrMapFunction<MrAttributeType, MrBufferKey> getMapFunction() {
         return new MrMapFunction<MrAttributeType, MrBufferKey>() {
             @Override
-            public MrAttributeType getIdOf(MrBufferKey mrBufferKey) {
+            public MrAttributeType getKeyOf(MrBufferKey mrBufferKey) {
                 return mrBufferKey.getAttributeType();
             }
         };

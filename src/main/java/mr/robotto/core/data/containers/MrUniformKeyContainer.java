@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -26,7 +26,7 @@ public class MrUniformKeyContainer extends MrMapContainer<MrUniformType, MrUnifo
     private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
         return new MrMapFunction<MrUniformType, MrUniformKey>() {
             @Override
-            public MrUniformType getIdOf(MrUniformKey mrUniformKey) {
+            public MrUniformType getKeyOf(MrUniformKey mrUniformKey) {
                 return mrUniformKey.getUniformType();
             }
         };

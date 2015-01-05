@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -50,6 +50,7 @@ public abstract class MrObject<D extends MrObjectData> {
         return mContext;
     }
 
+    //TODO: Update render
     public void setRenderingContext(MrRenderingContext context) {
         mContext = context;
     }
@@ -74,6 +75,7 @@ public abstract class MrObject<D extends MrObjectData> {
         this.mRender = render;
     }
 
+    //TODO: This should be abstract
     public MrSceneObjectType getSceneObjectType() {
         return mData.getSceneObjectType();
     }

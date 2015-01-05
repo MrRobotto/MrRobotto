@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,7 +30,7 @@ public class MrMapContainer<K, V> implements Iterable<V> {
     }
 
     public boolean add(V v) {
-        return mElements.put(mMapFunction.getIdOf(v), v) != null;
+        return mElements.put(mMapFunction.getKeyOf(v), v) != null;
     }
 
     public void clear() {
@@ -38,7 +38,7 @@ public class MrMapContainer<K, V> implements Iterable<V> {
     }
 
     public boolean contains(V v) {
-        return mElements.containsKey(mMapFunction.getIdOf(v));
+        return mElements.containsKey(mMapFunction.getKeyOf(v));
     }
 
     public boolean isEmpty() {
@@ -51,7 +51,7 @@ public class MrMapContainer<K, V> implements Iterable<V> {
     }
 
     public boolean remove(V v) {
-        return removeByKey(mMapFunction.getIdOf(v));
+        return removeByKey(mMapFunction.getKeyOf(v));
     }
 
     public int size() {

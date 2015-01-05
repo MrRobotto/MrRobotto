@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -25,7 +25,7 @@ public class MrObjectDataContainer extends MrMapContainer<String, MrObjectData> 
     private static MrMapFunction<String, MrObjectData> getMapFunction() {
         return new MrMapFunction<String, MrObjectData>() {
             @Override
-            public String getIdOf(MrObjectData mrObjectData) {
+            public String getKeyOf(MrObjectData mrObjectData) {
                 return mrObjectData.getName();
             }
         };

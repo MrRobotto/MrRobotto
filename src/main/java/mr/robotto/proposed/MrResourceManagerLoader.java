@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,7 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.collections.MrListNode;
 import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.loader.MrAbstractLoader;
@@ -27,12 +26,13 @@ public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager>
 
     @Override
     public MrResourceManager parse() throws JSONException {
-        MrResourceManager context = new MrResourceManager(getObjectsData(), getHierarchy2());
+        MrResourceManager context = new MrResourceManager(getObjectsData(), getHierarchy());
         return context;
     }
 
     /**
      * Gets all objects-data stored in the JSONObject
+     *
      * @return
      * @throws JSONException
      */
@@ -46,55 +46,26 @@ public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager>
         return objectDataList;
     }
 
-    private void getNodes2(MrMapTree<String, String> tree, String parentKey, JSONObject node) throws JSONException {
+    private void getNodes(MrMapTree<String, String> tree, String parentKey, JSONObject node) throws JSONException {
         JSONArray children = node.getJSONArray("Children");
         for (int i = 0; i < children.length(); i++) {
             JSONObject n = children.getJSONObject(i);
             String key = n.getString("Name");
-            tree.addChild(parentKey, key);
-            getNodes2(tree, key, n);
+            tree.addChildByKey(parentKey, key);
+            getNodes(tree, key, n);
         }
     }
 
-    private MrMapTree<String, String> getHierarchy2() throws JSONException {
+    private MrMapTree<String, String> getHierarchy() throws JSONException {
         JSONObject root = mRoot.getJSONObject("Hierarchy");
         String rootKey = root.getString("Name");
         MrMapTree<String, String> tree = new MrMapTree<String, String>(rootKey, new MrMapFunction<String, String>() {
             @Override
-            public String getIdOf(String s) {
+            public String getKeyOf(String s) {
                 return s;
             }
         });
-        getNodes2(tree, rootKey, root);
+        getNodes(tree, rootKey, root);
         return tree;
-    }
-
-    /**
-     * Gets all children of node recursively
-     * @param jsonNode
-     * @param node
-     * @throws JSONException
-     */
-    private void getNodes(JSONObject jsonNode, MrListNode<String> node) throws JSONException {
-        JSONArray jsonChildren = jsonNode.getJSONArray("Children");
-        for (int i = 0; i < jsonChildren.length(); i++) {
-            JSONObject jsonChildNode = jsonChildren.getJSONObject(i);
-            String childNodeData = jsonChildNode.getString("Name");
-            MrListNode<String> childNode = new MrListNode<String>(node, childNodeData);
-            getNodes(jsonChildNode, childNode);
-        }
-    }
-
-    /**
-     * Gets all the hierarchy
-     * @return
-     * @throws JSONException
-     */
-    private MrListNode<String> getHierarchy() throws JSONException {
-        JSONObject jsonRoot = mRoot.getJSONObject("Hierarchy");
-        String rootData = jsonRoot.getString("Name");
-        MrListNode<String> rootNode = new MrListNode<String>(null, rootData);
-        getNodes(jsonRoot, rootNode);
-        return rootNode;
     }
 }
