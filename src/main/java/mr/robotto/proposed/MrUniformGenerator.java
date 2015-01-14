@@ -9,6 +9,7 @@
 
 package mr.robotto.proposed;
 
+import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
@@ -21,18 +22,12 @@ public abstract class MrUniformGenerator {
     public final static int SCENE_LEVEL = 1;
     public final static int USER_LEVEL = 2;
 
-    private String mObjectName;
     private String mUniform;
     private int mPriority;
 
-    public MrUniformGenerator(String objectName, String uniform, int priority) {
-        mObjectName = objectName;
+    public MrUniformGenerator(String uniform, int priority) {
         mUniform = uniform;
         mPriority = priority;
-    }
-
-    public String getObjectName() {
-        return mObjectName;
     }
 
     public String getUniform() {

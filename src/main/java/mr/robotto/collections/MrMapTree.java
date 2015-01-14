@@ -19,6 +19,9 @@ import java.util.Map;
 
 import mr.robotto.collections.core.MrMapFunction;
 
+//TODO: Make toggeable overriding of keys
+//TODO: Add methods like clear or contains like in mapcontainer
+
 /**
  * Created by Aarón on 26/12/2014.
  */
@@ -95,7 +98,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
         }
         K childKey = mMapFunction.getKeyOf(data);
         if (mTree.containsKey(childKey)) {
-            removeChildByKey(childKey);
+            removeByKey(childKey);
         }
         MrMapTreeNode parent = mTree.get(parentKey);
         MrMapTreeNode node = new MrMapTreeNode(data);
@@ -104,7 +107,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return true;
     }
 
-    public boolean addChildByValue(V parent, V data) {
+    public boolean addChild(V parent, V data) {
         return addChildByKey(mMapFunction.getKeyOf(parent), data);
     }
 
@@ -119,7 +122,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
         }
     }
 
-    public boolean removeChildByKey(K key) {
+    public boolean removeByKey(K key) {
         if (!mTree.containsKey(key))
             return false;
         MrMapTreeNode node = mTree.get(key);
@@ -131,8 +134,8 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return true;
     }
 
-    public boolean removeChildByValue(V data) {
-        return removeChildByKey(mMapFunction.getKeyOf(data));
+    public boolean remove(V data) {
+        return removeByKey(mMapFunction.getKeyOf(data));
     }
 
     public List<V> getChildrenOfByKey(K key) {
@@ -144,7 +147,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return list;
     }
 
-    public List<V> getChildrenOfByValue(V data) {
+    public List<V> getChildrenOf(V data) {
         return getChildrenOfByKey(mMapFunction.getKeyOf(data));
     }
 
@@ -152,7 +155,7 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return new MrMapTree<K, V>(mTree.get(key), this);
     }
 
-    public MrMapTree<K, V> getSubTreeByValue(V data) {
+    public MrMapTree<K, V> getSubTree(V data) {
         return getSubTreeByKey(mMapFunction.getKeyOf(data));
     }
 
@@ -172,19 +175,19 @@ public class MrMapTree<K, V> implements Iterable<V> {
         return new MrParentKeyChildValueTraversalIterator(mTree.get(key));
     }
 
-    public Iterator<V> parentTraversalByValue(V data) {
+    public Iterator<V> parentTraversal(V data) {
         return parentTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
-    public Iterator<V> breadthTraversalByValue(V data) {
+    public Iterator<V> breadthTraversal(V data) {
         return breadthTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
-    public Iterator<V> depthTraversalByValue(V data) {
+    public Iterator<V> depthTraversal(V data) {
         return depthTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
-    public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversalByValue(V data) {
+    public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal(V data) {
         return parentKeyChildValueTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
@@ -208,8 +211,6 @@ public class MrMapTree<K, V> implements Iterable<V> {
             return depthTraversal();
         return null;
     }
-
-    //implementar multiples traversals
 
     private class MrParentKeyChildValueTraversalIterator implements Iterator<Map.Entry<K, V>> {
         private final LinkedList<MrMapTreeNode> mQueue;

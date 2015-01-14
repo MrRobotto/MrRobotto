@@ -18,20 +18,29 @@ import mr.robotto.core.data.types.MrSceneObjectType;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.proposed.MrUniformGeneratorContainer;
 
-public abstract class MrObject<D extends MrObjectData> {
-    private D mData;
+public abstract class MrObject {
+    private MrObjectData mData;
     private MrObjectRender mRender;
     private MrRenderingContext mContext;
-    private Queue<MrAction<D>> mActions;
+    private MrUniformGeneratorContainer mUniformGenerators;
+    private Queue<MrAction<MrObjectData>> mActions;
 
-    protected MrObject(D data, MrObjectRender render) {
+    protected MrObject(MrObjectData data, MrObjectRender render, MrUniformGeneratorContainer uniformGenerator) {
         mData = data;
         mRender = render;
+        mUniformGenerators = uniformGenerator;
+    }
+
+    protected MrObject(MrObjectData data, MrObjectRender render) {
+        mData = data;
+        mRender = render;
+        mUniformGenerators = new MrUniformGeneratorContainer();
     }
 
     private void init() {
-        mActions = new LinkedList<MrAction<D>>();
+        mActions = new LinkedList<MrAction<MrObjectData>>();
     }
 
     public void initialize() {
@@ -55,11 +64,19 @@ public abstract class MrObject<D extends MrObjectData> {
         mContext = context;
     }
 
+    public MrUniformGeneratorContainer getUniformGenerators() {
+        return mUniformGenerators;
+    }
+
+    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
+        mUniformGenerators = uniformGenerators;
+    }
+
     public void render() {
         mRender.render();
     }
 
-    public D getData() {
+    public MrObjectData getData() {
         return mData;
     }
 
@@ -80,11 +97,11 @@ public abstract class MrObject<D extends MrObjectData> {
         return mData.getSceneObjectType();
     }
 
-    public void addAction(final MrAction<D> action) {
+    public void addAction(final MrAction<MrObjectData> action) {
         mActions.add(action);
     }
 
-    public Collection<MrAction<D>> getActions() {
+    public Collection<MrAction<MrObjectData>> getActions() {
         return mActions;
     }
 }

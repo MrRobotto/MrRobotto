@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import mr.robotto.collections.MrMapTree;
+import mr.robotto.context.MrObjectDataContainer;
+import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.controller.MrScene;

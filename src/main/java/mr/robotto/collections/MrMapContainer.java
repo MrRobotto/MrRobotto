@@ -33,6 +33,23 @@ public class MrMapContainer<K, V> implements Iterable<V> {
         return mElements.put(mMapFunction.getKeyOf(v), v) != null;
     }
 
+    //TODO: Check addition when override
+    public boolean addAll(MrMapContainer<K, V> container) {
+        boolean added = true;
+        for (V data : container) {
+            added &= add(data);
+        }
+        return added;
+    }
+
+    public boolean remove(V v) {
+        return removeByKey(mMapFunction.getKeyOf(v));
+    }
+
+    public boolean removeByKey(K k) {
+        return mElements.remove(k) != null;
+    }
+
     public void clear() {
         mElements.clear();
     }
@@ -50,16 +67,8 @@ public class MrMapContainer<K, V> implements Iterable<V> {
         return mElements.values().iterator();
     }
 
-    public boolean remove(V v) {
-        return removeByKey(mMapFunction.getKeyOf(v));
-    }
-
     public int size() {
         return mElements.size();
-    }
-
-    public boolean put(K k, V v) {
-        return mElements.put(k, v) != null;
     }
 
     public V findByKey(K k) {
@@ -68,10 +77,6 @@ public class MrMapContainer<K, V> implements Iterable<V> {
 
     public boolean containsKey(K k) {
         return mElements.containsKey(k);
-    }
-
-    public boolean removeByKey(K k) {
-        return mElements.remove(k) != null;
     }
 
     @Override

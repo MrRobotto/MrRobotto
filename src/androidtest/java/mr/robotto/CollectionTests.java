@@ -31,9 +31,9 @@ public class CollectionTests extends TestCase {
         assertTrue(root.isLeaf());
         assertFalse(root.hasParent());
         assertNull(root.getParent());
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         root.clearChildren();
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         root.clearParent();
         assertNull(root.getParent());
 
@@ -45,21 +45,21 @@ public class CollectionTests extends TestCase {
         n1.addChild(n12);
         root.addChild(n1);
         root.addChild(n2);
-        assertEquals(root.getChildren().size(),2);
-        assertEquals(root.getDepth(),0);
-        assertEquals(n1.getDepth(),1);
-        assertEquals(n2.getDepth(),1);
-        assertEquals(n11.getDepth(),2);
-        assertEquals(n12.getDepth(),2);
+        assertEquals(root.getChildren().size(), 2);
+        assertEquals(root.getDepth(), 0);
+        assertEquals(n1.getDepth(), 1);
+        assertEquals(n2.getDepth(), 1);
+        assertEquals(n11.getDepth(), 2);
+        assertEquals(n12.getDepth(), 2);
 
         root.clearChildren();
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         assertNull(n1.getParent());
-        assertEquals(n1.getDepth(),0);
+        assertEquals(n1.getDepth(), 0);
 
         n11.clearParent();
-        assertEquals(n11.getParent(),null);
-        assertEquals(n11.getDepth(),0);
+        assertEquals(n11.getParent(), null);
+        assertEquals(n11.getDepth(), 0);
         assertEquals(n1.getChildren().size(), 1);
     }
 
@@ -113,7 +113,7 @@ public class CollectionTests extends TestCase {
             assertEquals(it1.next().intValue(), i);
         }
 
-        tree.removeChildByKey("4");
+        tree.removeByKey("4");
         assertEquals(tree.size(), 12);
         assertEquals(tree.hasKey("4"), false);
         assertEquals(tree.hasKey("10"), false);

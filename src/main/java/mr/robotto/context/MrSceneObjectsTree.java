@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.proposed;
+package mr.robotto.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.types.MrSceneObjectType;
+import mr.robotto.proposed.MrRenderingContext;
 
 /**
  * Created by Aarón on 31/12/2014.
@@ -58,7 +59,7 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
         mTags.get(type).remove(object);
     }
 
-    public MrRenderingContext getRenderingConte() {
+    public MrRenderingContext getRenderingContext() {
         return mRenderingContext;
     }
 
@@ -69,21 +70,21 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
     }
 
     @Override
-    public boolean addChildByValue(MrObject parent, MrObject data) {
+    public boolean addChild(MrObject parent, MrObject data) {
         addByTag(data);
-        return super.addChildByValue(parent, data);
+        return super.addChild(parent, data);
     }
 
     @Override
-    public boolean removeChildByKey(String key) {
+    public boolean removeByKey(String key) {
         removeByTag(findByKey(key));
-        return super.removeChildByKey(key);
+        return super.removeByKey(key);
     }
 
     @Override
-    public boolean removeChildByValue(MrObject data) {
+    public boolean remove(MrObject data) {
         removeByTag(data);
-        return super.removeChildByValue(data);
+        return super.remove(data);
     }
 
     public List<MrObject> getByType(MrSceneObjectType type) {
