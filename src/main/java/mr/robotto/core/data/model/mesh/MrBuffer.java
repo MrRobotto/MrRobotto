@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,25 +9,31 @@
 
 package mr.robotto.core.data.model.mesh;
 
+import android.opengl.GLES20;
+
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.types.MrBufferTarget;
-import mr.robotto.core.data.types.MrBufferUsage;
 
 public class MrBuffer {
+
+    public static final int TARGET_ARRAY_BUFFER = GLES20.GL_ARRAY_BUFFER;
+    public static final int TARGET_ELEMENT_ARRAY_BUFFER = GLES20.GL_ELEMENT_ARRAY_BUFFER;
+
+    public static final int USAGE_STATIC_DRAW = GLES20.GL_STATIC_DRAW;
+
     private ByteBuffer mBufferData;
     private int mBufferPosition;
     private MrDataType mBufferDataType;
-    private MrBufferUsage mBufferUsage;
-    private MrBufferTarget mBufferTarget;
+    private int mBufferUsage;
+    private int mBufferTarget;
     private IntBuffer mBufferId;
     private int mBufferCapacity;
 
-    public MrBuffer(int capacity, MrDataType dataType, MrBufferTarget target, MrBufferUsage usage) {
+    public MrBuffer(int capacity, MrDataType dataType, int target, int usage) {
         mBufferPosition = 0;
         mBufferDataType = dataType;
         mBufferTarget = target;
@@ -53,11 +59,11 @@ public class MrBuffer {
         mBufferId.put(0, id);
     }
 
-    public MrBufferTarget getBufferTarget() {
+    public int getBufferTarget() {
         return mBufferTarget;
     }
 
-    public void setBufferTarget(MrBufferTarget bufferTarget) {
+    public void setBufferTarget(int bufferTarget) {
         this.mBufferTarget = bufferTarget;
     }
 
@@ -69,11 +75,11 @@ public class MrBuffer {
         this.mBufferDataType = bufferDataType;
     }
 
-    public MrBufferUsage getBufferUsage() {
+    public int getBufferUsage() {
         return mBufferUsage;
     }
 
-    public void setBufferUsage(MrBufferUsage bufferUsage) {
+    public void setBufferUsage(int bufferUsage) {
         this.mBufferUsage = bufferUsage;
     }
 

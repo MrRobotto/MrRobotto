@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,17 +10,16 @@
 package mr.robotto.core.data.model.mesh;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.types.MrAttributeType;
 
 public class MrBufferKey {
-    private MrAttributeType mAttributeType;
+    private int mAttributeType;
     private int mIndex;
     private int mSize;
     private MrDataType mDataType;
     private int mStride;
     private int mPointer;
 
-    public MrBufferKey(MrAttributeType attribute, MrDataType dataType, int size, int stride, int pointer) {
+    public MrBufferKey(int attribute, MrDataType dataType, int size, int stride, int pointer) {
         this.mAttributeType = attribute;
         this.mDataType = dataType;
         this.mSize = size;
@@ -29,7 +28,7 @@ public class MrBufferKey {
         this.mIndex = -1;
     }
 
-    public MrAttributeType getAttributeType() {
+    public int getAttributeType() {
         return mAttributeType;
     }
 
@@ -55,11 +54,6 @@ public class MrBufferKey {
 
     public MrDataType getDataType() {
         return mDataType;
-    }
-
-    @Override
-    public int hashCode() {
-        return mAttributeType.getValue();
     }
 
     @Override

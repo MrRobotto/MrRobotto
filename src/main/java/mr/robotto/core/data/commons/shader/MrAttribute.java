@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,34 +10,42 @@
 package mr.robotto.core.data.commons.shader;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.types.MrAttributeType;
 
 public class MrAttribute {
-    private MrAttributeType attributeType;
-    private String name;
-    private int index;
-    private MrDataType dataType;
 
-    public MrAttribute(MrAttributeType attributeType, String name, int index, MrDataType dataType) {
-        this.attributeType = attributeType;
-        this.name = name;
-        this.index = index;
-        this.dataType = dataType;
+    public static final int VERTICES = 0;
+    public static final int NORMALS = 1;
+    public static final int COLOR = 2;
+    public static final int MATERIAL_INDEX = 3;
+    public static final int TEXTURE = 4;
+    public static final int WEIGHT = 5;
+    public static final int BONE_INDICES = 6;
+
+    private int mAttributeType;
+    private String mName;
+    private int mIndex;
+    private MrDataType mDataType;
+
+    public MrAttribute(int attributeType, String name, int index, MrDataType dataType) {
+        this.mAttributeType = attributeType;
+        this.mName = name;
+        this.mIndex = index;
+        this.mDataType = dataType;
     }
 
-    public MrAttributeType getAttributeType() {
-        return attributeType;
+    public int getAttributeType() {
+        return mAttributeType;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public int getIndex() {
-        return index;
+        return mIndex;
     }
 
     public MrDataType getDataType() {
-        return dataType;
+        return mDataType;
     }
 }

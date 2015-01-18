@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,31 +9,36 @@
 
 package mr.robotto.core.data.commons.shader;
 
-import mr.robotto.core.data.types.MrShaderType;
+import android.opengl.GLES20;
+
 
 public class MrShader {
-    private MrShaderType shaderType;
-    private String source;
-    private int id;
 
-    public MrShader(MrShaderType shaderType, String source) {
-        this.shaderType = shaderType;
-        this.source = source;
+    public static final int SHADERTYPE_VERTEX_SHADER = GLES20.GL_VERTEX_SHADER;
+    public static final int SHADERTYPE_FRAGMENT_SHADER = GLES20.GL_FRAGMENT_SHADER;
+
+    private int mShaderType;
+    private String mSource;
+    private int mId;
+
+    public MrShader(int shaderType, String source) {
+        this.mShaderType = shaderType;
+        this.mSource = source;
     }
 
-    public MrShaderType getShaderType() {
-        return shaderType;
+    public int getShaderType() {
+        return mShaderType;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getSource() {
-        return source;
+        return mSource;
     }
 }

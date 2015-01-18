@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,7 +19,6 @@ import mr.robotto.core.data.model.mesh.MrBufferKey;
 import mr.robotto.core.data.model.mesh.MrIndexBuffer;
 import mr.robotto.core.data.model.mesh.MrMesh;
 import mr.robotto.core.data.model.mesh.MrVertexBuffer;
-import mr.robotto.core.data.types.MrMeshDrawType;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
@@ -37,7 +36,7 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         JSONArray indexData = mRoot.getJSONArray("IndexData");
         JSONArray keysData = mRoot.getJSONArray("AttributeKeys");
 
-        MrMeshDrawType drawType = getDrawTypeFromString(drawTypeData);
+        int drawType = getDrawTypeFromString(drawTypeData);
         MrBufferKeyContainer keys = new MrBufferKeyContainer();
         MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
         MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
@@ -49,14 +48,13 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         return new MrMesh(name, count, drawType, keys, vertexBuffer, indexBuffer);
     }
 
-
-    private MrMeshDrawType getDrawTypeFromString(String drawTypeStr) {
+    //TODO: check all possibilities
+    private int getDrawTypeFromString(String drawTypeStr) {
         if (drawTypeStr.equals("Triangles")) {
-            return MrMeshDrawType.TRIANGLES;
+            return MrMesh.DRAWTYPE_TRIANGLES;
         } else {
-            return MrMeshDrawType.LINES;
+            return MrMesh.DRAWTYPE_LINES;
         }
-
     }
 
     private void loadVertexData(MrBuffer buffer, JSONArray array) throws JSONException {

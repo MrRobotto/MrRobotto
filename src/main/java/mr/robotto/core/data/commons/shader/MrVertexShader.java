@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,11 +9,10 @@
 
 package mr.robotto.core.data.commons.shader;
 
-import mr.robotto.core.data.types.MrShaderType;
 
 public class MrVertexShader extends MrShader {
 
     public MrVertexShader(String source) {
-        super(MrShaderType.VERTEX_SHADER, source);
+        super(MrShader.SHADERTYPE_VERTEX_SHADER, source);
     }
 }

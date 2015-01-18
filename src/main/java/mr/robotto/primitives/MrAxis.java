@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,21 +10,20 @@
 package mr.robotto.primitives;
 
 import mr.robotto.commons.MrDataType;
+import mr.robotto.core.data.commons.shader.MrAttribute;
 import mr.robotto.core.data.containers.MrBufferKeyContainer;
 import mr.robotto.core.data.model.mesh.MrBuffer;
 import mr.robotto.core.data.model.mesh.MrBufferKey;
 import mr.robotto.core.data.model.mesh.MrIndexBuffer;
 import mr.robotto.core.data.model.mesh.MrMesh;
 import mr.robotto.core.data.model.mesh.MrVertexBuffer;
-import mr.robotto.core.data.types.MrAttributeType;
-import mr.robotto.core.data.types.MrMeshDrawType;
 
 public class MrAxis extends MrMesh {
 
     private final static String AXIS_NAME = "MrAxis";
 
     public MrAxis() {
-        super(AXIS_NAME, 6, MrMeshDrawType.LINES, genKeyList(), genVertexBuffer(), genIndexBuffer());
+        super(AXIS_NAME, 6, MrMesh.DRAWTYPE_LINES, genKeyList(), genVertexBuffer(), genIndexBuffer());
     }
 
     private static MrBuffer genVertexBuffer() {
@@ -54,8 +53,8 @@ public class MrAxis extends MrMesh {
     //TODO: Too much hardocre for my eyes!
     private static MrBufferKeyContainer genKeyList() {
         MrBufferKeyContainer keyList = new MrBufferKeyContainer();
-        MrBufferKey vertexKey = new MrBufferKey(MrAttributeType.VERTICES, MrDataType.FLOAT, 3, 6, 0);
-        MrBufferKey colorKey = new MrBufferKey(MrAttributeType.COLOR, MrDataType.FLOAT, 3, 6, 3);
+        MrBufferKey vertexKey = new MrBufferKey(MrAttribute.VERTICES, MrDataType.FLOAT, 3, 6, 0);
+        MrBufferKey colorKey = new MrBufferKey(MrAttribute.COLOR, MrDataType.FLOAT, 3, 6, 3);
         keyList.add(vertexKey);
         keyList.add(colorKey);
         return keyList;
