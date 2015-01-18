@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -10,16 +10,15 @@
 package mr.robotto.core.data.commons.shader;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.types.MrUniformType;
 
 public class MrUniform {
-    private MrUniformType uniformType;
+    private String uniformType;
     private String name;
     private MrDataType dataType;
     private int count;
     private int id;
 
-    public MrUniform(MrUniformType uniformType, String name, MrDataType dataType, int count) {
+    public MrUniform(String uniformType, String name, MrDataType dataType, int count) {
         this.name = name;
         this.uniformType = uniformType;
         this.dataType = dataType;
@@ -30,7 +29,7 @@ public class MrUniform {
         return name;
     }
 
-    public MrUniformType getUniformType() {
+    public String getUniformType() {
         return uniformType;
     }
 
