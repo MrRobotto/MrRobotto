@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +18,6 @@ import mr.robotto.core.data.commons.shader.MrShaderProgram;
 import mr.robotto.core.data.containers.MrUniformKeyContainer;
 import mr.robotto.core.data.model.MrModelData;
 import mr.robotto.core.data.model.mesh.MrMesh;
-import mr.robotto.core.data.types.MrUniformType;
 import mr.robotto.loader.MrObjectLoader;
 import mr.robotto.loader.model.shader.MrShaderProgramLoader;
 
@@ -44,8 +43,9 @@ public class MrModelLoader extends MrObjectLoader {
         MrUniformKeyContainer uniformKeyList = new MrUniformKeyContainer();
         JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
-            String strUniformType = jsonUniformKeyList.getString(i).toUpperCase();
-            MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
+            String uniformType = jsonUniformKeyList.getString(i);
+            //MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
+            //MrUniformKey uniformKey = new MrUniformKey(uniformType);
             MrUniformKey uniformKey = new MrUniformKey(uniformType);
             uniformKeyList.add(uniformKey);
         }

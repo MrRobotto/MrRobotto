@@ -12,21 +12,20 @@ package mr.robotto.core.data.containers;
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.data.model.mesh.MrBufferKey;
-import mr.robotto.core.data.types.MrAttributeType;
 
 /**
  * Created by Aarón on 22/11/2014.
  */
-public class MrBufferKeyContainer extends MrMapContainer<MrAttributeType, MrBufferKey> {
+public class MrBufferKeyContainer extends MrMapContainer<Integer, MrBufferKey> {
 
     public MrBufferKeyContainer() {
         super(getMapFunction());
     }
 
-    private static MrMapFunction<MrAttributeType, MrBufferKey> getMapFunction() {
-        return new MrMapFunction<MrAttributeType, MrBufferKey>() {
+    private static MrMapFunction<Integer, MrBufferKey> getMapFunction() {
+        return new MrMapFunction<Integer, MrBufferKey>() {
             @Override
-            public MrAttributeType getKeyOf(MrBufferKey mrBufferKey) {
+            public Integer getKeyOf(MrBufferKey mrBufferKey) {
                 return mrBufferKey.getAttributeType();
             }
         };

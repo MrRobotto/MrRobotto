@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,7 +15,6 @@ import mr.robotto.core.data.commons.shader.MrAttribute;
 import mr.robotto.core.data.commons.shader.MrShader;
 import mr.robotto.core.data.commons.shader.MrShaderProgram;
 import mr.robotto.core.data.commons.shader.MrUniform;
-import mr.robotto.core.data.types.MrShaderType;
 import mr.robotto.core.renderer.renderinterfaces.MrBindable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
@@ -70,7 +69,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
     }
 
     private void initialize(MrShader shader) {
-        int id = GLES20.glCreateShader(shader.getShaderType().getValue());
+        int id = GLES20.glCreateShader(shader.getShaderType());
 
         GLES20.glShaderSource(id, shader.getSource());
         GLES20.glCompileShader(id);
@@ -85,7 +84,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
             String errorMessage = GLES20.glGetShaderInfoLog(id);
             int error = GLES20.glGetError();
             GLES20.glDeleteShader(id);
-            if (shader.getShaderType() == MrShaderType.VERTEX_SHADER) {
+            if (shader.getShaderType() == MrShader.SHADERTYPE_VERTEX_SHADER) {
                 throw new RuntimeException("Error creating vertex shader. " + errorMessage + " GLERROR:" + error);
             } else {
                 throw new RuntimeException("Error creating fragment shader. " + errorMessage + " GLERROR:" + error);

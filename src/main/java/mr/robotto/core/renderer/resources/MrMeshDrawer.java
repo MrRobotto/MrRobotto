@@ -53,8 +53,8 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
         IntBuffer id = IntBuffer.allocate(1);
         buffer.setBufferId(id);
         GLES20.glGenBuffers(1, id);
-        GLES20.glBindBuffer(buffer.getBufferTarget().getValue(), buffer.getId());
-        GLES20.glBufferData(buffer.getBufferTarget().getValue(), buffer.asBuffer().capacity(), buffer.asBuffer(), buffer.getBufferUsage().getValue());
+        GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getId());
+        GLES20.glBufferData(buffer.getBufferTarget(), buffer.asBuffer().capacity(), buffer.asBuffer(), buffer.getBufferUsage());
         buffer.releaseBuffer();
     }
 
@@ -90,7 +90,7 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
     }
 
     private void bind(MrBuffer buffer) {
-        GLES20.glBindBuffer(buffer.getBufferTarget().getValue(), buffer.getBufferId().get(0));
+        GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getBufferId().get(0));
     }
 
     private void unbind(MrBufferKey key) {
@@ -101,6 +101,6 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
     //TODO: Check the cullface of objects
     @Override
     public void draw() {
-        GLES20.glDrawElements(mMesh.getDrawType().getValue(), mMesh.getCount(), mMesh.getIndexBuffer().getBufferDataType().getValue(), 0);
+        GLES20.glDrawElements(mMesh.getDrawType(), mMesh.getCount(), mMesh.getIndexBuffer().getBufferDataType().getValue(), 0);
     }
 }

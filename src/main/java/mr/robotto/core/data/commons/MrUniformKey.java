@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,21 +9,20 @@
 
 package mr.robotto.core.data.commons;
 
-import mr.robotto.core.data.types.MrUniformType;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: Id for uniformkey and bufferkey in the same way!
 public class MrUniformKey {
 
-    private MrUniformType mUniformType;
+    private String mUniformType;
     private MrLinearAlgebraObject mValue;
     private int id;
 
-    public MrUniformKey(MrUniformType uniformType) {
+    public MrUniformKey(String uniformType) {
         mUniformType = uniformType;
     }
 
-    public MrUniformType getUniformType() {
+    public String getUniformType() {
         return mUniformType;
     }
 

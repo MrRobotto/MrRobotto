@@ -52,7 +52,14 @@ public class MrUniformGeneratorContainer extends MrMapContainer<String, MrUnifor
         });
     }
 
-    //TODO: Remove all these overrides
+    @Override
+    public boolean addAll(MrMapContainer<String, MrUniformGenerator> container) {
+        for (MrUniformGenerator generator : container) {
+            mGenerators.add(generator);
+        }
+        return super.addAll(container);
+    }
+
     @Override
     public boolean add(MrUniformGenerator generator) {
         mGenerators.add(generator);

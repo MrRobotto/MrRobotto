@@ -12,21 +12,20 @@ package mr.robotto.core.data.containers;
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.data.commons.MrUniformKey;
-import mr.robotto.core.data.types.MrUniformType;
 
 /**
  * Created by Aarón on 23/11/2014.
  */
-public class MrUniformKeyContainer extends MrMapContainer<MrUniformType, MrUniformKey> {
+public class MrUniformKeyContainer extends MrMapContainer<String, MrUniformKey> {
 
     public MrUniformKeyContainer() {
         super(getMapFunction());
     }
 
-    private static MrMapFunction<MrUniformType, MrUniformKey> getMapFunction() {
-        return new MrMapFunction<MrUniformType, MrUniformKey>() {
+    private static MrMapFunction<String, MrUniformKey> getMapFunction() {
+        return new MrMapFunction<String, MrUniformKey>() {
             @Override
-            public MrUniformType getKeyOf(MrUniformKey mrUniformKey) {
+            public String getKeyOf(MrUniformKey mrUniformKey) {
                 return mrUniformKey.getUniformType();
             }
         };

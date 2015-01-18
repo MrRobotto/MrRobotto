@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,7 +11,6 @@ package mr.robotto.core.renderer;
 
 import mr.robotto.core.data.commons.MrObjectData;
 import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.containers.MrUniformKeyContainer;
 import mr.robotto.core.data.model.MrModelData;
 import mr.robotto.core.renderer.resources.MrMeshDrawer;
 import mr.robotto.core.renderer.resources.MrShaderProgramBinder;
@@ -22,7 +21,6 @@ public class MrModelRender implements MrObjectRender {
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
     private MrModelData mModelData;
-    private MrUniformKeyContainer mUniformKeyList;
     private boolean mInitialized = false;
     private boolean mBinded = false;
 

@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,41 +14,41 @@ import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrVector3f;
 
 public class MrTransform {
-    private MrMatrix4f matrix;
-    private MrVector3f location;
-    private MrQuaternion rotation;
-    private MrVector3f scale;
+    private MrMatrix4f mMatrix;
+    private MrVector3f mLocation;
+    private MrQuaternion mRotation;
+    private MrVector3f mScale;
 
-    private MrVector3f forward;
-    private MrVector3f up;
-    private MrVector3f right;
+    private MrVector3f mForward;
+    private MrVector3f mUp;
+    private MrVector3f mRight;
 
-    private boolean change;
+    private boolean mChange;
 
     public MrTransform() {
-        this.matrix = new MrMatrix4f();
-        this.rotation = new MrQuaternion();
-        this.location = new MrVector3f(0);
-        this.scale = new MrVector3f(1);
+        this.mMatrix = new MrMatrix4f();
+        this.mRotation = new MrQuaternion();
+        this.mLocation = new MrVector3f(0);
+        this.mScale = new MrVector3f(1);
 
-        this.right = new MrVector3f(1, 0, 0);
-        this.up = new MrVector3f(0, 0, 1);
-        this.forward = new MrVector3f(0, 1, 0);
+        this.mRight = new MrVector3f(1, 0, 0);
+        this.mUp = new MrVector3f(0, 0, 1);
+        this.mForward = new MrVector3f(0, 1, 0);
 
         flipChange();
     }
 
     public MrTransform(MrVector3f location, MrQuaternion rotation, MrVector3f scale) {
-        this.location = location;
-        this.rotation = rotation;
-        this.scale = scale;
+        this.mLocation = location;
+        this.mRotation = rotation;
+        this.mScale = scale;
         flipChange();
     }
 
     public MrTransform(MrVector3f location, MrQuaternion rotation) {
-        this.location = location;
-        this.rotation = rotation;
-        this.scale = new MrVector3f(1);
+        this.mLocation = location;
+        this.mRotation = rotation;
+        this.mScale = new MrVector3f(1);
         flipChange();
     }
 
@@ -56,32 +56,32 @@ public class MrTransform {
      * Getters*
      */
     public MrQuaternion getRotation() {
-        return rotation;
+        return mRotation;
     }
 
     public void setRotation(MrQuaternion rotation) {
-        this.rotation = rotation;
+        this.mRotation = rotation;
         flipChange();
     }
 
     public MrVector3f getLocation() {
-        return location;
+        return mLocation;
     }
 
     /**
      * Setters*
      */
     public void setLocation(MrVector3f location) {
-        this.location = location;
+        this.mLocation = location;
         flipChange();
     }
 
     public MrVector3f getScale() {
-        return scale;
+        return mScale;
     }
 
     public void setScale(MrVector3f scale) {
-        this.scale = scale;
+        this.mScale = scale;
         flipChange();
     }
 
@@ -100,22 +100,22 @@ public class MrTransform {
     public void setLookAt(MrVector3f look, MrVector3f up) {
         MrMatrix4f m = new MrMatrix4f();
         MrQuaternion q = new MrQuaternion();
-        MrMatrix4f.ops.lookAt(m, location, look, up);
-        MrQuaternion.ops.fromMatrix4(rotation, m);
+        MrMatrix4f.ops.lookAt(m, mLocation, look, up);
+        MrQuaternion.ops.fromMatrix4(mRotation, m);
         flipChange();
     }
 
     public void setLookAt(MrVector3f look) {
-        setLookAt(look, up);
+        setLookAt(look, mUp);
     }
 
     /**
      * Methods*
      */
     public void translate(float x, float y, float z) {
-        location.x += x;
-        location.y += y;
-        location.z += z;
+        mLocation.x += x;
+        mLocation.y += y;
+        mLocation.z += z;
         flipChange();
     }
 
@@ -124,7 +124,7 @@ public class MrTransform {
     }
 
     public void scale(float sx, float sy, float sz) {
-        scale.setValues(sx, sy, sz);
+        mScale.setValues(sx, sy, sz);
         flipChange();
     }
 
@@ -137,7 +137,7 @@ public class MrTransform {
     }
 
     public void rotate(MrQuaternion q) {
-        MrQuaternion.ops.mult(rotation, rotation, q);
+        MrQuaternion.ops.mult(mRotation, mRotation, q);
         flipChange();
     }
 
@@ -154,20 +154,20 @@ public class MrTransform {
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis, MrVector3f through) {
         MrQuaternion q = new MrQuaternion();
         MrQuaternion.ops.fromAngleAxis(q, angle, axis);
-        MrQuaternion.ops.mult(rotation, rotation, q);
+        MrQuaternion.ops.mult(mRotation, mRotation, q);
 
         MrVector3f aux = new MrVector3f();
         //V-P
         MrVector3f.ops.substract(aux, through, point);
         //R(V-P)
-        MrVector3f.ops.rotateVector(aux, rotation, aux);
+        MrVector3f.ops.rotateVector(aux, mRotation, aux);
         //Loc = P + R(V-P)
-        MrVector3f.ops.add(location, point, aux);
+        MrVector3f.ops.add(mLocation, point, aux);
         flipChange();
     }
 
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis) {
-        rotateAround(angle, point, axis, location);
+        rotateAround(angle, point, axis, mLocation);
     }
 
 
@@ -175,33 +175,33 @@ public class MrTransform {
      * Internal methods*
      */
     private void calcMatrix() {
-        MrMatrix4f.ops.setIdentity(matrix);
-        MrMatrix4f.ops.translate(matrix, location);
-        MrMatrix4f.ops.rotate(matrix, rotation);
-        MrMatrix4f.ops.scale(matrix, scale);
+        MrMatrix4f.ops.setIdentity(mMatrix);
+        MrMatrix4f.ops.translate(mMatrix, mLocation);
+        MrMatrix4f.ops.rotate(mMatrix, mRotation);
+        MrMatrix4f.ops.scale(mMatrix, mScale);
     }
 
     private void flipChange() {
-        change = true;
+        mChange = true;
     }
 
     private void checkChange() {
-        if (change) {
+        if (mChange) {
             calcMatrix();
             transformLocalAxis();
-            change = false;
+            mChange = false;
         }
     }
 
     private void transformLocalAxis() {
-        MrMatrix4f.ops.multV(forward, matrix, forward);
-        MrMatrix4f.ops.multV(up, matrix, up);
-        MrMatrix4f.ops.multV(right, matrix, right);
+        MrMatrix4f.ops.multV(mForward, mMatrix, mForward);
+        MrMatrix4f.ops.multV(mUp, mMatrix, mUp);
+        MrMatrix4f.ops.multV(mRight, mMatrix, mRight);
     }
 
     //TODO: Remove this method
     public MrMatrix4f getAsMatrix() {
         checkChange();
-        return matrix;
+        return mMatrix;
     }
 }

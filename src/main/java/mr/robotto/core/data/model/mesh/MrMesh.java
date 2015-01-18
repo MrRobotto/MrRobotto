@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,18 +9,23 @@
 
 package mr.robotto.core.data.model.mesh;
 
-import mr.robotto.core.data.containers.MrBufferKeyContainer;
-import mr.robotto.core.data.types.MrMeshDrawType;
+import android.opengl.GLES20;
+
+import mr.robotto.collections.MrMapContainer;
 
 public class MrMesh {
+
+    public static final int DRAWTYPE_LINES = GLES20.GL_LINES;
+    public static final int DRAWTYPE_TRIANGLES = GLES20.GL_TRIANGLES;
+
     private String mName;
     private int mCount;
-    private MrMeshDrawType mDrawType;
-    private MrBufferKeyContainer mKeys;
+    private int mDrawType;
+    private MrMapContainer<Integer, MrBufferKey> mKeys;
     private MrBuffer mVertexBuffer;
     private MrBuffer mIndexBuffer;
 
-    public MrMesh(String name, int count, MrMeshDrawType drawType, MrBufferKeyContainer keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
+    public MrMesh(String name, int count, int drawType, MrMapContainer<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
         mName = name;
         mCount = count;
         mDrawType = drawType;
@@ -41,11 +46,11 @@ public class MrMesh {
         return mCount;
     }
 
-    public MrMeshDrawType getDrawType() {
+    public int getDrawType() {
         return mDrawType;
     }
 
-    public void setDrawType(MrMeshDrawType drawType) {
+    public void setDrawType(int drawType) {
         this.mDrawType = drawType;
     }
 
@@ -57,7 +62,7 @@ public class MrMesh {
         return mIndexBuffer;
     }
 
-    public MrBufferKeyContainer getBufferKeys() {
+    public MrMapContainer<Integer, MrBufferKey> getBufferKeys() {
         return mKeys;
     }
 
