@@ -93,8 +93,8 @@ public class MrResourceManager {
             MrSceneObjectsTree tree = new MrSceneObjectsTree(getObject(rootData));
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             //Skip the root
-            if (it.hasNext())
-                it.next();
+            //if (it.hasNext())
+            //    it.next();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
                 //Gets the value

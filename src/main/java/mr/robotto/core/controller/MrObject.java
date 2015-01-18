@@ -13,12 +13,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import mr.robotto.core.MrUniformGeneratorContainer;
 import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.commons.MrTransform;
 import mr.robotto.core.data.types.MrSceneObjectType;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
-import mr.robotto.proposed.MrUniformGeneratorContainer;
 
 public abstract class MrObject {
     private MrObjectData mData;
@@ -39,12 +40,18 @@ public abstract class MrObject {
         mUniformGenerators = new MrUniformGeneratorContainer();
     }
 
+    //TODO: Fill this to create objects in the loader
+    protected MrObject(MrObject object) {
+
+    }
+
     private void init() {
         mActions = new LinkedList<MrAction<MrObjectData>>();
     }
 
     public void initialize() {
         mRender.initializeRender(mData, mContext);
+        initializeUniforms(mUniformGenerators);
     }
 
     public void initializeSizeDependant(int w, int h) {
@@ -95,6 +102,14 @@ public abstract class MrObject {
     //TODO: This should be abstract
     public MrSceneObjectType getSceneObjectType() {
         return mData.getSceneObjectType();
+    }
+
+    public MrTransform getTransform() {
+        return mData.getTransform();
+    }
+
+    public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {
+
     }
 
     public void addAction(final MrAction<MrObjectData> action) {

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.proposed;
+package mr.robotto.core;
 
 import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.MrObject;

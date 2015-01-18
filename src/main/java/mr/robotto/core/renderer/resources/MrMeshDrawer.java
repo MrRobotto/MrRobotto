@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -55,7 +55,7 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
         GLES20.glGenBuffers(1, id);
         GLES20.glBindBuffer(buffer.getBufferTarget().getValue(), buffer.getId());
         GLES20.glBufferData(buffer.getBufferTarget().getValue(), buffer.asBuffer().capacity(), buffer.asBuffer(), buffer.getBufferUsage().getValue());
-        //buffer.releaseBuffer();
+        buffer.releaseBuffer();
     }
 
     @Override

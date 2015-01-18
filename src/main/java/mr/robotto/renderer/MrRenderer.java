@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -15,6 +15,7 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import mr.robotto.context.MrSceneObjectsTreeRender;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.scene.MrSceneData;
@@ -24,6 +25,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     //TODO: Remove this
     public MrModel model;
+    public MrSceneObjectsTreeRender render;
     public MrScene mScene;
     private boolean initialized;
 
@@ -52,8 +54,9 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         //scene.getRenderer().initialize();
         initialized = true;
 
-        model.initialize();
-        mScene.initialize();
+        //model.initialize();
+        //mScene.initialize();
+        render.initialize();
     }
 
     //TODO: De esto se encarga la camara en teoria
@@ -65,7 +68,8 @@ public class MrRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl10) {
         //scene.getRenderer().render();
-        mScene.render();
-        model.render();
+        //mScene.render();
+        //model.render();
+        render.render();
     }
 }
