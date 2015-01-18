@@ -13,10 +13,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.MrUniformGeneratorContainer;
 import mr.robotto.core.data.commons.MrObjectData;
 import mr.robotto.core.data.commons.MrTransform;
-import mr.robotto.core.data.types.MrSceneObjectType;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;

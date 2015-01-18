@@ -11,13 +11,11 @@ package mr.robotto.core.data.commons.shader;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.data.containers.MrUniformContainer;
 
-//TODO: Change the arraylist for hashmaps or specialized classes
 public class MrShaderProgram {
     private MrVertexShader mVertexShader;
     private MrFragmentShader mFragmentShader;
-    private MrUniformContainer mUniforms;
+    private MrMapContainer<String, MrUniform> mUniforms;
     private MrMapContainer<Integer, MrAttribute> mAttributes;
 
     private int mId;
@@ -29,7 +27,12 @@ public class MrShaderProgram {
     }
 
     private void init() {
-        mUniforms = new MrUniformContainer();
+        mUniforms = new MrMapContainer<>(new MrMapFunction<String, MrUniform>() {
+            @Override
+            public String getKeyOf(MrUniform mrUniform) {
+                return mrUniform.getUniformType();
+            }
+        });
         mAttributes = new MrMapContainer<>(new MrMapFunction<Integer, MrAttribute>() {
             @Override
             public Integer getKeyOf(MrAttribute mrAttribute) {
@@ -58,7 +61,7 @@ public class MrShaderProgram {
         mUniforms.add(uniform);
     }
 
-    public MrUniformContainer getUniforms() {
+    public MrMapContainer<String, MrUniform> getUniforms() {
         return mUniforms;
     }
 
