@@ -9,9 +9,9 @@
 
 package mr.robotto.proposed;
 
-import mr.robotto.core.data.camera.MrCameraData;
-import mr.robotto.core.data.camera.lens.MrLens;
-import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.data.MrCameraData;
+import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.resources.lens.MrLens;
 import mr.robotto.linearalgebra.MrMatrix4f;
 
 public class MrUniformGeneratorOld {

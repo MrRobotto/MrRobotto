@@ -9,7 +9,7 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.camera.MrCameraData;
+import mr.robotto.core.data.MrCameraData;
 import mr.robotto.core.renderer.MrObjectRender;
 
 /**

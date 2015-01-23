@@ -11,10 +11,10 @@ package mr.robotto.core.renderer.resources;
 
 import android.opengl.GLES20;
 
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.commons.shader.MrShader;
-import mr.robotto.core.data.commons.shader.MrShaderProgram;
-import mr.robotto.core.data.commons.shader.MrUniform;
+import mr.robotto.core.data.resources.shader.MrAttribute;
+import mr.robotto.core.data.resources.shader.MrShader;
+import mr.robotto.core.data.resources.shader.MrShaderProgram;
+import mr.robotto.core.data.resources.shader.MrUniform;
 import mr.robotto.core.renderer.renderinterfaces.MrBindable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 

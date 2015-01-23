@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,8 +11,8 @@ package mr.robotto.core.renderer;
 
 import android.opengl.GLES20;
 
-import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.scene.MrSceneData;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
 import mr.robotto.proposed.MrRenderingContext;
 

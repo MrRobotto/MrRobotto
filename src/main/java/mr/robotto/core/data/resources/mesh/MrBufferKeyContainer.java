@@ -7,28 +7,26 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.context;
+package mr.robotto.core.data.resources.mesh;
 
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.data.MrObjectData;
 
 /**
- * Created by Aarón on 23/11/2014.
+ * Created by Aarón on 22/11/2014.
  */
-public class MrObjectDataContainer extends MrMapContainer<String, MrObjectData> {
+public class MrBufferKeyContainer extends MrMapContainer<Integer, MrBufferKey> {
 
-    public MrObjectDataContainer() {
+    public MrBufferKeyContainer() {
         super(getMapFunction());
     }
 
-    private static MrMapFunction<String, MrObjectData> getMapFunction() {
-        return new MrMapFunction<String, MrObjectData>() {
+    private static MrMapFunction<Integer, MrBufferKey> getMapFunction() {
+        return new MrMapFunction<Integer, MrBufferKey>() {
             @Override
-            public String getKeyOf(MrObjectData mrObjectData) {
-                return mrObjectData.getName();
+            public Integer getKeyOf(MrBufferKey mrBufferKey) {
+                return mrBufferKey.getAttributeType();
             }
         };
     }
-
 }

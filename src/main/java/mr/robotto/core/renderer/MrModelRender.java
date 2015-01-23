@@ -9,9 +9,9 @@
 
 package mr.robotto.core.renderer;
 
-import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.resources.shader.MrAttribute;
 import mr.robotto.core.renderer.resources.MrMeshDrawer;
 import mr.robotto.core.renderer.resources.MrShaderProgramBinder;
 import mr.robotto.proposed.MrRenderingContext;

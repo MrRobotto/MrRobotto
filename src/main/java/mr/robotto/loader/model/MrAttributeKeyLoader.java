@@ -13,8 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.model.mesh.MrBufferKey;
+import mr.robotto.core.data.resources.mesh.MrBufferKey;
+import mr.robotto.core.data.resources.shader.MrAttribute;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey> {

@@ -13,9 +13,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.MrUniformGeneratorContainer;
-import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.MrSceneObjectType;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.proposed.MrAction;

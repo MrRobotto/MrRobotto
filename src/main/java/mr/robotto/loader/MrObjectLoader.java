@@ -12,8 +12,8 @@ package mr.robotto.loader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.data.commons.MrObjectData;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.loader.model.MrModelLoader;
 

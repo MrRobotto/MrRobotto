@@ -13,9 +13,9 @@ import android.opengl.GLES20;
 
 import java.nio.IntBuffer;
 
-import mr.robotto.core.data.model.mesh.MrBuffer;
-import mr.robotto.core.data.model.mesh.MrBufferKey;
-import mr.robotto.core.data.model.mesh.MrMesh;
+import mr.robotto.core.data.resources.mesh.MrBuffer;
+import mr.robotto.core.data.resources.mesh.MrBufferKey;
+import mr.robotto.core.data.resources.mesh.MrMesh;
 import mr.robotto.core.renderer.renderinterfaces.MrDrawable;
 
 //TODO: Controlar errores

@@ -13,12 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.containers.MrBufferKeyContainer;
-import mr.robotto.core.data.model.mesh.MrBuffer;
-import mr.robotto.core.data.model.mesh.MrBufferKey;
-import mr.robotto.core.data.model.mesh.MrIndexBuffer;
-import mr.robotto.core.data.model.mesh.MrMesh;
-import mr.robotto.core.data.model.mesh.MrVertexBuffer;
+import mr.robotto.core.data.resources.mesh.MrBuffer;
+import mr.robotto.core.data.resources.mesh.MrBufferKey;
+import mr.robotto.core.data.resources.mesh.MrBufferKeyContainer;
+import mr.robotto.core.data.resources.mesh.MrIndexBuffer;
+import mr.robotto.core.data.resources.mesh.MrMesh;
+import mr.robotto.core.data.resources.mesh.MrVertexBuffer;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh> {

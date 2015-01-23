@@ -12,9 +12,9 @@ package mr.robotto.core.controller;
 import java.util.Iterator;
 
 import mr.robotto.context.MrSceneObjectsTree;
-import mr.robotto.core.MrUniformGenerator;
-import mr.robotto.core.MrUniformGeneratorContainer;
-import mr.robotto.core.data.model.MrModelData;
+import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
+import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;

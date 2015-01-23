@@ -15,8 +15,8 @@ import java.util.List;
 
 import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.data.MrSceneObjectType;
 import mr.robotto.proposed.MrRenderingContext;
 
 /**

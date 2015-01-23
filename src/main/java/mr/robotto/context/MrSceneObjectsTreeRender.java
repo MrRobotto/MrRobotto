@@ -9,8 +9,8 @@
 
 package mr.robotto.context;
 
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.data.MrSceneObjectType;
 
 /**
  * Created by Aarón on 18/01/2015.
