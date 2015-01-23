@@ -43,7 +43,7 @@ public class MrCameraData extends MrObjectData {
 
     public MrMatrix4f getViewProjectionMatrix() {
         MrMatrix4f vp = new MrMatrix4f();
-        MrMatrix4f.ops.mult(vp, lens.getProjectionMatrix(), getViewMatrix());
+        //MrMatrix4f.ops.mult(vp, lens.getProjectionMatrix(), getViewMatrix());
         return vp;
     }
 

@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,7 +23,7 @@ public class MrVector4f implements MrLinearAlgebraObject
 
     public MrVector4f() {
         values = new float[4];
-        ops.setZero(this);
+        getOperator().setZero(this);
     }
 
     public MrVector4f(float w, float x, float y, float z) {
@@ -47,14 +47,17 @@ public class MrVector4f implements MrLinearAlgebraObject
         }
     }
 
+    public static Operator getOperator() {
+        return new Operator();
+    }
+
     @Override
     public int getCount() {
         return 1;
     }
 
     @Override
-    public float[] getValues()
-    {
+    public float[] getValues() {
         values[0] = w;
         values[1] = x;
         values[2] = y;
@@ -75,16 +78,17 @@ public class MrVector4f implements MrLinearAlgebraObject
         this.z = z;
     }
 
-    public void copyValues(MrVector4f v)
-    {
-        setValues(v.w,v.x,v.y,v.z);
+    public void copyValues(MrVector4f v) {
+        setValues(v.w, v.x, v.y, v.z);
     }
 
+    public static class Operator {
 
+        private Operator() {
 
-    public static class ops
-    {
-        public static void setZero(MrVector4f result)
+        }
+
+        public void setZero(MrVector4f result)
         {
             result.w = 0;
             result.x = 0;
@@ -92,16 +96,14 @@ public class MrVector4f implements MrLinearAlgebraObject
             result.z = 0;
         }
 
-        public static void vectorFromVec3(MrVector4f result, MrVector3f v)
+        public void vectorFromVec3(MrVector4f result, MrVector3f v)
         {
             result.setValues(v.x,v.y,v.z,0);
         }
 
-        public static void pointFromVec3(MrVector4f result, MrVector3f v)
+        public void pointFromVec3(MrVector4f result, MrVector3f v)
         {
             result.setValues(v.x,v.y,v.z,1);
         }
     }
-
-
 }

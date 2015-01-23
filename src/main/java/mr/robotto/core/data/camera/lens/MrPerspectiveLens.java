@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,7 +27,7 @@ public class MrPerspectiveLens extends MrLens {
     //TODO: Do not recalc this everytime
     @Override
     public MrMatrix4f getProjectionMatrix() {
-        MrMatrix4f.ops.perspective(matrix, mFovy, mAspectRatio, mClipStart, mClipEnd);
+        //MrMatrix4f.ops.perspective(matrix, mFovy, mAspectRatio, mClipStart, mClipEnd);
         return matrix;
     }
 }

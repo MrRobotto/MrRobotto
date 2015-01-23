@@ -7,11 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.data.commons;
-
-import mr.robotto.linearalgebra.MrMatrix4f;
-import mr.robotto.linearalgebra.MrQuaternion;
-import mr.robotto.linearalgebra.MrVector3f;
+package mr.robotto.linearalgebra;
 
 public class MrTransform {
     private MrMatrix4f mMatrix;
@@ -86,22 +82,26 @@ public class MrTransform {
     }
 
     public void setRotation(float angle, float x, float y, float z) {
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
         MrQuaternion q = new MrQuaternion();
-        MrQuaternion.ops.fromAngleAxis(q, angle, x, y, z);
+        quatOp.fromAngleAxis(q, angle, x, y, z);
         setRotation(q);
     }
 
     public void setRotation(float angle, MrVector3f axis) {
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
         MrQuaternion q = new MrQuaternion();
-        MrQuaternion.ops.fromAngleAxis(q, angle, axis);
+        quatOp.fromAngleAxis(q, angle, axis);
         setRotation(q);
     }
 
     public void setLookAt(MrVector3f look, MrVector3f up) {
+        MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
         MrMatrix4f m = new MrMatrix4f();
         MrQuaternion q = new MrQuaternion();
-        MrMatrix4f.ops.lookAt(m, mLocation, look, up);
-        MrQuaternion.ops.fromMatrix4(mRotation, m);
+        mat4Op.lookAt(m, mLocation, look, up);
+        quatOp.fromMatrix4(mRotation, m);
         flipChange();
     }
 
@@ -137,13 +137,15 @@ public class MrTransform {
     }
 
     public void rotate(MrQuaternion q) {
-        MrQuaternion.ops.mult(mRotation, mRotation, q);
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
+        quatOp.mult(mRotation, mRotation, q);
         flipChange();
     }
 
     public void rotate(float angle, float x, float y, float z) {
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
         MrQuaternion q = new MrQuaternion();
-        MrQuaternion.ops.fromAngleAxis(q, angle, x, y, z);
+        quatOp.fromAngleAxis(q, angle, x, y, z);
         rotate(q);
     }
 
@@ -152,17 +154,19 @@ public class MrTransform {
     }
 
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis, MrVector3f through) {
+        MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
+        MrVector3f.Operator vec3Op = MrVector3f.getOperator();
         MrQuaternion q = new MrQuaternion();
-        MrQuaternion.ops.fromAngleAxis(q, angle, axis);
-        MrQuaternion.ops.mult(mRotation, mRotation, q);
+        quatOp.fromAngleAxis(q, angle, axis);
+        quatOp.mult(mRotation, mRotation, q);
 
         MrVector3f aux = new MrVector3f();
         //V-P
-        MrVector3f.ops.substract(aux, through, point);
+        vec3Op.substract(aux, through, point);
         //R(V-P)
-        MrVector3f.ops.rotateVector(aux, mRotation, aux);
+        vec3Op.rotateVector(aux, mRotation, aux);
         //Loc = P + R(V-P)
-        MrVector3f.ops.add(mLocation, point, aux);
+        vec3Op.add(mLocation, point, aux);
         flipChange();
     }
 
@@ -175,10 +179,11 @@ public class MrTransform {
      * Internal methods*
      */
     private void calcMatrix() {
-        MrMatrix4f.ops.setIdentity(mMatrix);
-        MrMatrix4f.ops.translate(mMatrix, mLocation);
-        MrMatrix4f.ops.rotate(mMatrix, mRotation);
-        MrMatrix4f.ops.scale(mMatrix, mScale);
+        MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
+        mat4Op.setIdentity(mMatrix);
+        mat4Op.translate(mMatrix, mLocation);
+        mat4Op.rotate(mMatrix, mRotation);
+        mat4Op.scale(mMatrix, mScale);
     }
 
     private void flipChange() {
@@ -194,9 +199,10 @@ public class MrTransform {
     }
 
     private void transformLocalAxis() {
-        MrMatrix4f.ops.multV(mForward, mMatrix, mForward);
-        MrMatrix4f.ops.multV(mUp, mMatrix, mUp);
-        MrMatrix4f.ops.multV(mRight, mMatrix, mRight);
+        MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
+        mat4Op.multV(mForward, mMatrix, mForward);
+        mat4Op.multV(mUp, mMatrix, mUp);
+        mat4Op.multV(mRight, mMatrix, mRight);
     }
 
     //TODO: Remove this method
