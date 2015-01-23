@@ -11,6 +11,7 @@ package mr.robotto.core.data.commons;
 
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.containers.MrUniformKeyContainer;
+import mr.robotto.linearalgebra.MrTransform;
 
 public abstract class MrObjectData {
     private String mName;

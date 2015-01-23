@@ -31,7 +31,8 @@ public class MrModel extends MrObject {
                 MrMatrix4f m = new MrMatrix4f();
                 Iterator<MrObject> it = tree.parentTraversal(object);
                 while (it.hasNext()) {
-                    MrMatrix4f.ops.mult(m, it.next().getTransform().getAsMatrix(), m);
+                    //MrMatrix4f.ops.mult(m, it.next().getTransform().getAsMatrix(), m);
+                    new UnsupportedOperationException("Not implemented yet");
                 }
                 return m;
             }

@@ -11,10 +11,10 @@ package mr.robotto.core.data.model;
 
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.commons.MrTransform;
 import mr.robotto.core.data.commons.shader.MrShaderProgram;
 import mr.robotto.core.data.containers.MrUniformKeyContainer;
 import mr.robotto.core.data.model.mesh.MrMesh;
+import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
