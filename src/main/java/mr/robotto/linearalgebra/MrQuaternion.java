@@ -9,10 +9,12 @@
 
 package mr.robotto.linearalgebra;
 
+import java.util.HashMap;
+
 import mr.robotto.commons.MrDataType;
 
-public class MrQuaternion implements MrLinearAlgebraObject
-{
+public final class MrQuaternion implements MrLinearAlgebraObject {
+    private final static HashMap<Long, Operator> sOperators = new HashMap<>();
     public float x;
     public float y;
     public float z;
@@ -36,12 +38,19 @@ public class MrQuaternion implements MrLinearAlgebraObject
     }
 
     public static Operator getOperator() {
-        return new Operator();
+        long id = Thread.currentThread().getId();
+        if (sOperators.containsKey(id)) {
+            return sOperators.get(id);
+        } else {
+            Operator op = new Operator();
+            sOperators.put(id, op);
+            return op;
+        }
     }
 
     private void init() {
-        getOperator().setIdentity(this);
         values = new float[4];
+        setValues(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     @Override

@@ -11,11 +11,13 @@ package mr.robotto.linearalgebra;
 
 import android.opengl.Matrix;
 
+import java.util.HashMap;
+
 import mr.robotto.commons.MrDataType;
 
-public class MrMatrix4f implements MrLinearAlgebraObject
-{
-    private float[] values;
+public final class MrMatrix4f implements MrLinearAlgebraObject {
+    private final static HashMap<Long, Operator> sOperators = new HashMap<>();
+    private float[] mValues;
 
     /**
      * Gets the a new matrix set to identity
@@ -38,12 +40,20 @@ public class MrMatrix4f implements MrLinearAlgebraObject
     }
 
     public static Operator getOperator() {
-        return new Operator();
+        long id = Thread.currentThread().getId();
+        if (sOperators.containsKey(id)) {
+            return sOperators.get(id);
+        } else {
+            Operator op = new Operator();
+            sOperators.put(id, op);
+            return op;
+        }
     }
 
     private void init() {
-        values = new float[16];
-        getOperator().setIdentity(this);
+        mValues = new float[16];
+        Matrix.setIdentityM(mValues, 0);
+        //getOperator().setIdentity(this);
     }
 
     @Override
@@ -52,17 +62,17 @@ public class MrMatrix4f implements MrLinearAlgebraObject
     }
 
     /**
-     * Get matrix values as a array
+     * Get matrix mValues as a array
      *
-     * @return values of the matrix
+     * @return mValues of the matrix
      */
     @Override
     public float[] getValues() {
-        return values;
+        return mValues;
     }
 
     public void setValues(float[] values) {
-        System.arraycopy(values, 0, this.values, 0, 16);
+        System.arraycopy(values, 0, this.mValues, 0, 16);
     }
 
     @Override
@@ -76,7 +86,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
      * @param f new value
      */
     private void setValueAt(int i, float f) {
-        values[i] = f;
+        mValues[i] = f;
     }
 
     /**
@@ -100,11 +110,11 @@ public class MrMatrix4f implements MrLinearAlgebraObject
      */
     public float getValueAt(int i, int j) {
         int k = 4 * j + i;
-        return values[k];
+        return mValues[k];
     }
 
     public void copyValues(MrMatrix4f m) {
-        setValues(m.values);
+        setValues(m.mValues);
     }
 
     @Override
@@ -114,7 +124,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
             str += "|";
             for (int j = 0; j < 4; j++) {
                 int k = 4 * j + i;
-                str += values[k] + ", ";
+                str += mValues[k] + ", ";
             }
             str += "|\n";
         }
@@ -134,16 +144,16 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         }
 
         public void setIdentity(MrMatrix4f result) {
-            Matrix.setIdentityM(result.values, 0);
+            Matrix.setIdentityM(result.mValues, 0);
         }
 
         //TODO: Check invertible matrix
         public void invert(MrMatrix4f result, MrMatrix4f m) {
-            Matrix.invertM(result.values, 0, m.values, 0);
+            Matrix.invertM(result.mValues, 0, m.mValues, 0);
         }
 
         public void transpose(MrMatrix4f result, MrMatrix4f m) {
-            Matrix.transposeM(result.values, 0, m.values, 0);
+            Matrix.transposeM(result.mValues, 0, m.mValues, 0);
         }
 
         /**
@@ -156,26 +166,26 @@ public class MrMatrix4f implements MrLinearAlgebraObject
          */
         public void add(MrMatrix4f result, MrMatrix4f m1, MrMatrix4f m2) {
             for (int i = 0; i < 16; i++) {
-                result.values[i] = m1.values[i] + m2.values[i];
+                result.mValues[i] = m1.mValues[i] + m2.mValues[i];
             }
         }
 
         public void substract(MrMatrix4f result, MrMatrix4f m1, MrMatrix4f m2) {
             for (int i = 0; i < 16; i++) {
-                result.values[i] = m1.values[i] - m2.values[i];
+                result.mValues[i] = m1.mValues[i] - m2.mValues[i];
             }
         }
 
         public void mult(MrMatrix4f result, MrMatrix4f m1, MrMatrix4f m2) {
             op1Mult.copyValues(m1);
             op2Mult.copyValues(m2);
-            Matrix.multiplyMM(result.values, 0, op1Mult.values, 0, op2Mult.values, 0);
+            Matrix.multiplyMM(result.mValues, 0, op1Mult.mValues, 0, op2Mult.mValues, 0);
         }
 
         //TODO: Change these to vector classes
         public void multV(MrVector4f result, MrMatrix4f m, MrVector4f v) {
             opMultV4.copyValues(v);
-            Matrix.multiplyMV(result.getValues(), 0, m.values, 0, opMultV4.getValues(), 0);
+            Matrix.multiplyMV(result.getValues(), 0, m.mValues, 0, opMultV4.getValues(), 0);
         }
 
         public void multV(MrVector3f result, MrMatrix4f m, MrVector3f v) {
@@ -188,13 +198,13 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         }
 
         public void multScalar(MrMatrix4f result, float s) {
-            for (int i = 0; i < result.values.length; i++) {
-                result.values[i] = s * result.values[i];
+            for (int i = 0; i < result.mValues.length; i++) {
+                result.mValues[i] = s * result.mValues[i];
             }
         }
 
         public void translate(MrMatrix4f result, float x, float y, float z) {
-            Matrix.translateM(result.values, 0, x, y, z);
+            Matrix.translateM(result.mValues, 0, x, y, z);
         }
 
         public void translate(MrMatrix4f result, MrVector3f v) {
@@ -203,7 +213,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
 
         //TODO: Quizas haya que cambiar el nombre por fromAngleAxis
         public void rotate(MrMatrix4f result, float angle, float x, float y, float z) {
-            Matrix.rotateM(result.values, 0, angle, x, y, z);
+            Matrix.rotateM(result.mValues, 0, angle, x, y, z);
         }
 
         public void rotate(MrMatrix4f result, float angle, MrVector3f v) {
@@ -217,7 +227,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         }
 
         public void scale(MrMatrix4f result, float sx, float sy, float sz) {
-            Matrix.scaleM(result.values, 0, sx, sy, sz);
+            Matrix.scaleM(result.mValues, 0, sx, sy, sz);
         }
 
         public void scale(MrMatrix4f result, float s) {
@@ -262,15 +272,15 @@ public class MrMatrix4f implements MrLinearAlgebraObject
 
         //TODO: Use here a box element
         public void frustrum(MrMatrix4f result, float left, float right, float bottom, float top, float near, float far) {
-            Matrix.frustumM(result.values, 0, left, right, bottom, top, near, far);
+            Matrix.frustumM(result.mValues, 0, left, right, bottom, top, near, far);
         }
 
         public void ortho(MrMatrix4f result, float left, float right, float bottom, float top, float near, float far) {
-            Matrix.orthoM(result.values, 0, left, right, bottom, top, near, far);
+            Matrix.orthoM(result.mValues, 0, left, right, bottom, top, near, far);
         }
 
         public void perspective(MrMatrix4f result, float fovy, float aspect, float zNear, float zFar) {
-            //Matrix.perspectiveM(result.values,0,fovy,aspect,zNear,zFar);
+            //Matrix.perspectiveM(result.mValues,0,fovy,aspect,zNear,zFar);
             float xymax = (float) (zNear * Math.tan(fovy * Math.PI / 360.0f));
             float ymin = -xymax;
             float xmin = -xymax;
@@ -286,7 +296,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
             w = w / aspect;
             float h = 2 * zNear / height;
 
-            float[] f = result.values;
+            float[] f = result.mValues;
 
             f[0] = w;
             f[5] = h;
@@ -296,7 +306,7 @@ public class MrMatrix4f implements MrLinearAlgebraObject
         }
 
         public void lookAt(MrMatrix4f result, float eyeX, float eyeY, float eyeZ, float centerX, float centerY, float centerZ, float upX, float upY, float upZ) {
-            Matrix.setLookAtM(result.values, 0, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
+            Matrix.setLookAtM(result.mValues, 0, eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
         }
 
         public void lookAt(MrMatrix4f result, MrVector3f eye, MrVector3f center, MrVector3f up) {
