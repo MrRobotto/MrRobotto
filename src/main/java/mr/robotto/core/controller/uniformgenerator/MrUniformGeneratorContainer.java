@@ -33,7 +33,7 @@ public class MrUniformGeneratorContainer extends MrMapContainer<String, MrUnifor
         return new MrMapFunction<String, MrUniformGenerator>() {
             @Override
             public String getKeyOf(MrUniformGenerator generator) {
-                return generator.getUniform();
+                return generator.getUniformType();
             }
         };
     }

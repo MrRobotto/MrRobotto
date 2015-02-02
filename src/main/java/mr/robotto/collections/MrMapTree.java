@@ -35,16 +35,19 @@ public class MrMapTree<K, V> implements Iterable<V> {
     private HashMap<K, MrMapTreeNode> mTree;
     private int mTraversalMode;
 
-    public MrMapTree(V root, MrMapFunction<K, V> mapFunction, int traversalMode) {
+    public MrMapTree(MrMapFunction<K, V> mapFunction) {
+        init();
+        mRoot = null;
+        mMapFunction = mapFunction;
+        mTraversalMode = BREADTH_TRAVERSAL;
+    }
+
+    public MrMapTree(V root, MrMapFunction<K, V> mapFunction) {
         init();
         mMapFunction = mapFunction;
         mRoot = new MrMapTreeNode(root);
         mTree.put(mMapFunction.getKeyOf(root), mRoot);
-        mTraversalMode = traversalMode;
-    }
-
-    public MrMapTree(V root, MrMapFunction<K, V> mapFunction) {
-        this(root, mapFunction, BREADTH_TRAVERSAL);
+        mTraversalMode = BREADTH_TRAVERSAL;
     }
 
     private MrMapTree(MrMapTreeNode root, MrMapTree<K, V> mapTree) {
@@ -93,6 +96,10 @@ public class MrMapTree<K, V> implements Iterable<V> {
     }
 
     public boolean addChildByKey(K parentKey, V data) {
+        if (mRoot == null && parentKey == null) {
+            MrMapTreeNode node = new MrMapTreeNode(data);
+            mTree.put(mMapFunction.getKeyOf(data), node);
+        }
         if (!mTree.containsKey(parentKey)) {
             return false;
         }

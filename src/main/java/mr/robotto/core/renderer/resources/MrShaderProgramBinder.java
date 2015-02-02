@@ -11,6 +11,8 @@ package mr.robotto.core.renderer.resources;
 
 import android.opengl.GLES20;
 
+import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
+import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
 import mr.robotto.core.data.resources.shader.MrAttribute;
 import mr.robotto.core.data.resources.shader.MrShader;
 import mr.robotto.core.data.resources.shader.MrShaderProgram;
@@ -49,6 +51,13 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
         return mBinded;
     }
 
+    public void bindUniforms(MrUniformGeneratorContainer uniformGenerators) {
+        for (MrUniform uniform : mShaderProgram.getUniforms()) {
+            MrUniformGenerator generator = uniformGenerators.findByKey(uniform.getUniformType());
+            bindUniform(uniform, generator.getUniformValue());
+        }
+    }
+
     //TODO: Check uniform/element count, uniform/element datatype
     public void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
         int programId = mShaderProgram.getId();
@@ -57,7 +66,8 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
         float[] values = element.getValues();
         switch (element.getDataType()) {
             case MAT4:
-                GLES20.glUniformMatrix4fv(programId, uniformId, false, values, uniformCount);
+                GLES20.glUniformMatrix4fv(uniformId, uniformCount, false, values, 0);
+                //GLES20.glUniformMatrix4fv(programId, uniformId, false, values, uniformCount);
                 break;
             case VEC3:
                 GLES20.glUniform3fv(programId, uniformId, values, uniformCount);
@@ -116,6 +126,10 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
         }
 
         GLES20.glLinkProgram(id);
+
+        for (MrUniform uniform : mShaderProgram.getUniforms()) {
+            initialize(uniform);
+        }
 
         final int[] linkStatus = new int[1];
         GLES20.glGetProgramiv(id, GLES20.GL_LINK_STATUS, linkStatus, 0);

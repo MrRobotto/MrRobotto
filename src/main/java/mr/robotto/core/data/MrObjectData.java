@@ -9,6 +9,7 @@
 
 package mr.robotto.core.data;
 
+import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
 import mr.robotto.core.data.resources.uniformkey.MrUniformKeyContainer;
 import mr.robotto.linearalgebra.MrTransform;
 
@@ -16,6 +17,7 @@ public abstract class MrObjectData {
     private String mName;
     private MrSceneObjectType mSceneObjType;
     private MrTransform mTransform;
+    private MrUniformGeneratorContainer mUniformGenerators;
     private MrUniformKeyContainer mUniformKeys;
 
     public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyContainer uniformKeys) {
@@ -23,6 +25,7 @@ public abstract class MrObjectData {
         mTransform = transform;
         mSceneObjType = sceneObjType;
         mUniformKeys = uniformKeys;
+        mUniformGenerators = new MrUniformGeneratorContainer();
         init();
     }
 
@@ -57,5 +60,13 @@ public abstract class MrObjectData {
 
     public void setUniformKeys(MrUniformKeyContainer uniformKeys) {
         this.mUniformKeys = uniformKeys;
+    }
+
+    public MrUniformGeneratorContainer getUniformGenerators() {
+        return mUniformGenerators;
+    }
+
+    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
+        mUniformGenerators = uniformGenerators;
     }
 }

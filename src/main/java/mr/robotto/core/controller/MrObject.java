@@ -24,20 +24,11 @@ import mr.robotto.proposed.MrRenderingContext;
 public abstract class MrObject {
     private MrObjectData mData;
     private MrObjectRender mRender;
-    private MrRenderingContext mContext;
-    private MrUniformGeneratorContainer mUniformGenerators;
     private Queue<MrAction<MrObjectData>> mActions;
-
-    protected MrObject(MrObjectData data, MrObjectRender render, MrUniformGeneratorContainer uniformGenerator) {
-        mData = data;
-        mRender = render;
-        mUniformGenerators = uniformGenerator;
-    }
 
     protected MrObject(MrObjectData data, MrObjectRender render) {
         mData = data;
         mRender = render;
-        mUniformGenerators = new MrUniformGeneratorContainer();
     }
 
     //TODO: Fill this to create objects in the loader
@@ -49,34 +40,17 @@ public abstract class MrObject {
         mActions = new LinkedList<MrAction<MrObjectData>>();
     }
 
-    public void initialize() {
-        mRender.initializeRender(mData, mContext);
-        initializeUniforms(mUniformGenerators);
+    public void initializeRender(MrRenderingContext context) {
+        mRender.initializeRender(mData, context);
+        initializeUniforms(mData.getUniformGenerators());
     }
 
-    public void initializeSizeDependant(int w, int h) {
-        mRender.initializeSizeDependant(w, h);
+    public void initializeSizeDependant(int widthScreen, int heightScreen) {
+        mRender.initializeSizeDependant(widthScreen, heightScreen);
     }
 
     public boolean isInitialized() {
         return mRender.isInitialized();
-    }
-
-    public MrRenderingContext getRenderingContext() {
-        return mContext;
-    }
-
-    //TODO: Update render
-    public void setRenderingContext(MrRenderingContext context) {
-        mContext = context;
-    }
-
-    public MrUniformGeneratorContainer getUniformGenerators() {
-        return mUniformGenerators;
-    }
-
-    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
-        mUniformGenerators = uniformGenerators;
     }
 
     public void render() {
@@ -110,6 +84,14 @@ public abstract class MrObject {
 
     public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {
 
+    }
+
+    public MrUniformGeneratorContainer getUniformGenerators() {
+        return mData.getUniformGenerators();
+    }
+
+    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
+        mData.setUniformGenerators(uniformGenerators);
     }
 
     public void addAction(final MrAction<MrObjectData> action) {

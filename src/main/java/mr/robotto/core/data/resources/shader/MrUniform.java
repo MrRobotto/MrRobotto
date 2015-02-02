@@ -12,41 +12,41 @@ package mr.robotto.core.data.resources.shader;
 import mr.robotto.commons.MrDataType;
 
 public class MrUniform {
-    private String uniformType;
-    private String name;
-    private MrDataType dataType;
-    private int count;
-    private int id;
+    private String mUniformType;
+    private String mName;
+    private MrDataType mDataType;
+    private int mCount;
+    private int mId;
 
     public MrUniform(String uniformType, String name, MrDataType dataType, int count) {
-        this.name = name;
-        this.uniformType = uniformType;
-        this.dataType = dataType;
-        this.count = count;
+        this.mName = name;
+        this.mUniformType = uniformType;
+        this.mDataType = dataType;
+        this.mCount = count;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public String getUniformType() {
-        return uniformType;
+        return mUniformType;
     }
 
     public MrDataType getDataType() {
-        return dataType;
+        return mDataType;
     }
 
     public int getCount() {
-        return count;
+        return mCount;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 }
 

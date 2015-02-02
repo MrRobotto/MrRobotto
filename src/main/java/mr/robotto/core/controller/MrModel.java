@@ -25,23 +25,37 @@ public class MrModel extends MrObject {
     }
 
     private static MrUniformGenerator generateModelMatrix(MrModel model) {
-        return new MrUniformGenerator("ModelMatrix", MrUniformGenerator.OBJECT_LEVEL) {
+        return new MrUniformGenerator("Matrix_Model_View_Projection", MrUniformGenerator.OBJECT_LEVEL) {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrObject object) {
                 MrMatrix4f m = new MrMatrix4f();
+                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversal(object);
                 while (it.hasNext()) {
-                    //MrMatrix4f.ops.mult(m, it.next().getTransform().getAsMatrix(), m);
-                    new UnsupportedOperationException("Not implemented yet");
+                    op.mult(m, it.next().getTransform().getAsMatrix(), m);
+                    //new UnsupportedOperationException("Not implemented yet");
                 }
-                return m;
+                //return m;
+                //return new MrMatrix4f(new float[]{ -1.6310f,0,0,0,
+                //                                    0,0.97014f,-0.29643f,-0.24253f,
+                //                                    0,0.24253f,1.18572f,0.97014f,
+                //                                    0,0,7.8564f,8.24621f});
+
+                return new MrMatrix4f(new float[]{-1.6310f, 0, 0, 0,
+                        0, 0.97014f, -0.29643f, -0.24253f,
+                        0, 0.24253f, 1.18572f, 0.97014f,
+                        0, 0, 7.8564f, 8.24621f});
+                //MrMatrix4f.getOperator().transpose(aux, aux);
+                //return new MrMatrix4f();
+                //return new MrMatrix4f(new float[]{})
+                //return m;
             }
         };
     }
 
-    public MrMatrix4f getModelMatrix() {
-        return getData().getTransform().getAsMatrix();
-    }
+    //public MrMatrix4f getModelMatrix() {
+    //    return getData().getTransform().getAsMatrix();
+    //}
 
     @Override
     public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {

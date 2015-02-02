@@ -15,7 +15,7 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import mr.robotto.context.MrSceneObjectsTreeRender;
+import mr.robotto.context.MrSceneObjectsTreeController;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.MrSceneData;
@@ -25,7 +25,8 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     //TODO: Remove this
     public MrModel model;
-    public MrSceneObjectsTreeRender render;
+    //public MrSceneObjectsTreeRender render;
+    public MrSceneObjectsTreeController controller;
     public MrScene mScene;
     private boolean initialized;
 
@@ -56,13 +57,15 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
         //model.initialize();
         //mScene.initialize();
-        render.initialize();
+        //render.initialize();
+        controller.initializeRender();
     }
 
     //TODO: De esto se encarga la camara en teoria
     @Override
     public void onSurfaceChanged(GL10 gl10, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
+        controller.initializeSizeDependant(width, height);
     }
 
     @Override
@@ -70,6 +73,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         //scene.getRenderer().render();
         //mScene.render();
         //model.render();
-        render.render();
+        //render.render();
+        controller.render();
     }
 }

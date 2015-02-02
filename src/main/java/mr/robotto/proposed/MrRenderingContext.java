@@ -10,17 +10,27 @@
 package mr.robotto.proposed;
 
 
+import mr.robotto.context.MrSceneObjectsTree;
+import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+
 /**
  * Created by Aarón on 28/11/2014.
  */
 public class MrRenderingContext {
-    /*private MrUniformContainer mUniformContainer;
+    private MrSceneObjectsTree mObjectsTree;
+    private MrUniformGeneratorContainer mUniformGenerators;
 
-    public MrRenderingContext() {
-        mUniformContainer = new MrUniformContainer();
+    public MrRenderingContext(MrSceneObjectsTree objectsTree) {
+        mObjectsTree = objectsTree;
+        mUniformGenerators = new MrUniformGeneratorContainer();
     }
 
-    public MrUniformContainer getUniformContainer() {
-        return mUniformContainer;
-    }*/
+    public MrSceneObjectsTree getObjectsTree() {
+        return mObjectsTree;
+    }
+
+    public MrUniformGeneratorContainer getUniformGenerators() {
+        return mUniformGenerators;
+    }
+
 }

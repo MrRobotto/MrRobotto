@@ -21,6 +21,7 @@ public class MrModelRender implements MrObjectRender {
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
     private MrModelData mModelData;
+    private MrRenderingContext mContext;
     private boolean mInitialized = false;
     private boolean mBinded = false;
 
@@ -36,6 +37,7 @@ public class MrModelRender implements MrObjectRender {
 
     @Override
     public void initializeRender(MrObjectData link, MrRenderingContext context) {
+        mContext = context;
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
@@ -63,6 +65,7 @@ public class MrModelRender implements MrObjectRender {
 
     private void bind() {
         mShaderProgramBinder.bind();
+        mShaderProgramBinder.bindUniforms(mContext.getUniformGenerators());
         mMeshDrawer.bind();
         mBinded = true;
     }

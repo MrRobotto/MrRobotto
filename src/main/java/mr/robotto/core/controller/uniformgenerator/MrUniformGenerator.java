@@ -22,16 +22,25 @@ public abstract class MrUniformGenerator {
     public final static int SCENE_LEVEL = 1;
     public final static int USER_LEVEL = 2;
 
-    private String mUniform;
+    private String mUniformType;
     private int mPriority;
+    private MrLinearAlgebraObject mUniformValue;
 
-    public MrUniformGenerator(String uniform, int priority) {
-        mUniform = uniform;
+    public MrUniformGenerator(String uniformType, int priority) {
+        mUniformType = uniformType;
         mPriority = priority;
     }
 
-    public String getUniform() {
-        return mUniform;
+    public MrLinearAlgebraObject getUniformValue() {
+        return mUniformValue;
+    }
+
+    public void setUniformValue(MrLinearAlgebraObject uniformValue) {
+        mUniformValue = uniformValue;
+    }
+
+    public String getUniformType() {
+        return mUniformType;
     }
 
     public int getPriority() {

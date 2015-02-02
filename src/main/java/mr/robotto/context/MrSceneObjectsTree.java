@@ -17,7 +17,6 @@ import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.MrSceneObjectType;
-import mr.robotto.proposed.MrRenderingContext;
 
 /**
  * Created by Aarón on 31/12/2014.
@@ -25,7 +24,11 @@ import mr.robotto.proposed.MrRenderingContext;
 public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
 
     private HashMap<MrSceneObjectType, List<MrObject>> mTags;
-    private MrRenderingContext mRenderingContext;
+
+    public MrSceneObjectsTree() {
+        super(createMapFunction());
+        init();
+    }
 
     public MrSceneObjectsTree(MrObject root) {
         super(root, createMapFunction());
@@ -46,7 +49,6 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
         for (MrSceneObjectType type : MrSceneObjectType.values()) {
             mTags.put(type, new ArrayList<MrObject>());
         }
-        mRenderingContext = new MrRenderingContext();
     }
 
     private void addByTag(MrObject object) {
@@ -57,10 +59,6 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
     private void removeByTag(MrObject object) {
         MrSceneObjectType type = object.getSceneObjectType();
         mTags.get(type).remove(object);
-    }
-
-    public MrRenderingContext getRenderingContext() {
-        return mRenderingContext;
     }
 
     @Override
@@ -76,9 +74,9 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
     }
 
     @Override
-    public boolean removeByKey(String key) {
-        removeByTag(findByKey(key));
-        return super.removeByKey(key);
+    public boolean removeByKey(String parentKey) {
+        removeByTag(findByKey(parentKey));
+        return super.removeByKey(parentKey);
     }
 
     @Override
