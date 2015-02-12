@@ -21,6 +21,7 @@ import mr.robotto.core.data.MrSceneObjectType;
 /**
  * Created by Aarón on 31/12/2014.
  */
+//TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
 public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
 
     private HashMap<MrSceneObjectType, List<MrObject>> mTags;
@@ -51,6 +52,7 @@ public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
         }
     }
 
+    //TODO: Make tests of mTags behaviour, cuando agregas y sustituyes, se elimina de tags?
     private void addByTag(MrObject object) {
         MrSceneObjectType type = object.getSceneObjectType();
         mTags.get(type).add(object);

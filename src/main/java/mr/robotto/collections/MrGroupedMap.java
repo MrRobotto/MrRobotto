@@ -12,30 +12,38 @@ package mr.robotto.collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import mr.robotto.collections.core.MrGroupingFunction;
 import mr.robotto.collections.core.MrMapFunction;
 
-//TODO: Rename this to MrMap
-public class MrMapContainer<K, V> implements MrMap<K, V> {
+/**
+ * Created by aaron on 10/02/2015.
+ */
+public class MrGroupedMap<K, G, V> extends MrMapContainer<K, V> {
 
-    protected HashMap<K, V> mElements;
-    protected MrMapFunction<K, V> mMapFunction;
+    private HashMap<G, MrMap<K, V>> mGroupedElements;
+    private MrGroupingFunction<G, V> mGroupingFunction;
 
-    public MrMapContainer(MrMapFunction<K, V> mapFunction) {
-        init2();
-        mMapFunction = mapFunction;
+    public MrGroupedMap(MrMapFunction<K, V> mapFunction, MrGroupingFunction<G, V> groupingFunction) {
+        super(mapFunction);
+        mGroupingFunction = groupingFunction;
     }
 
-    //TODO: Change method name and encapsulation
     protected void init2() {
-        mElements = new HashMap<K, V>();
+        super.init2();
+        mGroupedElements = new HashMap<>();
     }
 
     @Override
     public boolean add(V v) {
-        return mElements.put(mMapFunction.getKeyOf(v), v) != null;
+        G group = mGroupingFunction.getGroupOf(v);
+        K key = mMapFunction.getKeyOf(v);
+        if (!mGroupedElements.containsKey(group)) {
+            mGroupedElements.put(group, new MrMapContainer<K, V>(mMapFunction));
+        }
+        mGroupedElements.get(group).add(v);
+        return mElements.put(key, v) != null;
     }
 
-    //TODO: Check addition when override
     @Override
     public boolean addAll(MrMap<K, V> container) {
         boolean added = true;
@@ -47,17 +55,25 @@ public class MrMapContainer<K, V> implements MrMap<K, V> {
 
     @Override
     public boolean remove(V v) {
-        return removeByKey(mMapFunction.getKeyOf(v));
+        K key = mMapFunction.getKeyOf(v);
+        return removeByKey(key);
     }
 
     @Override
     public boolean removeByKey(K k) {
-        return mElements.remove(k) != null;
+        V v = mElements.remove(k);
+        if (v != null) {
+            G group = mGroupingFunction.getGroupOf(v);
+            mGroupedElements.get(group).removeByKey(k);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void clear() {
         mElements.clear();
+        mGroupedElements.clear();
     }
 
     @Override
@@ -68,11 +84,6 @@ public class MrMapContainer<K, V> implements MrMap<K, V> {
     @Override
     public boolean isEmpty() {
         return mElements.isEmpty();
-    }
-
-    @Override
-    public Iterator<V> iterator() {
-        return mElements.values().iterator();
     }
 
     @Override
@@ -91,11 +102,11 @@ public class MrMapContainer<K, V> implements MrMap<K, V> {
     }
 
     @Override
-    public String toString() {
-        String s = "";
-        for (V v : mElements.values()) {
-            s += v.toString();
-        }
-        return s;
+    public Iterator<V> iterator() {
+        return mElements.values().iterator();
+    }
+
+    public MrMap<K, V> getByGroup(G group) {
+        return mGroupedElements.get(group);
     }
 }

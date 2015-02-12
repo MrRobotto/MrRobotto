@@ -35,8 +35,13 @@ public abstract class MrUniformGenerator {
         return mUniformValue;
     }
 
+    //TODO: Remove this
     public void setUniformValue(MrLinearAlgebraObject uniformValue) {
         mUniformValue = uniformValue;
+    }
+
+    public final void updateUniform(MrSceneObjectsTree tree, MrObject object) {
+        mUniformValue = generateUniform(tree, object);
     }
 
     public String getUniformType() {
@@ -47,5 +52,5 @@ public abstract class MrUniformGenerator {
         return mPriority;
     }
 
-    public abstract MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrObject object);
+    public abstract MrLinearAlgebraObject generateUniform(final MrSceneObjectsTree tree, final MrObject object);
 }

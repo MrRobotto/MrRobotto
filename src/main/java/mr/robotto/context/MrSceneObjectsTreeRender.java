@@ -9,6 +9,8 @@
 
 package mr.robotto.context;
 
+import java.util.Stack;
+
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
 import mr.robotto.core.data.MrSceneObjectType;
@@ -22,8 +24,10 @@ import mr.robotto.proposed.MrRenderingContext;
 public class MrSceneObjectsTreeRender {
     private MrSceneObjectsTree mSceneObjectsTree;
     private MrRenderingContext mContext;
+    private Stack<MrObject> mActiveObjects;
 
     public MrSceneObjectsTreeRender() {
+        mActiveObjects = new Stack<>();
     }
 
     public void initializeRender(MrSceneObjectsTree objectsTree, MrRenderingContext context) {
@@ -56,6 +60,12 @@ public class MrSceneObjectsTreeRender {
         }
         mContext.getUniformGenerators().addAll(obj.getUniformGenerators());
     }
+
+    /*private void renderActiveObjects() {
+        for (MrObject object : mActiveObjects) {
+
+        }
+    }*/
 
     //TODO: This must be changed!!
     public void render() {

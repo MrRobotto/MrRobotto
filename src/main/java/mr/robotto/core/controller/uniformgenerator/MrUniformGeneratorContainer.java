@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import mr.robotto.collections.MrMap;
 import mr.robotto.collections.MrMapContainer;
 import mr.robotto.collections.core.MrMapFunction;
 
@@ -24,8 +25,10 @@ public class MrUniformGeneratorContainer extends MrMapContainer<String, MrUnifor
 
     private SortedSet<MrUniformGenerator> mGenerators;
 
+    //TODO: Remove init2
     public MrUniformGeneratorContainer() {
         super(getMapFunction());
+        init2();
         init();
     }
 
@@ -52,12 +55,15 @@ public class MrUniformGeneratorContainer extends MrMapContainer<String, MrUnifor
         });
     }
 
+    //TODO: Cuando añades no se sustituye en el generators...
     @Override
-    public boolean addAll(MrMapContainer<String, MrUniformGenerator> container) {
+    public boolean addAll(MrMap<String, MrUniformGenerator> container) {
+        boolean added = true;
         for (MrUniformGenerator generator : container) {
-            mGenerators.add(generator);
+            added &= mGenerators.add(generator);
+            super.add(generator);
         }
-        return super.addAll(container);
+        return added;
     }
 
     @Override
