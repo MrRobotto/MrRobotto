@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import mr.robotto.collections.MrMapTree;
-import mr.robotto.context.MrObjectDataContainer;
-import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.controller.MrScene;
@@ -25,6 +23,7 @@ import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.core.renderer.MrSceneRender;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /*
 TODO: Has de crear un findByKey al menos que te busque en los objectsdata

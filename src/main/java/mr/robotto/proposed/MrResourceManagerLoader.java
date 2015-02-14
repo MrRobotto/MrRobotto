@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import mr.robotto.collections.MrMapTree;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.context.MrObjectDataContainer;
 import mr.robotto.loader.MrAbstractLoader;
 import mr.robotto.loader.MrObjectLoader;
 

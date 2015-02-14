@@ -9,6 +9,8 @@
 
 package mr.robotto.collections;
 
+import java.util.Set;
+
 /**
  * Created by aaron on 10/02/2015.
  */
@@ -33,4 +35,6 @@ public interface MrMap<K, V> extends Iterable<V> {
     V findByKey(K k);
 
     boolean containsKey(K k);
+
+    Set<K> getKeys();
 }

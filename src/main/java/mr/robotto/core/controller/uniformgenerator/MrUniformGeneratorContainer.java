@@ -25,10 +25,8 @@ public class MrUniformGeneratorContainer extends MrMapContainer<String, MrUnifor
 
     private SortedSet<MrUniformGenerator> mGenerators;
 
-    //TODO: Remove init2
     public MrUniformGeneratorContainer() {
         super(getMapFunction());
-        init2();
         init();
     }
 

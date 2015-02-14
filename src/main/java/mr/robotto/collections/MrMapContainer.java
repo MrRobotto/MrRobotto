@@ -11,22 +11,23 @@ package mr.robotto.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import mr.robotto.collections.core.MrMapFunction;
 
 //TODO: Rename this to MrMap
 public class MrMapContainer<K, V> implements MrMap<K, V> {
 
-    protected HashMap<K, V> mElements;
-    protected MrMapFunction<K, V> mMapFunction;
+    private HashMap<K, V> mElements;
+    private MrMapFunction<K, V> mMapFunction;
 
     public MrMapContainer(MrMapFunction<K, V> mapFunction) {
-        init2();
+        init();
         mMapFunction = mapFunction;
     }
 
     //TODO: Change method name and encapsulation
-    protected void init2() {
+    private void init() {
         mElements = new HashMap<K, V>();
     }
 
@@ -88,6 +89,11 @@ public class MrMapContainer<K, V> implements MrMap<K, V> {
     @Override
     public boolean containsKey(K k) {
         return mElements.containsKey(k);
+    }
+
+    @Override
+    public Set<K> getKeys() {
+        return mElements.keySet();
     }
 
     @Override

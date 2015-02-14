@@ -9,9 +9,10 @@
 
 package mr.robotto.core.controller.uniformgenerator;
 
-import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
+import mr.robotto.proposed.aus.MrUniformGeneratorView;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
  * Created by Aarón on 05/01/2015.
@@ -40,8 +41,8 @@ public abstract class MrUniformGenerator {
         mUniformValue = uniformValue;
     }
 
-    public final void updateUniform(MrSceneObjectsTree tree, MrObject object) {
-        mUniformValue = generateUniform(tree, object);
+    public final void updateUniform(MrSceneObjectsTree tree, MrUniformGeneratorView uniforms, MrObject object) {
+        mUniformValue = generateUniform(tree, uniforms, object);
     }
 
     public String getUniformType() {
@@ -52,5 +53,5 @@ public abstract class MrUniformGenerator {
         return mPriority;
     }
 
-    public abstract MrLinearAlgebraObject generateUniform(final MrSceneObjectsTree tree, final MrObject object);
+    public abstract MrLinearAlgebraObject generateUniform(final MrSceneObjectsTree tree, final MrUniformGeneratorView uniforms, final MrObject object);
 }

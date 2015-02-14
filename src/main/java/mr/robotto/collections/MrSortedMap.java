@@ -26,12 +26,11 @@ public class MrSortedMap<K, V> extends MrGroupedMap<K, Integer, V> {
 
     public MrSortedMap(MrMapFunction<K, V> mapFunction, MrOrderingFunction<V> orderingFunction) {
         super(mapFunction, orderingFunction);
-        init2();
-        mMapFunction = mapFunction;
+        init();
+        //mMapFunction = mapFunction;
     }
 
-    protected void init2() {
-        super.init2();
+    private void init() {
         mGroupedElements = new HashMap<>();
         mKeys = new TreeSet<>();
     }

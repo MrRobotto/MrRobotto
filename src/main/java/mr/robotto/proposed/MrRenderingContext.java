@@ -10,8 +10,8 @@
 package mr.robotto.proposed;
 
 
-import mr.robotto.context.MrSceneObjectsTree;
 import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
  * Created by Aarón on 28/11/2014.

@@ -15,11 +15,11 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import mr.robotto.context.MrSceneObjectsTreeController;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrSceneRender;
+import mr.robotto.scenetree.MrSceneObjectsTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 

@@ -11,6 +11,7 @@ package mr.robotto.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import mr.robotto.collections.core.MrGroupingFunction;
 import mr.robotto.collections.core.MrMapFunction;
@@ -18,18 +19,21 @@ import mr.robotto.collections.core.MrMapFunction;
 /**
  * Created by aaron on 10/02/2015.
  */
-public class MrGroupedMap<K, G, V> extends MrMapContainer<K, V> {
+public class MrGroupedMap<K, G, V> implements MrMap<K, V> {
 
+    private HashMap<K, V> mElements;
+    private MrMapFunction<K, V> mMapFunction;
     private HashMap<G, MrMap<K, V>> mGroupedElements;
     private MrGroupingFunction<G, V> mGroupingFunction;
 
     public MrGroupedMap(MrMapFunction<K, V> mapFunction, MrGroupingFunction<G, V> groupingFunction) {
-        super(mapFunction);
+        init();
+        mMapFunction = mapFunction;
         mGroupingFunction = groupingFunction;
     }
 
-    protected void init2() {
-        super.init2();
+    private void init() {
+        mElements = new HashMap<>();
         mGroupedElements = new HashMap<>();
     }
 
@@ -99,6 +103,11 @@ public class MrGroupedMap<K, G, V> extends MrMapContainer<K, V> {
     @Override
     public boolean containsKey(K k) {
         return mElements.containsKey(k);
+    }
+
+    @Override
+    public Set<K> getKeys() {
+        return mElements.keySet();
     }
 
     @Override
