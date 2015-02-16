@@ -9,6 +9,7 @@
 
 package mr.robotto.core.data;
 
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrSceneData extends MrObjectData {

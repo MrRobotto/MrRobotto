@@ -13,16 +13,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.data.MrSceneObjectType;
 
 /**
  * Created by Aarón on 31/12/2014.
  */
 //TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
-public class MrSceneObjectsTree extends MrMapTree<String, MrObject> {
+public class MrSceneObjectsTree extends MrTreeMap<String, MrObject> {
 
     private HashMap<MrSceneObjectType, List<MrObject>> mTags;
 

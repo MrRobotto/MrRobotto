@@ -11,13 +11,13 @@ package mr.robotto.core.controller;
 
 import java.util.Iterator;
 
-import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
-import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
-import mr.robotto.proposed.aus.MrUniformGeneratorView;
+import mr.robotto.proposed.aus.MrUniformGenerator;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.proposed.aus.MrUniformGeneratorMapView;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 public class MrModel extends MrObject {
@@ -29,7 +29,7 @@ public class MrModel extends MrObject {
     private static MrUniformGenerator generateModelMatrix(MrModel model) {
         return new MrUniformGenerator("Matrix_Model_View_Projection", MrUniformGenerator.OBJECT_LEVEL) {
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorView uniforms, MrObject object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversal(object);
@@ -61,7 +61,7 @@ public class MrModel extends MrObject {
     //}
 
     @Override
-    public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateModelMatrix(this));
     }

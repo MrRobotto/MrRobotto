@@ -11,11 +11,11 @@ package mr.robotto.scenetree;
 
 import java.util.Stack;
 
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
-import mr.robotto.core.data.MrSceneObjectType;
 import mr.robotto.proposed.MrRenderingContext;
-import mr.robotto.proposed.aus.MrUniformGeneratorCtrl;
+import mr.robotto.proposed.aus.MrUniformGenerator;
+import mr.robotto.proposed.aus.MrUniformGeneratorMapController;
 
 /**
  * Created by Aarón on 18/01/2015.
@@ -25,7 +25,7 @@ import mr.robotto.proposed.aus.MrUniformGeneratorCtrl;
 public class MrSceneObjectsTreeRender {
     private MrSceneObjectsTree mSceneObjectsTree;
     private MrRenderingContext mContext;
-    private MrUniformGeneratorCtrl mUniformController;
+    private MrUniformGeneratorMapController mUniformController;
     private Stack<MrObject> mActiveObjects;
 
     public MrSceneObjectsTreeRender() {
@@ -35,9 +35,9 @@ public class MrSceneObjectsTreeRender {
     public void initializeRender(MrSceneObjectsTree objectsTree, MrRenderingContext context) {
         mContext = context;
         mSceneObjectsTree = objectsTree;
-        mUniformController = new MrUniformGeneratorCtrl(mContext.getUniformGenerators());
+        mUniformController = new MrUniformGeneratorMapController(mContext.getUniformGenerators());
         for (MrObject obj : mSceneObjectsTree) {
-            obj.initializeRender(context);
+            obj.initializeRender(mContext);
         }
     }
 
@@ -48,8 +48,9 @@ public class MrSceneObjectsTreeRender {
     }
 
     //TODO: Check the visibility level
+    //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto
     private void updateUniforms(MrObject obj) {
-        mContext.getUniformGenerators().addAll(obj.getUniformGenerators());
+        mUniformController.getUniformGenerators().addAll(obj.getUniformGenerators());
         for (MrUniformGenerator generator : obj.getUniformGenerators()) {
             mUniformController.setVisibility(generator.getPriority());
             generator.updateUniform(mSceneObjectsTree, mUniformController.getView(), obj);

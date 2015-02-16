@@ -9,7 +9,8 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.lens.MrLens;
+import mr.robotto.components.data.lens.MrLens;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrVector3f;
 

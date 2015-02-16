@@ -9,11 +9,11 @@
 
 package mr.robotto.core.renderer;
 
+import mr.robotto.components.data.shader.MrAttribute;
+import mr.robotto.components.renderer.MrMeshDrawer;
+import mr.robotto.components.renderer.MrShaderProgramBinder;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.resources.shader.MrAttribute;
-import mr.robotto.core.renderer.resources.MrMeshDrawer;
-import mr.robotto.core.renderer.resources.MrShaderProgramBinder;
 import mr.robotto.proposed.MrRenderingContext;
 
 public class MrModelRender implements MrObjectRender {

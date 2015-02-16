@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import mr.robotto.collections.core.MrGroupingFunction;
+import mr.robotto.collections.core.MrMap;
 import mr.robotto.collections.core.MrMapFunction;
 
 /**
@@ -42,7 +43,7 @@ public class MrGroupedMap<K, G, V> implements MrMap<K, V> {
         G group = mGroupingFunction.getGroupOf(v);
         K key = mMapFunction.getKeyOf(v);
         if (!mGroupedElements.containsKey(group)) {
-            mGroupedElements.put(group, new MrMapContainer<K, V>(mMapFunction));
+            mGroupedElements.put(group, new MrHashMap<K, V>(mMapFunction));
         }
         mGroupedElements.get(group).add(v);
         return mElements.put(key, v) != null;
@@ -113,6 +114,10 @@ public class MrGroupedMap<K, G, V> implements MrMap<K, V> {
     @Override
     public Iterator<V> iterator() {
         return mElements.values().iterator();
+    }
+
+    public boolean containsGrouo(G g) {
+        return mGroupedElements.containsKey(g);
     }
 
     public MrMap<K, V> getByGroup(G group) {
