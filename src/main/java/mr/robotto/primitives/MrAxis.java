@@ -10,13 +10,13 @@
 package mr.robotto.primitives;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.resources.mesh.MrBuffer;
-import mr.robotto.core.data.resources.mesh.MrBufferKey;
-import mr.robotto.core.data.resources.mesh.MrBufferKeyContainer;
-import mr.robotto.core.data.resources.mesh.MrIndexBuffer;
-import mr.robotto.core.data.resources.mesh.MrMesh;
-import mr.robotto.core.data.resources.mesh.MrVertexBuffer;
-import mr.robotto.core.data.resources.shader.MrAttribute;
+import mr.robotto.components.data.mesh.MrBuffer;
+import mr.robotto.components.data.mesh.MrBufferKey;
+import mr.robotto.components.data.mesh.MrBufferKeyMap;
+import mr.robotto.components.data.mesh.MrIndexBuffer;
+import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.data.mesh.MrVertexBuffer;
+import mr.robotto.components.data.shader.MrAttribute;
 
 public class MrAxis extends MrMesh {
 
@@ -51,8 +51,8 @@ public class MrAxis extends MrMesh {
     }
 
     //TODO: Too much hardocre for my eyes!
-    private static MrBufferKeyContainer genKeyList() {
-        MrBufferKeyContainer keyList = new MrBufferKeyContainer();
+    private static MrBufferKeyMap genKeyList() {
+        MrBufferKeyMap keyList = new MrBufferKeyMap();
         MrBufferKey vertexKey = new MrBufferKey(MrAttribute.VERTICES, MrDataType.FLOAT, 3, 6, 0);
         MrBufferKey colorKey = new MrBufferKey(MrAttribute.COLOR, MrDataType.FLOAT, 3, 6, 3);
         keyList.add(vertexKey);

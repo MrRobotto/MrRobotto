@@ -13,9 +13,9 @@ import junit.framework.TestCase;
 
 import java.util.Iterator;
 
-import mr.robotto.collections.MrListNode;
-import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.proposed.deprecated.MrListNode;
 
 /**
  * Created by Aarón on 18/11/2014.
@@ -64,7 +64,7 @@ public class CollectionTests extends TestCase {
     }
 
     public void testMapTree() {
-        MrMapTree<String, Integer> tree = new MrMapTree<String, Integer>(1, new MrMapFunction<String, Integer>() {
+        MrTreeMap<String, Integer> tree = new MrTreeMap<String, Integer>(1, new MrMapFunction<String, Integer>() {
             @Override
             public String getKeyOf(Integer integer) {
                 return String.valueOf(integer);
@@ -124,7 +124,7 @@ public class CollectionTests extends TestCase {
         assertEquals(tree.getChildrenOfByKey("5").size(), 2);
         assertEquals(tree.getChildrenOfByKey("5").get(1).intValue(), 14);
 
-        MrMapTree<String, Integer> subtree = tree.getSubTreeByKey("6");
+        MrTreeMap<String, Integer> subtree = tree.getSubTreeByKey("6");
         assertEquals(subtree.size(), 3);
         assertEquals(subtree.getRoot().intValue(), 6);
     }

@@ -9,16 +9,17 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.data.resources.mesh.MrMesh;
-import mr.robotto.core.data.resources.shader.MrShaderProgram;
-import mr.robotto.core.data.resources.uniformkey.MrUniformKeyContainer;
+import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
     private MrShaderProgram mShaderProgram;
 
-    public MrModelData(String name, MrTransform transform, MrUniformKeyContainer uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh) {
+    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh) {
         super(name, MrSceneObjectType.MODEL, transform, uniformKeys);
         mMesh = mesh;
         mShaderProgram = shaderProgram;

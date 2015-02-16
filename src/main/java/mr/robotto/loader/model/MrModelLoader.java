@@ -13,11 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.resources.mesh.MrMesh;
-import mr.robotto.core.data.resources.shader.MrShaderProgram;
-import mr.robotto.core.data.resources.uniformkey.MrUniformKey;
-import mr.robotto.core.data.resources.uniformkey.MrUniformKeyContainer;
 import mr.robotto.loader.MrObjectLoader;
 import mr.robotto.loader.model.shader.MrShaderProgramLoader;
 
@@ -39,8 +39,8 @@ public class MrModelLoader extends MrObjectLoader {
     }
 
     //TODO: This must be changed, the way you insert elements in the list
-    private MrUniformKeyContainer getUniformKeyList() throws JSONException {
-        MrUniformKeyContainer uniformKeyList = new MrUniformKeyContainer();
+    private MrUniformKeyMap getUniformKeyList() throws JSONException {
+        MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
         JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
             String uniformType = jsonUniformKeyList.getString(i);

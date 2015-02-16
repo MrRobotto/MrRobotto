@@ -13,13 +13,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.data.MrSceneObjectType;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
 
 public abstract class MrObject {
     private MrObjectData mData;
@@ -73,7 +73,6 @@ public abstract class MrObject {
         this.mRender = render;
     }
 
-    //TODO: This should be abstract
     public MrSceneObjectType getSceneObjectType() {
         return mData.getSceneObjectType();
     }
@@ -82,15 +81,15 @@ public abstract class MrObject {
         return mData.getTransform();
     }
 
-    public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
 
     }
 
-    public MrUniformGeneratorContainer getUniformGenerators() {
+    public MrUniformGeneratorMap getUniformGenerators() {
         return mData.getUniformGenerators();
     }
 
-    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
+    public void setUniformGenerators(MrUniformGeneratorMap uniformGenerators) {
         mData.setUniformGenerators(uniformGenerators);
     }
 

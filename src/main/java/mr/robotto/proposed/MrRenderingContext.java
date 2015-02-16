@@ -10,27 +10,42 @@
 package mr.robotto.proposed;
 
 
-import mr.robotto.context.MrSceneObjectsTree;
-import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
  * Created by Aarón on 28/11/2014.
  */
 public class MrRenderingContext {
     private MrSceneObjectsTree mObjectsTree;
-    private MrUniformGeneratorContainer mUniformGenerators;
+    private MrUniformGeneratorMap mUniformGenerators;
+    private int mWidth;
+    private int mHeight;
 
     public MrRenderingContext(MrSceneObjectsTree objectsTree) {
         mObjectsTree = objectsTree;
-        mUniformGenerators = new MrUniformGeneratorContainer();
+        mUniformGenerators = new MrUniformGeneratorMap();
     }
 
     public MrSceneObjectsTree getObjectsTree() {
         return mObjectsTree;
     }
 
-    public MrUniformGeneratorContainer getUniformGenerators() {
+    public MrUniformGeneratorMap getUniformGenerators() {
         return mUniformGenerators;
     }
 
+    //TODO: Use this method to fill elements
+    public void setWindowSize(int width, int height) {
+        mWidth = width;
+        mHeight = height;
+    }
+
+    public int getHeight() {
+        return mHeight;
+    }
+
+    public int getWidth() {
+        return mWidth;
+    }
 }

@@ -11,26 +11,29 @@ package mr.robotto.core.controller;
 
 import java.util.Iterator;
 
-import mr.robotto.context.MrSceneObjectsTree;
-import mr.robotto.core.controller.uniformgenerator.MrUniformGenerator;
-import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.proposed.aus.MrUniformGenerator;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.proposed.aus.MrUniformGeneratorMapView;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 public class MrModel extends MrObject {
     public MrModel(MrModelData data, MrObjectRender render) {
         super(data, render);
     }
 
+    //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
     private static MrUniformGenerator generateModelMatrix(MrModel model) {
         return new MrUniformGenerator("Matrix_Model_View_Projection", MrUniformGenerator.OBJECT_LEVEL) {
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrObject object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversal(object);
+                MrLinearAlgebraObject a = uniforms.findByKey("Matrix_Model_View_Projection");
                 while (it.hasNext()) {
                     op.mult(m, it.next().getTransform().getAsMatrix(), m);
                     //new UnsupportedOperationException("Not implemented yet");
@@ -58,7 +61,7 @@ public class MrModel extends MrObject {
     //}
 
     @Override
-    public void initializeUniforms(MrUniformGeneratorContainer uniformGenerators) {
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateModelMatrix(this));
     }

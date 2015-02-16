@@ -9,29 +9,30 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.core.controller.uniformgenerator.MrUniformGeneratorContainer;
-import mr.robotto.core.data.resources.uniformkey.MrUniformKeyContainer;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
 
 public abstract class MrObjectData {
     private String mName;
     private MrSceneObjectType mSceneObjType;
     private MrTransform mTransform;
-    private MrUniformGeneratorContainer mUniformGenerators;
-    private MrUniformKeyContainer mUniformKeys;
+    private MrUniformGeneratorMap mUniformGenerators;
+    private MrUniformKeyMap mUniformKeys;
 
-    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyContainer uniformKeys) {
+    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyMap uniformKeys) {
         mName = name;
         mTransform = transform;
         mSceneObjType = sceneObjType;
         mUniformKeys = uniformKeys;
-        mUniformGenerators = new MrUniformGeneratorContainer();
+        mUniformGenerators = new MrUniformGeneratorMap();
         init();
     }
 
     //TODO: Review this constructor
     public MrObjectData(String name, MrSceneObjectType sceneObjType) {
-        this(name, sceneObjType, new MrTransform(), new MrUniformKeyContainer());
+        this(name, sceneObjType, new MrTransform(), new MrUniformKeyMap());
     }
 
     private void init() {
@@ -54,19 +55,19 @@ public abstract class MrObjectData {
         this.mTransform = transform;
     }
 
-    public MrUniformKeyContainer getUniformKeys() {
+    public MrUniformKeyMap getUniformKeys() {
         return mUniformKeys;
     }
 
-    public void setUniformKeys(MrUniformKeyContainer uniformKeys) {
+    public void setUniformKeys(MrUniformKeyMap uniformKeys) {
         this.mUniformKeys = uniformKeys;
     }
 
-    public MrUniformGeneratorContainer getUniformGenerators() {
+    public MrUniformGeneratorMap getUniformGenerators() {
         return mUniformGenerators;
     }
 
-    public void setUniformGenerators(MrUniformGeneratorContainer uniformGenerators) {
+    public void setUniformGenerators(MrUniformGeneratorMap uniformGenerators) {
         mUniformGenerators = uniformGenerators;
     }
 }
