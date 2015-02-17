@@ -10,8 +10,17 @@
 package mr.robotto.collections.core;
 
 /**
- * Created by Aarón on 23/11/2014.
+ * Interface used for get the map key of the element V
+ *
+ * @param <K> Class of the key of element v
+ * @param <V> Class of the element to be evaluated
  */
-public interface MrMapFunction<K,V> {
+public interface MrMapFunction<K, V> {
+    /**
+     * Gets the key of the given object v
+     *
+     * @param v
+     * @return the key of v
+     */
     public K getKeyOf(V v);
 }

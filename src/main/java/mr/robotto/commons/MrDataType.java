@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,6 +11,11 @@ package mr.robotto.commons;
 
 import android.opengl.GLES20;
 
+/**
+ * Enum for all used types in the MrRobotto Engine
+ * It contains the OpenGL value of this type, the size in bytes of this kind of element
+ * and how many elements it contains
+ */
 public enum MrDataType
 {
     UNSIGNED_SHORT(GLES20.GL_UNSIGNED_SHORT, MrConstants.SHORT_SIZE, 1),
@@ -35,16 +40,30 @@ public enum MrDataType
         this.count = count;
     }
 
+    /**
+     * Gets the OpenGL value of this type
+     *
+     * @return the OpenGL value for this type
+     */
     public int getValue()
     {
         return value;
     }
 
+    /**
+     * Gets the size in bytes of this type
+     * @return the size in bytes
+     */
     public int getSize()
     {
         return size;
     }
 
+    /**
+     * Gets the number of elements it contains, for instance, a vec3 will return 3
+     * and matrix4 will return 16
+     * @return the number of elements this type will contain
+     */
     public int getCount() {
         return count;
     }

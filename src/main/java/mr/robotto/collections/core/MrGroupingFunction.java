@@ -10,8 +10,17 @@
 package mr.robotto.collections.core;
 
 /**
- * Created by aaron on 10/02/2015.
+ * Interface used for get the group G of the element V
+ *
+ * @param <G> Class of the group of element v
+ * @param <V> Class of the element to be evaluated
  */
-public interface MrGroupingFunction<K, V> {
-    public K getGroupOf(V data);
+public interface MrGroupingFunction<G, V> {
+    /**
+     * Gets the group of v
+     *
+     * @param v element to be evaluated
+     * @return the group of v
+     */
+    public G getGroupOf(V v);
 }

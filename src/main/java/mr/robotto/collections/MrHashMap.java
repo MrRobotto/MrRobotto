@@ -16,9 +16,9 @@ import java.util.Set;
 import mr.robotto.collections.core.MrMap;
 import mr.robotto.collections.core.MrMapFunction;
 
-//TODO: Rename this to MrMap
 public class MrHashMap<K, V> implements MrMap<K, V> {
 
+    //TODO: Convert map to sparsearray
     private HashMap<K, V> mElements;
     private MrMapFunction<K, V> mMapFunction;
 
@@ -31,11 +31,23 @@ public class MrHashMap<K, V> implements MrMap<K, V> {
         mElements = new HashMap<K, V>();
     }
 
+    /**
+     * Adds v to this map, if the key returned by the assigned {@link mr.robotto.collections.core.MrMapFunction}
+     * already exists the existed value will be replaced
+     *
+     * @param v
+     * @return
+     */
     @Override
     public boolean add(V v) {
         return mElements.put(mMapFunction.getKeyOf(v), v) != null;
     }
 
+    /**
+     * Adds all elements from the given map {@code container} to this map
+     * @param container
+     * @return
+     */
     @Override
     public boolean addAll(MrMap<K, V> container) {
         boolean added = true;

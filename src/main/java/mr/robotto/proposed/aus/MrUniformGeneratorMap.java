@@ -34,8 +34,8 @@ public class MrUniformGeneratorMap extends MrSortedMap<String, MrUniformGenerato
     private static MrOrderingFunction<MrUniformGenerator> generateOrderingFunction() {
         return new MrOrderingFunction<MrUniformGenerator>() {
             @Override
-            public Integer getGroupOf(MrUniformGenerator data) {
-                return data.getPriority();
+            public Integer getGroupOf(MrUniformGenerator v) {
+                return v.getPriority();
             }
         };
     }

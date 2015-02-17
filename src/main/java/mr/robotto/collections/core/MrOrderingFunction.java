@@ -10,7 +10,10 @@
 package mr.robotto.collections.core;
 
 /**
- * Created by aaron on 10/02/2015.
+ * This interface is used to assign order to elements of type V.
+ * Extends the @see MrGroupingFunction interface
+ * The group value of the elements is Integer
+ * @param <V>
  */
 public interface MrOrderingFunction<V> extends MrGroupingFunction<Integer, V> {
 }

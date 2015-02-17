@@ -9,6 +9,8 @@
 
 
 
+
+
 apply plugin: 'com.android.library'
 
 android {
@@ -16,7 +18,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
         versionName "R2D2"

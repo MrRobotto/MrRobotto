@@ -64,6 +64,7 @@ public class MrSceneObjectsTreeRender {
     }*/
 
     //TODO: This must be changed!!
+    //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
         for (MrObject scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
             updateUniforms(scene);
