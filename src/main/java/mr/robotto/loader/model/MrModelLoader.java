@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,12 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.commons.MrUniformKey;
-import mr.robotto.core.data.commons.shader.MrShaderProgram;
-import mr.robotto.core.data.containers.MrUniformKeyContainer;
-import mr.robotto.core.data.model.MrModelData;
-import mr.robotto.core.data.model.mesh.MrMesh;
-import mr.robotto.core.data.types.MrUniformType;
+import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
+import mr.robotto.core.data.MrModelData;
 import mr.robotto.loader.MrObjectLoader;
 import mr.robotto.loader.model.shader.MrShaderProgramLoader;
 
@@ -40,12 +39,13 @@ public class MrModelLoader extends MrObjectLoader {
     }
 
     //TODO: This must be changed, the way you insert elements in the list
-    private MrUniformKeyContainer getUniformKeyList() throws JSONException {
-        MrUniformKeyContainer uniformKeyList = new MrUniformKeyContainer();
+    private MrUniformKeyMap getUniformKeyList() throws JSONException {
+        MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
         JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
-            String strUniformType = jsonUniformKeyList.getString(i).toUpperCase();
-            MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
+            String uniformType = jsonUniformKeyList.getString(i);
+            //MrUniformType uniformType = MrUniformType.valueOf(strUniformType);
+            //MrUniformKey uniformKey = new MrUniformKey(uniformType);
             MrUniformKey uniformKey = new MrUniformKey(uniformType);
             uniformKeyList.add(uniformKey);
         }

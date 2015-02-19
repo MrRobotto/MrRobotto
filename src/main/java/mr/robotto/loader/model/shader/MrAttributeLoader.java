@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,8 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.types.MrAttributeType;
+import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrAttributeLoader extends MrAbstractLoader<MrAttribute> {
@@ -27,9 +26,26 @@ public class MrAttributeLoader extends MrAbstractLoader<MrAttribute> {
         return new MrAttribute(getAttributeType(), getName(), getIndex(), getDataType());
     }
 
-    private MrAttributeType getAttributeType() throws JSONException {
-        String attribTypeStr = mRoot.getString("Attribute");
-        return MrAttributeType.valueOf(attribTypeStr.toUpperCase());
+    private int getAttributeType() throws JSONException {
+        String upper = mRoot.getString("Attribute").toUpperCase();
+        switch (upper) {
+            case "VERTICES":
+                return MrAttribute.VERTICES;
+            case "NORMALS":
+                return MrAttribute.NORMALS;
+            case "COLOR":
+                return MrAttribute.COLOR;
+            case "MATERIALINDEX":
+                return MrAttribute.MATERIAL_INDEX;
+            case "TEXTURE":
+                return MrAttribute.TEXTURE;
+            case "WEIGHT":
+                return MrAttribute.WEIGHT;
+            case "BONEINDICES":
+                return MrAttribute.BONE_INDICES;
+            default:
+                return -1;
+        }
     }
 
     private MrDataType getDataType() throws JSONException {

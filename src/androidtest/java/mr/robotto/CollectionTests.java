@@ -13,9 +13,9 @@ import junit.framework.TestCase;
 
 import java.util.Iterator;
 
-import mr.robotto.collections.MrListNode;
-import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.proposed.deprecated.MrListNode;
 
 /**
  * Created by Aarón on 18/11/2014.
@@ -31,9 +31,9 @@ public class CollectionTests extends TestCase {
         assertTrue(root.isLeaf());
         assertFalse(root.hasParent());
         assertNull(root.getParent());
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         root.clearChildren();
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         root.clearParent();
         assertNull(root.getParent());
 
@@ -45,26 +45,26 @@ public class CollectionTests extends TestCase {
         n1.addChild(n12);
         root.addChild(n1);
         root.addChild(n2);
-        assertEquals(root.getChildren().size(),2);
-        assertEquals(root.getDepth(),0);
-        assertEquals(n1.getDepth(),1);
-        assertEquals(n2.getDepth(),1);
-        assertEquals(n11.getDepth(),2);
-        assertEquals(n12.getDepth(),2);
+        assertEquals(root.getChildren().size(), 2);
+        assertEquals(root.getDepth(), 0);
+        assertEquals(n1.getDepth(), 1);
+        assertEquals(n2.getDepth(), 1);
+        assertEquals(n11.getDepth(), 2);
+        assertEquals(n12.getDepth(), 2);
 
         root.clearChildren();
-        assertEquals(root.getChildren().size(),0);
+        assertEquals(root.getChildren().size(), 0);
         assertNull(n1.getParent());
-        assertEquals(n1.getDepth(),0);
+        assertEquals(n1.getDepth(), 0);
 
         n11.clearParent();
-        assertEquals(n11.getParent(),null);
-        assertEquals(n11.getDepth(),0);
+        assertEquals(n11.getParent(), null);
+        assertEquals(n11.getDepth(), 0);
         assertEquals(n1.getChildren().size(), 1);
     }
 
     public void testMapTree() {
-        MrMapTree<String, Integer> tree = new MrMapTree<String, Integer>(1, new MrMapFunction<String, Integer>() {
+        MrTreeMap<String, Integer> tree = new MrTreeMap<String, Integer>(1, new MrMapFunction<String, Integer>() {
             @Override
             public String getKeyOf(Integer integer) {
                 return String.valueOf(integer);
@@ -113,18 +113,18 @@ public class CollectionTests extends TestCase {
             assertEquals(it1.next().intValue(), i);
         }
 
-        tree.removeChildByKey("4");
+        tree.removeByKey("4");
         assertEquals(tree.size(), 12);
-        assertEquals(tree.hasKey("4"), false);
-        assertEquals(tree.hasKey("10"), false);
-        assertEquals(tree.hasKey("11"), false);
+        assertEquals(tree.containsKey("4"), false);
+        assertEquals(tree.containsKey("10"), false);
+        assertEquals(tree.containsKey("11"), false);
         assertEquals(tree.getChildrenOfByKey("1").size(), 3);
 
         //tree.addChildByKey("5", "12", 14);
         assertEquals(tree.getChildrenOfByKey("5").size(), 2);
         assertEquals(tree.getChildrenOfByKey("5").get(1).intValue(), 14);
 
-        MrMapTree<String, Integer> subtree = tree.getSubTreeByKey("6");
+        MrTreeMap<String, Integer> subtree = tree.getSubTreeByKey("6");
         assertEquals(subtree.size(), 3);
         assertEquals(subtree.getRoot().intValue(), 6);
     }

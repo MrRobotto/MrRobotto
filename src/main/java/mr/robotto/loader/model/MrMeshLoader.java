@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,13 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.containers.MrBufferKeyContainer;
-import mr.robotto.core.data.model.mesh.MrBuffer;
-import mr.robotto.core.data.model.mesh.MrBufferKey;
-import mr.robotto.core.data.model.mesh.MrIndexBuffer;
-import mr.robotto.core.data.model.mesh.MrMesh;
-import mr.robotto.core.data.model.mesh.MrVertexBuffer;
-import mr.robotto.core.data.types.MrMeshDrawType;
+import mr.robotto.components.data.mesh.MrBuffer;
+import mr.robotto.components.data.mesh.MrBufferKey;
+import mr.robotto.components.data.mesh.MrBufferKeyMap;
+import mr.robotto.components.data.mesh.MrIndexBuffer;
+import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.data.mesh.MrVertexBuffer;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
@@ -37,8 +36,8 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         JSONArray indexData = mRoot.getJSONArray("IndexData");
         JSONArray keysData = mRoot.getJSONArray("AttributeKeys");
 
-        MrMeshDrawType drawType = getDrawTypeFromString(drawTypeData);
-        MrBufferKeyContainer keys = new MrBufferKeyContainer();
+        int drawType = getDrawTypeFromString(drawTypeData);
+        MrBufferKeyMap keys = new MrBufferKeyMap();
         MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
         MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
 
@@ -49,14 +48,13 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         return new MrMesh(name, count, drawType, keys, vertexBuffer, indexBuffer);
     }
 
-
-    private MrMeshDrawType getDrawTypeFromString(String drawTypeStr) {
+    //TODO: check all possibilities
+    private int getDrawTypeFromString(String drawTypeStr) {
         if (drawTypeStr.equals("Triangles")) {
-            return MrMeshDrawType.TRIANGLES;
+            return MrMesh.DRAWTYPE_TRIANGLES;
         } else {
-            return MrMeshDrawType.LINES;
+            return MrMesh.DRAWTYPE_LINES;
         }
-
     }
 
     private void loadVertexData(MrBuffer buffer, JSONArray array) throws JSONException {
@@ -71,7 +69,7 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         }
     }
 
-    private void loadKeys(MrBufferKeyContainer list, JSONArray keys) throws JSONException {
+    private void loadKeys(MrBufferKeyMap list, JSONArray keys) throws JSONException {
         for (int i = 0; i < keys.length(); i++) {
             JSONObject jsonKey = keys.getJSONObject(i);
             MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);

@@ -13,53 +13,51 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.types.MrSceneObjectType;
+import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.proposed.MrAction;
 import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
 
-public abstract class MrObject<D extends MrObjectData> {
-    private D mData;
+public abstract class MrObject {
+    private MrObjectData mData;
     private MrObjectRender mRender;
-    private MrRenderingContext mContext;
-    private Queue<MrAction<D>> mActions;
+    private Queue<MrAction<MrObjectData>> mActions;
 
-    protected MrObject(D data, MrObjectRender render) {
+    protected MrObject(MrObjectData data, MrObjectRender render) {
         mData = data;
         mRender = render;
     }
 
+    //TODO: Fill this to create objects in the loader
+    protected MrObject(MrObject object) {
+
+    }
+
     private void init() {
-        mActions = new LinkedList<MrAction<D>>();
+        mActions = new LinkedList<MrAction<MrObjectData>>();
     }
 
-    public void initialize() {
-        mRender.initializeRender(mData, mContext);
+    public void initializeRender(MrRenderingContext context) {
+        mRender.initializeRender(mData, context);
+        initializeUniforms(mData.getUniformGenerators());
     }
 
-    public void initializeSizeDependant(int w, int h) {
-        mRender.initializeSizeDependant(w, h);
+    public void initializeSizeDependant(int widthScreen, int heightScreen) {
+        mRender.initializeSizeDependant(widthScreen, heightScreen);
     }
 
     public boolean isInitialized() {
         return mRender.isInitialized();
     }
 
-    public MrRenderingContext getRenderingContext() {
-        return mContext;
-    }
-
-    //TODO: Update render
-    public void setRenderingContext(MrRenderingContext context) {
-        mContext = context;
-    }
-
     public void render() {
         mRender.render();
     }
 
-    public D getData() {
+    public MrObjectData getData() {
         return mData;
     }
 
@@ -75,16 +73,31 @@ public abstract class MrObject<D extends MrObjectData> {
         this.mRender = render;
     }
 
-    //TODO: This should be abstract
     public MrSceneObjectType getSceneObjectType() {
         return mData.getSceneObjectType();
     }
 
-    public void addAction(final MrAction<D> action) {
+    public MrTransform getTransform() {
+        return mData.getTransform();
+    }
+
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+
+    }
+
+    public MrUniformGeneratorMap getUniformGenerators() {
+        return mData.getUniformGenerators();
+    }
+
+    public void setUniformGenerators(MrUniformGeneratorMap uniformGenerators) {
+        mData.setUniformGenerators(uniformGenerators);
+    }
+
+    public void addAction(final MrAction<MrObjectData> action) {
         mActions.add(action);
     }
 
-    public Collection<MrAction<D>> getActions() {
+    public Collection<MrAction<MrObjectData>> getActions() {
         return mActions;
     }
 }

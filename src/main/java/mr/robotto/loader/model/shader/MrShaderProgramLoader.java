@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,11 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.commons.shader.MrFragmentShader;
-import mr.robotto.core.data.commons.shader.MrShaderProgram;
-import mr.robotto.core.data.commons.shader.MrUniform;
-import mr.robotto.core.data.commons.shader.MrVertexShader;
+import mr.robotto.components.data.shader.MrAttribute;
+import mr.robotto.components.data.shader.MrFragmentShader;
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.shader.MrUniform;
+import mr.robotto.components.data.shader.MrVertexShader;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {

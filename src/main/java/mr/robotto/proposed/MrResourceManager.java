@@ -13,16 +13,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.MrTreeMap;
 import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.controller.MrScene;
-import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.model.MrModelData;
-import mr.robotto.core.data.scene.MrSceneData;
+import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.core.renderer.MrSceneRender;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /*
 TODO: Has de crear un findByKey al menos que te busque en los objectsdata
@@ -31,19 +32,19 @@ además podrás decirle cuando construya "Oye quiero que para el objeto
 con nombre fulanito le apliques el controlador o el renderer este
  */
 public class MrResourceManager {
-    private MrObjectDataContainer mObjectsData;
-    private MrMapTree<String, String> mKeysTree;
+    private MrObjectDataMap mObjectsData;
+    private MrTreeMap<String, String> mKeysTree;
 
-    public MrResourceManager(MrObjectDataContainer objectDatas, MrMapTree<String, String> keysTree) {
+    public MrResourceManager(MrObjectDataMap objectDatas, MrTreeMap<String, String> keysTree) {
         mObjectsData = objectDatas;
         mKeysTree = keysTree;
     }
 
-    public MrObjectDataContainer getObjectsData() {
+    public MrObjectDataMap getObjectsData() {
         return mObjectsData;
     }
 
-    public MrMapTree<String, String> getKeysTree() {
+    public MrTreeMap<String, String> getKeysTree() {
         return mKeysTree;
     }
 
@@ -84,15 +85,15 @@ public class MrResourceManager {
         }
 
         public MrSceneObjectsTree buildSceneObjectsTree() {
-            MrMapTree<String, String> keyTree = mManager.getKeysTree();
-            MrObjectDataContainer objects = mManager.getObjectsData();
+            MrTreeMap<String, String> keyTree = mManager.getKeysTree();
+            MrObjectDataMap objects = mManager.getObjectsData();
             MrObjectData rootData = objects.findByKey(keyTree.getRoot());
             MrObjectRender render = getRenderer(rootData);
             MrSceneObjectsTree tree = new MrSceneObjectsTree(getObject(rootData));
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             //Skip the root
-            if (it.hasNext())
-                it.next();
+            //if (it.hasNext())
+            //    it.next();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
                 //Gets the value

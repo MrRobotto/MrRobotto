@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,8 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
-import mr.robotto.core.data.commons.shader.MrUniform;
-import mr.robotto.core.data.types.MrUniformType;
+import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrUniformLoader extends MrAbstractLoader<MrUniform> {
@@ -41,8 +40,7 @@ public class MrUniformLoader extends MrAbstractLoader<MrUniform> {
         return mRoot.getString("Name");
     }
 
-    private MrUniformType getUniformType() throws JSONException {
-        String uniformTypeStr = mRoot.getString("Uniform");
-        return MrUniformType.valueOf(uniformTypeStr.toUpperCase());
+    private String getUniformType() throws JSONException {
+        return mRoot.getString("Uniform");
     }
 }

@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,12 +9,11 @@
 
 package mr.robotto.core.renderer;
 
-import mr.robotto.core.data.commons.MrObjectData;
-import mr.robotto.core.data.commons.shader.MrAttribute;
-import mr.robotto.core.data.containers.MrUniformKeyContainer;
-import mr.robotto.core.data.model.MrModelData;
-import mr.robotto.core.renderer.resources.MrMeshDrawer;
-import mr.robotto.core.renderer.resources.MrShaderProgramBinder;
+import mr.robotto.components.data.shader.MrAttribute;
+import mr.robotto.components.renderer.MrMeshDrawer;
+import mr.robotto.components.renderer.MrShaderProgramBinder;
+import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.proposed.MrRenderingContext;
 
 public class MrModelRender implements MrObjectRender {
@@ -22,7 +21,7 @@ public class MrModelRender implements MrObjectRender {
     private MrMeshDrawer mMeshDrawer;
     private MrShaderProgramBinder mShaderProgramBinder;
     private MrModelData mModelData;
-    private MrUniformKeyContainer mUniformKeyList;
+    private MrRenderingContext mContext;
     private boolean mInitialized = false;
     private boolean mBinded = false;
 
@@ -38,6 +37,7 @@ public class MrModelRender implements MrObjectRender {
 
     @Override
     public void initializeRender(MrObjectData link, MrRenderingContext context) {
+        mContext = context;
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
@@ -65,6 +65,7 @@ public class MrModelRender implements MrObjectRender {
 
     private void bind() {
         mShaderProgramBinder.bind();
+        mShaderProgramBinder.bindUniforms(mContext.getUniformGenerators());
         mMeshDrawer.bind();
         mBinded = true;
     }

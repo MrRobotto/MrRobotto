@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.collections.MrMapTree;
+import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.loader.MrAbstractLoader;
 import mr.robotto.loader.MrObjectLoader;
@@ -36,8 +36,8 @@ public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager>
      * @return
      * @throws JSONException
      */
-    private MrObjectDataContainer getObjectsData() throws JSONException {
-        MrObjectDataContainer objectDataList = new MrObjectDataContainer();
+    private MrObjectDataMap getObjectsData() throws JSONException {
+        MrObjectDataMap objectDataList = new MrObjectDataMap();
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
         for (int i = 0; i < jsonObjects.length(); i++) {
             MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));
@@ -46,7 +46,7 @@ public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager>
         return objectDataList;
     }
 
-    private void getNodes(MrMapTree<String, String> tree, String parentKey, JSONObject node) throws JSONException {
+    private void getNodes(MrTreeMap<String, String> tree, String parentKey, JSONObject node) throws JSONException {
         JSONArray children = node.getJSONArray("Children");
         for (int i = 0; i < children.length(); i++) {
             JSONObject n = children.getJSONObject(i);
@@ -56,10 +56,10 @@ public class MrResourceManagerLoader extends MrAbstractLoader<MrResourceManager>
         }
     }
 
-    private MrMapTree<String, String> getHierarchy() throws JSONException {
+    private MrTreeMap<String, String> getHierarchy() throws JSONException {
         JSONObject root = mRoot.getJSONObject("Hierarchy");
         String rootKey = root.getString("Name");
-        MrMapTree<String, String> tree = new MrMapTree<String, String>(rootKey, new MrMapFunction<String, String>() {
+        MrTreeMap<String, String> tree = new MrTreeMap<String, String>(rootKey, new MrMapFunction<String, String>() {
             @Override
             public String getKeyOf(String s) {
                 return s;
