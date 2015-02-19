@@ -49,14 +49,17 @@ public final class MrVector4f implements MrLinearAlgebraObject {
         }
     }
 
+    //TODO: Change this synchronized for a special hashmap?
     public static Operator getOperator() {
         long id = Thread.currentThread().getId();
-        if (sOperators.containsKey(id)) {
-            return sOperators.get(id);
-        } else {
-            Operator op = new Operator();
-            sOperators.put(id, op);
-            return op;
+        synchronized (sOperators) {
+            if (sOperators.containsKey(id)) {
+                return sOperators.get(id);
+            } else {
+                Operator op = new Operator();
+                sOperators.put(id, op);
+                return op;
+            }
         }
     }
 

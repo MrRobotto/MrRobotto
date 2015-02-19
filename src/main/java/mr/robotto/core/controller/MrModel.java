@@ -27,13 +27,13 @@ public class MrModel extends MrObject {
 
     //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
     private static MrUniformGenerator generateModelMatrix(MrModel model) {
-        return new MrUniformGenerator("Matrix_Model_View_Projection", MrUniformGenerator.OBJECT_LEVEL) {
+        return new MrUniformGenerator("Matrix_Model", MrUniformGenerator.OBJECT_LEVEL) {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversal(object);
-                MrLinearAlgebraObject a = uniforms.findByKey("Matrix_Model_View_Projection");
+                //MrLinearAlgebraObject a = uniforms.findByKey("Matrix_Model_View_Projection");
                 while (it.hasNext()) {
                     op.mult(m, it.next().getTransform().getAsMatrix(), m);
                     //new UnsupportedOperationException("Not implemented yet");
@@ -43,11 +43,15 @@ public class MrModel extends MrObject {
                 //                                    0,0.97014f,-0.29643f,-0.24253f,
                 //                                    0,0.24253f,1.18572f,0.97014f,
                 //                                    0,0,7.8564f,8.24621f});
-
-                return new MrMatrix4f(new float[]{-1.6310f, 0, 0, 0,
+                //MrMatrix4f m2 = new MrMatrix4f();
+                //op.multScalar(m2, m2 , 2);
+                m = new MrMatrix4f(new float[]{-1.6310f, 0, 0, 0,
                         0, 0.97014f, -0.29643f, -0.24253f,
                         0, 0.24253f, 1.18572f, 0.97014f,
                         0, 0, 7.8564f, 8.24621f});
+                //op.mult(m, m, m2);
+                op.translate(m, -1, 0, 0);
+                return m;
                 //MrMatrix4f.getOperator().transpose(aux, aux);
                 //return new MrMatrix4f();
                 //return new MrMatrix4f(new float[]{})

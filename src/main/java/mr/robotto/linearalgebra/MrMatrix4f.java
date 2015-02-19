@@ -39,14 +39,17 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
         setValues(values);
     }
 
+    //TODO: Check this synchronized
     public static Operator getOperator() {
         long id = Thread.currentThread().getId();
-        if (sOperators.containsKey(id)) {
-            return sOperators.get(id);
-        } else {
-            Operator op = new Operator();
-            sOperators.put(id, op);
-            return op;
+        synchronized (sOperators) {
+            if (sOperators.containsKey(id)) {
+                return sOperators.get(id);
+            } else {
+                Operator op = new Operator();
+                sOperators.put(id, op);
+                return op;
+            }
         }
     }
 
@@ -138,6 +141,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
         private final MrVector4f op1MultV3 = new MrVector4f();
         private final MrVector4f op2MultV3 = new MrVector4f();
         private final MrVector4f opMultV4 = new MrVector4f();
+        private final MrMatrix4f opMatChange = new MrMatrix4f();
 
         private Operator() {
 
@@ -203,11 +207,27 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
             }
         }
 
+        public void multScalar(MrMatrix4f result, MrMatrix4f m, float s) {
+            for (int i = 0; i < result.mValues.length; i++) {
+                result.mValues[i] = s * m.mValues[i];
+            }
+        }
+
         public void translate(MrMatrix4f result, float x, float y, float z) {
             Matrix.translateM(result.mValues, 0, x, y, z);
         }
 
+        public void translate(MrMatrix4f result, MrMatrix4f m, float x, float y, float z) {
+            result.copyValues(m);
+            translate(result, x, y, z);
+        }
+
         public void translate(MrMatrix4f result, MrVector3f v) {
+            translate(result, v.x, v.y, v.z);
+        }
+
+        public void translate(MrMatrix4f result, MrMatrix4f m, MrVector3f v) {
+            result.copyValues(m);
             translate(result, v.x, v.y, v.z);
         }
 
@@ -216,26 +236,55 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
             Matrix.rotateM(result.mValues, 0, angle, x, y, z);
         }
 
+        public void rotate(MrMatrix4f result, MrMatrix4f m, float angle, float x, float y, float z) {
+            result.copyValues(m);
+            rotate(result, angle, x, y, z);
+        }
+
         public void rotate(MrMatrix4f result, float angle, MrVector3f v) {
             rotate(result, angle, v.x, v.y, v.z);
         }
 
-        //TODO: Esto no funciona, el opsAuxMatrix es sobreescrito
+        public void rotate(MrMatrix4f result, MrMatrix4f m, float angle, MrVector3f v) {
+            result.copyValues(m);
+            rotate(result, angle, v);
+        }
+
         public void rotate(MrMatrix4f result, MrQuaternion q) {
             fromQuaternion(opRotQuat, q);
             mult(result, result, opRotQuat);
+        }
+
+        public void rotate(MrMatrix4f result, MrMatrix4f m, MrQuaternion q) {
+            result.copyValues(m);
+            rotate(result, q);
         }
 
         public void scale(MrMatrix4f result, float sx, float sy, float sz) {
             Matrix.scaleM(result.mValues, 0, sx, sy, sz);
         }
 
+        public void scale(MrMatrix4f result, MrMatrix4f m, float sx, float sy, float sz) {
+            result.copyValues(m);
+            scale(result, sx, sy, sz);
+        }
+
         public void scale(MrMatrix4f result, float s) {
             scale(result, s, s, s);
         }
 
+        public void scale(MrMatrix4f result, MrMatrix4f m, float s) {
+            result.copyValues(m);
+            scale(result, s);
+        }
+
         public void scale(MrMatrix4f result, MrVector3f v) {
             scale(result, v.x, v.y, v.z);
+        }
+
+        public void scale(MrMatrix4f result, MrMatrix4f m, MrVector3f v) {
+            result.copyValues(m);
+            scale(result, v);
         }
 
         public void fromQuaternion(MrMatrix4f result, MrQuaternion q) {

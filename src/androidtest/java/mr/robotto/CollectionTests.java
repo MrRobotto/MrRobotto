@@ -115,9 +115,9 @@ public class CollectionTests extends TestCase {
 
         tree.removeByKey("4");
         assertEquals(tree.size(), 12);
-        assertEquals(tree.hasKey("4"), false);
-        assertEquals(tree.hasKey("10"), false);
-        assertEquals(tree.hasKey("11"), false);
+        assertEquals(tree.containsKey("4"), false);
+        assertEquals(tree.containsKey("10"), false);
+        assertEquals(tree.containsKey("11"), false);
         assertEquals(tree.getChildrenOfByKey("1").size(), 3);
 
         //tree.addChildByKey("5", "12", 14);

@@ -67,10 +67,11 @@ public class MrSceneObjectsTreeRender {
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
         for (MrObject scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
-            updateUniforms(scene);
-            scene.render();
+            //updateUniforms(scene);
             for (MrObject model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
                 updateUniforms(model);
+                updateUniforms(scene);
+                scene.render();
                 model.render();
             }
         }

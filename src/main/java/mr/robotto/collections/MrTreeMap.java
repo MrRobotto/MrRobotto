@@ -83,7 +83,12 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return mTree.get(key).getData();
     }
 
-    public boolean hasKey(K key) {
+    public boolean containsKey(K key) {
+        return mTree.containsKey(key);
+    }
+
+    public boolean contains(V data) {
+        K key = mMapFunction.getKeyOf(data);
         return mTree.containsKey(key);
     }
 

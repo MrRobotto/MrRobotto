@@ -39,12 +39,14 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
 
     public static Operator getOperator() {
         long id = Thread.currentThread().getId();
-        if (sOperators.containsKey(id)) {
-            return sOperators.get(id);
-        } else {
-            Operator op = new Operator();
-            sOperators.put(id, op);
-            return op;
+        synchronized (sOperators) {
+            if (sOperators.containsKey(id)) {
+                return sOperators.get(id);
+            } else {
+                Operator op = new Operator();
+                sOperators.put(id, op);
+                return op;
+            }
         }
     }
 
@@ -172,6 +174,7 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
             multScalar(result, n2, result);
         }
 
+        //TODO: Métodos así deberían tener otra forma del tipo (result, q, angle, axis)
         public void rotate(MrQuaternion result, float angle, MrVector3f axis) {
             rotate(result, angle, axis.x, axis.y, axis.z);
         }

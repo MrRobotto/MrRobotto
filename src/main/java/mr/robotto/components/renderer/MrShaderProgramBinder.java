@@ -51,6 +51,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
         return mBinded;
     }
 
+    //TODO: Intentar colocar esto en otro lugar
     public void bindUniforms(MrUniformGeneratorMap uniformGenerators) {
         for (MrUniform uniform : mShaderProgram.getUniforms()) {
             MrUniformGenerator generator = uniformGenerators.findByKey(uniform.getUniformType());
@@ -59,7 +60,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
     }
 
     //TODO: Check uniform/element count, uniform/element datatype
-    public void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
+    private void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
         int programId = mShaderProgram.getId();
         int uniformId = uniform.getId();
         int uniformCount = uniform.getCount();

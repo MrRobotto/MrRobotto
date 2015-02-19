@@ -11,6 +11,7 @@ package mr.robotto.collections;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import mr.robotto.collections.core.MrMap;
@@ -45,6 +46,7 @@ public class MrHashMap<K, V> implements MrMap<K, V> {
 
     /**
      * Adds all elements from the given map {@code container} to this map
+     *
      * @param container
      * @return
      */
@@ -110,8 +112,8 @@ public class MrHashMap<K, V> implements MrMap<K, V> {
     @Override
     public String toString() {
         String s = "";
-        for (V v : mElements.values()) {
-            s += v.toString();
+        for (Map.Entry<K, V> m : mElements.entrySet()) {
+            s += m.toString();
         }
         return s;
     }

@@ -11,13 +11,35 @@ package mr.robotto.core.controller;
 
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.linearalgebra.MrLinearAlgebraObject;
+import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.proposed.aus.MrUniformGenerator;
+import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.proposed.aus.MrUniformGeneratorMapView;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 public class MrScene extends MrObject {
     public MrScene(MrSceneData data, MrObjectRender render) {
         super(data, render);
     }
 
-    public void initializeSizeDependant(int width, int height) {
+    private static MrUniformGenerator generateMVPMatrix() {
+        return new MrUniformGenerator("Matrix_Model_View_Projection", MrUniformGenerator.SCENE_LEVEL) {
+            @Override
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
+                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
+                MrMatrix4f m1 = (MrMatrix4f) uniforms.findByKey("Matrix_Model");
+                MrMatrix4f m2 = new MrMatrix4f();
+                m2.copyValues(m1);
+                op.translate(m2, 1, 0, 0);
+                return m2;
+            }
+        };
+    }
 
+    @Override
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+        super.initializeUniforms(uniformGenerators);
+        uniformGenerators.add(generateMVPMatrix());
     }
 }
