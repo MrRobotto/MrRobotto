@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2014, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, Aarón Negrín, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,6 +12,7 @@ package mr.robotto;
 /**
  * Created by Aarón on 18/11/2014.
  */
+
 import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -24,8 +25,8 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.proposed.MrResourceManager;
-import mr.robotto.proposed.MrResourceManagerLoader;
+import mr.robotto.loader.resources.MrResourceManager;
+import mr.robotto.loader.resources.MrResourceManagerLoader;
 import mr.robotto.utils.MrFileReader;
 
 /**
@@ -42,7 +43,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         MrResourceManager context1 = null;
         try {
             InputStream stream = am.open("kingVer3.json");
-            JSONObject drac = (JSONObject)new JSONTokener(MrFileReader.read(stream)).nextValue();
+            JSONObject drac = (JSONObject) new JSONTokener(MrFileReader.read(stream)).nextValue();
             /*MrObjectLoader loader = new MrObjectLoader(drac);
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);

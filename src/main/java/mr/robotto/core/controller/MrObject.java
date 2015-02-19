@@ -18,8 +18,8 @@ import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.proposed.MrAction;
-import mr.robotto.proposed.MrRenderingContext;
-import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.renderer.MrRenderingContext;
+import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
 public abstract class MrObject {
     private MrObjectData mData;

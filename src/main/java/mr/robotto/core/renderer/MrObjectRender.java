@@ -10,7 +10,7 @@
 package mr.robotto.core.renderer;
 
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.renderer.MrRenderingContext;
 
 /**
  * Created by Aarón on 09/12/2014.

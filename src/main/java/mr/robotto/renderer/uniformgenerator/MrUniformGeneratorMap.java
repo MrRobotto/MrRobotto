@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.proposed.aus;
+package mr.robotto.renderer.uniformgenerator;
 
 import mr.robotto.collections.MrSortedMap;
 import mr.robotto.collections.core.MrMapFunction;

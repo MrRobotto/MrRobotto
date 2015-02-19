@@ -9,7 +9,7 @@
 
 package mr.robotto.scenetree;
 
-import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.renderer.MrRenderingContext;
 
 /**
  * Created by aaron on 30/01/2015.

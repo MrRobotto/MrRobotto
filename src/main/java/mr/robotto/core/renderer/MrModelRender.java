@@ -14,7 +14,7 @@ import mr.robotto.components.renderer.MrMeshDrawer;
 import mr.robotto.components.renderer.MrShaderProgramBinder;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.renderer.MrRenderingContext;
 
 public class MrModelRender implements MrObjectRender {
 

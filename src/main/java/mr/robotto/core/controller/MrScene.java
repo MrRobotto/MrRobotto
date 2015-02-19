@@ -13,9 +13,9 @@ import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
-import mr.robotto.proposed.aus.MrUniformGenerator;
-import mr.robotto.proposed.aus.MrUniformGeneratorMap;
-import mr.robotto.proposed.aus.MrUniformGeneratorMapView;
+import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
+import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapView;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 public class MrScene extends MrObject {

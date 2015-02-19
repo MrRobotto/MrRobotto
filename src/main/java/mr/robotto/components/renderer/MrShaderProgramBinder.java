@@ -17,8 +17,8 @@ import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.renderer.renderinterfaces.MrBindable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
-import mr.robotto.proposed.aus.MrUniformGenerator;
-import mr.robotto.proposed.aus.MrUniformGeneratorMap;
+import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
+import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
 //TODO: Controlar errores
 public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {

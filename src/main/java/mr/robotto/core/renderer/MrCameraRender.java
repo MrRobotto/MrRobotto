@@ -11,7 +11,7 @@ package mr.robotto.core.renderer;
 
 import mr.robotto.core.data.MrCameraData;
 import mr.robotto.core.data.MrObjectData;
-import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.renderer.MrRenderingContext;
 
 /**
  * Created by Aarón on 01/12/2014.

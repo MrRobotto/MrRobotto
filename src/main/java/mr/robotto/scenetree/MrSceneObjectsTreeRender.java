@@ -13,9 +13,9 @@ import java.util.Stack;
 
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObject;
-import mr.robotto.proposed.MrRenderingContext;
-import mr.robotto.proposed.aus.MrUniformGenerator;
-import mr.robotto.proposed.aus.MrUniformGeneratorMapController;
+import mr.robotto.renderer.MrRenderingContext;
+import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
+import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapController;
 
 /**
  * Created by Aarón on 18/01/2015.

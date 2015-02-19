@@ -39,12 +39,9 @@ public final class MrVector4f implements MrLinearAlgebraObject {
 
     public MrVector4f(float[] values) {
         this.values = new float[4];
-        if (values.length == 4)
-        {
+        if (values.length == 4) {
             setValues(values[0],values[1],values[2],values[3]);
-        }
-        else
-        {
+        } else {
             MrLinearAlgebraException.throwInvalidVectorDimensionException();
         }
     }

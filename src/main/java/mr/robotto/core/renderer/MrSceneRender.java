@@ -14,7 +14,7 @@ import android.opengl.GLES20;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.proposed.MrRenderingContext;
+import mr.robotto.renderer.MrRenderingContext;
 
 public class MrSceneRender implements MrObjectRender {
 
