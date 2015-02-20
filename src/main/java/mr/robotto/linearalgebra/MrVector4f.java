@@ -105,6 +105,47 @@ public final class MrVector4f implements MrLinearAlgebraObject {
             result.z = 0;
         }
 
+        public void add(MrVector4f result, MrVector4f op1, MrVector4f op2) {
+            result.w = op1.w + op2.w;
+            result.x = op1.x + op2.x;
+            result.y = op1.y + op2.y;
+            result.z = op1.z + op2.z;
+        }
+
+        public void substract(MrVector4f result, MrVector4f op1, MrVector4f op2) {
+            result.w = op1.w - op2.w;
+            result.x = op1.x - op2.x;
+            result.y = op1.y - op2.y;
+            result.z = op1.z - op2.z;
+        }
+
+        public void multScalar(MrVector4f result, float scalar) {
+            result.w = scalar * result.w;
+            result.x = scalar * result.x;
+            result.y = scalar * result.y;
+            result.z = scalar * result.z;
+        }
+
+        public void multScalar(MrVector4f result, MrVector4f v, float scalar) {
+            result.copyValues(v);
+            multScalar(result, scalar);
+        }
+
+        public float norm2(MrVector4f v) {
+            return (float) Math.sqrt(dot(v, v));
+        }
+
+        public float dot(MrVector4f op1, MrVector4f op2) {
+            return op1.w * op2.w + op1.x * op2.x + op1.y * op2.y + op1.z * op2.z;
+        }
+
+        public void lerp(MrVector4f result, float t, MrVector4f op1, MrVector4f op2) {
+            result.w = (1 - t) * op1.w + t * op2.w;
+            result.x = (1 - t) * op1.x + t * op2.x;
+            result.y = (1 - t) * op1.y + t * op2.y;
+            result.z = (1 - t) * op1.z + t * op2.z;
+        }
+
         public void vectorFromVec3(MrVector4f result, MrVector3f v)
         {
             result.setValues(v.x,v.y,v.z,0);

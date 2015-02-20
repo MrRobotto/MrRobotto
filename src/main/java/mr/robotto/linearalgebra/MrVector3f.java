@@ -143,6 +143,11 @@ public final class MrVector3f implements MrLinearAlgebraObject {
             result.z = scalar * result.z;
         }
 
+        public void multScalar(MrVector3f result, MrVector3f v, float scalar) {
+            result.copyValues(v);
+            multScalar(result, scalar);
+        }
+
         public float norm2(MrVector3f v) {
             return (float) Math.sqrt(dot(v, v));
         }

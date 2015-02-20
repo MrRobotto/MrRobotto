@@ -165,7 +165,7 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
 
         public void normalize(MrQuaternion result, MrQuaternion q) {
             float n = norm2(q);
-            multScalar(result, n, q);
+            multScalar(result, 1 / n, q);
         }
 
         public void invert(MrQuaternion result, MrQuaternion q) {
@@ -174,14 +174,23 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
             multScalar(result, n2, result);
         }
 
-        //TODO: Métodos así deberían tener otra forma del tipo (result, q, angle, axis)
         public void rotate(MrQuaternion result, float angle, MrVector3f axis) {
             rotate(result, angle, axis.x, axis.y, axis.z);
+        }
+
+        public void rotate(MrQuaternion result, MrQuaternion q, float angle, MrVector3f axis) {
+            result.copyValues(q);
+            rotate(result, angle, axis);
         }
 
         public void rotate(MrQuaternion result, float angle, float x, float y, float z) {
             fromAngleAxis(opRot, angle, x, y, z);
             mult(result, result, opRot);
+        }
+
+        public void rotate(MrQuaternion result, MrQuaternion q, float angle, float x, float y, float z) {
+            result.copyValues(q);
+            rotate(result, angle, x, y, z);
         }
 
         public void fromAngleAxis(MrQuaternion result, float angle, float x, float y, float z) {
@@ -228,8 +237,6 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
                     m21 = v[6],
                     m22 = v[10];
             float S, qw, qx, qy, qz;
-
-
             float trace = m00 + m11 + m22; // I removed + 1.0f; see discussion with Ethan
             if (trace > 0) {// I changed M_EPSILON to 0
                 S = 0.5f / (float) Math.sqrt(trace + 1.0f);
@@ -260,9 +267,6 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
             }
 
             /*---------------------------*/
-
-
-
             /*float tr = m00 + m11 + m22;
 
             if (tr > 0) {
