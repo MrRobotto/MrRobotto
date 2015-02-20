@@ -9,14 +9,7 @@
 
 package mr.robotto.renderer.text;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Paint.Style;
-import mr.robotto.renderer.opengl.Texture;
-import mr.robotto.renderer.primitives.Sprite;
-
-import static android.graphics.Color.WHITE;
+import mr.robotto.primitives.Sprite;
 
 public class Text extends Sprite{
 	
