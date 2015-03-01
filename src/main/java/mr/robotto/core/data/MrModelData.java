@@ -17,19 +17,13 @@ import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
-    private MrShaderProgram mShaderProgram;
 
     public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh) {
-        super(name, MrSceneObjectType.MODEL, transform, uniformKeys);
+        super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
-        mShaderProgram = shaderProgram;
     }
 
     public MrMesh getMesh() {
         return mMesh;
-    }
-
-    public MrShaderProgram getShaderProgram() {
-        return mShaderProgram;
     }
 }

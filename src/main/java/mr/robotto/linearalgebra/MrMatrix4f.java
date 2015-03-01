@@ -19,9 +19,6 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
     private final static HashMap<Long, Operator> sOperators = new HashMap<>();
     private float[] mValues;
 
-    /**
-     * Gets the a new matrix set to identity
-     */
     public MrMatrix4f()
     {
         init();
@@ -64,11 +61,6 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
         return 1;
     }
 
-    /**
-     * Get matrix mValues as a array
-     *
-     * @return mValues of the matrix
-     */
     @Override
     public float[] getValues() {
         return mValues;
@@ -84,8 +76,8 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
     }
 
     /**
-     * Set the value in the matrix
-     * @param i index of matrix seen as an array of 16 elements
+     * Set the value in the mProjectionMatrix
+     * @param i index of Matrix seen as an array of 16 elements
      * @param f new value
      */
     private void setValueAt(int i, float f) {
@@ -151,7 +143,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
             Matrix.setIdentityM(result.mValues, 0);
         }
 
-        //TODO: Check invertible matrix
+        //TODO: Check invertible Matrix
         public void invert(MrMatrix4f result, MrMatrix4f m) {
             Matrix.invertM(result.mValues, 0, m.mValues, 0);
         }

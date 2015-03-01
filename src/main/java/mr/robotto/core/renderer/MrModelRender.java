@@ -9,6 +9,8 @@
 
 package mr.robotto.core.renderer;
 
+import mr.robotto.components.data.mesh.MrBufferKey;
+import mr.robotto.components.data.mesh.MrBufferKeyMap;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.renderer.MrMeshDrawer;
 import mr.robotto.components.renderer.MrShaderProgramBinder;
@@ -41,10 +43,12 @@ public class MrModelRender implements MrObjectRender {
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());
         mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
+        //Attribute index assignation to mesh
+        MrBufferKeyMap keyMap = mModelData.getMesh().getBufferKeys();
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
-            mModelData.getMesh().getBufferKeys().findByKey(attribute.getAttributeType()).setIndex(attribute.getIndex());
+            MrBufferKey key = keyMap.findByKey(attribute.getAttributeType());
+            key.setIndex(attribute.getIndex());
         }
-
         mMeshDrawer.initialize();
         mShaderProgramBinder.initialize();
         mInitialized = true;
@@ -65,6 +69,7 @@ public class MrModelRender implements MrObjectRender {
 
     private void bind() {
         mShaderProgramBinder.bind();
+        //Assign of uniforms to the shader program
         mShaderProgramBinder.bindUniforms(mContext.getUniformGenerators());
         mMeshDrawer.bind();
         mBinded = true;

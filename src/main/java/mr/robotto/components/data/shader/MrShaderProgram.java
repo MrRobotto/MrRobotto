@@ -13,14 +13,14 @@ import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
 
 public class MrShaderProgram {
-    private MrVertexShader mVertexShader;
-    private MrFragmentShader mFragmentShader;
+    private MrShader mVertexShader;
+    private MrShader mFragmentShader;
     private MrHashMap<String, MrUniform> mUniforms;
     private MrHashMap<Integer, MrAttribute> mAttributes;
 
     private int mId;
 
-    public MrShaderProgram(MrVertexShader vertexShader, MrFragmentShader fragmentShader) {
+    public MrShaderProgram(MrShader vertexShader, MrShader fragmentShader) {
         mVertexShader = vertexShader;
         mFragmentShader = fragmentShader;
         init();
@@ -49,11 +49,11 @@ public class MrShaderProgram {
         this.mId = id;
     }
 
-    public MrVertexShader getVertexShader() {
+    public MrShader getVertexShader() {
         return mVertexShader;
     }
 
-    public MrFragmentShader getFragmentShader() {
+    public MrShader getFragmentShader() {
         return mFragmentShader;
     }
 

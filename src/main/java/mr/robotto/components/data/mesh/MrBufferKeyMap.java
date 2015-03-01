@@ -13,15 +13,15 @@ import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
 
 /**
- * Created by Aarón on 22/11/2014.
+ * Created by aaron on 01/03/2015.
  */
 public class MrBufferKeyMap extends MrHashMap<Integer, MrBufferKey> {
 
     public MrBufferKeyMap() {
-        super(getMapFunction());
+        super(genMapFunction());
     }
 
-    private static MrMapFunction<Integer, MrBufferKey> getMapFunction() {
+    private static MrMapFunction<Integer, MrBufferKey> genMapFunction() {
         return new MrMapFunction<Integer, MrBufferKey>() {
             @Override
             public Integer getKeyOf(MrBufferKey mrBufferKey) {
@@ -29,4 +29,7 @@ public class MrBufferKeyMap extends MrHashMap<Integer, MrBufferKey> {
             }
         };
     }
+
+    //TODO: Fill this
+    //a method to bind shader program attributes to the values of this?
 }

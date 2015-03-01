@@ -11,8 +11,6 @@ package mr.robotto.components.data.mesh;
 
 import android.opengl.GLES20;
 
-import mr.robotto.collections.MrHashMap;
-
 public class MrMesh {
 
     public static final int DRAWTYPE_LINES = GLES20.GL_LINES;
@@ -21,11 +19,11 @@ public class MrMesh {
     private String mName;
     private int mCount;
     private int mDrawType;
-    private MrHashMap<Integer, MrBufferKey> mKeys;
+    private MrBufferKeyMap mKeys;
     private MrBuffer mVertexBuffer;
     private MrBuffer mIndexBuffer;
 
-    public MrMesh(String name, int count, int drawType, MrHashMap<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
+    public MrMesh(String name, int count, int drawType, MrBufferKeyMap keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
         mName = name;
         mCount = count;
         mDrawType = drawType;
@@ -62,7 +60,7 @@ public class MrMesh {
         return mIndexBuffer;
     }
 
-    public MrHashMap<Integer, MrBufferKey> getBufferKeys() {
+    public MrBufferKeyMap getBufferKeys() {
         return mKeys;
     }
 

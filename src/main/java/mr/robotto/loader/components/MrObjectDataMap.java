@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.resources;
+package mr.robotto.loader.components;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;

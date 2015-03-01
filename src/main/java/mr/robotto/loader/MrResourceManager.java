@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.resources;
+package mr.robotto.loader;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,6 +23,7 @@ import mr.robotto.core.data.MrSceneData;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.core.renderer.MrSceneRender;
+import mr.robotto.loader.components.MrObjectDataMap;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /*

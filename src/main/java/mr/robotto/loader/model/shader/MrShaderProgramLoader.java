@@ -14,10 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.components.data.shader.MrAttribute;
-import mr.robotto.components.data.shader.MrFragmentShader;
+import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
-import mr.robotto.components.data.shader.MrVertexShader;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
@@ -34,14 +33,14 @@ public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
         return program;
     }
 
-    private MrVertexShader getVertexShader() throws JSONException {
+    private MrShader getVertexShader() throws JSONException {
         String source = mRoot.getString("VertexShaderSource");
-        return new MrVertexShader(source);
+        return MrShader.genVertexShader(source);
     }
 
-    private MrFragmentShader getFragmentShader() throws JSONException {
+    private MrShader getFragmentShader() throws JSONException {
         String source = mRoot.getString("FragmentShaderSource");
-        return new MrFragmentShader(source);
+        return MrShader.genFragmentShader(source);
     }
 
     private void loadUniforms(MrShaderProgram program) throws JSONException {

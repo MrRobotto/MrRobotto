@@ -10,43 +10,46 @@
 package mr.robotto.core.data;
 
 import mr.robotto.components.data.lens.MrLens;
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 
 public class MrCameraData extends MrObjectData {
 
-    private MrVector3f lookAt;
-    private MrLens lens;
-    private int width;
-    private int height;
+    private MrVector3f mLookAt;
+    private MrVector3f mUp;
+    private MrLens mLens;
 
-    public MrCameraData(String name, MrLens lens, MrVector3f lookAt) {
-        super(name, MrSceneObjectType.CAMERA);
-        this.lens = lens;
-        this.lookAt = lookAt;
+    public MrCameraData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrVector3f lookAt, MrVector3f up, MrLens lens) {
+        super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
+        mLens = lens;
+        mLookAt = lookAt;
+        mUp = up;
     }
 
-    /*public MrCamera(String name, MrTransform transform, MrLens lens, MrVector3f lookAt) {
-
-    }*/
-
-    //TODO: Quizas esto debería ser otra clase, se encarga de coger los uniformKeyList y los transforma en matrices o así!
-    public MrCameraData(String name, MrLens lens) {
-        this(name, lens, new MrVector3f());
+    public MrVector3f getLookAt() {
+        return mLookAt;
     }
 
-    public MrMatrix4f getViewMatrix() {
-        return getTransform().getAsMatrix();
+    public void setLookAt(MrVector3f lookAt) {
+        mLookAt = lookAt;
     }
 
-    public MrMatrix4f getViewProjectionMatrix() {
-        MrMatrix4f vp = new MrMatrix4f();
-        //MrMatrix4f.ops.mult(vp, lens.getProjectionMatrix(), getViewMatrix());
-        return vp;
+    public MrVector3f getUp() {
+        return mUp;
     }
 
-    public MrMatrix4f getProjectionMatrix() {
-        return lens.getProjectionMatrix();
+    public void setUp(MrVector3f up) {
+        mUp = up;
+    }
+
+    public MrLens getLens() {
+        return mLens;
+    }
+
+    public void setLens(MrLens lens) {
+        mLens = lens;
     }
 }

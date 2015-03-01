@@ -26,6 +26,14 @@ public class MrShader {
         this.mSource = source;
     }
 
+    public static MrShader genFragmentShader(String source) {
+        return new MrShader(MrShader.SHADERTYPE_FRAGMENT_SHADER, source);
+    }
+
+    public static MrShader genVertexShader(String source) {
+        return new MrShader(MrShader.SHADERTYPE_VERTEX_SHADER, source);
+    }
+
     public int getShaderType() {
         return mShaderType;
     }

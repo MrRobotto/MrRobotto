@@ -9,14 +9,9 @@
 
 package mr.robotto.primitives;
 
-import mr.robotto.commons.MrDataType;
 import mr.robotto.components.data.mesh.MrBuffer;
-import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.mesh.MrBufferKeyMap;
-import mr.robotto.components.data.mesh.MrIndexBuffer;
 import mr.robotto.components.data.mesh.MrMesh;
-import mr.robotto.components.data.mesh.MrVertexBuffer;
-import mr.robotto.components.data.shader.MrAttribute;
 
 public class MrAxis extends MrMesh {
 
@@ -34,7 +29,8 @@ public class MrAxis extends MrMesh {
                 0, 10, 0, 0, 1, 0,
                 0, 0, -10, 0, 0, 1,
                 0, 0, 10, 0, 0, 1};
-        MrBuffer buffer = new MrVertexBuffer(vertices.length);
+        //MrBuffer buffer = new MrVertexBuffer(vertices.length);
+        MrBuffer buffer = MrBuffer.genVertexBuffer(vertices.length);
         buffer.putFloats(vertices);
         return buffer;
     }
@@ -45,18 +41,20 @@ public class MrAxis extends MrMesh {
                 2, 3,
                 4, 5
         };
-        MrBuffer buffer = new MrIndexBuffer(indices.length);
+        //MrBuffer buffer = new MrIndexBuffer(indices.length);
+        MrBuffer buffer = MrBuffer.genIndexBuffer(indices.length);
         buffer.putShorts(indices);
         return buffer;
     }
 
     //TODO: Too much hardocre for my eyes!
     private static MrBufferKeyMap genKeyList() {
-        MrBufferKeyMap keyList = new MrBufferKeyMap();
+        /*MrBufferKeyMap keyList = new MrBufferKeyMap();
         MrBufferKey vertexKey = new MrBufferKey(MrAttribute.VERTICES, MrDataType.FLOAT, 3, 6, 0);
         MrBufferKey colorKey = new MrBufferKey(MrAttribute.COLOR, MrDataType.FLOAT, 3, 6, 3);
         keyList.add(vertexKey);
         keyList.add(colorKey);
-        return keyList;
+        return keyList;*/
+        return null;
     }
 }

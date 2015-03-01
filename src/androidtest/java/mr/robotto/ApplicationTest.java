@@ -25,8 +25,8 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.loader.resources.MrResourceManager;
-import mr.robotto.loader.resources.MrResourceManagerLoader;
+import mr.robotto.loader.MrResourceManager;
+import mr.robotto.loader.MrResourceManagerLoader;
 import mr.robotto.utils.MrFileReader;
 
 /**

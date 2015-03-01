@@ -13,12 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.collections.MrHashMap;
 import mr.robotto.components.data.mesh.MrBuffer;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.mesh.MrBufferKeyMap;
-import mr.robotto.components.data.mesh.MrIndexBuffer;
 import mr.robotto.components.data.mesh.MrMesh;
-import mr.robotto.components.data.mesh.MrVertexBuffer;
 import mr.robotto.loader.MrAbstractLoader;
 
 public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
@@ -38,8 +37,16 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
 
         int drawType = getDrawTypeFromString(drawTypeData);
         MrBufferKeyMap keys = new MrBufferKeyMap();
-        MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
-        MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
+        //MrHashMap<Integer, MrBufferKey> keys = new MrHashMap<>(new MrMapFunction<Integer, MrBufferKey>() {
+        //    @Override
+        //    public Integer getKeyOf(MrBufferKey mrBufferKey) {
+        //        return mrBufferKey.getAttributeType();
+        //    }
+        //});
+        //MrBuffer vertexBuffer = new MrVertexBuffer(vertexData.length());
+        //MrBuffer indexBuffer = new MrIndexBuffer(indexData.length());
+        MrBuffer vertexBuffer = MrBuffer.genVertexBuffer(vertexData.length());
+        MrBuffer indexBuffer = MrBuffer.genIndexBuffer(indexData.length());
 
         loadVertexData(vertexBuffer, vertexData);
         loadIndexData(indexBuffer, indexData);
@@ -69,7 +76,7 @@ public class MrMeshLoader extends MrAbstractLoader<MrMesh> {
         }
     }
 
-    private void loadKeys(MrBufferKeyMap list, JSONArray keys) throws JSONException {
+    private void loadKeys(MrHashMap<Integer, MrBufferKey> list, JSONArray keys) throws JSONException {
         for (int i = 0; i < keys.length(); i++) {
             JSONObject jsonKey = keys.getJSONObject(i);
             MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);

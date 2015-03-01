@@ -9,6 +9,7 @@
 
 package mr.robotto.core.data;
 
+import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -18,9 +19,21 @@ public abstract class MrObjectData {
     private String mName;
     private MrSceneObjectType mSceneObjType;
     private MrTransform mTransform;
+    private MrShaderProgram mShaderProgram;
     private MrUniformGeneratorMap mUniformGenerators;
     private MrUniformKeyMap mUniformKeys;
 
+    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys) {
+        mName = name;
+        mTransform = transform;
+        mSceneObjType = sceneObjType;
+        mShaderProgram = program;
+        mUniformKeys = uniformKeys;
+        mUniformGenerators = new MrUniformGeneratorMap();
+        init();
+    }
+
+    //TODO: Remove these two constructors
     public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyMap uniformKeys) {
         mName = name;
         mTransform = transform;
@@ -53,6 +66,10 @@ public abstract class MrObjectData {
 
     public void setTransform(MrTransform transform) {
         this.mTransform = transform;
+    }
+
+    public MrShaderProgram getShaderProgram() {
+        return mShaderProgram;
     }
 
     public MrUniformKeyMap getUniformKeys() {

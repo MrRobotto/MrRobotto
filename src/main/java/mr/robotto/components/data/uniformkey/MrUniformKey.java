@@ -9,14 +9,10 @@
 
 package mr.robotto.components.data.uniformkey;
 
-import mr.robotto.linearalgebra.MrLinearAlgebraObject;
-
 //TODO: Id for uniformkey and bufferkey in the same way!
 public class MrUniformKey {
 
     private String mUniformType;
-    private MrLinearAlgebraObject mValue;
-    private int id;
 
     public MrUniformKey(String uniformType) {
         mUniformType = uniformType;
@@ -24,13 +20,5 @@ public class MrUniformKey {
 
     public String getUniformType() {
         return mUniformType;
-    }
-
-    public MrLinearAlgebraObject getValue() {
-        return mValue;
-    }
-
-    public void setValue(MrLinearAlgebraObject value) {
-        this.mValue = value;
     }
 }

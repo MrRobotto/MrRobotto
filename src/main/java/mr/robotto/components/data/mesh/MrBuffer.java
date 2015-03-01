@@ -43,6 +43,15 @@ public class MrBuffer {
         mBufferCapacity = capacity;
     }
 
+    public static MrBuffer genIndexBuffer(int capacity) {
+        return new MrBuffer(capacity, MrDataType.UNSIGNED_SHORT, TARGET_ELEMENT_ARRAY_BUFFER, USAGE_STATIC_DRAW);
+    }
+
+    public static MrBuffer genVertexBuffer(int capacity) {
+        return new MrBuffer(capacity, MrDataType.FLOAT, TARGET_ARRAY_BUFFER, USAGE_STATIC_DRAW);
+    }
+
+    //TODO: This should return a int right?
     public IntBuffer getBufferId() {
         return mBufferId;
     }

@@ -12,6 +12,27 @@ package mr.robotto.components.data.shader;
 import mr.robotto.commons.MrDataType;
 
 public class MrUniform {
+
+    /*
+    MATRIX_MODEL,
+    MATRIX_VIEW,
+    MATRIX_PROJECTION,
+    MATRIX_MODEL_VIEW,
+    MATRIX_VIEW_PROJECTION,
+    MATRIX_MODEL_VIEW_PROJECTION,
+    MATRIX_TRANSP_MODEL_VIEW,
+    MATRIX_INVERSE_TRANSP_MODEL_VIEW,
+    MATRIX_TEXTURE_0,
+    MATRIX_TEXTURE_1,
+    MATRIX_TEXTURE_2,
+    MATRIX_TEXTURE_3
+     */
+
+    public static final String MODEL_MATRIX = "Model_Matrix";
+    public static final String VIEW_MATRIX = "View_Matrix";
+    public static final String PROJECTION_MATRIX = "Projection_Matrix";
+    public static final String VIEW_PROJECTION_MATRIX = "View_Projection_Matrix";
+
     private String mUniformType;
     private String mName;
     private MrDataType mDataType;
