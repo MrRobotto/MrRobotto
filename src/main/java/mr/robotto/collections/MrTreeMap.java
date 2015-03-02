@@ -19,9 +19,6 @@ import java.util.Map;
 
 import mr.robotto.collections.core.MrMapFunction;
 
-//TODO: Make toggeable overriding of keys
-//TODO: Add methods like clear or contains like in mapcontainer
-
 /**
  * Created by Aarón on 26/12/2014.
  */
@@ -31,19 +28,17 @@ public class MrTreeMap<K, V> implements Iterable<V> {
     public final static int DEPTH_TRAVERSAL = 1;
 
     private final MrMapFunction<K, V> mMapFunction;
-    private final MrTreeMapNode mRoot;
-    private HashMap<K, MrTreeMapNode> mTree;
+    private MrTreeMapNode mRoot;
+    private final HashMap<K, MrTreeMapNode> mTree = new HashMap<K, MrTreeMapNode>();
     private int mTraversalMode;
 
     public MrTreeMap(MrMapFunction<K, V> mapFunction) {
-        init();
         mRoot = null;
         mMapFunction = mapFunction;
         mTraversalMode = BREADTH_TRAVERSAL;
     }
 
     public MrTreeMap(V root, MrMapFunction<K, V> mapFunction) {
-        init();
         mMapFunction = mapFunction;
         mRoot = new MrTreeMapNode(root);
         mTree.put(mMapFunction.getKeyOf(root), mRoot);
@@ -57,10 +52,6 @@ public class MrTreeMap<K, V> implements Iterable<V> {
             Map.Entry<K, V> entry = it.next();
             addChildByKey(entry.getKey(), entry.getValue());
         }
-    }
-
-    private void init() {
-        mTree = new HashMap<K, MrTreeMapNode>();
     }
 
     public int getTraversalMode() {
@@ -90,6 +81,11 @@ public class MrTreeMap<K, V> implements Iterable<V> {
     public boolean contains(V data) {
         K key = mMapFunction.getKeyOf(data);
         return mTree.containsKey(key);
+    }
+
+    public void clear() {
+        mRoot = null;
+        mTree.clear();
     }
 
     public Collection<K> keys() {
