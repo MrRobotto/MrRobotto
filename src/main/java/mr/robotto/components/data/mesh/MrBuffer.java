@@ -51,9 +51,8 @@ public class MrBuffer {
         return new MrBuffer(capacity, MrDataType.FLOAT, TARGET_ARRAY_BUFFER, USAGE_STATIC_DRAW);
     }
 
-    //TODO: This should return a int right?
-    public IntBuffer getBufferId() {
-        return mBufferId;
+    public int getBufferId() {
+        return mBufferId.get(0);
     }
 
     public void setBufferId(IntBuffer bufferId) {

@@ -11,17 +11,18 @@
 
 
 
+
+
 apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
-        versionName "R2D2"
+        versionName 'C3P0'
     }
     buildTypes {
         release {
@@ -30,6 +31,8 @@ android {
         }
     }
     sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/androidtest/assets/'] } }
+    productFlavors {
+    }
 }
 
 dependencies {

@@ -57,21 +57,15 @@ public class MrSceneObjectsTreeRender {
         }
     }
 
-    /*private void renderActiveObjects() {
-        for (MrObject object : mActiveObjects) {
-
-        }
-    }*/
-
     //TODO: This must be changed!!
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
         for (MrObject scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
             //updateUniforms(scene);
+            scene.render();
             for (MrObject model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
                 updateUniforms(model);
                 updateUniforms(scene);
-                scene.render();
                 model.render();
             }
         }

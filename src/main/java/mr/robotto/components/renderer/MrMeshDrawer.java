@@ -90,7 +90,7 @@ public class MrMeshDrawer implements MrDrawable<MrMesh> {
     }
 
     private void bind(MrBuffer buffer) {
-        GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getBufferId().get(0));
+        GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getBufferId());
     }
 
     private void unbind(MrBufferKey key) {

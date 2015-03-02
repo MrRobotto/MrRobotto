@@ -17,7 +17,7 @@ public class MrSceneData extends MrObjectData {
 
     public MrSceneData(String name, MrVector4f clearColor) {
         super(name, MrSceneObjectType.SCENE);
-        this.mClearColor = clearColor;
+        mClearColor = clearColor;
         init();
     }
 
@@ -34,10 +34,10 @@ public class MrSceneData extends MrObjectData {
     }
 
     public void setClearColor(MrVector4f clearColor) {
-        this.mClearColor = clearColor;
+        mClearColor = clearColor;
     }
 
     public void setClearColor(float r, float g, float b, float a) {
-        this.mClearColor = new MrVector4f(r, g, b, a);
+        mClearColor = new MrVector4f(r, g, b, a);
     }
 }

@@ -19,19 +19,16 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
     private final static HashMap<Long, Operator> sOperators = new HashMap<>();
     private float[] mValues;
 
-    public MrMatrix4f()
-    {
+    public MrMatrix4f() {
         init();
     }
 
-    public MrMatrix4f(MrMatrix4f m)
-    {
+    public MrMatrix4f(MrMatrix4f m) {
         init();
         copyValues(m);
     }
 
-    public MrMatrix4f(float[] values)
-    {
+    public MrMatrix4f(float[] values) {
         init();
         setValues(values);
     }
@@ -77,6 +74,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
 
     /**
      * Set the value in the mProjectionMatrix
+     *
      * @param i index of Matrix seen as an array of 16 elements
      * @param f new value
      */
@@ -109,7 +107,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
     }
 
     public void copyValues(MrMatrix4f m) {
-        setValues(m.mValues);
+        System.arraycopy(m.mValues, 0, this.mValues, 0, 16);
     }
 
     @Override
@@ -354,7 +352,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
             lookAt(result,
                     eye.x, eye.y, eye.z,
                     center.x, center.y, center.z,
-                    up.x,up.y,up.z);
+                    up.x, up.y, up.z);
         }
     }
 }

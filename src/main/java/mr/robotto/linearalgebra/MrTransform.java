@@ -9,6 +9,8 @@
 
 package mr.robotto.linearalgebra;
 
+//TODO: Evade all news used in methods
+//TODO: Maybe create a transform operation just like in matrix, vector,...
 public class MrTransform {
     private MrMatrix4f mMatrix;
     private MrVector3f mLocation;
@@ -68,7 +70,7 @@ public class MrTransform {
      * Setters*
      */
     public void setLocation(MrVector3f location) {
-        this.mLocation = location;
+        mLocation = location;
         flipChange();
     }
 
@@ -77,7 +79,21 @@ public class MrTransform {
     }
 
     public void setScale(MrVector3f scale) {
-        this.mScale = scale;
+        mScale = scale;
+        flipChange();
+    }
+
+    public void setLocation(float x, float y, float z) {
+        mLocation.x = x;
+        mLocation.y = y;
+        mLocation.z = z;
+        flipChange();
+    }
+
+    public void setScale(float sx, float sy, float sz) {
+        mScale.x = sx;
+        mScale.y = sy;
+        mScale.z = sz;
         flipChange();
     }
 
