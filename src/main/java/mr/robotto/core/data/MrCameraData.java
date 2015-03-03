@@ -22,6 +22,7 @@ public class MrCameraData extends MrObjectData {
     private MrVector3f mUp;
     private MrLens mLens;
 
+    //TODO: Check constructors
     public MrCameraData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrVector3f lookAt, MrVector3f up, MrLens lens) {
         super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
         mLens = lens;
@@ -29,21 +30,26 @@ public class MrCameraData extends MrObjectData {
         mUp = up;
     }
 
-    public MrVector3f getLookAt() {
-        return mLookAt;
+    public MrCameraData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
+        super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
+        mLens = lens;
     }
 
-    public void setLookAt(MrVector3f lookAt) {
-        mLookAt = lookAt;
+    public MrVector3f getLookAt() {
+        return mTransform.getForward();
     }
+
+    /*public void setLookAt(MrVector3f lookAt) {
+        mLookAt = lookAt;
+    }*/
 
     public MrVector3f getUp() {
-        return mUp;
+        return mTransform.getUp();
     }
 
-    public void setUp(MrVector3f up) {
+    /*public void setUp(MrVector3f up) {
         mUp = up;
-    }
+    }*/
 
     public MrLens getLens() {
         return mLens;

@@ -12,6 +12,7 @@ package mr.robotto.scenetree;
 import java.util.Stack;
 
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrCamera;
 import mr.robotto.core.controller.MrObject;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
@@ -63,10 +64,14 @@ public class MrSceneObjectsTreeRender {
         for (MrObject scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
             //updateUniforms(scene);
             scene.render();
-            for (MrObject model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
-                updateUniforms(model);
-                updateUniforms(scene);
-                model.render();
+            for (MrObject camera : mSceneObjectsTree.getByType(MrSceneObjectType.CAMERA)) {
+                camera.render();
+                for (MrObject model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
+                    updateUniforms(model);
+                    updateUniforms(camera);
+                    updateUniforms(scene);
+                    model.render();
+                }
             }
         }
     }

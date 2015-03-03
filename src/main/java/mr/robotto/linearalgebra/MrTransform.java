@@ -66,6 +66,21 @@ public class MrTransform {
         return mLocation;
     }
 
+    public MrVector3f getUp() {
+        checkChange();
+        return mUp;
+    }
+
+    public MrVector3f getRight() {
+        checkChange();
+        return mRight;
+    }
+
+    public MrVector3f getForward() {
+        checkChange();
+        return mForward;
+    }
+
     /**
      * Setters*
      */
@@ -194,6 +209,11 @@ public class MrTransform {
     /**
      * Internal methods*
      */
+
+    private void flipChange() {
+        mChange = true;
+    }
+
     private void calcMatrix() {
         MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
         mat4Op.setIdentity(mMatrix);
@@ -202,8 +222,11 @@ public class MrTransform {
         mat4Op.scale(mMatrix, mScale);
     }
 
-    private void flipChange() {
-        mChange = true;
+    private void transformLocalAxis() {
+        MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
+        mat4Op.multV(mForward, mMatrix, mForward);
+        mat4Op.multV(mUp, mMatrix, mUp);
+        mat4Op.multV(mRight, mMatrix, mRight);
     }
 
     private void checkChange() {
@@ -212,13 +235,6 @@ public class MrTransform {
             transformLocalAxis();
             mChange = false;
         }
-    }
-
-    private void transformLocalAxis() {
-        MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
-        mat4Op.multV(mForward, mMatrix, mForward);
-        mat4Op.multV(mUp, mMatrix, mUp);
-        mat4Op.multV(mRight, mMatrix, mRight);
     }
 
     //TODO: Remove this method

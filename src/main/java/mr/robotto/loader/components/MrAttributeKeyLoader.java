@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.model;
+package mr.robotto.loader.components;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,9 +15,9 @@ import org.json.JSONObject;
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.shader.MrAttribute;
-import mr.robotto.loader.MrAbstractLoader;
+import mr.robotto.loader.MrBaseLoader;
 
-public class MrAttributeKeyLoader extends MrAbstractLoader<MrBufferKey> {
+public class MrAttributeKeyLoader extends MrBaseLoader<MrBufferKey> {
     public MrAttributeKeyLoader(JSONObject obj) {
         super(obj);
     }

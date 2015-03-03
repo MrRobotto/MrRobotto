@@ -15,7 +15,7 @@ public abstract class MrLens {
     //private float dof;
     //private float pixelWidth;
     //private float pixelHeight;
-    protected MrMatrix4f mProjectionMatrix;
+    protected MrMatrix4f mProjectionMatrix = new MrMatrix4f();
 
     public abstract MrMatrix4f getProjectionMatrix();
 }

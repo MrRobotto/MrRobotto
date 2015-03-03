@@ -17,7 +17,7 @@ import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 
-public class MrTransformLoader extends MrAbstractLoader<MrTransform> {
+public class MrTransformLoader extends MrBaseLoader<MrTransform> {
     public MrTransformLoader(JSONObject obj) {
         super(obj);
     }

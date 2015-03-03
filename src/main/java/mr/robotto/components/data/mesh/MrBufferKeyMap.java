@@ -29,7 +29,4 @@ public class MrBufferKeyMap extends MrHashMap<Integer, MrBufferKey> {
             }
         };
     }
-
-    //TODO: Fill this
-    //a method to bind shader program attributes to the values of this?
 }

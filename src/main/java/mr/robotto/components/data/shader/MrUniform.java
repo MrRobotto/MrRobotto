@@ -28,10 +28,10 @@ public class MrUniform {
     MATRIX_TEXTURE_3
      */
 
-    public static final String MODEL_MATRIX = "Model_Matrix";
-    public static final String VIEW_MATRIX = "View_Matrix";
-    public static final String PROJECTION_MATRIX = "Projection_Matrix";
-    public static final String VIEW_PROJECTION_MATRIX = "View_Projection_Matrix";
+    public static final String MODEL_MATRIX = "Matrix_Model";
+    public static final String VIEW_MATRIX = "Matrix_View";
+    public static final String PROJECTION_MATRIX = "Matrix_Projection";
+    public static final String MODEL_VIEW_PROJECTION_MATRIX = "Matrix_Model_View_Projection";
 
     private String mUniformType;
     private String mName;

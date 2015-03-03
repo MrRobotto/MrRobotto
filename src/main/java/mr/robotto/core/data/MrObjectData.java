@@ -16,12 +16,12 @@ import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
 public abstract class MrObjectData {
-    private String mName;
-    private MrSceneObjectType mSceneObjType;
-    private MrTransform mTransform;
-    private MrShaderProgram mShaderProgram;
-    private MrUniformGeneratorMap mUniformGenerators;
-    private MrUniformKeyMap mUniformKeys;
+    protected String mName;
+    protected MrSceneObjectType mSceneObjType;
+    protected MrTransform mTransform;
+    protected MrShaderProgram mShaderProgram;
+    protected MrUniformGeneratorMap mUniformGenerators;
+    protected MrUniformKeyMap mUniformKeys;
 
     public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys) {
         mName = name;
@@ -29,7 +29,6 @@ public abstract class MrObjectData {
         mSceneObjType = sceneObjType;
         mShaderProgram = program;
         mUniformKeys = uniformKeys;
-        mUniformGenerators = new MrUniformGeneratorMap();
         init();
     }
 
@@ -39,7 +38,6 @@ public abstract class MrObjectData {
         mTransform = transform;
         mSceneObjType = sceneObjType;
         mUniformKeys = uniformKeys;
-        mUniformGenerators = new MrUniformGeneratorMap();
         init();
     }
 
@@ -49,7 +47,7 @@ public abstract class MrObjectData {
     }
 
     private void init() {
-
+        mUniformGenerators = new MrUniformGeneratorMap();
     }
 
     public String getName() {

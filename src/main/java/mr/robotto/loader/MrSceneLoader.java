@@ -16,15 +16,14 @@ import org.json.JSONObject;
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
 
-public class MrSceneLoader extends MrObjectLoader {
+public class MrSceneLoader extends MrBaseObjectLoader {
     public MrSceneLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
     public MrSceneData parse() throws JSONException {
-        MrSceneData scene = new MrSceneData(getName(), getClearColor());
-        return scene;
+        return new MrSceneData(getName(), getTransform(), getShaderProgram(), getUniformKeyList(), getClearColor());
     }
 
     private MrVector4f getClearColor() throws JSONException {

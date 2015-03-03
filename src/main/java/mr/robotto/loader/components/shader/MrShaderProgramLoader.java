@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.model.shader;
+package mr.robotto.loader.components.shader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,9 +17,9 @@ import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
-import mr.robotto.loader.MrAbstractLoader;
+import mr.robotto.loader.MrBaseLoader;
 
-public class MrShaderProgramLoader extends MrAbstractLoader<MrShaderProgram> {
+public class MrShaderProgramLoader extends MrBaseLoader<MrShaderProgram> {
 
     public MrShaderProgramLoader(JSONObject obj) {
         super(obj);

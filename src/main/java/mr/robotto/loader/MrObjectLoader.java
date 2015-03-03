@@ -9,28 +9,25 @@
 
 package mr.robotto.loader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrTransform;
-import mr.robotto.loader.model.MrModelLoader;
 
 //TODO: Aqui falta mucho trabajo de control de errores
-public class MrObjectLoader extends MrAbstractLoader<MrObjectData> {
+//TODO: Extiendo de esto para usar parse, pero aqui parse ya está implementado... meeeec
+public class MrObjectLoader extends MrBaseLoader<MrObjectData> {
     public MrObjectLoader(JSONObject obj) {
         super(obj);
     }
 
     protected String getName() throws JSONException {
         return mRoot.getString("Name");
-    }
-
-    protected MrTransform getTransform() throws JSONException {
-        JSONObject transformJson = mRoot.getJSONObject("Transform");
-        MrTransformLoader transformLoader = new MrTransformLoader(transformJson);
-        return transformLoader.parse();
     }
 
     protected MrSceneObjectType getSceneObjType() throws JSONException {
@@ -49,7 +46,8 @@ public class MrObjectLoader extends MrAbstractLoader<MrObjectData> {
                 MrSceneLoader sceneLoader = new MrSceneLoader(mRoot);
                 return sceneLoader.parse();
             case CAMERA:
-                return null;
+                MrCameraLoader cameraLoader = new MrCameraLoader(mRoot);
+                return cameraLoader.parse();
         }
         return null;
     }

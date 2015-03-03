@@ -11,6 +11,7 @@ package mr.robotto.core.controller;
 
 import java.util.Iterator;
 
+import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
@@ -27,7 +28,7 @@ public class MrModel extends MrObject {
 
     //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
     private static MrUniformGenerator generateModelMatrix(final MrModel model) {
-        return new MrUniformGenerator("Matrix_Model", MrUniformGenerator.OBJECT_LEVEL) {
+        return new MrUniformGenerator(MrUniform.MODEL_MATRIX, MrUniformGenerator.OBJECT_LEVEL) {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f m = new MrMatrix4f();
@@ -38,19 +39,20 @@ public class MrModel extends MrObject {
                     op.mult(m, it.next().getTransform().getAsMatrix(), m);
                     //new UnsupportedOperationException("Not implemented yet");
                 }
-                //return m;
+                return m;
                 //return new MrMatrix4f(new float[]{ -1.6310f,0,0,0,
                 //                                    0,0.97014f,-0.29643f,-0.24253f,
                 //                                    0,0.24253f,1.18572f,0.97014f,
                 //                                    0,0,7.8564f,8.24621f});
                 //MrMatrix4f m2 = new MrMatrix4f();
                 //op.multScalar(m2, m2 , 2);
-                if (model.getName().equals("weapon2")) {
+
+
+                /*if (model.getName().equals("weapon2")) {
                     m = new MrMatrix4f(new float[]{-1.6310f, 0, 0, 0,
                             0, 0.97014f, -0.29643f, -0.24253f,
                             0, 0.24253f, 1.18572f, 0.97014f,
                             0, 0, 7.8564f, 8.24621f});
-                    //op.mult(m, m, m2);
                     op.translate(m, -3, 0, 0);
                     return m;
                 }
@@ -58,13 +60,8 @@ public class MrModel extends MrObject {
                         0, 0.97014f, -0.29643f, -0.24253f,
                         0, 0.24253f, 1.18572f, 0.97014f,
                         0, 0, 7.8564f, 8.24621f});
-                //op.mult(m, m, m2);
                 op.translate(m, -1, 0, 0);
-                return m;
-                //MrMatrix4f.getOperator().transpose(aux, aux);
-                //return new MrMatrix4f();
-                //return new MrMatrix4f(new float[]{})
-                //return m;
+                return m;*/
             }
         };
     }
