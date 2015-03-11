@@ -132,6 +132,7 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
         private final MrVector4f op2MultV3 = new MrVector4f();
         private final MrVector4f opMultV4 = new MrVector4f();
         private final MrMatrix4f opMatChange = new MrMatrix4f();
+        private final float[] opMultV = new float[4];
 
         private Operator() {
 
@@ -177,9 +178,11 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
         }
 
         //TODO: Change these to vector classes
+        //TODO: BIG BUG, the result.values are changed but not the w,x,y,z...
         public void multV(MrVector4f result, MrMatrix4f m, MrVector4f v) {
             opMultV4.copyValues(v);
-            Matrix.multiplyMV(result.getValues(), 0, m.mValues, 0, opMultV4.getValues(), 0);
+            Matrix.multiplyMV(opMultV, 0, m.mValues, 0, opMultV4.getValues(), 0);
+            result.setValues(opMultV[0], opMultV[1], opMultV[2], opMultV[3]);
         }
 
         public void multV(MrVector3f result, MrMatrix4f m, MrVector3f v) {
@@ -221,7 +224,6 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
             translate(result, v.x, v.y, v.z);
         }
 
-        //TODO: Quizas haya que cambiar el nombre por fromAngleAxis
         public void rotate(MrMatrix4f result, float angle, float x, float y, float z) {
             Matrix.rotateM(result.mValues, 0, angle, x, y, z);
         }

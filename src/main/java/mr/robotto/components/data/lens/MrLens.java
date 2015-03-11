@@ -13,9 +13,26 @@ import mr.robotto.linearalgebra.MrMatrix4f;
 
 public abstract class MrLens {
     //private float dof;
-    //private float pixelWidth;
-    //private float pixelHeight;
+    protected float mWidth = -1;
+    protected float mHeight = -1;
     protected MrMatrix4f mProjectionMatrix = new MrMatrix4f();
+
+    public void setDimension(float width, float height) {
+        mWidth = width;
+        mHeight = height;
+    }
+
+    public float getAspectRatio() {
+        return mWidth/mHeight;
+    }
+
+    public float getWidth() {
+        return mWidth;
+    }
+
+    public float getHeight() {
+        return mHeight;
+    }
 
     public abstract MrMatrix4f getProjectionMatrix();
 }

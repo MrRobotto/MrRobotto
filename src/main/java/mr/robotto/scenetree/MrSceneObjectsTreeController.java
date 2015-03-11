@@ -9,6 +9,10 @@
 
 package mr.robotto.scenetree;
 
+import java.util.List;
+
+import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrObject;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -24,11 +28,6 @@ public class MrSceneObjectsTreeController {
         mData = tree;
         mRenderingContext = new MrRenderingContext(mData);
     }
-
-    /*public void initializeRender(MrRenderingContext context) {
-        mRenderingContext = context;
-        mRender.initializeRender(mObjectsTree, context);
-    }*/
 
     public MrSceneObjectsTree getData() {
         return mData;
@@ -52,5 +51,11 @@ public class MrSceneObjectsTreeController {
         mRender.render();
     }
 
+    public List<MrObject> getByType(MrSceneObjectType type) {
+        return mData.getByType(type);
+    }
 
+    public MrObject findByKey(String key) {
+        return mData.findByKey(key);
+    }
 }

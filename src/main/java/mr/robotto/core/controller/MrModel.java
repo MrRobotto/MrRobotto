@@ -16,6 +16,7 @@ import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapView;
@@ -34,10 +35,13 @@ public class MrModel extends MrObject {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversal(object);
-                //MrLinearAlgebraObject a = uniforms.findByKey("Matrix_Model_View_Projection");
+
+                //MrTransform transform = it.next().getTransform();
+                //op.mult(m, transform.getAsMatrix(), m);
+                //transform = it.next().getTransform();
+                //op.mult(m, transform.getAsMatrix(), m);
                 while (it.hasNext()) {
                     op.mult(m, it.next().getTransform().getAsMatrix(), m);
-                    //new UnsupportedOperationException("Not implemented yet");
                 }
                 return m;
                 //return new MrMatrix4f(new float[]{ -1.6310f,0,0,0,

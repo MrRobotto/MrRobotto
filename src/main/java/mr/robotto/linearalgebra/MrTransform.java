@@ -29,9 +29,20 @@ public class MrTransform {
         this.mLocation = new MrVector3f(0);
         this.mScale = new MrVector3f(1);
 
+        //This seems to work
         this.mRight = new MrVector3f(1, 0, 0);
-        this.mUp = new MrVector3f(0, 0, 1);
-        this.mForward = new MrVector3f(0, 1, 0);
+        this.mUp = new MrVector3f(0, 1, 0);
+        this.mForward = new MrVector3f(0, 0, -1);
+
+        //This is not opengl
+        //mRight = new MrVector3f(1,0,0);
+        //mUp = new MrVector3f(0, 0, 1);
+        //mForward = new MrVector3f(0, 1, 0);
+
+        //This is blender
+        //mRight = new MrVector3f(1,0,0);
+        //mUp = new MrVector3f(0, 0, 1);
+        //mForward = new MrVector3f(0, -1, 0);
 
         flipChange();
     }
@@ -236,6 +247,11 @@ public class MrTransform {
             mChange = false;
         }
     }
+
+    /*private void checkChange() {
+        calcMatrix();
+        transformLocalAxis();
+    }*/
 
     //TODO: Remove this method
     public MrMatrix4f getAsMatrix() {

@@ -33,7 +33,7 @@ public class MrPerspectiveLens extends MrLens {
             return mProjectionMatrix;
         } else {
             MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-            op.perspective(mProjectionMatrix, mFovy, mAspectRatio, mClipStart, mClipEnd);
+            op.perspective(mProjectionMatrix, mFovy, mWidth/mHeight, mClipStart, mClipEnd);
             mChanged = false;
             return mProjectionMatrix;
         }
@@ -46,10 +46,6 @@ public class MrPerspectiveLens extends MrLens {
     public void setFovy(float fovy) {
         mFovy = fovy;
         mChanged = true;
-    }
-
-    public float getAspectRatio() {
-        return mAspectRatio;
     }
 
     public void setAspectRatio(float aspectRatio) {

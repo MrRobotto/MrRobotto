@@ -31,6 +31,7 @@ public class MrCamera extends MrObject {
     private MrMatrix4f mView;
     private MrMatrix4f mProjection;
     private MrCameraData mCameraData;
+    static float x = 0.02f,y=0.13f,z=0.99f;
 
     public MrCamera(MrCameraData data, MrObjectRender render) {
         super(data, render);
@@ -44,8 +45,12 @@ public class MrCamera extends MrObject {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                //op.lookAt(camera.mView, new MrVector3f(0,-10,1.5f), new MrVector3f(), new MrVector3f(0,0,1));
-                op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), camera.getUp());
+                MrVector3f loc = camera.getTransform().getLocation();
+                MrVector3f lookat = camera.getLookAt();
+                MrVector3f up = camera.getUp();
+                op.lookAt(camera.mView, loc, lookat, up);
+                //op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), new MrVector3f(0,1,0));
+                //op.lookAt(camera.mView, camera.getTransform().getLocation(), new MrVector3f(x,y,z), new MrVector3f(0,1,0));
                 return camera.mView;
             }
         };
@@ -55,13 +60,14 @@ public class MrCamera extends MrObject {
         return new MrUniformGenerator(MrUniform.PROJECTION_MATRIX, MrUniformGenerator.OBJECT_LEVEL) {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
-                //return camera.getLens().getProjectionMatrix();
-                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
+                return camera.getLens().getProjectionMatrix();
+                /*MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 MrPerspectiveLens lens = (MrPerspectiveLens) camera.getLens();
-                //1080.0f/1701.0f
+                float f = 1080.0f/1701.0f;
+                float aspect = lens.getAspectRatio();
                 //TODO: Set the aspect ratio correctly
-                op.perspective(camera.mProjection, lens.getFovy(), 1080.0f/1701.0f, lens.getClipStart(), lens.getClipEnd());
-                return camera.mProjection;
+                op.perspective(camera.mProjection, lens.getFovy(), aspect, lens.getClipStart(), lens.getClipEnd());
+                return camera.mProjection;*/
             }
         };
     }
@@ -71,6 +77,11 @@ public class MrCamera extends MrObject {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateViewMatrix(this));
         uniformGenerators.add(generateProjectionMatrix(this));
+    }
+
+    @Override
+    public void initializeSizeDependant(int widthScreen, int heightScreen) {
+        getLens().setDimension(widthScreen, heightScreen);
     }
 
     //TODO: Check this method
