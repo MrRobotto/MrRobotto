@@ -45,8 +45,10 @@ public class MrCamera extends MrObject {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
+                MrVector3f.Operator opv = MrVector3f.getOperator();
                 MrVector3f loc = camera.getTransform().getLocation();
                 MrVector3f lookat = camera.getLookAt();
+                //opv.add(lookat, lookat, loc);
                 MrVector3f up = camera.getUp();
                 op.lookAt(camera.mView, loc, lookat, up);
                 //op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), new MrVector3f(0,1,0));
