@@ -27,10 +27,9 @@ public class MrSceneObjectsTreeRender {
     private MrSceneObjectsTree mSceneObjectsTree;
     private MrRenderingContext mContext;
     private MrUniformGeneratorMapController mUniformController;
-    private Stack<MrObject> mActiveObjects;
 
     public MrSceneObjectsTreeRender() {
-        mActiveObjects = new Stack<>();
+
     }
 
     public void initializeRender(MrSceneObjectsTree objectsTree, MrRenderingContext context) {

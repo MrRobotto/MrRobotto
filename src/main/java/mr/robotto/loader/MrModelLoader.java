@@ -9,12 +9,16 @@
 
 package mr.robotto.loader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.components.data.material.MrMaterial;
+import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.mesh.MrMesh;
 import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.core.data.MrModelData;
+import mr.robotto.loader.components.MrMaterialLoader;
 import mr.robotto.loader.components.MrMeshLoader;
 import mr.robotto.loader.components.shader.MrShaderProgramLoader;
 
@@ -25,13 +29,24 @@ public class MrModelLoader extends MrBaseObjectLoader {
 
     @Override
     public MrModelData parse() throws JSONException {
-        MrModelData model = new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh());
-        return model;
+        return new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh(), getMaterials());
     }
 
     private MrMesh getMesh() throws JSONException {
         JSONObject meshJson = mRoot.getJSONObject("Mesh");
         MrMeshLoader meshLoader = new MrMeshLoader(meshJson);
         return meshLoader.parse();
+    }
+
+    private MrMaterialMap getMaterials() throws JSONException {
+        MrMaterialMap materialMap = new MrMaterialMap();
+        JSONArray materialsJson = mRoot.getJSONArray("Materials");
+        for (int i = 0; i < materialsJson.length(); i++) {
+            JSONObject matJson = materialsJson.getJSONObject(i);
+            MrMaterialLoader materialLoader = new MrMaterialLoader(matJson);
+            MrMaterial material = materialLoader.parse();
+            materialMap.add(material);
+        }
+        return materialMap;
     }
 }

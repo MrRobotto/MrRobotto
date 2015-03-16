@@ -9,6 +9,7 @@
 
 package mr.robotto.core.data;
 
+import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.mesh.MrMesh;
 import mr.robotto.components.data.shader.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
@@ -17,10 +18,12 @@ import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
+    private MrMaterialMap mMaterials;
 
-    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh) {
+    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterialMap materials) {
         super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
+        mMaterials = materials;
     }
 
     public MrMesh getMesh() {
