@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
@@ -21,6 +23,7 @@ import mr.robotto.proposed.MrAction;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
+//TODO: Cambiar los objectdata y render a elementos de clases inferiores
 public abstract class MrObject {
     private MrObjectData mData;
     private MrObjectRender mRender;
@@ -99,5 +102,13 @@ public abstract class MrObject {
 
     public Collection<MrAction<MrObjectData>> getActions() {
         return mActions;
+    }
+
+    public MrShaderProgram getShaderProgram() {
+        return mData.getShaderProgram();
+    }
+
+    public MrUniformKeyMap getUniformKeys() {
+        return mData.getUniformKeys();
     }
 }

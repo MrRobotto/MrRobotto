@@ -11,20 +11,46 @@ package mr.robotto.core.controller;
 
 import java.util.Iterator;
 
+import mr.robotto.commons.MrDataType;
+import mr.robotto.components.data.material.MrMaterial;
+import mr.robotto.components.data.material.MrMaterialMap;
+import mr.robotto.components.data.mesh.MrMesh;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
+import mr.robotto.linearalgebra.MrLinearAlgebraObjectContainer;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
+import mr.robotto.linearalgebra.MrVector4f;
 import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapView;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 public class MrModel extends MrObject {
+    private MrModelData mModel;
+
     public MrModel(MrModelData data, MrObjectRender render) {
         super(data, render);
+        mModel = data;
+    }
+    
+    private static MrUniformGenerator generateMaterialDiffuseColor(final MrModel model) {
+        return new MrUniformGenerator(MrUniform.UNIFORM_MATERIAL_DIFFUSE_COLOR, MrUniformGenerator.OBJECT_LEVEL) {
+            @Override
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
+                MrModel model = (MrModel) object;
+                MrMaterialMap materials = model.getMaterials();
+                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.size(), MrVector4f.SIZE);
+                int  i = 0;
+                for (MrMaterial material : materials) {
+                    container.setAlgebraObject(i, material.getDiffuse().getColor());
+                    i++;
+                }
+                return container;
+            }
+        };
     }
 
     //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
@@ -78,5 +104,14 @@ public class MrModel extends MrObject {
     public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateModelMatrix(this));
+        uniformGenerators.add(generateMaterialDiffuseColor(this));
+    }
+
+    public MrMesh getMesh() {
+        return mModel.getMesh();
+    }
+
+    public MrMaterialMap getMaterials() {
+        return mModel.getMaterials();
     }
 }

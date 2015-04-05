@@ -63,6 +63,7 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
     private void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
         int programId = mShaderProgram.getId();
         int uniformId = uniform.getId();
+
         int uniformCount = uniform.getCount();
         float[] values = element.getValues();
         switch (element.getDataType()) {
@@ -71,10 +72,10 @@ public class MrShaderProgramBinder implements MrBindable<MrShaderProgram> {
                 //GLES20.glUniformMatrix4fv(programId, uniformId, false, values, uniformCount);
                 break;
             case VEC3:
-                GLES20.glUniform3fv(programId, uniformId, values, uniformCount);
+                GLES20.glUniform3fv(uniformId, uniformCount,values, 0);
                 break;
             case VEC4:
-                GLES20.glUniform4fv(programId, uniformId, values, uniformCount);
+                GLES20.glUniform4fv(uniformId, uniformCount,values, 0);
                 break;
         }
     }

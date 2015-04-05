@@ -13,12 +13,18 @@ package mr.robotto.components.data.uniformkey;
 public class MrUniformKey {
 
     private String mUniformType;
+    private int mCount;
 
-    public MrUniformKey(String uniformType) {
+    public MrUniformKey(String uniformType, int count) {
         mUniformType = uniformType;
+        mCount = count;
     }
 
     public String getUniformType() {
         return mUniformType;
+    }
+
+    public int getCount() {
+        return mCount;
     }
 }

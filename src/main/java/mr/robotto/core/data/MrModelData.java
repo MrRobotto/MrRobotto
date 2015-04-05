@@ -29,4 +29,8 @@ public class MrModelData extends MrObjectData {
     public MrMesh getMesh() {
         return mMesh;
     }
+
+    public MrMaterialMap getMaterials() {
+        return mMaterials;
+    }
 }

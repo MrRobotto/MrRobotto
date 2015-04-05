@@ -15,6 +15,10 @@ import mr.robotto.commons.MrDataType;
 import mr.robotto.exceptions.MrLinearAlgebraException;
 
 public final class MrVector4f implements MrLinearAlgebraObject {
+    public static final int SIZE = 4;
+    public static final int COUNT = 1;
+    public static final MrDataType TYPE = MrDataType.VEC4;
+
     private final static HashMap<Long, Operator> sOperators = new HashMap<>();
     public float w;
     public float x;
@@ -91,6 +95,7 @@ public final class MrVector4f implements MrLinearAlgebraObject {
         setValues(v.w, v.x, v.y, v.z);
     }
 
+    //TODO: Agregar o una constante de clase o algo en el operador que permita saber el count y size de cada clase
     public static class Operator {
 
         private Operator() {

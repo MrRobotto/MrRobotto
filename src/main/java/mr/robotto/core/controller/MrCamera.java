@@ -95,17 +95,9 @@ public class MrCamera extends MrObject {
         return mCameraData.getLookAt();
     }
 
-    /*public void setLookAt(MrVector3f lookAt) {
-        mCameraData.setLookAt(lookAt);
-    }*/
-
     public MrVector3f getUp() {
         return mCameraData.getUp();
     }
-
-    /*public void setUp(MrVector3f up) {
-        mCameraData.setUp(up);
-    }*/
 
     public MrLens getLens() {
         return mCameraData.getLens();

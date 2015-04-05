@@ -58,8 +58,10 @@ public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObjectData> {
         MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
         JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
-            String uniformType = jsonUniformKeyList.getString(i);
-            MrUniformKey uniformKey = new MrUniformKey(uniformType);
+            JSONObject uniformKeyJson = jsonUniformKeyList.getJSONObject(i);
+            String uniformType = uniformKeyJson.getString("Uniform");
+            int count = uniformKeyJson.getInt("Count");
+            MrUniformKey uniformKey = new MrUniformKey(uniformType, count);
             uniformKeyList.add(uniformKey);
         }
         return uniformKeyList;

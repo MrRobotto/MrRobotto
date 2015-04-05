@@ -32,6 +32,12 @@ public class MrUniform {
     public static final String VIEW_MATRIX = "Matrix_View";
     public static final String PROJECTION_MATRIX = "Matrix_Projection";
     public static final String MODEL_VIEW_PROJECTION_MATRIX = "Matrix_Model_View_Projection";
+    public static final String UNIFORM_MATERIAL_AMBIENT_COLOR = "Ambient_Color";
+    public static final String UNIFORM_MATERIAL_AMBIENT_INTENSITY = "Ambient_Intensity";
+    public static final String UNIFORM_MATERIAL_DIFFUSE_COLOR = "Diffuse_Color";
+    public static final String UNIFORM_MATERIAL_DIFFUSE_INTENSITY = "Diffuse_Intensity";
+    public static final String UNIFORM_MATERIAL_SPECULAR_COLOR = "Specular_Color";
+    public static final String UNIFORM_MATERIAL_SPECULAR_INTENSITY = "Specular_Intensity";
 
     private String mUniformType;
     private String mName;

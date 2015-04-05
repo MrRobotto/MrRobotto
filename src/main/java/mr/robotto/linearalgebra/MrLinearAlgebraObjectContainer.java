@@ -19,10 +19,6 @@ public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
     private int mSize;
     private MrDataType mDataType;
 
-    public MrLinearAlgebraObjectContainer(MrLinearAlgebraObject[] algebraObjects) {
-
-    }
-
     public MrLinearAlgebraObjectContainer(MrDataType dataType, int count, int size) {
         mDataType = dataType;
         mCount = count;
@@ -43,7 +39,8 @@ public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
 
     private void setValues(int index, float[] values) {
         //TODO: Check if this is index*mCount or it needs a -1
-        System.arraycopy(values, 0, mValues, index*mCount, values.length);
+        //System.arraycopy(values, 0, mValues, index*mCount, values.length);
+        System.arraycopy(values, 0, mValues, index*mSize, values.length);
     }
 
     @Override
