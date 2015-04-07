@@ -19,6 +19,7 @@ import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrTransform;
+import mr.robotto.loader.components.MrTransformLoader;
 import mr.robotto.loader.components.shader.MrShaderProgramLoader;
 
 /**

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.components;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
+import mr.robotto.loader.MrBaseLoader;
 
 public class MrTransformLoader extends MrBaseLoader<MrTransform> {
     public MrTransformLoader(JSONObject obj) {
