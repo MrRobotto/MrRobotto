@@ -36,7 +36,7 @@ public class MrSceneRender implements MrObjectRender {
     }
 
     @Override
-    public void initializeRender(MrObjectData link, MrRenderingContext context) {
+    public void initializeRender(MrRenderingContext context, MrObjectData link) {
         mSceneData = (MrSceneData) link;
 
         MrVector4f clearColor = mSceneData.getClearColor();

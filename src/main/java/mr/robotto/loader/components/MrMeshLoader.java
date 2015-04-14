@@ -17,7 +17,7 @@ import mr.robotto.collections.MrHashMap;
 import mr.robotto.components.data.mesh.MrBuffer;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.mesh.MrBufferKeyMap;
-import mr.robotto.components.data.mesh.MrMesh;
+import mr.robotto.components.comp.MrMesh;
 import mr.robotto.loader.MrBaseLoader;
 
 public class MrMeshLoader extends MrBaseLoader<MrMesh> {

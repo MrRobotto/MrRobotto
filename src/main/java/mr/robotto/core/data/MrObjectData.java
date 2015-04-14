@@ -9,7 +9,7 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;

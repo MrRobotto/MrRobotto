@@ -7,9 +7,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.components.data.mesh;
+package mr.robotto.components.comp;
 
 import android.opengl.GLES20;
+
+import mr.robotto.components.data.mesh.MrBuffer;
+import mr.robotto.components.data.mesh.MrBufferKeyMap;
 
 public class MrMesh {
 

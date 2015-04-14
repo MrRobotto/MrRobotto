@@ -9,29 +9,30 @@
 
 package mr.robotto.core.controller;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Queue;
-
-import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.ctr.MrObjectController;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
-import mr.robotto.proposed.MrAction;
+import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
 public abstract class MrObject {
-    private MrObjectData mData;
-    private MrObjectRender mRender;
-    private Queue<MrAction<MrObjectData>> mActions;
+    private MrObjectController mController;
+    private MrSceneObjectsTree mTree;
 
     protected MrObject(MrObjectData data, MrObjectRender render) {
-        mData = data;
-        mRender = render;
+        mController = new MrObjectController(data, render);
+    }
+
+    protected MrObject(MrObjectController controller) {
+        mController = controller;
     }
 
     //TODO: Fill this to create objects in the loader
@@ -39,76 +40,160 @@ public abstract class MrObject {
 
     }
 
-    private void init() {
-        mActions = new LinkedList<MrAction<MrObjectData>>();
+    //TODO: Delete
+    public MrObjectData getData() {
+        return mController.getData();
     }
 
     public void initializeRender(MrRenderingContext context) {
-        mRender.initializeRender(mData, context);
-        initializeUniforms(mData.getUniformGenerators());
+        initializeUniforms(mController.getUniformGenerators());
+        mController.initializeRender(context);
     }
 
     public void initializeSizeDependant(int widthScreen, int heightScreen) {
-        mRender.initializeSizeDependant(widthScreen, heightScreen);
-    }
-
-    public boolean isInitialized() {
-        return mRender.isInitialized();
-    }
-
-    public void render() {
-        mRender.render();
-    }
-
-    public MrObjectData getData() {
-        return mData;
-    }
-
-    public String getName() {
-        return mData.getName();
-    }
-
-    public MrObjectRender getRender() {
-        return mRender;
-    }
-
-    public void setRender(MrObjectRender render) {
-        this.mRender = render;
-    }
-
-    public MrSceneObjectType getSceneObjectType() {
-        return mData.getSceneObjectType();
-    }
-
-    public MrTransform getTransform() {
-        return mData.getTransform();
+        mController.initializeSizeDependant(widthScreen, heightScreen);
     }
 
     public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
 
     }
 
+    public void render() {
+        mController.render();
+    }
+
+    public void setTree(MrSceneObjectsTree tree) {
+        mTree = tree;
+    }
+
+
+
+    public MrSceneObjectType getSceneObjectType() {
+        return mController.getSceneObjectType();
+    }
+
+    public boolean isInitialized() {
+        return mController.isInitialized();
+    }
+
+    public String getName() {
+        return mController.getName();
+    }
+
+    public MrTransform getTransform() {
+        return mController.getTransform();
+    }
+
     public MrUniformGeneratorMap getUniformGenerators() {
-        return mData.getUniformGenerators();
-    }
-
-    public void setUniformGenerators(MrUniformGeneratorMap uniformGenerators) {
-        mData.setUniformGenerators(uniformGenerators);
-    }
-
-    public void addAction(final MrAction<MrObjectData> action) {
-        mActions.add(action);
-    }
-
-    public Collection<MrAction<MrObjectData>> getActions() {
-        return mActions;
+        return mController.getUniformGenerators();
     }
 
     public MrShaderProgram getShaderProgram() {
-        return mData.getShaderProgram();
+        return mController.getShaderProgram();
     }
 
     public MrUniformKeyMap getUniformKeys() {
-        return mData.getUniformKeys();
+        return mController.getUniformKeys();
+    }
+
+
+    public MrQuaternion getRotation() {
+        return getTransform().getRotation();
+    }
+
+    public void rotate(float angle, MrVector3f axis) {
+        getTransform().rotate(angle, axis);
+    }
+
+    public void translate(float x, float y, float z) {
+        getTransform().translate(x, y, z);
+    }
+
+    public void scale(float s) {
+        getTransform().scale(s);
+    }
+
+    public void scale(MrVector3f s) {
+        getTransform().scale(s);
+    }
+
+    public MrVector3f getRight() {
+        return getTransform().getRight();
+    }
+
+    public void setLookAt(MrVector3f look, MrVector3f up) {
+        getTransform().setLookAt(look, up);
+    }
+
+    public void setLocation(MrVector3f location) {
+        getTransform().setLocation(location);
+    }
+
+    public void scale(float sx, float sy, float sz) {
+        getTransform().scale(sx, sy, sz);
+    }
+
+    public void setScale(float sx, float sy, float sz) {
+        getTransform().setScale(sx, sy, sz);
+    }
+
+    public void setScale(MrVector3f scale) {
+        getTransform().setScale(scale);
+    }
+
+    public void translate(MrVector3f v) {
+        getTransform().translate(v);
+    }
+
+    public MrVector3f getForward() {
+        return getTransform().getForward();
+    }
+
+    public MrVector3f getScale() {
+        return getTransform().getScale();
+    }
+
+    public void setRotation(MrQuaternion rotation) {
+        getTransform().setRotation(rotation);
+    }
+
+    public void setLocation(float x, float y, float z) {
+        getTransform().setLocation(x, y, z);
+    }
+
+    public void setRotation(float angle, MrVector3f axis) {
+        getTransform().setRotation(angle, axis);
+    }
+
+    public MrVector3f getUp() {
+        return getTransform().getUp();
+    }
+
+    public void setLookAt(MrVector3f look) {
+        getTransform().setLookAt(look);
+    }
+
+    public void setRotation(float angle, float x, float y, float z) {
+        getTransform().setRotation(angle, x, y, z);
+    }
+
+    public MrVector3f getLocation() {
+        return getTransform().getLocation();
+    }
+
+    public void rotateAround(float angle, MrVector3f point, MrVector3f axis) {
+        getTransform().rotateAround(angle, point, axis);
+    }
+
+    public void rotate(MrQuaternion q) {
+        getTransform().rotate(q);
+    }
+
+    public void rotateAround(float angle, MrVector3f point, MrVector3f axis, MrVector3f through) {
+        getTransform().rotateAround(angle, point, axis, through);
+    }
+
+    public void rotate(float angle, float x, float y, float z) {
+        getTransform().rotate(angle, x, y, z);
     }
 }

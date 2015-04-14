@@ -16,7 +16,7 @@ import mr.robotto.renderer.MrRenderingContext;
  * Created by Aarón on 09/12/2014.
  */
 public interface MrObjectRender {
-    public void initializeRender(MrObjectData link, MrRenderingContext context);
+    public void initializeRender(MrRenderingContext context, MrObjectData link);
 
     public void initializeSizeDependant(int w, int h);
 

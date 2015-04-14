@@ -32,7 +32,7 @@ public class MrCameraRender implements MrObjectRender {
     }
 
     @Override
-    public void initializeRender(MrObjectData link, MrRenderingContext context) {
+    public void initializeRender(MrRenderingContext context, MrObjectData link) {
         mCameraData = (MrCameraData) link;
 
         mInitialized = true;

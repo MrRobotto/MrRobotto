@@ -7,13 +7,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.components.renderer;
+package mr.robotto.components.comp;
 
 import android.opengl.GLES20;
 
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
-import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.renderer.renderinterfaces.MrBindable;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;

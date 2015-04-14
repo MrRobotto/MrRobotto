@@ -7,10 +7,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.components.data.shader;
+package mr.robotto.components.comp;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.components.data.shader.MrAttribute;
+import mr.robotto.components.data.shader.MrShader;
+import mr.robotto.components.data.shader.MrUniform;
 
 public class MrShaderProgram {
     private MrShader mVertexShader;

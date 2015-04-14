@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
-import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.loader.MrBaseLoader;
 

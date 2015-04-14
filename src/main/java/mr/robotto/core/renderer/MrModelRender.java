@@ -12,8 +12,8 @@ package mr.robotto.core.renderer;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.mesh.MrBufferKeyMap;
 import mr.robotto.components.data.shader.MrAttribute;
-import mr.robotto.components.renderer.MrMeshDrawer;
-import mr.robotto.components.renderer.MrShaderProgramBinder;
+import mr.robotto.components.comp.MrMeshDrawer;
+import mr.robotto.components.comp.MrShaderProgramBinder;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.renderer.MrRenderingContext;
@@ -38,7 +38,7 @@ public class MrModelRender implements MrObjectRender {
     }
 
     @Override
-    public void initializeRender(MrObjectData link, MrRenderingContext context) {
+    public void initializeRender(MrRenderingContext context, MrObjectData link) {
         mContext = context;
         mModelData = (MrModelData) link;
         mMeshDrawer.linkWith(mModelData.getMesh());

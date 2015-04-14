@@ -15,12 +15,10 @@ import org.json.JSONObject;
 
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
-import mr.robotto.components.data.mesh.MrMesh;
-import mr.robotto.components.data.shader.MrShaderProgram;
+import mr.robotto.components.comp.MrMesh;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.loader.components.MrMaterialLoader;
 import mr.robotto.loader.components.MrMeshLoader;
-import mr.robotto.loader.components.shader.MrShaderProgramLoader;
 
 public class MrModelLoader extends MrBaseObjectLoader {
     public MrModelLoader(JSONObject obj) {
