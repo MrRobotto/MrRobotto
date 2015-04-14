@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.core.controller.MrScene;
 import mr.robotto.core.data.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
 
@@ -22,8 +23,8 @@ public class MrSceneLoader extends MrBaseObjectLoader {
     }
 
     @Override
-    public MrSceneData parse() throws JSONException {
-        return new MrSceneData(getName(), getTransform(), getShaderProgram(), getUniformKeyList(), getClearColor());
+    public MrScene parse() throws JSONException {
+        return new MrScene(getName(), getTransform(), getShaderProgram(), getUniformKeyList(), getClearColor());
     }
 
     private MrVector4f getClearColor() throws JSONException {

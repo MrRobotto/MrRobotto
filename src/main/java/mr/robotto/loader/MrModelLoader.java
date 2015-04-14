@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.comp.MrMesh;
+import mr.robotto.core.controller.MrModel;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.loader.components.MrMaterialLoader;
 import mr.robotto.loader.components.MrMeshLoader;
@@ -26,8 +27,8 @@ public class MrModelLoader extends MrBaseObjectLoader {
     }
 
     @Override
-    public MrModelData parse() throws JSONException {
-        return new MrModelData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh(), getMaterials());
+    public MrModel parse() throws JSONException {
+        return new MrModel(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh(), getMaterials());
     }
 
     private MrMesh getMesh() throws JSONException {

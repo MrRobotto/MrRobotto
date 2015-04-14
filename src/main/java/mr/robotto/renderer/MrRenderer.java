@@ -32,7 +32,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     public MrRenderer() {
         //scene = new MrSceneData("Scene");
-        mScene = new MrScene(new MrSceneData("Scene"), new MrSceneRender());
+        //mScene = new MrScene(new MrSceneData("Scene"), new MrSceneRender());
     }
 
     public MrRenderer(MrSceneData scene) {

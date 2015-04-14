@@ -15,6 +15,9 @@ import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
 
+/**
+ * Created by aaron on 14/04/2015.
+ */
 public class MrSceneData extends MrObjectData {
     private MrVector4f mClearColor;
 

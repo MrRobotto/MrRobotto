@@ -16,6 +16,9 @@ import mr.robotto.core.data.MrSceneData;
 import mr.robotto.linearalgebra.MrVector4f;
 import mr.robotto.renderer.MrRenderingContext;
 
+/**
+ * Created by aaron on 14/04/2015.
+ */
 public class MrSceneRender implements MrObjectRender {
 
     private MrSceneData mSceneData;

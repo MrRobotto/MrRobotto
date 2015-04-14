@@ -26,7 +26,7 @@ import mr.robotto.core.renderer.MrCameraRender;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.core.renderer.MrSceneRender;
-import mr.robotto.loader.MrObjectDataMap;
+import mr.robotto.loader.MrObjectMap;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /*
@@ -36,15 +36,15 @@ además podrás decirle cuando construya "Oye quiero que para el objeto
 con nombre fulanito le apliques el controlador o el renderer este
  */
 public class MrResourceManager {
-    private MrObjectDataMap mObjectsData;
+    private MrObjectMap mObjectsData;
     private MrTreeMap<String, String> mKeysTree;
 
-    public MrResourceManager(MrObjectDataMap objectDatas, MrTreeMap<String, String> keysTree) {
+    public MrResourceManager(MrObjectMap objectDatas, MrTreeMap<String, String> keysTree) {
         mObjectsData = objectDatas;
         mKeysTree = keysTree;
     }
 
-    public MrObjectDataMap getObjectsData() {
+    public MrObjectMap getObjectsData() {
         return mObjectsData;
     }
 
@@ -74,33 +74,33 @@ public class MrResourceManager {
             }
         }
 
-        private MrObject getObject(MrObjectData objectData) {
+        /*private MrObject getObject(MrObjectData objectData) {
             MrObjectRender render = getRenderer(objectData);
             switch (objectData.getSceneObjectType()) {
                 case CAMERA:
-                    return new MrCamera((MrCameraData) objectData, render);
+                    return new MrCamera((MrCameraData) objectData, (MrCameraRender) render);
                 case MODEL:
-                    return new MrModel((MrModelData) objectData, render);
+                    return new MrModel((MrModelData) objectData, (MrModelRender) render);
                 case SCENE:
                     return new MrScene((MrSceneData) objectData, render);
                 default:
                     return null;
             }
-        }
+        }*/
 
         public MrSceneObjectsTree buildSceneObjectsTree() {
             MrTreeMap<String, String> keyTree = mManager.getKeysTree();
-            MrObjectDataMap objects = mManager.getObjectsData();
-            MrObjectData rootData = objects.findByKey(keyTree.getRoot());
-            MrObjectRender render = getRenderer(rootData);
-            MrSceneObjectsTree tree = new MrSceneObjectsTree(getObject(rootData));
+            MrObjectMap objects = mManager.getObjectsData();
+            MrObject rootData = objects.findByKey(keyTree.getRoot());
+            //MrObjectRender render = getRenderer(rootData);
+            MrSceneObjectsTree tree = new MrSceneObjectsTree(rootData);
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();
                 //Gets the value
-                MrObjectData objectData = objects.findByKey(entry.getValue());
+                MrObject objectData = objects.findByKey(entry.getValue());
                 //Gets the root key via entry.getKey
-                tree.addChildByKey(entry.getKey(), getObject(objectData));
+                tree.addChildByKey(entry.getKey(), objectData);
             }
             return tree;
         }

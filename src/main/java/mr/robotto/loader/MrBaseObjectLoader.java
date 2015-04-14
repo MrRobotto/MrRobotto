@@ -17,6 +17,7 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.loader.components.MrTransformLoader;
@@ -25,7 +26,7 @@ import mr.robotto.loader.components.shader.MrShaderProgramLoader;
 /**
  * Created by aaron on 03/03/2015.
  */
-public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObjectData> {
+public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObject> {
     public MrBaseObjectLoader(JSONObject obj) {
         super(obj);
     }

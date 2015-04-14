@@ -27,10 +27,6 @@ public abstract class MrObject {
     private MrObjectController mController;
     private MrSceneObjectsTree mTree;
 
-    protected MrObject(MrObjectData data, MrObjectRender render) {
-        mController = new MrObjectController(data, render);
-    }
-
     protected MrObject(MrObjectController controller) {
         mController = controller;
     }
@@ -38,6 +34,10 @@ public abstract class MrObject {
     //TODO: Fill this to create objects in the loader
     protected MrObject(MrObject object) {
 
+    }
+
+    protected MrObjectController getController() {
+        return mController;
     }
 
     //TODO: Delete
@@ -82,6 +82,10 @@ public abstract class MrObject {
 
     public MrTransform getTransform() {
         return mController.getTransform();
+    }
+
+    public void setTransform(MrTransform transform) {
+        mController.setTransform(transform);
     }
 
     public MrUniformGeneratorMap getUniformGenerators() {

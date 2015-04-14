@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.loader.MrBaseLoader;
-import mr.robotto.loader.MrObjectDataMap;
+import mr.robotto.loader.MrObjectMap;
 import mr.robotto.loader.MrObjectLoader;
 
 public class MrResourceManagerLoader extends MrBaseLoader<MrResourceManager> {
@@ -37,8 +37,8 @@ public class MrResourceManagerLoader extends MrBaseLoader<MrResourceManager> {
      * @return
      * @throws JSONException
      */
-    private MrObjectDataMap getObjectsData() throws JSONException {
-        MrObjectDataMap objectDataList = new MrObjectDataMap();
+    private MrObjectMap getObjectsData() throws JSONException {
+        MrObjectMap objectDataList = new MrObjectMap();
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
         for (int i = 0; i < jsonObjects.length(); i++) {
             MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));

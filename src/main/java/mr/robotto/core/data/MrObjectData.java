@@ -15,6 +15,9 @@ import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
+/**
+ * Created by aaron on 14/04/2015.
+ */
 public abstract class MrObjectData {
     protected String mName;
     protected MrSceneObjectType mSceneObjType;
@@ -32,18 +35,9 @@ public abstract class MrObjectData {
         init();
     }
 
-    //TODO: Remove these two constructors
-    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrUniformKeyMap uniformKeys) {
-        mName = name;
-        mTransform = transform;
-        mSceneObjType = sceneObjType;
-        mUniformKeys = uniformKeys;
-        init();
-    }
-
     //TODO: Review this constructor
     public MrObjectData(String name, MrSceneObjectType sceneObjType) {
-        this(name, sceneObjType, new MrTransform(), new MrUniformKeyMap());
+        this(name, sceneObjType, new MrTransform(), null, new MrUniformKeyMap());
     }
 
     private void init() {

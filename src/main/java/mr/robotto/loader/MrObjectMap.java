@@ -11,22 +11,23 @@ package mr.robotto.loader;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.MrObjectData;
 
 /**
  * Created by Aarón on 23/11/2014.
  */
-public class MrObjectDataMap extends MrHashMap<String, MrObjectData> {
+public class MrObjectMap extends MrHashMap<String, MrObject> {
 
-    public MrObjectDataMap() {
+    public MrObjectMap() {
         super(getMapFunction());
     }
 
-    private static MrMapFunction<String, MrObjectData> getMapFunction() {
-        return new MrMapFunction<String, MrObjectData>() {
+    private static MrMapFunction<String, MrObject> getMapFunction() {
+        return new MrMapFunction<String, MrObject>() {
             @Override
-            public String getKeyOf(MrObjectData mrObjectData) {
-                return mrObjectData.getName();
+            public String getKeyOf(MrObject data) {
+                return data.getName();
             }
         };
     }

@@ -13,14 +13,14 @@ import mr.robotto.core.data.MrObjectData;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
- * Created by Aarón on 09/12/2014.
+ * Created by aaron on 14/04/2015.
  */
 public interface MrObjectRender {
-    public void initializeRender(MrRenderingContext context, MrObjectData link);
+    void initializeRender(MrRenderingContext context, MrObjectData link);
 
-    public void initializeSizeDependant(int w, int h);
+    void initializeSizeDependant(int w, int h);
 
-    public void render();
+    void render();
 
-    public boolean isInitialized();
+    boolean isInitialized();
 }

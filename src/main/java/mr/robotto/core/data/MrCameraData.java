@@ -9,13 +9,16 @@
 
 package mr.robotto.core.data;
 
-import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 
+/**
+ * Created by aaron on 14/04/2015.
+ */
 public class MrCameraData extends MrObjectData {
 
     private MrVector3f mLookAt;

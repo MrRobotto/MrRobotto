@@ -12,24 +12,20 @@ package mr.robotto.core.renderer;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.mesh.MrBufferKeyMap;
 import mr.robotto.components.data.shader.MrAttribute;
-import mr.robotto.components.comp.MrMeshDrawer;
-import mr.robotto.components.comp.MrShaderProgramBinder;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.renderer.MrRenderingContext;
 
+/**
+ * Created by aaron on 14/04/2015.
+ */
 public class MrModelRender implements MrObjectRender {
-
-    private MrMeshDrawer mMeshDrawer;
-    private MrShaderProgramBinder mShaderProgramBinder;
     private MrModelData mModelData;
     private MrRenderingContext mContext;
     private boolean mInitialized = false;
     private boolean mBinded = false;
 
     public MrModelRender() {
-        mMeshDrawer = new MrMeshDrawer();
-        mShaderProgramBinder = new MrShaderProgramBinder();
     }
 
     @Override
@@ -41,16 +37,15 @@ public class MrModelRender implements MrObjectRender {
     public void initializeRender(MrRenderingContext context, MrObjectData link) {
         mContext = context;
         mModelData = (MrModelData) link;
-        mMeshDrawer.linkWith(mModelData.getMesh());
-        mShaderProgramBinder.linkWith(mModelData.getShaderProgram());
+
         //Attribute index assignation to mesh
         MrBufferKeyMap keyMap = mModelData.getMesh().getBufferKeys();
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
             MrBufferKey key = keyMap.findByKey(attribute.getAttributeType());
             key.setIndex(attribute.getIndex());
         }
-        mMeshDrawer.initialize();
-        mShaderProgramBinder.initialize();
+        mModelData.getMesh().initialize();
+        mModelData.getShaderProgram().initialize();
         mInitialized = true;
     }
 
@@ -68,10 +63,10 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void bind() {
-        mShaderProgramBinder.bind();
+        mModelData.getShaderProgram().bind();
         //Assign of uniforms to the shader program
-        mShaderProgramBinder.bindUniforms(mContext.getUniformGenerators());
-        mMeshDrawer.bind();
+        mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
+        mModelData.getMesh().bind();
         mBinded = true;
     }
 
@@ -81,13 +76,12 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void unbind() {
-        mMeshDrawer.unbind();
-        mShaderProgramBinder.unbind();
+        mModelData.getMesh().unbind();
+        mModelData.getShaderProgram().unbind();
         mBinded = false;
     }
 
     private void draw() {
-        mMeshDrawer.draw();
+        mModelData.getMesh().draw();
     }
-
 }

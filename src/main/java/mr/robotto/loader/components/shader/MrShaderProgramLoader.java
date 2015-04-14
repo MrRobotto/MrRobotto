@@ -27,10 +27,15 @@ public class MrShaderProgramLoader extends MrBaseLoader<MrShaderProgram> {
 
     @Override
     public MrShaderProgram parse() throws JSONException {
-        MrShaderProgram program = new MrShaderProgram(getVertexShader(), getFragmentShader());
+        MrShaderProgram program = new MrShaderProgram(getShaderProgramName(), getVertexShader(), getFragmentShader());
         loadAttributes(program);
         loadUniforms(program);
         return program;
+    }
+
+    private String getShaderProgramName() throws JSONException {
+        String name = mRoot.getString("Name");
+        return name;
     }
 
     private MrShader getVertexShader() throws JSONException {

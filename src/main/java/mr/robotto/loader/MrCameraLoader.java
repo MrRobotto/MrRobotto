@@ -13,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.components.data.lens.MrPerspectiveLens;
+import mr.robotto.core.controller.MrCamera;
+import mr.robotto.core.controller.MrObject;
 import mr.robotto.core.data.MrCameraData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -26,11 +28,11 @@ public class MrCameraLoader extends MrBaseObjectLoader {
     }
 
     @Override
-    public MrObjectData parse() throws JSONException {
+    public MrObject parse() throws JSONException {
         //TODO: Check all this, the unsupported operation and that null return
         JSONObject lensJson = mRoot.getJSONObject("Lens");
         if (lensJson.getString("Type").equals("Perspective")) {
-            return new MrCameraData(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getPerspectiveLens(lensJson));
+            return new MrCamera(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getPerspectiveLens(lensJson));
         } else if (lensJson.getString("Type").equals("Orthographic")) {
             throw new UnsupportedOperationException("Not implemented yet");
         } else {

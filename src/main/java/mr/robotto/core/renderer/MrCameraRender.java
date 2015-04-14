@@ -14,7 +14,7 @@ import mr.robotto.core.data.MrObjectData;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
- * Created by Aarón on 01/12/2014.
+ * Created by Aarón Negrín on 01/12/2014.
  */
 public class MrCameraRender implements MrObjectRender {
 

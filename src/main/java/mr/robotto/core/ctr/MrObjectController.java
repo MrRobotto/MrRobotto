@@ -1,6 +1,6 @@
 /*
  * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ * Copyright (c) 2015, AarÃ³n NegrÃ­n, All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -21,11 +21,11 @@ import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 /**
  * Created by aaron on 14/04/2015.
  */
-public class MrObjectController {
-    private MrObjectData mData;
-    private MrObjectRender mRender;
+public abstract class MrObjectController {
+    protected MrObjectData mData;
+    protected MrObjectRender mRender;
 
-    private boolean mInitialized;
+    protected boolean mInitialized;
 
     public MrObjectController(MrObjectData data, MrObjectRender render) {
         mData = data;
@@ -41,6 +41,7 @@ public class MrObjectController {
     //TODO: initializeRender(Context, data)
     public void initializeRender(MrRenderingContext context) {
         mRender.initializeRender(context, mData);
+        initializeUniforms(mData.getUniformGenerators());
         mInitialized = true;
     }
 
@@ -75,6 +76,10 @@ public class MrObjectController {
         mData.setTransform(transform);
     }
 
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+
+    }
+
     public MrUniformGeneratorMap getUniformGenerators() {
         return mData.getUniformGenerators();
     }
@@ -86,4 +91,5 @@ public class MrObjectController {
     public MrUniformKeyMap getUniformKeys() {
         return mData.getUniformKeys();
     }
+
 }
