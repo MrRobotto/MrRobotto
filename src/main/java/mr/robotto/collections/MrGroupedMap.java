@@ -116,6 +116,10 @@ public class MrGroupedMap<K, G, V> implements MrMap<K, V> {
         return mElements.values().iterator();
     }
 
+    public Set<G> getGroupKeys() {
+        return mGroupedElements.keySet();
+    }
+
     public boolean containsGrouo(G g) {
         return mGroupedElements.containsKey(g);
     }

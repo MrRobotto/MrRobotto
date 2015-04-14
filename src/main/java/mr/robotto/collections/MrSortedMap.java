@@ -125,6 +125,10 @@ public class MrSortedMap<K, V> implements MrMap<K, V> {
         return new MrSortedIterator();
     }
 
+    public Set<Integer> getGroupKeys() {
+        return mGroupedElements.keySet();
+    }
+
     public MrMap<K, V> getByGroup(int group) {
         return mGroupedElements.get(group);
     }
