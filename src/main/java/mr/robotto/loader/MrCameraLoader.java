@@ -13,10 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.components.data.lens.MrPerspectiveLens;
-import mr.robotto.core.controller.MrCamera;
-import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.data.MrCameraData;
-import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.MrCamera;
+import mr.robotto.core.MrObject;
 import mr.robotto.linearalgebra.MrVector3f;
 
 /**

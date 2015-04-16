@@ -13,8 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.core.controller.MrScene;
-import mr.robotto.core.data.MrSceneData;
+import mr.robotto.core.MrScene;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrSceneLoader extends MrBaseObjectLoader {

@@ -11,8 +11,7 @@ package mr.robotto.loader;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.controller.MrObject;
-import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.MrObject;
 
 /**
  * Created by Aarón on 23/11/2014.

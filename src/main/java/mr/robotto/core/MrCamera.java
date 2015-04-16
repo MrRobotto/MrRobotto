@@ -7,14 +7,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.controller;
+package mr.robotto.core;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.ctr.MrCameraController;
-import mr.robotto.core.data.MrCameraData;
-import mr.robotto.core.renderer.MrCameraRender;
+import mr.robotto.core.controller.MrCameraController;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;

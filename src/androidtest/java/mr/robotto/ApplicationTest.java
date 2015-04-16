@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.managers.MrResourceManager;
-import mr.robotto.managers.MrResourceManagerLoader;
+import mr.robotto.loader.MrResourceManagerLoader;
 import mr.robotto.utils.MrFileReader;
 
 /**

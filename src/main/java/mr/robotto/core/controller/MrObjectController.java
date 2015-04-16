@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.ctr;
+package mr.robotto.core.controller;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;

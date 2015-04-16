@@ -16,7 +16,7 @@ import java.util.List;
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.MrObject;
 
 /**
  * Created by Aarón on 31/12/2014.
@@ -53,14 +53,17 @@ public class MrSceneObjectsTree extends MrTreeMap<String, MrObject> {
     }
 
     //TODO: Make tests of mTags behaviour, cuando agregas y sustituyes, se elimina de tags?
+    //TODO: Hay que cuidar el setTree, en más métodos hará falta no?
     private void addByTag(MrObject object) {
         MrSceneObjectType type = object.getSceneObjectType();
         mTags.get(type).add(object);
+        object.setTree(this);
     }
 
     private void removeByTag(MrObject object) {
         MrSceneObjectType type = object.getSceneObjectType();
         mTags.get(type).remove(object);
+        object.setTree(null);
     }
 
     @Override

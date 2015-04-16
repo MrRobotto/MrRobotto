@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.ctr;
+package mr.robotto.core.controller;
 
 import java.util.Iterator;
 
@@ -18,8 +18,8 @@ import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.controller.MrModel;
-import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.MrModel;
+import mr.robotto.core.MrObject;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;

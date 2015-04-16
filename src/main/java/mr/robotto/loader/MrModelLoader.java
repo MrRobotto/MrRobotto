@@ -16,8 +16,7 @@ import org.json.JSONObject;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.comp.MrMesh;
-import mr.robotto.core.controller.MrModel;
-import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.MrModel;
 import mr.robotto.loader.components.MrMaterialLoader;
 import mr.robotto.loader.components.MrMeshLoader;
 

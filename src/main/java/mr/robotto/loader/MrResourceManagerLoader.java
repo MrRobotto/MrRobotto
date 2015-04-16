@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.managers;
+package mr.robotto.loader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +18,7 @@ import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.loader.MrBaseLoader;
 import mr.robotto.loader.MrObjectMap;
 import mr.robotto.loader.MrObjectLoader;
+import mr.robotto.managers.MrResourceManager;
 
 public class MrResourceManagerLoader extends MrBaseLoader<MrResourceManager> {
 

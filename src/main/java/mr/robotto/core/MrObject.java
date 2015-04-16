@@ -7,14 +7,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core.controller;
+package mr.robotto.core;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.ctr.MrObjectController;
-import mr.robotto.core.data.MrObjectData;
-import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -31,18 +28,8 @@ public abstract class MrObject {
         mController = controller;
     }
 
-    //TODO: Fill this to create objects in the loader
-    protected MrObject(MrObject object) {
-
-    }
-
     protected MrObjectController getController() {
         return mController;
-    }
-
-    //TODO: Delete
-    public MrObjectData getData() {
-        return mController.getData();
     }
 
     public void initializeRender(MrRenderingContext context) {
@@ -54,17 +41,18 @@ public abstract class MrObject {
         mController.initializeSizeDependant(widthScreen, heightScreen);
     }
 
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
-
-    }
-
     public void render() {
         mController.render();
+    }
+
+    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+
     }
 
     public void setTree(MrSceneObjectsTree tree) {
         mTree = tree;
     }
+
 
 
 

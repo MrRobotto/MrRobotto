@@ -9,11 +9,8 @@
 
 package mr.robotto.scenetree;
 
-import java.util.Stack;
-
 import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.controller.MrCamera;
-import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.MrObject;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
 import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapController;
@@ -48,7 +45,7 @@ public class MrSceneObjectsTreeRender {
     }
 
     //TODO: Check the visibility level
-    //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto
+    //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
     private void updateUniforms(MrObject obj) {
         mUniformController.getUniformGenerators().addAll(obj.getUniformGenerators());
         for (MrUniformGenerator generator : obj.getUniformGenerators()) {

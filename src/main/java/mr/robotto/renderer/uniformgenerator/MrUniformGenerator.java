@@ -9,7 +9,7 @@
 
 package mr.robotto.renderer.uniformgenerator;
 
-import mr.robotto.core.controller.MrObject;
+import mr.robotto.core.MrObject;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
