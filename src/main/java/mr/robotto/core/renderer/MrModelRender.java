@@ -65,7 +65,8 @@ public class MrModelRender implements MrObjectRender {
     private void bind() {
         mModelData.getShaderProgram().bind();
         //Assign of uniforms to the shader program
-        mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
+        //mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
+        mModelData.getShaderProgram().bindUniforms(mContext.getUniforms());
         mModelData.getMesh().bind();
         mBinded = true;
     }

@@ -18,18 +18,17 @@ import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.MrModel;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.data.MrModelData;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrModelRender;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrLinearAlgebraObjectContainer;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapView;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
+import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
@@ -42,10 +41,23 @@ public class MrModelController extends MrObjectController {
     }
 
     private static MrUniformGenerator generateMaterialDiffuseColor(final MrModelController model) {
-        return new MrUniformGenerator(MrUniform.UNIFORM_MATERIAL_DIFFUSE_COLOR, MrUniformGenerator.OBJECT_LEVEL) {
+        return new MrUniformGenerator(MrUniform.UNIFORM_MATERIAL_DIFFUSE_COLOR) {
+            /*@Override
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
+                MrModelData model = (MrModelData) object;
+                MrMaterialMap materials = model.getMaterials();
+                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.size(), MrVector4f.SIZE);
+                int  i = 0;
+                for (MrMaterial material : materials) {
+                    container.setAlgebraObject(i, material.getDiffuse().getColor());
+                    i++;
+                }
+                return container;
+            }*/
+
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
-                MrModel model = (MrModel) object;
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+                MrModelData model = (MrModelData) object;
                 MrMaterialMap materials = model.getMaterials();
                 MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.size(), MrVector4f.SIZE);
                 int  i = 0;
@@ -60,12 +72,12 @@ public class MrModelController extends MrObjectController {
 
     //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
     private static MrUniformGenerator generateModelMatrix(final MrModelController model) {
-        return new MrUniformGenerator(MrUniform.MODEL_MATRIX, MrUniformGenerator.OBJECT_LEVEL) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
+        return new MrUniformGenerator(MrUniform.MODEL_MATRIX) {
+            /*@Override
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                Iterator<MrObject> it = tree.parentTraversal(object);
+                Iterator<MrObject> it = tree.parentTraversalByKey(object.getName());
 
                 //MrTransform transform = it.next().getTransform();
                 //op.mult(m, transform.getAsMatrix(), m);
@@ -96,7 +108,23 @@ public class MrModelController extends MrObjectController {
                         0, 0.24253f, 1.18572f, 0.97014f,
                         0, 0, 7.8564f, 8.24621f});
                 op.translate(m, -1, 0, 0);
-                return m;*/
+                return m;
+            }*/
+
+            @Override
+            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+                MrMatrix4f m = new MrMatrix4f();
+                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
+                Iterator<MrObject> it = tree.parentTraversalByKey(object.getName());
+
+                //MrTransform transform = it.next().getTransform();
+                //op.mult(m, transform.getAsMatrix(), m);
+                //transform = it.next().getTransform();
+                //op.mult(m, transform.getAsMatrix(), m);
+                while (it.hasNext()) {
+                    op.mult(m, it.next().getTransform().getAsMatrix(), m);
+                }
+                return m;
             }
         };
     }

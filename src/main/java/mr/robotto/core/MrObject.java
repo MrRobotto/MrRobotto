@@ -10,13 +10,15 @@
 package mr.robotto.core;
 
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.renderer.MrRenderingContext;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
@@ -53,8 +55,14 @@ public abstract class MrObject {
         mTree = tree;
     }
 
+    //TODO: Delete
+    public MrObjectData getData() {
+        return mController.getData();
+    }
 
-
+    public void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneObjectsTree tree) {
+        mController.updateUniform(uniform, uniforms, tree);
+    }
 
     public MrSceneObjectType getSceneObjectType() {
         return mController.getSceneObjectType();

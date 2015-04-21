@@ -10,13 +10,16 @@
 package mr.robotto.core.controller;
 
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.MrRenderingContext;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
+import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -44,6 +47,17 @@ public abstract class MrObjectController {
 
     protected void setRender(MrObjectRender render) {
         mRender = render;
+    }
+
+    //TODO: Delete
+    public MrObjectData getData() {
+        return mData;
+    }
+
+    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneObjectsTree tree) {
+        MrUniformGenerator generator = getUniformGenerators().findByKey(uniform.getUniformType());
+        if (generator != null)
+            uniform.setValue(generator.generateUniform(tree, uniforms, mData));
     }
 
     //TODO: initializeRender(Context, data)

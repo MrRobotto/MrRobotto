@@ -9,11 +9,11 @@
 
 package mr.robotto.scenetree;
 
+import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.MrObject;
 import mr.robotto.renderer.MrRenderingContext;
-import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapController;
 
 /**
  * Created by Aarón on 18/01/2015.
@@ -22,8 +22,8 @@ import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMapController;
 //TODO: SAcar el rendering context del objeto???
 public class MrSceneObjectsTreeRender {
     private MrSceneObjectsTree mSceneObjectsTree;
+    private MrUniformKeyMap mUniforms;
     private MrRenderingContext mContext;
-    private MrUniformGeneratorMapController mUniformController;
 
     public MrSceneObjectsTreeRender() {
 
@@ -31,8 +31,8 @@ public class MrSceneObjectsTreeRender {
 
     public void initializeRender(MrSceneObjectsTree objectsTree, MrRenderingContext context) {
         mContext = context;
+        mUniforms = mContext.getUniforms();
         mSceneObjectsTree = objectsTree;
-        mUniformController = new MrUniformGeneratorMapController(mContext.getUniformGenerators());
         for (MrObject obj : mSceneObjectsTree) {
             obj.initializeRender(mContext);
         }
@@ -47,10 +47,24 @@ public class MrSceneObjectsTreeRender {
     //TODO: Check the visibility level
     //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
     private void updateUniforms(MrObject obj) {
-        mUniformController.getUniformGenerators().addAll(obj.getUniformGenerators());
-        for (MrUniformGenerator generator : obj.getUniformGenerators()) {
-            mUniformController.setVisibility(generator.getPriority());
-            generator.updateUniform(mSceneObjectsTree, mUniformController.getView(), obj);
+        /*MrShaderProgram program = obj.getShaderProgram();
+        if (program == null) {
+            return;
+        }
+        mUniforms.addAll(obj.getUniformKeys());
+        for (MrUniform uniform : program.getUniforms()) {
+            MrUniformKey key = obj.getUniformKeys().findByKey(uniform.getUniformType());
+            if (key != null) {
+                mUniforms.setVisibility(key.getLevel());
+                obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree);
+
+            }
+        }*/
+
+        mContext.getUniforms().addAll(obj.getUniformKeys());
+        for (MrUniformKey key : obj.getUniformKeys()) {
+            mContext.getUniforms().setVisibility(key.getLevel());
+            obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree);
         }
     }
 

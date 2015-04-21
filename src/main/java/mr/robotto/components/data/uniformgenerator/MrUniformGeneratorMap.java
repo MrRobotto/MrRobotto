@@ -7,19 +7,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.renderer.uniformgenerator;
+package mr.robotto.components.data.uniformgenerator;
 
-import mr.robotto.collections.MrSortedMap;
+import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.collections.core.MrOrderingFunction;
 
 /**
  * Created by aaron on 15/02/2015.
  */
-public class MrUniformGeneratorMap extends MrSortedMap<String, MrUniformGenerator> {
+public class MrUniformGeneratorMap extends MrHashMap<String, MrUniformGenerator> {
 
     public MrUniformGeneratorMap() {
-        super(generateMapFunction(), generateOrderingFunction());
+        super(generateMapFunction());
     }
 
     private static MrMapFunction<String, MrUniformGenerator> generateMapFunction() {
@@ -27,15 +26,6 @@ public class MrUniformGeneratorMap extends MrSortedMap<String, MrUniformGenerato
             @Override
             public String getKeyOf(MrUniformGenerator mrUniformGenerator) {
                 return mrUniformGenerator.getUniformType();
-            }
-        };
-    }
-
-    private static MrOrderingFunction<MrUniformGenerator> generateOrderingFunction() {
-        return new MrOrderingFunction<MrUniformGenerator>() {
-            @Override
-            public Integer getGroupOf(MrUniformGenerator v) {
-                return v.getPriority();
             }
         };
     }

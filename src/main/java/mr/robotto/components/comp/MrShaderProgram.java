@@ -16,9 +16,9 @@ import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrUniform;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
-import mr.robotto.renderer.uniformgenerator.MrUniformGenerator;
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
 
 public class MrShaderProgram extends MrComponent {
     private Data mData;
@@ -76,10 +76,9 @@ public class MrShaderProgram extends MrComponent {
         return mData.getAttributes();
     }
 
-    public void bindUniforms(MrUniformGeneratorMap uniformGenerators) {
-        mPresenter.bindUniforms(uniformGenerators);
+    public void bindUniforms(MrUniformKeyMap uniformKeys) {
+        mPresenter.bindUniforms(uniformKeys);
     }
-
 
     protected static class Data extends MrComponent.Data {
         private String mName;
@@ -163,11 +162,16 @@ public class MrShaderProgram extends MrComponent {
         }
 
         //TODO: Intentar colocar esto en otro lugar
-        public void bindUniforms(MrUniformGeneratorMap uniformGenerators) {
+        public void bindUniforms(MrUniformKeyMap uniformKeys) {
             for (MrUniform uniform : mData.getUniforms()) {
-                MrUniformGenerator generator = uniformGenerators.findByKey(uniform.getUniformType());
-                bindUniform(uniform, generator.getUniformValue());
+                MrUniformKey key = uniformKeys.findByKey(uniform.getUniformType());
+                bindUniform(uniform, key.getValue());
             }
+        }
+
+        public void bindUniform(MrUniformKey key) {
+            MrUniform uniform = mData.getUniforms().findByKey(key.getUniformType());
+            bindUniform(uniform, key.getValue());
         }
 
         //TODO: Check uniform/element count, uniform/element datatype

@@ -10,7 +10,7 @@
 package mr.robotto.renderer;
 
 
-import mr.robotto.renderer.uniformgenerator.MrUniformGeneratorMap;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.scenetree.MrSceneObjectsTree;
 
 /**
@@ -18,21 +18,22 @@ import mr.robotto.scenetree.MrSceneObjectsTree;
  */
 public class MrRenderingContext {
     private MrSceneObjectsTree mObjectsTree;
-    private MrUniformGeneratorMap mUniformGenerators;
+    private MrUniformKeyMap mUniforms;
     private int mWidth;
     private int mHeight;
 
     public MrRenderingContext(MrSceneObjectsTree objectsTree) {
         mObjectsTree = objectsTree;
-        mUniformGenerators = new MrUniformGeneratorMap();
+        mUniforms = new MrUniformKeyMap();
     }
 
     public MrSceneObjectsTree getObjectsTree() {
         return mObjectsTree;
     }
 
-    public MrUniformGeneratorMap getUniformGenerators() {
-        return mUniformGenerators;
+
+    public MrUniformKeyMap getUniforms() {
+        return mUniforms;
     }
 
     //TODO: Use this method to fill elements
