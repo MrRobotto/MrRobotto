@@ -37,12 +37,6 @@ public class MrSceneController extends MrObjectController {
         return new MrUniformGenerator(MrUniform.MODEL_VIEW_PROJECTION_MATRIX, MrUniformGenerator.SCENE_LEVEL) {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObject object) {
-                /*MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                MrMatrix4f m1 = (MrMatrix4f) uniforms.findByKey("Matrix_Model");
-                MrMatrix4f m2 = new MrMatrix4f();
-                m2.copyValues(m1);
-                op.translate(m2, 1, 0, 0);
-                return m2;*/
                 MrMatrix4f modelMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.MODEL_MATRIX);
                 MrMatrix4f viewMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.VIEW_MATRIX);
                 MrMatrix4f projectionMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.PROJECTION_MATRIX);
@@ -59,11 +53,6 @@ public class MrSceneController extends MrObjectController {
     public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateMVPMatrix());
-    }
-
-    @Override
-    public MrSceneData getData() {
-        return (MrSceneData) super.getData();
     }
 
     public MrVector4f getClearColor() {

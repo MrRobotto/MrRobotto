@@ -27,7 +27,7 @@ public class MrCamera extends MrObject {
     }
 
     @Override
-    protected MrCameraController getController() {
+    public MrCameraController getController() {
         return (MrCameraController) super.getController();
     }
 

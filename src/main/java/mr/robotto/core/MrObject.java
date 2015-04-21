@@ -28,7 +28,7 @@ public abstract class MrObject {
         mController = controller;
     }
 
-    protected MrObjectController getController() {
+    public MrObjectController getController() {
         return mController;
     }
 

@@ -27,15 +27,23 @@ public abstract class MrObjectController {
 
     protected boolean mInitialized;
 
-    public MrObjectController(MrObjectData data, MrObjectRender render) {
+    protected MrObjectController(MrObjectData data, MrObjectRender render) {
         mData = data;
         mRender = render;
         mInitialized = false;
     }
 
-    //TODO: Delete
-    public MrObjectData getData() {
-        return mData;
+    protected MrObjectController(MrObjectData data) {
+        mData = data;
+        mInitialized = false;
+    }
+
+    protected void setData(MrObjectData data) {
+        mData = data;
+    }
+
+    protected void setRender(MrObjectRender render) {
+        mRender = render;
     }
 
     //TODO: initializeRender(Context, data)

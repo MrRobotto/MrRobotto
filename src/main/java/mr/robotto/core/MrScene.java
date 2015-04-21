@@ -21,7 +21,7 @@ public class MrScene extends MrObject {
     }
 
     @Override
-    protected MrSceneController getController() {
+    public MrSceneController getController() {
         return (MrSceneController) super.getController();
     }
 
