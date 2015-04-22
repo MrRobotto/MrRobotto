@@ -9,22 +9,25 @@
 
 package mr.robotto.core;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrObjectController;
-import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
 public abstract class MrObject {
     private MrObjectController mController;
-    private MrSceneObjectsTree mTree;
+    private MrSceneTree mTree;
 
     protected MrObject(MrObjectController controller) {
         mController = controller;
@@ -34,6 +37,7 @@ public abstract class MrObject {
         return mController;
     }
 
+    /*******Controller******/
     public void initializeRender(MrRenderingContext context) {
         initializeUniforms(mController.getUniformGenerators());
         mController.initializeRender(context);
@@ -51,16 +55,7 @@ public abstract class MrObject {
 
     }
 
-    public void setTree(MrSceneObjectsTree tree) {
-        mTree = tree;
-    }
-
-    //TODO: Delete
-    public MrObjectData getData() {
-        return mController.getData();
-    }
-
-    public void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneObjectsTree tree) {
+    public void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneTree tree) {
         mController.updateUniform(uniform, uniforms, tree);
     }
 
@@ -97,6 +92,80 @@ public abstract class MrObject {
     }
 
 
+    /*****Tree*****/
+    public void setTree(MrSceneTree tree) {
+        mTree = tree;
+    }
+
+    public MrSceneTree getTree() {
+        return mTree;
+    }
+
+    public boolean addChild(MrObject data) {
+        return mTree.addChild(this, data);
+    }
+
+    //TODO
+    public boolean removeChild(MrObject data) {
+        throw new UnsupportedOperationException();
+        //return mTree.remove(data);
+    }
+
+    //TODO
+    public List<MrObject> getByType(MrSceneObjectType type) {
+        throw new UnsupportedOperationException();
+        //return mTree.getByType(type);
+    }
+
+
+    public MrObject getRoot() {
+        return mTree.getRoot();
+    }
+
+    //TODO
+    public MrObject findChild(String key) {
+        throw new UnsupportedOperationException();
+        //return mTree.findByKey(key);
+    }
+
+    //TODO
+    public boolean isChild(MrObject data) {
+        throw new UnsupportedOperationException();
+        //return mTree.contains(data);
+    }
+
+    //TODO
+    public boolean isChild(String key) {
+        throw new UnsupportedOperationException();
+        //return mTree.containsKey(key);
+    }
+
+    public MrObject getParent() {
+        return mTree.getParentOf(this);
+    }
+
+    public List<MrObject> getChildren() {
+        return mTree.getChildrenOf(this);
+    }
+
+    public Iterator<MrObject> parentTraversal() {
+        return mTree.parentTraversal(this);
+    }
+
+    public Iterator<MrObject> breadthTraversal() {
+        return mTree.breadthTraversal(this);
+    }
+
+    public Iterator<MrObject> depthTraversal() {
+        return mTree.depthTraversal(this);
+    }
+
+    public Iterator<Map.Entry<String, MrObject>> parentKeyChildValueTraversal() {
+        return mTree.parentKeyChildValueTraversal(this);
+    }
+
+
+    /*******Transform*******/
     public MrQuaternion getRotation() {
         return getTransform().getRotation();
     }

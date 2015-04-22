@@ -12,7 +12,7 @@ package mr.robotto.components.data.uniformgenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Created by Aarón on 05/01/2015.
@@ -29,5 +29,5 @@ public abstract class MrUniformGenerator {
         return mUniformType;
     }
 
-    public abstract MrLinearAlgebraObject generateUniform(final MrSceneObjectsTree tree, final MrUniformKeyMap.MrUniformKeyMapView uniforms, final MrObjectData object);
+    public abstract MrLinearAlgebraObject generateUniform(final MrSceneTree tree, final MrUniformKeyMap.MrUniformKeyMapView uniforms, final MrObjectData object);
 }

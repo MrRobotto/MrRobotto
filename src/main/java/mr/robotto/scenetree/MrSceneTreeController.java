@@ -18,18 +18,18 @@ import mr.robotto.renderer.MrRenderingContext;
 /**
  * Created by aaron on 30/01/2015.
  */
-public class MrSceneObjectsTreeController {
-    private MrSceneObjectsTreeRender mRender;
-    private MrSceneObjectsTree mData;
+public class MrSceneTreeController {
+    private MrSceneTreeRender mRender;
+    private MrSceneTree mData;
     private MrRenderingContext mRenderingContext;
 
-    public MrSceneObjectsTreeController(MrSceneObjectsTree tree, MrSceneObjectsTreeRender render) {
+    public MrSceneTreeController(MrSceneTree tree, MrSceneTreeRender render) {
         mRender = render;
         mData = tree;
         mRenderingContext = new MrRenderingContext(mData);
     }
 
-    public MrSceneObjectsTree getData() {
+    public MrSceneTree getData() {
         return mData;
     }
 

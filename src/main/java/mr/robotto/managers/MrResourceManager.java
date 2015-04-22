@@ -17,7 +17,7 @@ import mr.robotto.collections.MrTreeMap;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.loader.MrObjectMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /*
 TODO: Has de crear un findByKey al menos que te busque en los objectsdata
@@ -50,12 +50,12 @@ public class MrResourceManager {
             mManager = manager;
         }
 
-        public MrSceneObjectsTree buildSceneObjectsTree() {
+        public MrSceneTree buildSceneObjectsTree() {
             MrTreeMap<String, String> keyTree = mManager.getKeysTree();
             MrObjectMap objects = mManager.getObjectsData();
             MrObject rootData = objects.findByKey(keyTree.getRoot());
             //MrObjectRender render = getRenderer(rootData);
-            MrSceneObjectsTree tree = new MrSceneObjectsTree(rootData);
+            MrSceneTree tree = new MrSceneTree(rootData);
             Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
             while (it.hasNext()) {
                 Map.Entry<String, String> entry = it.next();

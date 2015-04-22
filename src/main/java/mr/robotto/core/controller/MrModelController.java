@@ -29,7 +29,7 @@ import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -56,7 +56,7 @@ public class MrModelController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 MrModelData model = (MrModelData) object;
                 MrMaterialMap materials = model.getMaterials();
                 MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.size(), MrVector4f.SIZE);
@@ -112,7 +112,7 @@ public class MrModelController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 MrMatrix4f m = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 Iterator<MrObject> it = tree.parentTraversalByKey(object.getName());

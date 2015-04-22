@@ -20,16 +20,16 @@ import mr.robotto.renderer.MrRenderingContext;
  */
 
 //TODO: SAcar el rendering context del objeto???
-public class MrSceneObjectsTreeRender {
-    private MrSceneObjectsTree mSceneObjectsTree;
+public class MrSceneTreeRender {
+    private MrSceneTree mSceneObjectsTree;
     private MrUniformKeyMap mUniforms;
     private MrRenderingContext mContext;
 
-    public MrSceneObjectsTreeRender() {
+    public MrSceneTreeRender() {
 
     }
 
-    public void initializeRender(MrSceneObjectsTree objectsTree, MrRenderingContext context) {
+    public void initializeRender(MrSceneTree objectsTree, MrRenderingContext context) {
         mContext = context;
         mUniforms = mContext.getUniforms();
         mSceneObjectsTree = objectsTree;

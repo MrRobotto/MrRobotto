@@ -22,16 +22,16 @@ import mr.robotto.core.MrObject;
  * Created by Aarón on 31/12/2014.
  */
 //TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
-public class MrSceneObjectsTree extends MrTreeMap<String, MrObject> {
+public class MrSceneTree extends MrTreeMap<String, MrObject> {
 
     private HashMap<MrSceneObjectType, List<MrObject>> mTags;
 
-    public MrSceneObjectsTree() {
+    public MrSceneTree() {
         super(createMapFunction());
         init();
     }
 
-    public MrSceneObjectsTree(MrObject root) {
+    public MrSceneTree(MrObject root) {
         super(root, createMapFunction());
         init();
     }

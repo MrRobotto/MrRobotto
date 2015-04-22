@@ -21,7 +21,7 @@ import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -47,7 +47,7 @@ public class MrSceneController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 MrMatrix4f modelMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.MODEL_MATRIX);
                 MrMatrix4f viewMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.VIEW_MATRIX);
                 MrMatrix4f projectionMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.PROJECTION_MATRIX);

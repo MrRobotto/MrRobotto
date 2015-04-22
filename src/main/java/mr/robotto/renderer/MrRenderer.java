@@ -15,64 +15,49 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import mr.robotto.core.MrModel;
-import mr.robotto.core.MrScene;
-import mr.robotto.core.data.MrSceneData;
-import mr.robotto.scenetree.MrSceneObjectsTreeController;
+import mr.robotto.scenetree.MrSceneTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
-    //TODO: Remove this
-    public MrModel model;
-    //public MrSceneObjectsTreeRender render;
-    public MrSceneObjectsTreeController controller;
-    public MrScene mScene;
-    private boolean initialized;
+    private MrSceneTreeController mController;
+    private boolean mInitialized;
 
     public MrRenderer() {
         //scene = new MrSceneData("Scene");
         //mScene = new MrScene(new MrSceneData("Scene"), new MrSceneRender());
     }
 
-    public MrRenderer(MrSceneData scene) {
-        //this.scene = scene;
+    public MrSceneTreeController getController() {
+        return mController;
     }
 
-    public void setScene(MrSceneData scene) {
-        /*this.scene = scene;
-        if (isInitialized()) {
-            this.scene.initialize();
-        }*/
+    public void setController(MrSceneTreeController controller) {
+        mController = controller;
     }
 
     public boolean isInitialized() {
-        return initialized;
+        return mInitialized;
     }
 
+    //TODO: En vez de mirar si es null establecer una escena vacia
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-        //scene.getRenderer().initialize();
-        initialized = true;
-
-        //model.initialize();
-        //mScene.initialize();
-        //render.initialize();
-        controller.initializeRender();
+        mInitialized = true;
+        if (mController != null)
+            mController.initializeRender();
     }
 
     //TODO: De esto se encarga la camara en teoria
     @Override
     public void onSurfaceChanged(GL10 gl10, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
-        controller.initializeSizeDependant(width, height);
+        if (mController != null)
+            mController.initializeSizeDependant(width, height);
     }
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        //scene.getRenderer().render();
-        //mScene.render();
-        //model.render();
-        //render.render();
-        controller.render();
+        if (mController != null)
+            mController.render();
     }
 }

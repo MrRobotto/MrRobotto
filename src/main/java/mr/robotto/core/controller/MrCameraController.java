@@ -22,7 +22,7 @@ import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -56,7 +56,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 MrVector3f.Operator opv = MrVector3f.getOperator();
                 MrVector3f loc = camera.getTransform().getLocation();
@@ -86,7 +86,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 return camera.getLens().getProjectionMatrix();
             }
         };

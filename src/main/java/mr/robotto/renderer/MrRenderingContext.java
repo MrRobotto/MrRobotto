@@ -11,23 +11,23 @@ package mr.robotto.renderer;
 
 
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.scenetree.MrSceneObjectsTree;
+import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Created by Aarón on 28/11/2014.
  */
 public class MrRenderingContext {
-    private MrSceneObjectsTree mObjectsTree;
+    private MrSceneTree mObjectsTree;
     private MrUniformKeyMap mUniforms;
     private int mWidth;
     private int mHeight;
 
-    public MrRenderingContext(MrSceneObjectsTree objectsTree) {
+    public MrRenderingContext(MrSceneTree objectsTree) {
         mObjectsTree = objectsTree;
         mUniforms = new MrUniformKeyMap();
     }
 
-    public MrSceneObjectsTree getObjectsTree() {
+    public MrSceneTree getObjectsTree() {
         return mObjectsTree;
     }
 
