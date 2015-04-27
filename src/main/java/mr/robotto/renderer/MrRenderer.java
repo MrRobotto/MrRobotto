@@ -19,12 +19,15 @@ import mr.robotto.scenetree.MrSceneTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
+    public static final int FPS = 24;
+
     private MrSceneTreeController mController;
     private boolean mInitialized;
+    private long mEndTime;
+    private long mStartTime;
 
     public MrRenderer() {
-        //scene = new MrSceneData("Scene");
-        //mScene = new MrScene(new MrSceneData("Scene"), new MrSceneRender());
+
     }
 
     public MrSceneTreeController getController() {
@@ -57,7 +60,39 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        if (mController != null)
+        //TODO: Check this!
+        if (mController != null) {
+            mEndTime = System.currentTimeMillis();
+            long dt = mEndTime - mStartTime;
+            if (dt < FPS) {
+                try {
+                    Thread.sleep(FPS - dt);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mStartTime = System.currentTimeMillis();
             mController.render();
+        }
     }
+
+    /*@Override
+    public void onDrawFrame(GL10 gl10) {
+        //TODO: Check this!
+        if (mController != null) {
+            mStartTime = System.currentTimeMillis();
+            mController.render();
+            mEndTime = System.currentTimeMillis();
+            long dt = mEndTime - mStartTime;
+            if (dt < FPS) {
+                try {
+                    Thread.sleep(FPS - dt);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }*/
+
+
 }

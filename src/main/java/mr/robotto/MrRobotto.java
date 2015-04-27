@@ -26,7 +26,7 @@ import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
 import mr.robotto.scenetree.MrSceneTreeRender;
 import mr.robotto.ui.MrSurfaceView;
-import mr.robotto.utils.MrFileReader;
+import mr.robotto.utils.MrReader;
 
 /**
  * Created by aaron on 22/04/2015.
@@ -63,7 +63,7 @@ public class MrRobotto {
         AssetManager am = mContext.getAssets();
         try {
             InputStream stream = am.open(filename);
-            JSONTokener tokener = new JSONTokener(MrFileReader.read(stream));
+            JSONTokener tokener = new JSONTokener(MrReader.read(stream));
             JSONObject jsonObject = (JSONObject) tokener.nextValue();
 
             MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
@@ -78,6 +78,35 @@ public class MrRobotto {
         }
     }
 
+    public void loadSceneTree(JSONObject jsonObject) {
+        AsyncTask<JSONObject, Void, MrSceneTree> task = new AsyncTask<JSONObject, Void, MrSceneTree>() {
+            @Override
+            protected MrSceneTree doInBackground(JSONObject... params) {
+                System.out.println("Empieza la task guay");
+                JSONObject jsonObject = params[0];
+                try {
+                    MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
+                    MrResourceManager resources = loader.parse();
+                    MrResourceManager.Builder builder = new MrResourceManager.Builder(resources);
+                    MrSceneTree tree = builder.buildSceneObjectsTree();
+                    return tree;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(MrSceneTree tree) {
+                super.onPostExecute(tree);
+                mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+                initialize();
+            }
+        };
+        task.execute(jsonObject);
+    }
+
+    //TODO: Agregar como argumento un assetmanager
     public void loadSceneTree(String filename) {
         AsyncTask<String, Void, MrSceneTree> task = new AsyncTask<String, Void, MrSceneTree>() {
             @Override
@@ -86,7 +115,7 @@ public class MrRobotto {
                 try {
                     String filename = params[0];
                     InputStream stream = am.open(filename);
-                    JSONTokener tokener = new JSONTokener(MrFileReader.read(stream));
+                    JSONTokener tokener = new JSONTokener(MrReader.read(stream));
                     JSONObject jsonObject = (JSONObject) tokener.nextValue();
 
                     MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);

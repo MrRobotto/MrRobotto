@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 /**
  * Class for converting an Stream to String
  */
-public class MrFileReader
+public class MrReader
 {
     /**
      * Reads the string data contained in stream

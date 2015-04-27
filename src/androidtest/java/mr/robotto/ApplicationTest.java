@@ -27,7 +27,7 @@ import java.io.InputStream;
 
 import mr.robotto.managers.MrResourceManager;
 import mr.robotto.loader.MrResourceManagerLoader;
-import mr.robotto.utils.MrFileReader;
+import mr.robotto.utils.MrReader;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -43,7 +43,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         MrResourceManager context1 = null;
         try {
             InputStream stream = am.open("kingVer3.json");
-            JSONObject drac = (JSONObject) new JSONTokener(MrFileReader.read(stream)).nextValue();
+            JSONObject drac = (JSONObject) new JSONTokener(MrReader.read(stream)).nextValue();
             /*MrObjectLoader loader = new MrObjectLoader(drac);
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);
