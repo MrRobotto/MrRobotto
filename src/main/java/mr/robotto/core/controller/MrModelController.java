@@ -14,11 +14,14 @@ import java.util.Iterator;
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.bone.MrBone;
+import mr.robotto.components.data.bone.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrObject;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrModelRender;
@@ -36,8 +39,12 @@ import mr.robotto.scenetree.MrSceneTree;
  */
 public class MrModelController extends MrObjectController {
 
-    public MrModelController(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterialMap materials) {
+    public MrModelController(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials) {
         super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials), new MrModelRender());
+    }
+
+    public MrModelController(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+        super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
     }
 
     private static MrUniformGenerator generateMaterialDiffuseColor(final MrModelController model) {
@@ -58,8 +65,8 @@ public class MrModelController extends MrObjectController {
             @Override
             public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
                 MrModelData model = (MrModelData) object;
-                MrMaterialMap materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.size(), MrVector4f.SIZE);
+                MrMaterial[] materials = model.getMaterials();
+                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.length, MrVector4f.SIZE);
                 int  i = 0;
                 for (MrMaterial material : materials) {
                     container.setAlgebraObject(i, material.getDiffuse().getColor());
@@ -129,8 +136,26 @@ public class MrModelController extends MrObjectController {
         };
     }
 
+    private static MrUniformGenerator generateBonesMatrices() {
+        return new MrUniformGenerator(MrUniform.UNIFORM_BONE_MATRIX) {
+            @Override
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+                MrModelData model = (MrModelData) object;
+                MrSkeleton skeleton = model.getSkeleton();
+                MrBone[] bones = skeleton.getPose();
+                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.MAT4, bones.length);
+                int i = 0;
+                for (MrBone bone : bones) {
+                    container.setAlgebraObject(i, bone.getBoneMatrix());
+                    i++;
+                }
+                return container;
+            }
+        };
+    }
+
     //public MrMatrix4f getModelMatrix() {
-    //    return getData().getTransform().getAsMatrix();
+    //    return getSceneTree().getTransform().getAsMatrix();
     //}
 
     @Override
@@ -138,14 +163,18 @@ public class MrModelController extends MrObjectController {
         super.initializeUniforms(uniformGenerators);
         uniformGenerators.add(generateModelMatrix(this));
         uniformGenerators.add(generateMaterialDiffuseColor(this));
+        uniformGenerators.add(generateBonesMatrices());
     }
 
     public MrMesh getMesh() {
         return ((MrModelData) mData).getMesh();
     }
 
-    public MrMaterialMap getMaterials() {
+    public MrMaterial[] getMaterials() {
         return ((MrModelData) mData).getMaterials();
     }
 
+    public MrSkeleton getSkeleton() {
+        return ((MrModelData) mData).getSkeleton();
+    }
 }

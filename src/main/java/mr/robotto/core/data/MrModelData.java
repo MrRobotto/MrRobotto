@@ -11,6 +11,8 @@ package mr.robotto.core.data;
 
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.bone.MrSkeleton;
+import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
@@ -21,19 +23,32 @@ import mr.robotto.linearalgebra.MrTransform;
  */
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
-    private MrMaterialMap mMaterials;
+    private MrMaterial[] mMaterials;
+    private MrSkeleton mSkeleton;
 
-    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterialMap materials) {
+    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials) {
         super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
         mMaterials = materials;
+        mSkeleton = null;
+    }
+
+    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+        super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
+        mMesh = mesh;
+        mMaterials = materials;
+        mSkeleton = skeleton;
     }
 
     public MrMesh getMesh() {
         return mMesh;
     }
 
-    public MrMaterialMap getMaterials() {
+    public MrMaterial[] getMaterials() {
         return mMaterials;
+    }
+
+    public MrSkeleton getSkeleton() {
+        return mSkeleton;
     }
 }

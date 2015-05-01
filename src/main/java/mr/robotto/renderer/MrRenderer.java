@@ -58,28 +58,28 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             mController.initializeSizeDependant(width, height);
     }
 
-    @Override
-    public void onDrawFrame(GL10 gl10) {
-        //TODO: Check this!
-        if (mController != null) {
-            mEndTime = System.currentTimeMillis();
-            long dt = mEndTime - mStartTime;
-            if (dt < FPS) {
-                try {
-                    Thread.sleep(FPS - dt);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            mStartTime = System.currentTimeMillis();
-            mController.render();
-        }
-    }
-
     /*@Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
+            mEndTime = System.currentTimeMillis();
+            long dt = mEndTime - mStartTime;
+            if (dt < FPS) {
+                try {
+                    Thread.sleep(FPS - dt);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mStartTime = System.currentTimeMillis();
+            mController.render();
+        }
+    }*/
+
+    @Override
+    public void onDrawFrame(GL10 gl10) {
+        //TODO: Check this!
+        if (mController != null) {
             mStartTime = System.currentTimeMillis();
             mController.render();
             mEndTime = System.currentTimeMillis();
@@ -92,7 +92,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
                 }
             }
         }
-    }*/
+    }
 
 
 }

@@ -20,6 +20,7 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
+import mr.robotto.core.MrModel;
 import mr.robotto.loader.MrResourceManagerLoader;
 import mr.robotto.managers.MrResourceManager;
 import mr.robotto.scenetree.MrSceneTree;
@@ -82,7 +83,6 @@ public class MrRobotto {
         AsyncTask<JSONObject, Void, MrSceneTree> task = new AsyncTask<JSONObject, Void, MrSceneTree>() {
             @Override
             protected MrSceneTree doInBackground(JSONObject... params) {
-                System.out.println("Empieza la task guay");
                 JSONObject jsonObject = params[0];
                 try {
                     MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
@@ -149,6 +149,8 @@ public class MrRobotto {
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
+                    MrModel m = (MrModel)mController.getSceneTree().findByKey("Cube");
+                    m.playActionContinuosly("Attack");
                 }
             }
         });

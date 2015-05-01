@@ -11,10 +11,13 @@ package mr.robotto.components.data.action;
 
 import android.util.SparseArray;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.components.data.bone.MrBone;
+import mr.robotto.components.data.bone.MrBoneMap;
 
 /**
  * Created by aaron on 24/04/2015.
@@ -28,6 +31,7 @@ public class MrSkeletalAction {
     private int mActionType;
 
     private boolean mPlaying;
+    private boolean mContinuosly;
     private Iterator<MrFrame> mFrameIterator;
 
     public MrSkeletalAction(String name, float fps) {
@@ -36,6 +40,7 @@ public class MrSkeletalAction {
         mActionType = MrSkeletalAction.ACTIONTYPE_SKELETAL;
         mKeyFrames = new MrKeyFrameList();
         mPlaying = false;
+        mContinuosly = false;
     }
 
     public String getName() {
@@ -67,9 +72,26 @@ public class MrSkeletalAction {
         mFrameIterator = mKeyFrames.iterator();
     }
 
-    public MrHashMap<String, MrBone> step() {
+    public void playContinuosly() {
+        mPlaying = true;
+        mContinuosly = true;
+        mFrameIterator = mKeyFrames.iterator();
+    }
+
+    public void pause() {
+
+    }
+
+    public void stop() {
+        mPlaying = false;
+    }
+
+    public Map<String, MrBone> step() {
         if (mFrameIterator.hasNext()) {
             return mFrameIterator.next().getBones();
+        } else if (mContinuosly){
+            mFrameIterator = mKeyFrames.iterator();
+            return step();
         }
         return null;
     }

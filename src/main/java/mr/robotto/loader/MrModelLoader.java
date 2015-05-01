@@ -13,10 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.components.data.bone.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.core.MrModel;
+import mr.robotto.loader.animation.MrSkeletonLoader;
 import mr.robotto.loader.components.MrMaterialLoader;
 import mr.robotto.loader.components.MrMeshLoader;
 
@@ -27,24 +29,34 @@ public class MrModelLoader extends MrBaseObjectLoader {
 
     @Override
     public MrModel parse() throws JSONException {
-        return new MrModel(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getMesh(), getMaterials());
+        return new MrModel(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), loadMesh(), loadMaterials(), loadSkeleton());
     }
 
-    private MrMesh getMesh() throws JSONException {
+    private MrMesh loadMesh() throws JSONException {
         JSONObject meshJson = mRoot.getJSONObject("Mesh");
         MrMeshLoader meshLoader = new MrMeshLoader(meshJson);
         return meshLoader.parse();
     }
 
-    private MrMaterialMap getMaterials() throws JSONException {
-        MrMaterialMap materialMap = new MrMaterialMap();
+    private MrMaterial[] loadMaterials() throws JSONException {
         JSONArray materialsJson = mRoot.getJSONArray("Materials");
+        MrMaterial[] materials = new MrMaterial[materialsJson.length()];
         for (int i = 0; i < materialsJson.length(); i++) {
             JSONObject matJson = materialsJson.getJSONObject(i);
             MrMaterialLoader materialLoader = new MrMaterialLoader(matJson);
             MrMaterial material = materialLoader.parse();
-            materialMap.add(material);
+            materials[i] = material;
         }
-        return materialMap;
+        return materials;
+    }
+
+    private MrSkeleton loadSkeleton() throws JSONException {
+        JSONObject skeletonJson = mRoot.getJSONObject("Skeleton");
+        if (skeletonJson != null) {
+            MrSkeletonLoader loader = new MrSkeletonLoader(skeletonJson);
+            return loader.parse();
+        } else {
+            return null;
+        }
     }
 }

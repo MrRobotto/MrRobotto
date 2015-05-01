@@ -9,6 +9,9 @@
 
 package mr.robotto.components.data.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.components.data.bone.MrBone;
 import mr.robotto.components.data.bone.MrBoneMap;
@@ -20,32 +23,32 @@ import mr.robotto.linearalgebra.MrVector3f;
  */
 public class MrFrame {
     private int mNumber;
-    private MrBoneMap mBones;
+    private Map<String, MrBone> mBones;
 
     public MrFrame(int number) {
         mNumber = number;
-        mBones = new MrBoneMap();
+        mBones = new HashMap<String, MrBone>();
     }
 
     public int getFrameNumber() {
         return mNumber;
     }
 
-    public MrHashMap<String, MrBone> getBones() {
+    public Map<String, MrBone> getBones() {
         return mBones;
     }
 
     public void addBone(MrBone bone) {
-        mBones.add(bone);
+        mBones.put(bone.getName(), bone);
     }
 
     public static MrFrame interpolate(int numFrame, MrFrame frame1, MrFrame frame2) {
         MrFrame frame = new MrFrame(numFrame);
         float e1 = frame1.getFrameNumber(), e2 = frame2.getFrameNumber();
         float t = -1/(e1 - e2) * (numFrame - e1);
-        MrHashMap<String, MrBone> f2Bones = frame2.getBones();
-        for (MrBone bone1 : frame1.getBones()) {
-            MrBone bone2 = f2Bones.findByKey(bone1.getName());
+        Map<String, MrBone> f2Bones = frame2.getBones();
+        for (MrBone bone1 : frame1.getBones().values()) {
+            MrBone bone2 = f2Bones.get(bone1.getName());
             MrQuaternion q1 = bone1.getRotation();
             MrQuaternion q2 = bone2.getRotation();
             MrQuaternion q = new MrQuaternion();

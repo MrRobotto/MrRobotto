@@ -65,10 +65,13 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
         @Override
         public MrFrame next() {
             if (mCurrent < mStart) {
+                mCurrent++;
                 return mKeyFrames.firstEntry().getValue();
             }
             if (mKeyFrameIndices.contains(mCurrent)) {
-                return mKeyFrames.get(mCurrent);
+                MrFrame f = mKeyFrames.get(mCurrent);
+                mCurrent++;
+                return f;
             }
             MrFrame frame2 = mKeyFrames.higherEntry(mCurrent).getValue();
             MrFrame frame1 = mKeyFrames.lowerEntry(mCurrent).getValue();

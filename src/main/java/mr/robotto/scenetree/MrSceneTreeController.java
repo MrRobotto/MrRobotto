@@ -29,7 +29,7 @@ public class MrSceneTreeController {
         mRenderingContext = new MrRenderingContext(mData);
     }
 
-    public MrSceneTree getData() {
+    public MrSceneTree getSceneTree() {
         return mData;
     }
 

@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import mr.robotto.components.data.action.MrActionMap;
 import mr.robotto.components.data.action.MrSkeletalAction;
@@ -46,24 +48,24 @@ public class MrSkeletonLoader extends MrBaseLoader<MrSkeleton> {
         return boneOrder;
     }
 
-    private MrBoneMap loadPose() throws JSONException {
+    private Map<String, MrBone> loadPose() throws JSONException {
         JSONArray poseJson = mRoot.getJSONArray("Pose");
-        MrBoneMap bones = new MrBoneMap();
+        Map<String, MrBone> bones = new HashMap<String, MrBone>();
         for (int i = 0; i < poseJson.length(); i++) {
             MrBoneLoader boneLoader = new MrBoneLoader(poseJson.getJSONObject(i));
             MrBone bone = boneLoader.parse();
-            bones.add(bone);
+            bones.put(bone.getName(), bone);
         }
         return bones;
     }
 
-    private MrActionMap loadActions() throws JSONException {
+    private Map<String, MrSkeletalAction> loadActions() throws JSONException {
         JSONArray actionsJson = mRoot.getJSONArray("Actions");
-        MrActionMap actions = new MrActionMap();
+        Map<String, MrSkeletalAction> actions = new HashMap<String, MrSkeletalAction>();
         for (int i = 0; i < actionsJson.length(); i++) {
             MrSkeletalActionLoader loader = new MrSkeletalActionLoader(actionsJson.getJSONObject(i));
             MrSkeletalAction action = loader.parse();
-            actions.add(action);
+            actions.put(action.getName(), action);
         }
         return actions;
     }

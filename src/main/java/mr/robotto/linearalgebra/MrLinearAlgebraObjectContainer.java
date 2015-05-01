@@ -26,6 +26,13 @@ public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
         init();
     }
 
+    public MrLinearAlgebraObjectContainer(MrDataType dataType, int count) {
+        mDataType = dataType;
+        mCount = count;
+        mSize = dataType.getCount();
+        init();
+    }
+
     private void init() {
         mAlgebraObjects = new MrLinearAlgebraObject[mCount];
         mValues = new float[mSize*mCount];

@@ -10,7 +10,9 @@
 package mr.robotto.components.data.bone;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.MrTreeMap;
@@ -21,20 +23,20 @@ import mr.robotto.components.data.action.MrSkeletalAction;
  * Created by aaron on 26/04/2015.
  */
 public class MrSkeleton {
-    private MrActionMap mActions;
+    private Map<String, MrSkeletalAction> mActions;
     private MrTreeMap<String, String> mBoneHierarchy;
-    private MrBoneMap mPose;
+    private Map<String, MrBone> mPose;
     private ArrayList<String> mBoneOrder;
 
     private MrSkeletalAction mCurrentAction;
 
-    public MrSkeleton(MrBoneMap pose, ArrayList<String> boneOrder, MrActionMap actions) {
+    public MrSkeleton(Map<String, MrBone> pose, ArrayList<String> boneOrder, Map<String, MrSkeletalAction> actions) {
         mActions = actions;
         mPose = pose;
         mBoneOrder = boneOrder;
     }
 
-    public MrSkeleton(MrTreeMap<String, String> boneHierarchy, MrBoneMap pose, ArrayList<String> boneOrder, MrActionMap actions) {
+    public MrSkeleton(MrTreeMap<String, String> boneHierarchy, Map<String, MrBone> pose, ArrayList<String> boneOrder, Map<String, MrSkeletalAction> actions) {
         mActions = actions;
         mBoneHierarchy = boneHierarchy;
         mPose = pose;
@@ -42,8 +44,8 @@ public class MrSkeleton {
     }
 
     public MrSkeleton() {
-        mActions = new MrActionMap();
-        mPose = new MrBoneMap();
+        mActions = new HashMap<String, MrSkeletalAction>();
+        mPose = new HashMap<String, MrBone>();
         mBoneOrder = new ArrayList<>();
         mCurrentAction = null;
     }
@@ -56,28 +58,46 @@ public class MrSkeleton {
         mBoneOrder.add(boneName);
     }
 
-    public MrHashMap<String, MrSkeletalAction> getActions() {
+    public Map<String, MrSkeletalAction> getActions() {
         return mActions;
     }
 
     public void addAction(MrSkeletalAction action) {
-        mActions.add(action);
+        mActions.put(action.getName(), action);
     }
 
     //TODO: Add exception
     public void playAction(String actionName) {
-        mCurrentAction = mActions.findByKey(actionName);
+        mCurrentAction = mActions.get(actionName);
         if (mCurrentAction != null)
             mCurrentAction.play();
     }
 
-    public MrBone[] getPose() {
-        MrHashMap<String, MrBone> boneMap = mCurrentAction.step();
+    public void playActionContinuosly(String actionName) {
+        mCurrentAction = mActions.get(actionName);
+        if (mCurrentAction != null) {
+            mCurrentAction.playContinuosly();
+        }
+    }
+
+    private MrBone[] sortBones(Map<String, MrBone> boneMap) {
         MrBone[] bones = new MrBone[boneMap.size()];
         int i = 0;
         for (String boneName : mBoneOrder) {
-            bones[i] = boneMap.findByKey(boneName);
+            bones[i] = boneMap.get(boneName);
+            i++;
         }
         return bones;
+    }
+
+    public MrBone[] getPose() {
+        if (mCurrentAction == null) {
+            return sortBones(mPose);
+        }
+        Map<String, MrBone> boneMap = mCurrentAction.step();
+        if (boneMap == null) {
+            return sortBones(mPose);
+        }
+        return sortBones(boneMap);
     }
 }
