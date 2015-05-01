@@ -15,8 +15,8 @@ import java.util.List;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.MrObject;
+import mr.robotto.core.MrSceneObjectType;
 
 /**
  * Created by Aarón on 31/12/2014.

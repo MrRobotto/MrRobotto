@@ -9,11 +9,14 @@
 
 package mr.robotto.core.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -23,7 +26,7 @@ public abstract class MrObjectData {
     protected MrSceneObjectType mSceneObjType;
     protected MrTransform mTransform;
     protected MrShaderProgram mShaderProgram;
-    protected MrUniformGeneratorMap mUniformGenerators;
+    protected Map<String, MrUniformGenerator> mUniformGenerators;
     protected MrUniformKeyMap mUniformKeys;
 
     public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys) {
@@ -41,7 +44,7 @@ public abstract class MrObjectData {
     }
 
     private void init() {
-        mUniformGenerators = new MrUniformGeneratorMap();
+        mUniformGenerators = new HashMap<>();
     }
 
     public String getName() {
@@ -72,11 +75,11 @@ public abstract class MrObjectData {
         this.mUniformKeys = uniformKeys;
     }
 
-    public MrUniformGeneratorMap getUniformGenerators() {
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mUniformGenerators;
     }
 
-    public void setUniformGenerators(MrUniformGeneratorMap uniformGenerators) {
+    public void setUniformGenerators(Map<String, MrUniformGenerator> uniformGenerators) {
         mUniformGenerators = uniformGenerators;
     }
 }

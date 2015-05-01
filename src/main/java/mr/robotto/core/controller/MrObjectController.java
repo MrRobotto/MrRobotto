@@ -9,7 +9,10 @@
 
 package mr.robotto.core.controller;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
@@ -17,8 +20,6 @@ import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.MrRenderingContext;
-import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -55,7 +56,7 @@ public abstract class MrObjectController {
     }
 
     public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneTree tree) {
-        MrUniformGenerator generator = getUniformGenerators().findByKey(uniform.getUniformType());
+        MrUniformGenerator generator = getUniformGenerators().get(uniform.getUniformType());
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));
     }
@@ -98,11 +99,11 @@ public abstract class MrObjectController {
         mData.setTransform(transform);
     }
 
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
 
     }
 
-    public MrUniformGeneratorMap getUniformGenerators() {
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mData.getUniformGenerators();
     }
 

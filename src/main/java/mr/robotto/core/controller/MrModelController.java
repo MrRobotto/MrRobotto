@@ -10,6 +10,7 @@
 package mr.robotto.core.controller;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.comp.MrMesh;
@@ -17,11 +18,10 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.bone.MrBone;
 import mr.robotto.components.data.bone.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
-import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.shader.MrUniform;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrObject;
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrModelRender;
@@ -30,8 +30,6 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObjectContainer;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -159,11 +157,11 @@ public class MrModelController extends MrObjectController {
     //}
 
     @Override
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.add(generateModelMatrix(this));
-        uniformGenerators.add(generateMaterialDiffuseColor(this));
-        uniformGenerators.add(generateBonesMatrices());
+        uniformGenerators.put(MrUniform.MODEL_MATRIX, generateModelMatrix(this));
+        uniformGenerators.put(MrUniform.UNIFORM_MATERIAL_DIFFUSE_COLOR, generateMaterialDiffuseColor(this));
+        uniformGenerators.put(MrUniform.UNIFORM_BONE_MATRIX, generateBonesMatrices());
     }
 
     public MrMesh getMesh() {

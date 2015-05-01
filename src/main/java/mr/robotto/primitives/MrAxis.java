@@ -9,9 +9,11 @@
 
 package mr.robotto.primitives;
 
-import mr.robotto.components.data.mesh.MrBuffer;
-import mr.robotto.components.data.mesh.MrBufferKeyMap;
+import java.util.Map;
+
 import mr.robotto.components.comp.MrMesh;
+import mr.robotto.components.data.mesh.MrBuffer;
+import mr.robotto.components.data.mesh.MrBufferKey;
 
 public class MrAxis extends MrMesh {
 
@@ -48,7 +50,7 @@ public class MrAxis extends MrMesh {
     }
 
     //TODO: Too much hardocre for my eyes!
-    private static MrBufferKeyMap genKeyList() {
+    private static Map<Integer, MrBufferKey> genKeyList() {
         /*MrBufferKeyMap keyList = new MrBufferKeyMap();
         MrBufferKey vertexKey = new MrBufferKey(MrAttribute.VERTICES, MrDataType.FLOAT, 3, 6, 0);
         MrBufferKey colorKey = new MrBufferKey(MrAttribute.COLOR, MrDataType.FLOAT, 3, 6, 3);

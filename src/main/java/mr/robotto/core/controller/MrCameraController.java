@@ -9,9 +9,12 @@
 
 package mr.robotto.core.controller;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.data.shader.MrUniform;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrCameraData;
 import mr.robotto.core.data.MrObjectData;
@@ -20,8 +23,6 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -93,10 +94,12 @@ public class MrCameraController extends MrObjectController {
     }
 
     @Override
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.add(generateViewMatrix(this));
-        uniformGenerators.add(generateProjectionMatrix(this));
+        MrUniformGenerator g1 = generateViewMatrix(this);
+        uniformGenerators.put(g1.getUniformType(), g1);
+        MrUniformGenerator g2 = generateProjectionMatrix(this);
+        uniformGenerators.put(g2.getUniformType(), g2);
     }
 
     @Override

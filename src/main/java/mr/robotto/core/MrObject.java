@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrObjectController;
@@ -21,7 +22,6 @@ import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.renderer.MrRenderingContext;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
@@ -51,7 +51,7 @@ public abstract class MrObject {
         mController.render();
     }
 
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
 
     }
 
@@ -79,7 +79,7 @@ public abstract class MrObject {
         mController.setTransform(transform);
     }
 
-    public MrUniformGeneratorMap getUniformGenerators() {
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mController.getUniformGenerators();
     }
 

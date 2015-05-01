@@ -11,8 +11,8 @@ package mr.robotto.scenetree;
 
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.MrObject;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**

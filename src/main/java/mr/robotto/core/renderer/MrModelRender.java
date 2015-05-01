@@ -9,8 +9,9 @@
 
 package mr.robotto.core.renderer;
 
+import java.util.Map;
+
 import mr.robotto.components.data.mesh.MrBufferKey;
-import mr.robotto.components.data.mesh.MrBufferKeyMap;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
@@ -39,9 +40,9 @@ public class MrModelRender implements MrObjectRender {
         mModelData = (MrModelData) link;
 
         //Attribute index assignation to mesh
-        MrBufferKeyMap keyMap = mModelData.getMesh().getBufferKeys();
-        for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes()) {
-            MrBufferKey key = keyMap.findByKey(attribute.getAttributeType());
+        Map<Integer, MrBufferKey> keyMap = mModelData.getMesh().getBufferKeys();
+        for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes().values()) {
+            MrBufferKey key = keyMap.get(attribute.getAttributeType());
             key.setIndex(attribute.getIndex());
         }
         mModelData.getMesh().initialize();

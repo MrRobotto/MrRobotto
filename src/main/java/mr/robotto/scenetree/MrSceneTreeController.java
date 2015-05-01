@@ -11,8 +11,8 @@ package mr.robotto.scenetree;
 
 import java.util.List;
 
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.MrObject;
+import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**

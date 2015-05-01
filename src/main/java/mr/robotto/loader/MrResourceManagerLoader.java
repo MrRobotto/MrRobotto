@@ -15,9 +15,6 @@ import org.json.JSONObject;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.loader.MrBaseLoader;
-import mr.robotto.loader.MrObjectMap;
-import mr.robotto.loader.MrObjectLoader;
 import mr.robotto.managers.MrResourceManager;
 
 public class MrResourceManagerLoader extends MrBaseLoader<MrResourceManager> {

@@ -13,7 +13,6 @@ import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.bone.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
-import mr.robotto.components.data.material.MrMaterialMap;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;

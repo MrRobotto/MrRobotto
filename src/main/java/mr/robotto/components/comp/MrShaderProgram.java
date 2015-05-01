@@ -11,8 +11,9 @@ package mr.robotto.components.comp;
 
 import android.opengl.GLES20;
 
-import mr.robotto.collections.MrHashMap;
-import mr.robotto.collections.core.MrMapFunction;
+import java.util.HashMap;
+import java.util.Map;
+
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrUniform;
@@ -60,7 +61,7 @@ public class MrShaderProgram extends MrComponent {
         return mData.getFragmentShader();
     }
 
-    public MrHashMap<String, MrUniform> getUniforms() {
+    public Map<String, MrUniform> getUniforms() {
         return mData.getUniforms();
     }
 
@@ -72,7 +73,7 @@ public class MrShaderProgram extends MrComponent {
         mData.addAttribute(attribute);
     }
 
-    public MrHashMap<Integer, MrAttribute> getAttributes() {
+    public Map<Integer, MrAttribute> getAttributes() {
         return mData.getAttributes();
     }
 
@@ -84,8 +85,8 @@ public class MrShaderProgram extends MrComponent {
         private String mName;
         private MrShader mVertexShader;
         private MrShader mFragmentShader;
-        private MrHashMap<String, MrUniform> mUniforms;
-        private MrHashMap<Integer, MrAttribute> mAttributes;
+        private Map<String, MrUniform> mUniforms;
+        private Map<Integer, MrAttribute> mAttributes;
 
         private int mId;
 
@@ -97,18 +98,8 @@ public class MrShaderProgram extends MrComponent {
         }
 
         private void init() {
-            mUniforms = new MrHashMap<>(new MrMapFunction<String, MrUniform>() {
-                @Override
-                public String getKeyOf(MrUniform mrUniform) {
-                    return mrUniform.getUniformType();
-                }
-            });
-            mAttributes = new MrHashMap<>(new MrMapFunction<Integer, MrAttribute>() {
-                @Override
-                public Integer getKeyOf(MrAttribute mrAttribute) {
-                    return mrAttribute.getAttributeType();
-                }
-            });
+            mUniforms = new HashMap<String, MrUniform>();
+            mAttributes = new HashMap<>();
         }
 
         @Override
@@ -133,18 +124,18 @@ public class MrShaderProgram extends MrComponent {
         }
 
         public void addUniform(MrUniform uniform) {
-            mUniforms.add(uniform);
+            mUniforms.put(uniform.getName(), uniform);
         }
 
-        public MrHashMap<String, MrUniform> getUniforms() {
+        public Map<String, MrUniform> getUniforms() {
             return mUniforms;
         }
 
         public void addAttribute(MrAttribute attribute) {
-            mAttributes.add(attribute);
+            mAttributes.put(attribute.getAttributeType(), attribute);
         }
 
-        public MrHashMap<Integer, MrAttribute> getAttributes() {
+        public Map<Integer, MrAttribute> getAttributes() {
             return mAttributes;
         }
     }
@@ -163,14 +154,14 @@ public class MrShaderProgram extends MrComponent {
 
         //TODO: Intentar colocar esto en otro lugar
         public void bindUniforms(MrUniformKeyMap uniformKeys) {
-            for (MrUniform uniform : mData.getUniforms()) {
+            for (MrUniform uniform : mData.getUniforms().values()) {
                 MrUniformKey key = uniformKeys.findByKey(uniform.getUniformType());
                 bindUniform(uniform, key.getValue());
             }
         }
 
         public void bindUniform(MrUniformKey key) {
-            MrUniform uniform = mData.getUniforms().findByKey(key.getUniformType());
+            MrUniform uniform = mData.getUniforms().get(key.getUniformType());
             bindUniform(uniform, key.getValue());
         }
 
@@ -238,13 +229,13 @@ public class MrShaderProgram extends MrComponent {
             mData.setId(id);
             GLES20.glAttachShader(id, mData.getVertexShader().getId());
             GLES20.glAttachShader(id, mData.getFragmentShader().getId());
-            for (MrAttribute attribute : mData.getAttributes()) {
+            for (MrAttribute attribute : mData.getAttributes().values()) {
                 initialize(attribute);
             }
 
             GLES20.glLinkProgram(id);
 
-            for (MrUniform uniform : mData.getUniforms()) {
+            for (MrUniform uniform : mData.getUniforms().values()) {
                 initialize(uniform);
             }
 

@@ -9,8 +9,11 @@
 
 package mr.robotto.core.controller;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.shader.MrUniform;
+import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.data.MrSceneData;
@@ -19,8 +22,6 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
-import mr.robotto.components.data.uniformgenerator.MrUniformGeneratorMap;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -61,9 +62,9 @@ public class MrSceneController extends MrObjectController {
     }
 
     @Override
-    public void initializeUniforms(MrUniformGeneratorMap uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.add(generateMVPMatrix());
+        uniformGenerators.put(MrUniform.MODEL_VIEW_PROJECTION_MATRIX, generateMVPMatrix());
     }
 
     public MrVector4f getClearColor() {

@@ -13,11 +13,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.collections.MrHashMap;
+import java.util.HashMap;
+import java.util.Map;
+
+import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.data.mesh.MrBuffer;
 import mr.robotto.components.data.mesh.MrBufferKey;
-import mr.robotto.components.data.mesh.MrBufferKeyMap;
-import mr.robotto.components.comp.MrMesh;
 import mr.robotto.loader.MrBaseLoader;
 
 public class MrMeshLoader extends MrBaseLoader<MrMesh> {
@@ -36,7 +37,7 @@ public class MrMeshLoader extends MrBaseLoader<MrMesh> {
         JSONArray keysData = mRoot.getJSONArray("AttributeKeys");
 
         int drawType = getDrawTypeFromString(drawTypeData);
-        MrBufferKeyMap keys = new MrBufferKeyMap();
+        Map<Integer, MrBufferKey> keys = new HashMap<>();
         //MrHashMap<Integer, MrBufferKey> keys = new MrHashMap<>(new MrMapFunction<Integer, MrBufferKey>() {
         //    @Override
         //    public Integer getKeyOf(MrBufferKey mrBufferKey) {
@@ -76,13 +77,13 @@ public class MrMeshLoader extends MrBaseLoader<MrMesh> {
         }
     }
 
-    private void loadKeys(MrHashMap<Integer, MrBufferKey> list, JSONArray keys) throws JSONException {
+    private void loadKeys(Map<Integer, MrBufferKey> list, JSONArray keys) throws JSONException {
         for (int i = 0; i < keys.length(); i++) {
             JSONObject jsonKey = keys.getJSONObject(i);
             MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);
             MrBufferKey key = loader.parse();
             //list.addAttributeKey(key);
-            list.add(key);
+            list.put(key.getAttributeType(), key);
         }
     }
 }

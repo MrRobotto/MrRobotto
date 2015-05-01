@@ -12,10 +12,10 @@ package mr.robotto.components.comp;
 import android.opengl.GLES20;
 
 import java.nio.IntBuffer;
+import java.util.Map;
 
 import mr.robotto.components.data.mesh.MrBuffer;
 import mr.robotto.components.data.mesh.MrBufferKey;
-import mr.robotto.components.data.mesh.MrBufferKeyMap;
 
 public class MrMesh extends MrComponent {
     public static final int DRAWTYPE_LINES = GLES20.GL_LINES;
@@ -24,7 +24,7 @@ public class MrMesh extends MrComponent {
     private Data mData;
     private Render mRender;
 
-    public MrMesh(String name, int count, int drawType, MrBufferKeyMap keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
+    public MrMesh(String name, int count, int drawType, Map<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
         mData = new Data(name, count, drawType, keys, vertexBuffer, indexBuffer);
         mRender = new Render();
     }
@@ -48,7 +48,7 @@ public class MrMesh extends MrComponent {
         return mData.getIndexBuffer();
     }
 
-    public MrBufferKeyMap getBufferKeys() {
+    public Map<Integer, MrBufferKey> getBufferKeys() {
         return mData.getBufferKeys();
     }
 
@@ -73,11 +73,11 @@ public class MrMesh extends MrComponent {
         private String mName;
         private int mCount;
         private int mDrawType;
-        private MrBufferKeyMap mKeys;
+        private Map<Integer, MrBufferKey> mKeys;
         private MrBuffer mVertexBuffer;
         private MrBuffer mIndexBuffer;
 
-        public Data(String name, int count, int drawType, MrBufferKeyMap keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
+        public Data(String name, int count, int drawType, Map<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
             mName = name;
             mCount = count;
             mDrawType = drawType;
@@ -111,7 +111,7 @@ public class MrMesh extends MrComponent {
             return mIndexBuffer;
         }
 
-        public MrBufferKeyMap getBufferKeys() {
+        public Map<Integer, MrBufferKey> getBufferKeys() {
             return mKeys;
         }
     }
@@ -135,14 +135,14 @@ public class MrMesh extends MrComponent {
         public void bind() {
             bind(mData.getVertexBuffer());
             bind(mData.getIndexBuffer());
-            for (MrBufferKey key : mData.getBufferKeys()) {
+            for (MrBufferKey key : mData.getBufferKeys().values()) {
                 if (key.getIndex() >= 0)
                     bind(key);
             }
         }
 
         public void unbind() {
-            for (MrBufferKey key : mData.getBufferKeys()) {
+            for (MrBufferKey key : mData.getBufferKeys().values()) {
                 if (key.getIndex() >= 0)
                     unbind(key);
             }
