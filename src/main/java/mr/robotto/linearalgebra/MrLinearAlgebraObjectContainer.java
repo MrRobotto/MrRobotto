@@ -44,10 +44,14 @@ public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
         setValues(index, algebraObject.getValues());
     }
 
-    private void setValues(int index, float[] values) {
+    public void setValues(int index, float[] values) {
         //TODO: Check if this is index*mCount or it needs a -1
         //System.arraycopy(values, 0, mValues, index*mCount, values.length);
         System.arraycopy(values, 0, mValues, index*mSize, values.length);
+    }
+
+    public void setValue(int index, float value) {
+        mValues[index*mSize] = value;
     }
 
     @Override

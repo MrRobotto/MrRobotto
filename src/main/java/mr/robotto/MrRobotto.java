@@ -149,8 +149,8 @@ public class MrRobotto {
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
-                    MrModel m = (MrModel)mController.getSceneTree().findByKey("Cube");
-                    m.playActionContinuosly("Attack");
+                    //MrModel m = (MrModel)mController.getSceneTree().findByKey("Cube");
+                    //m.playActionContinuosly("Attack");
                 }
             }
         });
