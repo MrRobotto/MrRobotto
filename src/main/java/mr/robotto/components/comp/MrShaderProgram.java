@@ -183,6 +183,8 @@ public class MrShaderProgram extends MrComponent {
                 case VEC4:
                     GLES20.glUniform4fv(uniformId, uniformCount,values, 0);
                     break;
+                case SAMPLER2D:
+                    GLES20.glUniform1i(uniformId, (int)values[0]);
             }
         }
 

@@ -11,6 +11,7 @@ package mr.robotto.core.renderer;
 
 import java.util.Map;
 
+import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.mesh.MrBufferKey;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.core.data.MrModelData;
@@ -47,6 +48,10 @@ public class MrModelRender implements MrObjectRender {
         }
         mModelData.getMesh().initialize();
         mModelData.getShaderProgram().initialize();
+
+        for (MrTexture texture : mModelData.getTextures()) {
+            texture.initialize();
+        }
         mInitialized = true;
     }
 
@@ -69,6 +74,9 @@ public class MrModelRender implements MrObjectRender {
         //mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
         mModelData.getShaderProgram().bindUniforms(mContext.getUniforms());
         mModelData.getMesh().bind();
+        for (MrTexture texture : mModelData.getTextures()) {
+            texture.bind();
+        }
         mBinded = true;
     }
 
@@ -78,6 +86,9 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void unbind() {
+        for (MrTexture texture : mModelData.getTextures()) {
+            texture.unbind();
+        }
         mModelData.getMesh().unbind();
         mModelData.getShaderProgram().unbind();
         mBinded = false;

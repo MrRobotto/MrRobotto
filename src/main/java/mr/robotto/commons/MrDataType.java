@@ -13,7 +13,7 @@ import android.opengl.GLES20;
 
 /**
  * Enum for all used types in the MrRobotto Engine
- * It contains the OpenGL value of this type, the size in bytes of this kind of element
+ * It contains the OpenGL mValue of this type, the mByteSize in bytes of this kind of element
  * and how many elements it contains
  */
 public enum MrDataType
@@ -27,36 +27,37 @@ public enum MrDataType
     VEC4(GLES20.GL_FLOAT_VEC4, MrConstants.FLOAT_SIZE * 4, 4),
     MAT3(GLES20.GL_FLOAT_MAT3, MrConstants.FLOAT_SIZE * 9, 9),
     MAT4(GLES20.GL_FLOAT_MAT4, MrConstants.FLOAT_SIZE * 16, 16),
-    QUATERNION(GLES20.GL_FLOAT_VEC4, MrConstants.FLOAT_SIZE * 4, 4);
+    QUATERNION(GLES20.GL_FLOAT_VEC4, MrConstants.FLOAT_SIZE * 4, 4),
+    SAMPLER2D(GLES20.GL_SAMPLER_2D, 0, 1);
 
-    private int value;
-    private int size;
-    private int count;
+    private int mValue;
+    private int mByteSize;
+    private int mCount;
 
-    MrDataType(int value, int size, int count)
+    MrDataType(int value, int byteSize, int count)
     {
-        this.value = value;
-        this.size = size;
-        this.count = count;
+        this.mValue = value;
+        this.mByteSize = byteSize;
+        this.mCount = count;
     }
 
     /**
-     * Gets the OpenGL value of this type
+     * Gets the OpenGL mValue of this type
      *
-     * @return the OpenGL value for this type
+     * @return the OpenGL mValue for this type
      */
     public int getValue()
     {
-        return value;
+        return mValue;
     }
 
     /**
-     * Gets the size in bytes of this type
-     * @return the size in bytes
+     * Gets the mByteSize in bytes of this type
+     * @return the mByteSize in bytes
      */
-    public int getSize()
+    public int getByteSize()
     {
-        return size;
+        return mByteSize;
     }
 
     /**
@@ -65,6 +66,6 @@ public enum MrDataType
      * @return the number of elements this type will contain
      */
     public int getCount() {
-        return count;
+        return mCount;
     }
 }

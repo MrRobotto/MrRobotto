@@ -23,8 +23,8 @@ public class MrBufferKey {
         this.mAttributeType = attribute;
         this.mDataType = dataType;
         this.mSize = size;
-        this.mStride = stride * dataType.getSize();
-        this.mPointer = pointer * dataType.getSize();
+        this.mStride = stride * dataType.getByteSize();
+        this.mPointer = pointer * dataType.getByteSize();
         this.mIndex = -1;
     }
 

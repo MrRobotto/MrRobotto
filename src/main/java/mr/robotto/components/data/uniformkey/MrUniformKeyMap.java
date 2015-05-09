@@ -22,11 +22,11 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 public class MrUniformKeyMap extends MrHashMap<String, MrUniformKey> {
 
     private int mVisibility;
-    private MrUniformKeyMapView mView;
+    private View mView;
 
     public MrUniformKeyMap() {
         super(getMapFunction());
-        mView = new MrUniformKeyMapView(this);
+        mView = new View(this);
     }
 
     private static MrMapFunction<String, MrUniformKey> getMapFunction() {
@@ -38,7 +38,7 @@ public class MrUniformKeyMap extends MrHashMap<String, MrUniformKey> {
         };
     }
 
-    public MrUniformKeyMapView getView() {
+    public View getView() {
         return mView;
     }
 
@@ -64,10 +64,10 @@ public class MrUniformKeyMap extends MrHashMap<String, MrUniformKey> {
     /**
      * Created by aaron on 21/04/2015.
      */
-    public static class MrUniformKeyMapView {
+    public static class View {
         private MrUniformKeyMap mUniforms;
 
-        private MrUniformKeyMapView(MrUniformKeyMap uniforms) {
+        private View(MrUniformKeyMap uniforms) {
             mUniforms = uniforms;
         }
 

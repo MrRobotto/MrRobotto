@@ -13,6 +13,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
+import mr.robotto.MrRobotto;
+import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialLight;
 import mr.robotto.linearalgebra.MrVector4f;
@@ -36,7 +40,8 @@ public class MrMaterialLoader extends MrBaseLoader<MrMaterial> {
         MrMaterialLight ambient = loadMaterialLight(ambientJson);
         MrMaterialLight diffuse = loadMaterialLight(diffuseJson);
         MrMaterialLight specular = loadMaterialLight(specularJson);
-        return new MrMaterial(name, ambient, diffuse, specular);
+        MrTexture texture = loadTexture();
+        return new MrMaterial(name, ambient, diffuse, specular, texture);
     }
 
     private MrMaterialLight loadMaterialLight(JSONObject materialLightJson) throws JSONException {
@@ -56,5 +61,13 @@ public class MrMaterialLoader extends MrBaseLoader<MrMaterial> {
         color.z = (float) colorJson.getDouble(3);
         return color;
      }
+
+    private MrTexture loadTexture() throws JSONException {
+        JSONObject textureJson = mRoot.optJSONObject("Texture");
+        if (textureJson == null)
+            return null;
+        MrTextureLoader loader = new MrTextureLoader(textureJson);
+        return loader.parse();
+    }
 
 }

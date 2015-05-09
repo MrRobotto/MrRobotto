@@ -25,8 +25,8 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.loader.MrResourceManagerLoader;
-import mr.robotto.managers.MrResourceManager;
+import mr.robotto.loader.MrRobottoJsonLoader;
+import mr.robotto.managers.MrRobottoJson;
 import mr.robotto.utils.MrReader;
 
 /**
@@ -40,7 +40,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testLoaders() {
         Context context = getContext();
         AssetManager am = context.getAssets();
-        MrResourceManager context1 = null;
+        MrRobottoJson context1 = null;
         try {
             InputStream stream = am.open("kingVer3.json");
             JSONObject drac = (JSONObject) new JSONTokener(MrReader.read(stream)).nextValue();
@@ -48,7 +48,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);
             getRenderer().model = new MrModelController((MrModelData)ob.getChildren().findByKey(0), new MrModelRender());*/
-            MrResourceManagerLoader loader = new MrResourceManagerLoader(drac);
+            MrRobottoJsonLoader loader = new MrRobottoJsonLoader(drac);
             context1 = loader.parse();
             //getRenderer().setScene((MrSceneData)context1.getObjectsData().findByKey("Scene"));
             //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().findByKey("Cube"), new MrModelRender());

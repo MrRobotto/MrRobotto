@@ -55,7 +55,7 @@ public abstract class MrObjectController {
         return mData;
     }
 
-    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrSceneTree tree) {
+    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.View uniforms, MrSceneTree tree) {
         MrUniformGenerator generator = getUniformGenerators().get(uniform.getUniformType());
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));

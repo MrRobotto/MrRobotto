@@ -38,7 +38,7 @@ public class MrBuffer {
         mBufferDataType = dataType;
         mBufferTarget = target;
         mBufferUsage = usage;
-        mBufferData = ByteBuffer.allocate(capacity * mBufferDataType.getSize());
+        mBufferData = ByteBuffer.allocate(capacity * mBufferDataType.getByteSize());
         mBufferData.order(ByteOrder.nativeOrder());
         mBufferCapacity = capacity;
     }

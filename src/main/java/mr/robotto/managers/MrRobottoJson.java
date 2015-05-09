@@ -25,11 +25,11 @@ Ese findByKey te devolverá un nodo, con los hijos ya colgando de él
 además podrás decirle cuando construya "Oye quiero que para el objeto
 con nombre fulanito le apliques el controlador o el renderer este
  */
-public class MrResourceManager {
+public class MrRobottoJson {
     private MrObjectMap mObjectsData;
     private MrTreeMap<String, String> mKeysTree;
 
-    public MrResourceManager(MrObjectMap objectDatas, MrTreeMap<String, String> keysTree) {
+    public MrRobottoJson(MrObjectMap objectDatas, MrTreeMap<String, String> keysTree) {
         mObjectsData = objectDatas;
         mKeysTree = keysTree;
     }
@@ -43,10 +43,10 @@ public class MrResourceManager {
     }
 
     public static class Builder {
-        private MrResourceManager mManager;
+        private MrRobottoJson mManager;
         private HashMap<String, MrObjectRender> mRenderers;
 
-        public Builder(MrResourceManager manager) {
+        public Builder(MrRobottoJson manager) {
             mManager = manager;
         }
 

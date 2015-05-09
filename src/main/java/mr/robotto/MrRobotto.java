@@ -21,8 +21,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.core.MrModel;
-import mr.robotto.loader.MrResourceManagerLoader;
-import mr.robotto.managers.MrResourceManager;
+import mr.robotto.loader.MrRobottoJsonLoader;
+import mr.robotto.managers.MrRobottoJson;
+import mr.robotto.proposed.MrResources;
+import mr.robotto.proposed.MrRobottoFileLoader;
 import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
 import mr.robotto.scenetree.MrSceneTreeRender;
@@ -32,8 +34,10 @@ import mr.robotto.utils.MrReader;
 /**
  * Created by aaron on 22/04/2015.
  */
+//TODO: Hay que tener cuidado con todos estos métodos, no sé si sin thread safe
 public class MrRobotto {
     private static MrRobotto sEngine = new MrRobotto();
+    private static MrResources sResources = new MrResources();
 
     private MrSurfaceView mSurfaceView;
     private Context mContext;
@@ -45,6 +49,11 @@ public class MrRobotto {
 
     public static MrRobotto getInstance() {
         return sEngine;
+    }
+
+    //TODO: Esto es llamado desde los loaders pero... es thread safe??
+    public static MrResources getsResources() {
+        return sResources;
     }
 
     public MrSurfaceView getSurfaceView() {
@@ -67,9 +76,9 @@ public class MrRobotto {
             JSONTokener tokener = new JSONTokener(MrReader.read(stream));
             JSONObject jsonObject = (JSONObject) tokener.nextValue();
 
-            MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
-            MrResourceManager resources = loader.parse();
-            MrResourceManager.Builder builder = new MrResourceManager.Builder(resources);
+            MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
+            MrRobottoJson resources = loader.parse();
+            MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
             MrSceneTree tree = builder.buildSceneObjectsTree();
             mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
         } catch (IOException e) {
@@ -85,9 +94,9 @@ public class MrRobotto {
             protected MrSceneTree doInBackground(JSONObject... params) {
                 JSONObject jsonObject = params[0];
                 try {
-                    MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
-                    MrResourceManager resources = loader.parse();
-                    MrResourceManager.Builder builder = new MrResourceManager.Builder(resources);
+                    MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
+                    MrRobottoJson resources = loader.parse();
+                    MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
                     MrSceneTree tree = builder.buildSceneObjectsTree();
                     return tree;
                 } catch (JSONException e) {
@@ -106,39 +115,48 @@ public class MrRobotto {
         task.execute(jsonObject);
     }
 
-    //TODO: Agregar como argumento un assetmanager
-    public void loadSceneTree(String filename) {
-        AsyncTask<String, Void, MrSceneTree> task = new AsyncTask<String, Void, MrSceneTree>() {
-            @Override
-            protected MrSceneTree doInBackground(String... params) {
-                AssetManager am = mContext.getAssets();
-                try {
-                    String filename = params[0];
-                    InputStream stream = am.open(filename);
-                    JSONTokener tokener = new JSONTokener(MrReader.read(stream));
-                    JSONObject jsonObject = (JSONObject) tokener.nextValue();
+    public void loadSceneTree(InputStream inputStream) {
+        MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
+        MrSceneTree tree = null;
+        try {
+            tree = loader.parse();
+            mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+            initialize();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
-                    MrResourceManagerLoader loader = new MrResourceManagerLoader(jsonObject);
-                    MrResourceManager resources = loader.parse();
-                    MrResourceManager.Builder builder = new MrResourceManager.Builder(resources);
-                    MrSceneTree tree = builder.buildSceneObjectsTree();
+    public void loadSceneTreeAsync(final InputStream inputStream) {
+        AsyncTask<InputStream, Void, MrSceneTree> task = new AsyncTask<InputStream, Void, MrSceneTree>() {
+            @Override
+            protected MrSceneTree doInBackground(InputStream... params) {
+                InputStream inputStream = params[0];
+                MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
+                try {
+                    MrSceneTree tree = loader.parse();
                     return tree;
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
+                    cancel(true);
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    cancel(true);
                     e.printStackTrace();
                 }
                 return null;
             }
-
             @Override
             protected void onPostExecute(MrSceneTree tree) {
                 super.onPostExecute(tree);
-                mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
-                initialize();
+                if (tree != null) {
+                    mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+                    initialize();
+                }
             }
         };
-        task.execute(filename);
+        task.execute(inputStream);
     }
 
     public void initialize() {
@@ -149,8 +167,6 @@ public class MrRobotto {
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
-                    //MrModel m = (MrModel)mController.getSceneTree().findByKey("Cube");
-                    //m.playActionContinuosly("Attack");
                 }
             }
         });

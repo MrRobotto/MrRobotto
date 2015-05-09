@@ -29,5 +29,5 @@ public abstract class MrUniformGenerator {
         return mUniformType;
     }
 
-    public abstract MrLinearAlgebraObject generateUniform(final MrSceneTree tree, final MrUniformKeyMap.MrUniformKeyMapView uniforms, final MrObjectData object);
+    public abstract MrLinearAlgebraObject generateUniform(final MrSceneTree tree, final MrUniformKeyMap.View uniforms, final MrObjectData object);
 }

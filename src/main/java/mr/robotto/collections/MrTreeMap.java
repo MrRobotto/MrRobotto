@@ -71,7 +71,8 @@ public class MrTreeMap<K, V> implements Iterable<V> {
     }
 
     public V findByKey(K key) {
-        return mTree.get(key).getData();
+        MrTreeMapNode node = mTree.get(key);
+        return node.getData();
     }
 
     public boolean containsKey(K key) {

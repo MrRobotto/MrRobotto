@@ -15,17 +15,18 @@ import org.json.JSONObject;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.managers.MrResourceManager;
+import mr.robotto.managers.MrRobottoJson;
 
-public class MrResourceManagerLoader extends MrBaseLoader<MrResourceManager> {
+//TODO: Cambiar estos nombres taaaan feos
+public class MrRobottoJsonLoader extends MrBaseLoader<MrRobottoJson> {
 
-    public MrResourceManagerLoader(JSONObject obj) {
+    public MrRobottoJsonLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrResourceManager parse() throws JSONException {
-        MrResourceManager context = new MrResourceManager(getObjectsData(), getHierarchy());
+    public MrRobottoJson parse() throws JSONException {
+        MrRobottoJson context = new MrRobottoJson(getObjectsData(), getHierarchy());
         return context;
     }
 

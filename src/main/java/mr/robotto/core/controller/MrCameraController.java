@@ -57,7 +57,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 MrVector3f.Operator opv = MrVector3f.getOperator();
                 MrVector3f loc = camera.getTransform().getLocation();
@@ -87,7 +87,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.MrUniformKeyMapView uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
                 return camera.getLens().getProjectionMatrix();
             }
         };

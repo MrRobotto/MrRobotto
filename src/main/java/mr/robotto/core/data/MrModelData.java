@@ -9,8 +9,12 @@
 
 package mr.robotto.core.data;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.bone.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
@@ -23,6 +27,7 @@ import mr.robotto.linearalgebra.MrTransform;
 public class MrModelData extends MrObjectData {
     private MrMesh mMesh;
     private MrMaterial[] mMaterials;
+    private MrTexture[] mTextures;
     private MrSkeleton mSkeleton;
 
     public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials) {
@@ -30,6 +35,7 @@ public class MrModelData extends MrObjectData {
         mMesh = mesh;
         mMaterials = materials;
         mSkeleton = null;
+        init();
     }
 
     public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
@@ -37,6 +43,22 @@ public class MrModelData extends MrObjectData {
         mMesh = mesh;
         mMaterials = materials;
         mSkeleton = skeleton;
+        init();
+    }
+
+    private void init() {
+        getTexturesFromMaterials();
+    }
+
+    private void getTexturesFromMaterials() {
+        ArrayList<MrTexture> textures = new ArrayList<MrTexture>();
+        for (MrMaterial m : mMaterials) {
+            if (m.hasTexture()) {
+                textures.add(m.getTexture());
+            }
+        }
+        mTextures = new MrTexture[textures.size()];
+        mTextures = textures.toArray(mTextures);
     }
 
     public MrMesh getMesh() {
@@ -49,5 +71,9 @@ public class MrModelData extends MrObjectData {
 
     public MrSkeleton getSkeleton() {
         return mSkeleton;
+    }
+
+    public MrTexture[] getTextures() {
+        return mTextures;
     }
 }

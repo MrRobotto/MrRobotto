@@ -9,6 +9,8 @@
 
 package mr.robotto.components.data.material;
 
+import mr.robotto.components.comp.MrTexture;
+
 /**
  * Created by aaron on 11/03/2015.
  */
@@ -17,12 +19,14 @@ public class MrMaterial {
     private MrMaterialLight mAmbient;
     private MrMaterialLight mDiffuse;
     private MrMaterialLight mSpecular;
+    private MrTexture mTexture;
 
-    public MrMaterial(String name, MrMaterialLight ambient, MrMaterialLight diffuse, MrMaterialLight specular) {
+    public MrMaterial(String name, MrMaterialLight ambient, MrMaterialLight diffuse, MrMaterialLight specular, MrTexture texture) {
         mName = name;
         mAmbient = ambient;
         mDiffuse = diffuse;
         mSpecular = specular;
+        mTexture = texture;
     }
 
     public String getName() {
@@ -39,5 +43,13 @@ public class MrMaterial {
 
     public MrMaterialLight getSpecular() {
         return mSpecular;
+    }
+
+    public MrTexture getTexture() {
+        return mTexture;
+    }
+
+    public boolean hasTexture() {
+        return mTexture != null;
     }
 }

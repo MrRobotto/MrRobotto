@@ -50,7 +50,7 @@ public class MrModelLoader extends MrBaseObjectLoader {
     }
 
     private MrSkeleton loadSkeleton() throws JSONException {
-        JSONObject skeletonJson = mRoot.getJSONObject("Skeleton");
+        JSONObject skeletonJson = mRoot.optJSONObject("Skeleton");
         if (skeletonJson != null) {
             MrSkeletonLoader loader = new MrSkeletonLoader(skeletonJson);
             return loader.parse();

@@ -39,6 +39,7 @@ public class MrUniform {
     public static final String UNIFORM_MATERIAL_SPECULAR_COLOR = "Specular_Color";
     public static final String UNIFORM_MATERIAL_SPECULAR_INTENSITY = "Specular_Intensity";
     public static final String UNIFORM_BONE_MATRIX = "Bone_Matrix";
+    public static final String UNIFORM_TEXTURE = "Texture_Sampler";
 
     private String mUniformType;
     private String mName;
