@@ -9,10 +9,17 @@
 
 package mr.robotto.scenetree;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import mr.robotto.collections.MrTreeMap;
+import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.core.data.MrObjectData;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -20,16 +27,16 @@ import mr.robotto.renderer.MrRenderingContext;
  */
 public class MrSceneTreeController {
     private MrSceneTreeRender mRender;
-    private MrSceneTree mData;
+    private MrSceneTreeData mData;
     private MrRenderingContext mRenderingContext;
 
-    public MrSceneTreeController(MrSceneTree tree, MrSceneTreeRender render) {
+    public MrSceneTreeController(MrSceneTreeData tree, MrSceneTreeRender render) {
         mRender = render;
         mData = tree;
         mRenderingContext = new MrRenderingContext(mData);
     }
 
-    public MrSceneTree getSceneTree() {
+    public MrSceneTreeData getSceneTreeData() {
         return mData;
     }
 
@@ -51,11 +58,11 @@ public class MrSceneTreeController {
         mRender.render();
     }
 
-    public List<MrObject> getByType(MrSceneObjectType type) {
+    public List<MrObjectController> getByType(MrSceneObjectType type) {
         return mData.getByType(type);
     }
 
-    public MrObject findByKey(String key) {
+    public MrObjectController findByKey(String key) {
         return mData.findByKey(key);
     }
 }

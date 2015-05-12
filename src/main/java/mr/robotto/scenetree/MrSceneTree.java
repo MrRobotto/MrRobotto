@@ -10,87 +10,296 @@
 package mr.robotto.scenetree;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrObjectController;
 
 /**
  * Created by Aarón on 31/12/2014.
  */
 //TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
-public class MrSceneTree extends MrTreeMap<String, MrObject> {
+public class MrSceneTree  {
 
-    private HashMap<MrSceneObjectType, List<MrObject>> mTags;
+    private MrSceneTreeController mController;
+    private MrSceneTreeData mData;
+    private HashMap<String, MrObject> mObjects;
+
+    public MrSceneTree(MrSceneTreeController controller) {
+        mController = controller;
+        init();
+    }
+
+    public MrSceneTree(MrSceneTreeData object, MrSceneTreeRender render) {
+        mController = new MrSceneTreeController(object, render);
+        init();
+    }
 
     public MrSceneTree() {
-        super(createMapFunction());
+        mController = new MrSceneTreeController(new MrSceneTreeData(), new MrSceneTreeRender());
         init();
     }
 
     public MrSceneTree(MrObject root) {
-        super(root, createMapFunction());
+        mController = new MrSceneTreeController(new MrSceneTreeData(root.getController()), new MrSceneTreeRender());
         init();
-    }
-
-    private static MrMapFunction<String, MrObject> createMapFunction() {
-        return new MrMapFunction<String, MrObject>() {
-            @Override
-            public String getKeyOf(MrObject mrObject) {
-                return mrObject.getName();
-            }
-        };
+        addObject(root);
     }
 
     private void init() {
-        mTags = new HashMap<MrSceneObjectType, List<MrObject>>();
-        for (MrSceneObjectType type : MrSceneObjectType.values()) {
-            mTags.put(type, new ArrayList<MrObject>());
+        mData = mController.getSceneTreeData();
+        mObjects = new HashMap<>(mData.size());
+    }
+
+    private void addObject(MrObject object) {
+        mObjects.put(object.getName(), object);
+    }
+
+    private void removeObject(MrObject object) {
+        mObjects.remove(object.getName());
+    }
+
+    private List<MrObject> buildListFromControllers(List<MrObjectController> controllers) {
+        ArrayList<MrObject> objects = new ArrayList<>(controllers.size());
+        for (MrObjectController controller : controllers) {
+            objects.add(mObjects.get(controller.getName()));
         }
+        return objects;
     }
 
-    //TODO: Make tests of mTags behaviour, cuando agregas y sustituyes, se elimina de tags?
-    //TODO: Hay que cuidar el setTree, en más métodos hará falta no?
-    private void addByTag(MrObject object) {
-        MrSceneObjectType type = object.getSceneObjectType();
-        mTags.get(type).add(object);
-        object.setTree(this);
+    private MrObject objectFromController(MrObjectController controller) {
+        return mObjects.get(controller.getName());
     }
 
-    private void removeByTag(MrObject object) {
-        MrSceneObjectType type = object.getSceneObjectType();
-        mTags.get(type).remove(object);
-        object.setTree(null);
+    private Iterator<MrObject> buildDelegateObjectsIterator(Iterator<MrObjectController> controllerIterator) {
+        return new DelegateControllerIterator(controllerIterator, mObjects);
     }
 
-    @Override
-    public boolean addChildByKey(String parentKey, MrObject data) {
-        addByTag(data);
-        return super.addChildByKey(parentKey, data);
+    private Iterator<Map.Entry<String,MrObject>> buildDelegateParentObjectsIterator(Iterator<Map.Entry<String,MrObjectController>> controllerIterator) {
+        return new DelegateParentValueIterator(controllerIterator, mObjects);
     }
 
-    @Override
-    public boolean addChild(MrObject parent, MrObject data) {
-        addByTag(data);
-        return super.addChild(parent, data);
+    public MrSceneTreeController getController() {
+        return mController;
     }
 
-    @Override
+    //TODO: Al agregar o eliminar jerarquías estas no son agregadas o borradas
+    public boolean addChildByKey(String parentKey, MrObject object) {
+        addObject(object);
+        return mData.addChildByKey(parentKey, object.getController());
+    }
+
+    
+    public boolean addChild(MrObject parent, MrObject object) {
+        addObject(object);
+        return mData.addChild(parent.getController(), object.getController());
+    }
+
+    
     public boolean removeByKey(String parentKey) {
-        removeByTag(findByKey(parentKey));
-        return super.removeByKey(parentKey);
+        return mData.removeByKey(parentKey);
     }
 
-    @Override
-    public boolean remove(MrObject data) {
-        removeByTag(data);
-        return super.remove(data);
+    
+    public boolean remove(MrObject object) {
+        removeObject(object);
+        return mData.remove(object.getController());
     }
 
     public List<MrObject> getByType(MrSceneObjectType type) {
-        return mTags.get(type);
+        return buildListFromControllers(mData.getByType(type));
+    }
+
+    public MrObject getRoot() {
+        return objectFromController(mData.getRoot());
+    }
+
+    public MrObject findByKey(String key) {
+        return objectFromController(mData.findByKey(key));
+    }
+
+    public boolean containsKey(String key) {
+        return mData.containsKey(key);
+    }
+
+    public boolean contains(MrObject object) {
+        return containsKey(object.getName());
+    }
+
+    public void clear() {
+        mObjects.clear();
+        mData.clear();
+    }
+
+    public Collection<String> keys() {
+        return mData.keys();
+    }
+
+    public int size() {
+        return mData.size();
+    }
+
+    public List<MrObject> getChildrenOfByKey(String key) {
+        return buildListFromControllers(mData.getChildrenOfByKey(key));
+    }
+
+    public MrObject getParentOf(MrObject object) {
+        return getParentOfByKey(object.getName());
+    }
+
+    public MrObject getParentOfByKey(String key) {
+        return objectFromController(mData.getParentOfByKey(key));
+    }
+
+    public List<MrObject> getChildrenOf(MrObject object) {
+        return getChildrenOfByKey(object.getName());
+    }
+
+    //TODO:
+    //public MrTreeMap<String, MrObject> getSubTreeByKey(String key) {
+    //    return mData.getSubTreeByKey(key);
+    //}
+
+    //TODO:
+    //public MrTreeMap<String, MrObject> getSubTree(MrObject object) {
+    //    return mData.getSubTree(object);
+    //}
+
+    public Iterator<MrObject> parentTraversalByKey(String key) {
+        return buildDelegateObjectsIterator(mData.parentTraversalByKey(key));
+    }
+
+    public Iterator<MrObject> breadthTraversalByKey(String key) {
+        return buildDelegateObjectsIterator(mData.breadthTraversalByKey(key));
+    }
+
+    public Iterator<MrObject> depthTraversalByKey(String key) {
+        return buildDelegateObjectsIterator(mData.depthTraversalByKey(key));
+    }
+
+    public Iterator<Map.Entry<String, MrObject>> parentKeyChildValueTraversalByKey(String key) {
+        return buildDelegateParentObjectsIterator(mData.parentKeyChildValueTraversalByKey(key));
+    }
+
+    public Iterator<MrObject> parentTraversal(MrObject object) {
+        return parentTraversalByKey(object.getName());
+    }
+
+    public Iterator<MrObject> breadthTraversal(MrObject object) {
+        return breadthTraversalByKey(object.getName());
+    }
+
+    public Iterator<MrObject> depthTraversal(MrObject object) {
+        return depthTraversalByKey(object.getName());
+    }
+
+    public Iterator<Map.Entry<String, MrObject>> parentKeyChildValueTraversal(MrObject object) {
+        return parentKeyChildValueTraversalByKey(object.getName());
+    }
+
+    public Iterator<MrObject> breadthTraversal() {
+        return buildDelegateObjectsIterator(mData.breadthTraversal());
+    }
+
+    public Iterator<MrObject> depthTraversal() {
+        return buildDelegateObjectsIterator(mData.depthTraversal());
+    }
+
+    public Iterator<Map.Entry<String, MrObject>> parentKeyChildValueTraversal() {
+        return buildDelegateParentObjectsIterator(mData.parentKeyChildValueTraversal());
+    }
+
+    public Iterator<MrObject> iterator() {
+        return buildDelegateObjectsIterator(mData.iterator());
+    }
+
+    //TODO: Revisar los iteradores cuando se eliminan elementos en la iteracion
+    private static class DelegateControllerIterator implements Iterator<MrObject> {
+
+        private Iterator<MrObjectController> mIt;
+        private HashMap<String, MrObject> mObjects;
+
+        public DelegateControllerIterator(Iterator<MrObjectController> it, HashMap<String, MrObject> objects) {
+            mIt = it;
+            mObjects = objects;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mIt.hasNext();
+        }
+
+        @Override
+        public MrObject next() {
+            MrObjectController ctr = mIt.next();
+            return mObjects.get(ctr.getName());
+        }
+
+        @Override
+        public void remove() {
+
+        }
+    }
+
+    private static class DelegateParentValueIterator implements Iterator<Map.Entry<String, MrObject>> {
+
+        private Iterator<Map.Entry<String, MrObjectController>> mIt;
+        private HashMap<String, MrObject> mObjects;
+
+        public DelegateParentValueIterator(Iterator<Map.Entry<String, MrObjectController>> controllersIterators, HashMap<String, MrObject> objectsMap) {
+            mIt = controllersIterators;
+            mObjects = objectsMap;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mIt.hasNext();
+        }
+
+        @Override
+        public Map.Entry<String, MrObject> next() {
+            Map.Entry<String, MrObjectController> entry = mIt.next();
+            String key = entry.getKey();
+            DelegateMapEntry ret = new DelegateMapEntry(key, mObjects.get(key));
+            return ret;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+    }
+
+    private static class DelegateMapEntry implements Map.Entry<String, MrObject> {
+
+        private String mKey;
+        private MrObject mValue;
+
+        public DelegateMapEntry(String key, MrObject value) {
+            mKey = key;
+            mValue = value;
+        }
+
+        @Override
+        public String getKey() {
+            return mKey;
+        }
+
+        @Override
+        public MrObject getValue() {
+            return mValue;
+        }
+
+        @Override
+        public MrObject setValue(MrObject object) {
+            return null;
+        }
     }
 }

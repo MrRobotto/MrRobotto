@@ -41,6 +41,7 @@ public class MrRobotto {
     private MrSurfaceView mSurfaceView;
     private Context mContext;
     private MrSceneTreeController mController;
+    private MrSceneTree mSceneTree;
 
     private MrRobotto() {
 
@@ -78,8 +79,10 @@ public class MrRobotto {
             MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
             MrRobottoJson resources = loader.parse();
             MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-            MrSceneTree tree = builder.buildSceneObjectsTree();
-            mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+            //MrSceneTree tree = builder.buildSceneObjectsTree();
+            //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+            mSceneTree = builder.buildSceneObjectsTree();
+            mController = mSceneTree.getController();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -107,7 +110,9 @@ public class MrRobotto {
             @Override
             protected void onPostExecute(MrSceneTree tree) {
                 super.onPostExecute(tree);
-                mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+                //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+                mSceneTree = tree;
+                mController = mSceneTree.getController();
                 initialize();
             }
         };
@@ -118,8 +123,10 @@ public class MrRobotto {
         MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
         MrSceneTree tree = null;
         try {
-            tree = loader.parse();
-            mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+            //tree = loader.parse();
+            //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+            mSceneTree = loader.parse();
+            mController = mSceneTree.getController();
             initialize();
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,7 +157,9 @@ public class MrRobotto {
             protected void onPostExecute(MrSceneTree tree) {
                 super.onPostExecute(tree);
                 if (tree != null) {
-                    mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
+                    mSceneTree = tree;
+                    mController = mSceneTree.getController();
+                    //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
                     initialize();
                 }
             }

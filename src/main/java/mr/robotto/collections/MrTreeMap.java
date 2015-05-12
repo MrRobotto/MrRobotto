@@ -162,6 +162,11 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return node.getParent().getData();
     }
 
+    public V getParentOfByKey(K key) {
+        MrTreeMapNode node = mTree.get(key);
+        return node.getParent().getData();
+    }
+
     public List<V> getChildrenOf(V data) {
         return getChildrenOfByKey(mMapFunction.getKeyOf(data));
     }

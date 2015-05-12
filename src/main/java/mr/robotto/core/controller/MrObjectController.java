@@ -21,6 +21,8 @@ import mr.robotto.core.renderer.MrObjectRender;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.scenetree.MrSceneTree;
+import mr.robotto.scenetree.MrSceneTreeController;
+import mr.robotto.scenetree.MrSceneTreeData;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -55,7 +57,7 @@ public abstract class MrObjectController {
         return mData;
     }
 
-    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.View uniforms, MrSceneTree tree) {
+    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap.View uniforms, MrSceneTreeData.View tree) {
         MrUniformGenerator generator = getUniformGenerators().get(uniform.getUniformType());
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));

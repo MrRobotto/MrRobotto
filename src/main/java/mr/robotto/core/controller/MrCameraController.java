@@ -24,6 +24,7 @@ import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.scenetree.MrSceneTree;
+import mr.robotto.scenetree.MrSceneTreeData;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -42,22 +43,9 @@ public class MrCameraController extends MrObjectController {
 
     private static MrUniformGenerator generateViewMatrix() {
         return new MrUniformGenerator(MrUniform.VIEW_MATRIX) {
-            /*@Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
-                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                MrVector3f.Operator opv = MrVector3f.getOperator();
-                MrVector3f loc = camera.getTransform().getLocation();
-                MrVector3f lookat = camera.getLookAt();
-                //opv.add(lookat, lookat, loc);
-                MrVector3f up = camera.getUp();
-                op.lookAt(camera.mView, loc, lookat, up);
-                //op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), new MrVector3f(0,1,0));
-                //op.lookAt(camera.mView, camera.getTransform().getLocation(), new MrVector3f(x,y,z), new MrVector3f(0,1,0));
-                return camera.mView;
-            }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTreeData.View tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 MrVector3f.Operator opv = MrVector3f.getOperator();
                 MrCameraData camera = (MrCameraData) object;
@@ -89,7 +77,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTree tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrSceneTreeData.View tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
                 MrCameraData camera = (MrCameraData) object;
                 return camera.getLens().getProjectionMatrix();
             }

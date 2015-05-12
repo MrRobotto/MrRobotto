@@ -13,6 +13,7 @@ import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -21,7 +22,7 @@ import mr.robotto.renderer.MrRenderingContext;
 
 //TODO: SAcar el rendering context del objeto???
 public class MrSceneTreeRender {
-    private MrSceneTree mSceneObjectsTree;
+    private MrSceneTreeData mSceneObjectsTree;
     private MrUniformKeyMap mUniforms;
     private MrRenderingContext mContext;
 
@@ -29,24 +30,24 @@ public class MrSceneTreeRender {
 
     }
 
-    public void initializeRender(MrSceneTree objectsTree, MrRenderingContext context) {
+    public void initializeRender(MrSceneTreeData objectsTree, MrRenderingContext context) {
         mContext = context;
         mUniforms = mContext.getUniforms();
         mSceneObjectsTree = objectsTree;
-        for (MrObject obj : mSceneObjectsTree) {
+        for (MrObjectController obj : mSceneObjectsTree) {
             obj.initializeRender(mContext);
         }
     }
 
     public void initializeSizeDependant(int w, int h) {
-        for (MrObject obj : mSceneObjectsTree) {
+        for (MrObjectController obj : mSceneObjectsTree) {
             obj.initializeSizeDependant(w, h);
         }
     }
 
     //TODO: Check the visibility level
     //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
-    private void updateUniforms(MrObject obj) {
+    private void updateUniforms(MrObjectController obj) {
         /*MrShaderProgram program = obj.getShaderProgram();
         if (program == null) {
             return;
@@ -64,19 +65,19 @@ public class MrSceneTreeRender {
         mContext.getUniforms().addAll(obj.getUniformKeys());
         for (MrUniformKey key : obj.getUniformKeys()) {
             mContext.getUniforms().setVisibility(key.getLevel());
-            obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree);
+            obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree.getView());
         }
     }
 
     //TODO: This must be changed!!
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
-        for (MrObject scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
+        for (MrObjectController scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
             //updateUniforms(scene);
             scene.render();
-            for (MrObject camera : mSceneObjectsTree.getByType(MrSceneObjectType.CAMERA)) {
+            for (MrObjectController camera : mSceneObjectsTree.getByType(MrSceneObjectType.CAMERA)) {
                 camera.render();
-                for (MrObject model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
+                for (MrObjectController model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
                     updateUniforms(model);
                     updateUniforms(camera);
                     updateUniforms(scene);

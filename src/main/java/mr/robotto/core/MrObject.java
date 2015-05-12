@@ -55,10 +55,6 @@ public abstract class MrObject {
 
     }
 
-    public void updateUniform(MrUniformKey uniform, MrUniformKeyMap.View uniforms, MrSceneTree tree) {
-        mController.updateUniform(uniform, uniforms, tree);
-    }
-
     public MrSceneObjectType getSceneObjectType() {
         return mController.getSceneObjectType();
     }
