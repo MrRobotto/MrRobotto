@@ -7,11 +7,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.core;
+package mr.robotto.core.controller;
 
-public enum MrSceneObjectType {
-    LIGHT,
-    CAMERA,
-    MODEL,
-    SCENE
+import mr.robotto.core.data.MrObjectData;
+
+/**
+ * Created by aaron on 11/05/2015.
+ */
+public class MrLightController extends MrObjectController {
+    protected MrLightController(MrObjectData data) {
+        super(data);
+    }
+
+
 }

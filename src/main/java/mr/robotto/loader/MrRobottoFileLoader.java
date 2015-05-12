@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.proposed;
+package mr.robotto.loader;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,19 +16,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.Map;
 
 import mr.robotto.MrRobotto;
-import mr.robotto.components.comp.MrTexture;
-import mr.robotto.loader.MrRobottoJsonLoader;
-import mr.robotto.managers.MrRobottoJson;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -131,44 +124,5 @@ public class MrRobottoFileLoader {
         MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
         MrSceneTree tree = builder.buildSceneObjectsTree();
         return tree;
-    }
-
-    public MrSceneTree parse3() throws IOException, JSONException {
-        //String json = loadJson();
-
-        final String json = readString(67126);
-        mStream.close();
-        JSONTokener tokener = new JSONTokener(json);
-        JSONObject jsonObject = (JSONObject) tokener.nextValue();
-        MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
-        MrRobottoJson resources = loader.parse();
-        MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-        MrSceneTree tree = builder.buildSceneObjectsTree();
-        return tree;
-    }
-
-    public String parse2() throws IOException, JSONException {
-        if (!checkMagic()) {
-            //TODO: Exception
-            return null;
-        }
-        String section = loadSectionName();
-        String json = "";
-        while (!section.equals("FNSH")) {
-            if (section.equals("JSON")) {
-                json = loadJson();
-            } else if (section.equals("TEXT")) {
-                loadTextures();
-            }
-            section = loadSectionName();
-        }
-        return json;
-        /*JSONTokener tokener = new JSONTokener(json.toString());
-        JSONObject jsonObject = (JSONObject) tokener.nextValue();
-        MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
-        MrRobottoJson resources = loader.parse();
-        MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-        MrSceneTree tree = builder.buildSceneObjectsTree();
-        return tree;*/
     }
 }

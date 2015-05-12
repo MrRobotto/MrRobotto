@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.managers.MrRobottoJson;
 
 //TODO: Cambiar estos nombres taaaan feos
 public class MrRobottoJsonLoader extends MrBaseLoader<MrRobottoJson> {

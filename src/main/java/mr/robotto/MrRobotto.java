@@ -11,6 +11,7 @@ package mr.robotto;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -20,11 +21,9 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.core.MrModel;
 import mr.robotto.loader.MrRobottoJsonLoader;
-import mr.robotto.managers.MrRobottoJson;
-import mr.robotto.proposed.MrResources;
-import mr.robotto.proposed.MrRobottoFileLoader;
+import mr.robotto.loader.MrRobottoJson;
+import mr.robotto.loader.MrRobottoFileLoader;
 import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
 import mr.robotto.scenetree.MrSceneTreeRender;
@@ -159,6 +158,12 @@ public class MrRobotto {
         task.execute(inputStream);
     }
 
+    private void freeResources() {
+        for (Bitmap bitmap : sResources.getTextureBitmaps().values()) {
+            bitmap.recycle();
+        }
+    }
+
     public void initialize() {
         mSurfaceView.queueEvent(new Runnable() {
             @Override
@@ -167,6 +172,7 @@ public class MrRobotto {
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
+                    freeResources();
                 }
             }
         });

@@ -7,20 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.proposed;
-
-import android.util.JsonReader;
+package mr.robotto.core;
 
 /**
- * Created by aaron on 02/03/2015.
+ * Created by aaron on 11/05/2015.
  */
-public abstract class MrReaderBaseLoader<T> {
-
-    protected JsonReader mReader;
-
-    protected MrReaderBaseLoader(JsonReader reader) {
-        mReader = reader;
-    }
-
-    public abstract T parse();
+public class MrLight {
 }

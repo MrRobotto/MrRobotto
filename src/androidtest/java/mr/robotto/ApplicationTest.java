@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.loader.MrRobottoJsonLoader;
-import mr.robotto.managers.MrRobottoJson;
+import mr.robotto.loader.MrRobottoJson;
 import mr.robotto.utils.MrReader;
 
 /**
