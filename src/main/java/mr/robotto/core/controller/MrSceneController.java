@@ -22,8 +22,7 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.scenetree.MrSceneTree;
-import mr.robotto.scenetree.MrSceneTreeData;
+import mr.robotto.scenetree.MrObjectsDataTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -35,7 +34,7 @@ public class MrSceneController extends MrObjectController {
     }
 
     private static MrUniformGenerator generateMVPMatrix() {
-        return new MrUniformGenerator(MrUniform.MODEL_VIEW_PROJECTION_MATRIX) {
+        return new MrUniformGenerator(MrUniformGenerator.MODEL_VIEW_PROJECTION_MATRIX) {
             /*@Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
                 MrMatrix4f modelMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.MODEL_MATRIX);
@@ -49,10 +48,10 @@ public class MrSceneController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTreeData.View tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
-                MrMatrix4f modelMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.MODEL_MATRIX);
-                MrMatrix4f viewMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.VIEW_MATRIX);
-                MrMatrix4f projectionMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.PROJECTION_MATRIX);
+            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, MrUniformKeyMap uniforms, MrObjectData object) {
+                MrMatrix4f modelMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.MODEL_MATRIX).getValue();
+                MrMatrix4f viewMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.VIEW_MATRIX).getValue();
+                MrMatrix4f projectionMatrix = (MrMatrix4f) uniforms.findByKey(MrUniform.PROJECTION_MATRIX).getValue();
                 MrMatrix4f mvp = new MrMatrix4f();
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 op.mult(mvp, viewMatrix, modelMatrix);
@@ -65,7 +64,7 @@ public class MrSceneController extends MrObjectController {
     @Override
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniform.MODEL_VIEW_PROJECTION_MATRIX, generateMVPMatrix());
+        uniformGenerators.put(MrUniformGenerator.MODEL_VIEW_PROJECTION_MATRIX, generateMVPMatrix());
     }
 
     public MrVector4f getClearColor() {

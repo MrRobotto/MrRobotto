@@ -9,10 +9,15 @@
 
 package mr.robotto.components.data.uniformkey;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import mr.robotto.collections.MrHashMap;
+import mr.robotto.collections.core.MrMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
@@ -21,12 +26,11 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
  */
 public class MrUniformKeyMap extends MrHashMap<String, MrUniformKey> {
 
-    private int mVisibility;
-    private View mView;
+    private HashMap<String, List<MrUniformKey>> mKeysByGenerator;
 
     public MrUniformKeyMap() {
         super(getMapFunction());
-        mView = new View(this);
+        mKeysByGenerator = new HashMap<>();
     }
 
     private static MrMapFunction<String, MrUniformKey> getMapFunction() {
@@ -38,86 +42,57 @@ public class MrUniformKeyMap extends MrHashMap<String, MrUniformKey> {
         };
     }
 
-    public View getView() {
-        return mView;
+    @Override
+    public boolean add(MrUniformKey uniformKey) {
+        if (!mKeysByGenerator.containsKey(uniformKey.getGeneratorName())) {
+            mKeysByGenerator.put(uniformKey.getGeneratorName(), new ArrayList<MrUniformKey>());
+        }
+        mKeysByGenerator.get(uniformKey.getGeneratorName()).add(uniformKey);
+        boolean r = super.add(uniformKey);
+        Collections.sort(mKeysByGenerator.get(uniformKey.getGeneratorName()));
+        return r;
     }
 
-    public int getVisibility() {
-        return mVisibility;
+    @Override
+    public boolean addAll(MrMap<String, MrUniformKey> container) {
+        boolean added = true;
+        for (MrUniformKey uniformKey : container) {
+            added &= add(uniformKey);
+        }
+        return added;
     }
 
-    public void setVisibility(int visibility) {
-        mVisibility = visibility;
+    @Override
+    public boolean remove(MrUniformKey uniformKey) {
+        List<MrUniformKey> uniformKeys = mKeysByGenerator.get(uniformKey.getGeneratorName());
+        if (uniformKeys == null) {
+            return false;
+        }
+        uniformKeys.remove(uniformKey);
+        return super.remove(uniformKey);
     }
 
-    /**
-     * Puts all the elements of list in this
-     *
-     * @param list
-     */
-    public void mergeWith(MrUniformKeyMap list) {
-        for (MrUniformKey uniformKey : list) {
-            add(uniformKey);
-        }
+    @Override
+    public boolean removeByKey(String s) {
+        MrUniformKey key = findByKey(s);
+        return remove(key);
     }
 
-    /**
-     * Created by aaron on 21/04/2015.
-     */
-    public static class View {
-        private MrUniformKeyMap mUniforms;
+    @Override
+    public void clear() {
+        mKeysByGenerator.clear();
+        super.clear();
+    }
 
-        private View(MrUniformKeyMap uniforms) {
-            mUniforms = uniforms;
-        }
+    public boolean containsGeneratorNameKey(String generatorName) {
+        return mKeysByGenerator.containsKey(generatorName);
+    }
 
-        //TODO: The generator can be null
-        public MrLinearAlgebraObject findByKey(String s) {
-            MrUniformKey key = mUniforms.findByKey(s);
-            int priority = key.getLevel();
-            if (priority <= mUniforms.getVisibility()) {
-                return key.getValue();
-            } else {
-                return null;
-            }
-        }
+    public List<MrUniformKey> findByGeneratorNameKey(String generatorName) {
+        return mKeysByGenerator.get(generatorName);
+    }
 
-        public boolean containsKey(String s) {
-            MrUniformKey generator = mUniforms.findByKey(s);
-            return generator != null && generator.getLevel() <= mUniforms.getVisibility();
-        }
-
-        //TODO: Completar
-        public int size() {
-            throw new UnsupportedOperationException();
-        }
-
-        //TODO: Completar
-        public Set<String> getKeys() {
-            throw new UnsupportedOperationException();
-        }
-
-        //TODO: Completar
-        public Iterator<MrUniformKey> iterator() {
-            throw new UnsupportedOperationException();
-        }
-
-        private class MrUniformKeyMapIterator implements Iterator<MrLinearAlgebraObject> {
-
-            @Override
-            public boolean hasNext() {
-                return false;
-            }
-
-            @Override
-            public MrLinearAlgebraObject next() {
-                return null;
-            }
-
-            @Override
-            public void remove() {
-
-            }
-        }
+    public Set<String> getGeneratorNameKeys() {
+        return mKeysByGenerator.keySet();
     }
 }

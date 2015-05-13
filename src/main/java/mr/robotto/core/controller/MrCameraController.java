@@ -23,8 +23,7 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.linearalgebra.MrMatrix4f;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.scenetree.MrSceneTree;
-import mr.robotto.scenetree.MrSceneTreeData;
+import mr.robotto.scenetree.MrObjectsDataTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -42,10 +41,10 @@ public class MrCameraController extends MrObjectController {
 
 
     private static MrUniformGenerator generateViewMatrix() {
-        return new MrUniformGenerator(MrUniform.VIEW_MATRIX) {
+        return new MrUniformGenerator(MrUniformGenerator.VIEW_MATRIX) {
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTreeData.View tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, MrUniformKeyMap uniforms, MrObjectData object) {
                 MrMatrix4f.Operator op = MrMatrix4f.getOperator();
                 MrVector3f.Operator opv = MrVector3f.getOperator();
                 MrCameraData camera = (MrCameraData) object;
@@ -63,7 +62,7 @@ public class MrCameraController extends MrObjectController {
     }
 
     private static MrUniformGenerator generateProjectionMatrix() {
-        return new MrUniformGenerator(MrUniform.PROJECTION_MATRIX) {
+        return new MrUniformGenerator(MrUniformGenerator.PROJECTION_MATRIX) {
             /*@Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
                 return camera.getLens().getProjectionMatrix();
@@ -77,7 +76,7 @@ public class MrCameraController extends MrObjectController {
             }*/
 
             @Override
-            public MrLinearAlgebraObject generateUniform(MrSceneTreeData.View tree, MrUniformKeyMap.View uniforms, MrObjectData object) {
+            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, MrUniformKeyMap uniforms, MrObjectData object) {
                 MrCameraData camera = (MrCameraData) object;
                 return camera.getLens().getProjectionMatrix();
             }
@@ -87,8 +86,8 @@ public class MrCameraController extends MrObjectController {
     @Override
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniform.VIEW_MATRIX, generateViewMatrix());
-        uniformGenerators.put(MrUniform.PROJECTION_MATRIX, generateProjectionMatrix());
+        uniformGenerators.put(MrUniformGenerator.VIEW_MATRIX, generateViewMatrix());
+        uniformGenerators.put(MrUniformGenerator.PROJECTION_MATRIX, generateProjectionMatrix());
     }
 
     @Override

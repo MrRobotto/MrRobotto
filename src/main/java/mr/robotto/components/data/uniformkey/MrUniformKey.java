@@ -12,19 +12,21 @@ package mr.robotto.components.data.uniformkey;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 //TODO: Id for uniformkey and bufferkey in the same way!
-public class MrUniformKey {
+public class MrUniformKey implements Comparable<MrUniformKey> {
 
     public final static int OBJECT_LEVEL = 0;
     public final static int SCENE_LEVEL = 1;
     public final static int TOP_SCENE_LEVEL = 2;
     public final static int USER_LEVEL = 3;
 
+    private String mGeneratorName;
     private String mUniformType;
     private int mCount;
     private int mLevel;
     private MrLinearAlgebraObject mValue;
 
-    public MrUniformKey(String uniformType, int level, int count) {
+    public MrUniformKey(String generatorName, String uniformType, int level, int count) {
+        mGeneratorName = generatorName;
         mUniformType = uniformType;
         mCount = count;
         mLevel = level;
@@ -39,6 +41,10 @@ public class MrUniformKey {
         mValue = value;
     }
 
+    public String getGeneratorName() {
+        return mGeneratorName;
+    }
+
     public String getUniformType() {
         return mUniformType;
     }
@@ -49,5 +55,35 @@ public class MrUniformKey {
 
     public int getLevel() {
         return mLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MrUniformKey)) return false;
+
+        MrUniformKey that = (MrUniformKey) o;
+
+        if (mCount != that.mCount) return false;
+        if (mLevel != that.mLevel) return false;
+        if (!mGeneratorName.equals(that.mGeneratorName)) return false;
+        return mUniformType.equals(that.mUniformType);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mGeneratorName.hashCode();
+        result = 31 * result + mUniformType.hashCode();
+        result = 31 * result + mCount;
+        result = 31 * result + mLevel;
+        return result;
+    }
+
+    @Override
+    public int compareTo(MrUniformKey another) {
+        if (mLevel < another.mLevel) return -1;
+        if (mLevel > another.mLevel) return 1;
+        return 0;
     }
 }

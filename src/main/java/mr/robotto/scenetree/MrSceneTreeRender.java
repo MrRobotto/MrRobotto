@@ -11,7 +11,6 @@ package mr.robotto.scenetree;
 
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.renderer.MrRenderingContext;
@@ -54,18 +53,17 @@ public class MrSceneTreeRender {
         }
         mUniforms.addAll(obj.getUniformKeys());
         for (MrUniform uniform : program.getUniforms()) {
-            MrUniformKey key = obj.getUniformKeys().findByKey(uniform.getUniformType());
+            MrUniformKey key = obj.getUniformKeys().findByKey(uniform.getName());
             if (key != null) {
                 mUniforms.setVisibility(key.getLevel());
-                obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree);
+                obj.updateUniform(key, mContext.getUniforms().getObjectsDataTree(), mSceneObjectsTree);
 
             }
         }*/
 
         mContext.getUniforms().addAll(obj.getUniformKeys());
         for (MrUniformKey key : obj.getUniformKeys()) {
-            mContext.getUniforms().setVisibility(key.getLevel());
-            obj.updateUniform(key, mContext.getUniforms().getView(), mSceneObjectsTree.getView());
+            obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
         }
     }
 
