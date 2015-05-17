@@ -44,7 +44,11 @@ public class MrObjectLoader extends MrBaseLoader<MrObject> {
             case CAMERA:
                 MrCameraLoader cameraLoader = new MrCameraLoader(mRoot);
                 return cameraLoader.parse();
+            case LIGHT:
+                MrLightLoader lightLoader = new MrLightLoader(mRoot);
+                return lightLoader.parse();
         }
+        //TODO: Throw exception
         return null;
     }
 }

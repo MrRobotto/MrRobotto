@@ -13,6 +13,7 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
+import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.linearalgebra.MrVector4f;
 
 /**
@@ -20,22 +21,22 @@ import mr.robotto.linearalgebra.MrVector4f;
  */
 public class MrLightData extends MrObjectData {
 
-    private MrVector4f mColor;
+    private MrVector3f mColor;
 
-    public MrLightData(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector4f lightColor) {
+    public MrLightData(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector3f lightColor) {
         super(name, MrSceneObjectType.LIGHT, transform, program, uniformKeys);
         mColor = lightColor;
     }
 
-    public MrVector4f getColor() {
+    public MrVector3f getColor() {
         return mColor;
     }
 
-    public void setColor(MrVector4f color) {
+    public void setColor(MrVector3f color) {
         mColor = color;
     }
 
-    public void setColor(float r, float g, float b, float a) {
-        mColor.setValues(r,g,b,a);
+    public void setColor(float r, float g, float b) {
+        mColor.setValues(r,g,b);
     }
 }

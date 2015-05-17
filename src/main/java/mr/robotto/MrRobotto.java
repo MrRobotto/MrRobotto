@@ -21,6 +21,7 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
+import mr.robotto.core.MrModel;
 import mr.robotto.loader.MrRobottoJsonLoader;
 import mr.robotto.loader.MrRobottoJson;
 import mr.robotto.loader.MrRobottoFileLoader;
@@ -182,6 +183,8 @@ public class MrRobotto {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
                     freeResources();
+                    MrModel model = (MrModel)mSceneTree.findByKey("soldier");
+                    model.playActionContinuosly("fanfaria");
                 }
             }
         });

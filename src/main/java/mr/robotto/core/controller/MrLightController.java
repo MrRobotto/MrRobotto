@@ -9,14 +9,20 @@
 
 package mr.robotto.core.controller;
 
-import mr.robotto.core.data.MrObjectData;
+import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
+import mr.robotto.core.data.MrLightData;
+import mr.robotto.core.renderer.MrLightRender;
+import mr.robotto.linearalgebra.MrTransform;
+import mr.robotto.linearalgebra.MrVector3f;
+import mr.robotto.linearalgebra.MrVector4f;
 
 /**
  * Created by aaron on 11/05/2015.
  */
 public class MrLightController extends MrObjectController {
-    protected MrLightController(MrObjectData data) {
-        super(data);
+    public MrLightController(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector3f lightColor) {
+        super(new MrLightData(name, transform, program, uniformKeys, lightColor), new MrLightRender());
     }
 
 

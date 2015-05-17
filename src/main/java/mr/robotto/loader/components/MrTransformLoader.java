@@ -55,7 +55,6 @@ public class MrTransformLoader extends MrBaseLoader<MrTransform> {
         q.y = (float) rot.getDouble(index);
         index++;
         q.z = (float) rot.getDouble(index);
-        index++;
     }
 
     private void loadScale(MrVector3f s, JSONArray sca) throws JSONException {
