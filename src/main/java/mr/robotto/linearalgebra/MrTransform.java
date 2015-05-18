@@ -30,14 +30,14 @@ public class MrTransform {
         this.mScale = new MrVector3f(1);
 
         //This seems to work
-        this.mRight = new MrVector3f(1, 0, 0);
-        this.mUp = new MrVector3f(0, 1, 0);
-        this.mForward = new MrVector3f(0, 0, -1);
+        //this.mRight = new MrVector3f(1, 0, 0);
+        //this.mUp = new MrVector3f(0, 1, 0);
+        //this.mForward = new MrVector3f(0, 0, -1);
 
         //This is not opengl
-        //mRight = new MrVector3f(1,0,0);
-        //mUp = new MrVector3f(0, 0, 1);
-        //mForward = new MrVector3f(0, 1, 0);
+        mRight = new MrVector3f(1,0,0);
+        mUp = new MrVector3f(0, 0, 1);
+        mForward = new MrVector3f(0, 1, 0);
 
         //This is blender
         //mRight = new MrVector3f(1,0,0);

@@ -183,8 +183,8 @@ public class MrRobotto {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
                     freeResources();
-                    MrModel model = (MrModel)mSceneTree.findByKey("soldier");
-                    model.playActionContinuosly("fanfaria");
+                    //MrModel model = (MrModel)mSceneTree.findByKey("soldier");
+                    //model.playActionContinuosly("fanfaria");
                 }
             }
         });
