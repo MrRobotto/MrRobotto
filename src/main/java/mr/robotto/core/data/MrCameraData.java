@@ -39,7 +39,11 @@ public class MrCameraData extends MrObjectData {
     }
 
     public MrVector3f getLookAt() {
-        return mTransform.getForward();
+        MrVector3f v = new MrVector3f();
+        float clipEnd = mLens.getClipEnd();
+        v.copyValues(mTransform.getForward());
+        MrVector3f.getOperator().multScalar(v, clipEnd);
+        return v;
     }
 
 

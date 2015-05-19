@@ -53,6 +53,8 @@ public class MrRenderer implements GLSurfaceView.Renderer {
     //TODO: De esto se encarga la camara en teoria
     @Override
     public void onSurfaceChanged(GL10 gl10, int width, int height) {
+        //width = 1920; height = 1080;
+        //width=1920;
         GLES20.glViewport(0, 0, width, height);
         if (mController != null)
             mController.initializeSizeDependant(width, height);

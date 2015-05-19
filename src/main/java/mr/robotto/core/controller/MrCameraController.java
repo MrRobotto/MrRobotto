@@ -54,6 +54,7 @@ public class MrCameraController extends MrObjectController {
                 //opv.add(lookat, lookat, loc);
                 MrVector3f up = camera.getUp();
                 op.lookAt(view, loc, lookat, up);
+                MrVector3f right = camera.getTransform().getRight();
                 //op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), new MrVector3f(0,1,0));
                 //op.lookAt(camera.mView, camera.getTransform().getLocation(), new MrVector3f(x,y,z), new MrVector3f(0,1,0));
                 return view;

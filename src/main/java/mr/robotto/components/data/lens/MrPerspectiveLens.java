@@ -15,8 +15,6 @@ public class MrPerspectiveLens extends MrLens {
     private boolean mChanged;
     private float mFovy;
     private float mAspectRatio;
-    private float mClipStart;
-    private float mClipEnd;
 
     public MrPerspectiveLens(float fovy, float aspectRatio, float clipStart, float clipEnd) {
         mFovy = fovy;
@@ -53,17 +51,15 @@ public class MrPerspectiveLens extends MrLens {
         mChanged = true;
     }
 
-    public float getClipStart() {
-        return mClipStart;
+    @Override
+    public void setClipPlanes(float start, float end) {
+        super.setClipPlanes(start, end);
+        mChanged = true;
     }
 
     public void setClipStart(float clipStart) {
         mClipStart = clipStart;
         mChanged = true;
-    }
-
-    public float getClipEnd() {
-        return mClipEnd;
     }
 
     public void setClipEnd(float clipEnd) {

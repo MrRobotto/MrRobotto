@@ -15,11 +15,26 @@ public abstract class MrLens {
     //private float dof;
     protected float mWidth = -1;
     protected float mHeight = -1;
+    protected float mClipStart;
+    protected float mClipEnd;
     protected MrMatrix4f mProjectionMatrix = new MrMatrix4f();
 
     public void setDimension(float width, float height) {
         mWidth = width;
         mHeight = height;
+    }
+
+    public void setClipPlanes(float start, float end) {
+        mClipStart = start;
+        mClipEnd = end;
+    }
+
+    public float getClipStart() {
+        return mClipStart;
+    }
+
+    public float getClipEnd() {
+        return mClipEnd;
     }
 
     public float getAspectRatio() {
