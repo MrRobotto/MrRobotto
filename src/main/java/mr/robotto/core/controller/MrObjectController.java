@@ -55,7 +55,7 @@ public abstract class MrObjectController {
         return mData;
     }
 
-    public final void updateUniform(MrUniformKey uniform, MrUniformKeyMap uniforms, MrObjectsDataTree tree) {
+    public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {
         MrUniformGenerator generator = getUniformGenerators().get(uniform.getGeneratorName());
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));
@@ -111,7 +111,7 @@ public abstract class MrObjectController {
         return mData.getShaderProgram();
     }
 
-    public MrUniformKeyMap getUniformKeys() {
+    public Map<String, MrUniformKey> getUniformKeys() {
         return mData.getUniformKeys();
     }
 

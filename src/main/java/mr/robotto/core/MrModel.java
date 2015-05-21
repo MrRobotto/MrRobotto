@@ -16,17 +16,14 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.action.MrSkeletalAction;
 import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrModelController;
 import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModel extends MrObject {
 
-    public MrModel(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials) {
-        super(new MrModelController(name, transform, uniformKeys, shaderProgram, mesh, materials));
-    }
-
-    public MrModel(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+    public MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(new MrModelController(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton));
     }
 

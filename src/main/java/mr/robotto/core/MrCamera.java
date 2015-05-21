@@ -9,8 +9,11 @@
 
 package mr.robotto.core;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrCameraController;
 import mr.robotto.linearalgebra.MrMatrix4f;
@@ -22,7 +25,7 @@ import mr.robotto.linearalgebra.MrVector3f;
  */
 public class MrCamera extends MrObject {
 
-    public MrCamera(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
+    public MrCamera(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
         super(new MrCameraController(name, transform, uniformKeys, shaderProgram, lens));
     }
 

@@ -18,6 +18,7 @@ import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.action.MrSkeletalAction;
 import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -31,15 +32,7 @@ public class MrModelData extends MrObjectData {
     private MrTexture[] mTextures;
     private MrSkeleton mSkeleton;
 
-    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials) {
-        super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
-        mMesh = mesh;
-        mMaterials = materials;
-        mSkeleton = null;
-        init();
-    }
-
-    public MrModelData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+    public MrModelData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
         mMaterials = materials;

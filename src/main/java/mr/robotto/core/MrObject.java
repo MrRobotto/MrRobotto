@@ -78,7 +78,7 @@ public abstract class MrObject {
         return mController.getShaderProgram();
     }
 
-    public MrUniformKeyMap getUniformKeys() {
+    public Map<String, MrUniformKey> getUniformKeys() {
         return mController.getUniformKeys();
     }
 

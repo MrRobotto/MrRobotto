@@ -48,6 +48,10 @@ public class MrSkeleton {
         mCurrentAction = null;
     }
 
+    public int getNumBones() {
+        return mBoneOrder.size();
+    }
+
     public void setBoneOrder(List<String> boneOrder) {
         mBoneOrder.addAll(boneOrder);
     }

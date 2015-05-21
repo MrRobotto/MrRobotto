@@ -87,6 +87,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         if (mController != null) {
             mController.render();
             mFPSCounter.logFrame();
+            System.gc();
         }
     }
 

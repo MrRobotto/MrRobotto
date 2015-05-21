@@ -9,6 +9,9 @@
 
 package mr.robotto.components.data.uniformgenerator;
 
+import java.util.Map;
+
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
@@ -42,5 +45,5 @@ public abstract class MrUniformGenerator {
         return mName;
     }
 
-    public abstract MrLinearAlgebraObject generateUniform(final MrObjectsDataTree tree, final MrUniformKeyMap uniforms, final MrObjectData object);
+    public abstract MrLinearAlgebraObject generateUniform(final MrObjectsDataTree tree, final Map<String, MrUniformKey> uniforms, final MrObjectData object);
 }

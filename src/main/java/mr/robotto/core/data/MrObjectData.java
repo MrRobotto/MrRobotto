@@ -14,6 +14,7 @@ import java.util.Map;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -27,9 +28,9 @@ public abstract class MrObjectData {
     protected MrTransform mTransform;
     protected MrShaderProgram mShaderProgram;
     protected Map<String, MrUniformGenerator> mUniformGenerators;
-    protected MrUniformKeyMap mUniformKeys;
+    protected Map<String, MrUniformKey> mUniformKeys;
 
-    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys) {
+    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, Map<String,MrUniformKey> uniformKeys) {
         mName = name;
         mTransform = transform;
         mSceneObjType = sceneObjType;
@@ -40,7 +41,7 @@ public abstract class MrObjectData {
 
     //TODO: Review this constructor
     public MrObjectData(String name, MrSceneObjectType sceneObjType) {
-        this(name, sceneObjType, new MrTransform(), null, new MrUniformKeyMap());
+        this(name, sceneObjType, new MrTransform(), null, new HashMap<String, MrUniformKey>());
     }
 
     private void init() {
@@ -67,11 +68,11 @@ public abstract class MrObjectData {
         return mShaderProgram;
     }
 
-    public MrUniformKeyMap getUniformKeys() {
+    public Map<String, MrUniformKey> getUniformKeys() {
         return mUniformKeys;
     }
 
-    public void setUniformKeys(MrUniformKeyMap uniformKeys) {
+    public void setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
         this.mUniformKeys = uniformKeys;
     }
 

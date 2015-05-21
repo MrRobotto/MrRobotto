@@ -9,8 +9,11 @@
 
 package mr.robotto.core.data;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -25,15 +28,7 @@ public class MrCameraData extends MrObjectData {
     private MrVector3f mUp;
     private MrLens mLens;
 
-    //TODO: Check constructors
-    public MrCameraData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrVector3f lookAt, MrVector3f up, MrLens lens) {
-        super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
-        mLens = lens;
-        mLookAt = lookAt;
-        mUp = up;
-    }
-
-    public MrCameraData(String name, MrTransform transform, MrUniformKeyMap uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
+    public MrCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
         super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
         mLens = lens;
     }

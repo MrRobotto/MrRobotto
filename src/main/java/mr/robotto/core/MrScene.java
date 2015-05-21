@@ -9,14 +9,17 @@
 
 package mr.robotto.core;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrSceneController;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
 
 public class MrScene extends MrObject {
-    public MrScene(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector4f clearColor) {
+    public MrScene(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
         super(new MrSceneController(name, transform, program, uniformKeys, clearColor));
     }
 

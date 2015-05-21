@@ -9,7 +9,10 @@
 
 package mr.robotto.core.controller;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrLightData;
 import mr.robotto.core.renderer.MrLightRender;
@@ -21,7 +24,7 @@ import mr.robotto.linearalgebra.MrVector4f;
  * Created by aaron on 11/05/2015.
  */
 public class MrLightController extends MrObjectController {
-    public MrLightController(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector3f lightColor) {
+    public MrLightController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
         super(new MrLightData(name, transform, program, uniformKeys, lightColor), new MrLightRender());
     }
 

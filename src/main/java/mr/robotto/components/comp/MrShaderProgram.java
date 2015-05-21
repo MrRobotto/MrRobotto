@@ -77,7 +77,7 @@ public class MrShaderProgram extends MrComponent {
         return mData.getAttributes();
     }
 
-    public void bindUniforms(MrUniformKeyMap uniformKeys) {
+    public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
         mPresenter.bindUniforms(uniformKeys);
     }
 
@@ -153,9 +153,9 @@ public class MrShaderProgram extends MrComponent {
         }
 
         //TODO: Intentar colocar esto en otro lugar
-        public void bindUniforms(MrUniformKeyMap uniformKeys) {
+        public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
             for (MrUniform uniform : mData.getUniforms().values()) {
-                MrUniformKey key = uniformKeys.findByKey(uniform.getUniformType());
+                MrUniformKey key = uniformKeys.get(uniform.getUniformType());
                 bindUniform(uniform, key.getValue());
             }
         }

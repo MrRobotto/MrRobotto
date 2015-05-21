@@ -12,7 +12,10 @@ package mr.robotto.scenetree;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrCameraController;
+import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.core.controller.MrSceneController;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -22,7 +25,6 @@ import mr.robotto.renderer.MrRenderingContext;
 //TODO: SAcar el rendering context del objeto???
 public class MrSceneTreeRender {
     private MrSceneTreeData mSceneObjectsTree;
-    private MrUniformKeyMap mUniforms;
     private MrRenderingContext mContext;
 
     public MrSceneTreeRender() {
@@ -31,7 +33,6 @@ public class MrSceneTreeRender {
 
     public void initializeRender(MrSceneTreeData objectsTree, MrRenderingContext context) {
         mContext = context;
-        mUniforms = mContext.getUniforms();
         mSceneObjectsTree = objectsTree;
         for (MrObjectController obj : mSceneObjectsTree) {
             obj.initializeRender(mContext);
@@ -61,16 +62,19 @@ public class MrSceneTreeRender {
             }
         }*/
 
-        mContext.getUniforms().addAll(obj.getUniformKeys());
-        for (MrUniformKey key : obj.getUniformKeys()) {
+        //mContext.getUniforms().putAll();
+        //mContext.getUniforms().addAll(obj.getUniformKeys());
+        mContext.getUniforms().putAll(obj.getUniformKeys());
+        for (MrUniformKey key : obj.getUniformKeys().values()) {
             obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
         }
     }
 
+    private int i = 1;
     //TODO: This must be changed!!
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
-        for (MrObjectController scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
+        /*for (MrObjectController scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
             //updateUniforms(scene);
             scene.render();
             for (MrObjectController camera : mSceneObjectsTree.getByType(MrSceneObjectType.CAMERA)) {
@@ -82,6 +86,20 @@ public class MrSceneTreeRender {
                     model.render();
                 }
             }
+        }*/
+        MrSceneController scene = mSceneObjectsTree.getScene();
+        MrCameraController camera = mSceneObjectsTree.getActiveCamera();
+        scene.render();
+        camera.render();
+        for (MrModelController model : mSceneObjectsTree.getModels()) {
+            //if (i == 1) {
+                updateUniforms(model);
+                updateUniforms(camera);
+                updateUniforms(scene);
+            //    i++;
+            //}
+            model.render();
+            //mContext.getUniforms().clear();
         }
     }
 

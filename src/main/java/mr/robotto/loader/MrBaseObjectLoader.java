@@ -13,6 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
@@ -55,8 +58,9 @@ public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObject> {
     }
 
     //TODO: This must be changed, the way you insert elements in the list
-    protected MrUniformKeyMap getUniformKeyList() throws JSONException {
-        MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
+    protected Map<String, MrUniformKey> getUniformKeyList() throws JSONException {
+        //MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
+        HashMap<String, MrUniformKey> uniformKeyList = new HashMap<>();
         JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
             JSONObject uniformKeyJson = jsonUniformKeyList.getJSONObject(i);
@@ -65,7 +69,7 @@ public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObject> {
             int level = uniformKeyJson.getInt("Level");
             int count = uniformKeyJson.getInt("Count");
             MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, level, count);
-            uniformKeyList.add(uniformKey);
+            uniformKeyList.put(uniformType, uniformKey);
         }
         return uniformKeyList;
     }

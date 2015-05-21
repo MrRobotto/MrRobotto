@@ -9,7 +9,10 @@
 
 package mr.robotto.core.data;
 
+import java.util.Map;
+
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -23,7 +26,7 @@ public class MrLightData extends MrObjectData {
 
     private MrVector3f mColor;
 
-    public MrLightData(String name, MrTransform transform, MrShaderProgram program, MrUniformKeyMap uniformKeys, MrVector3f lightColor) {
+    public MrLightData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
         super(name, MrSceneObjectType.LIGHT, transform, program, uniformKeys);
         mColor = lightColor;
     }
