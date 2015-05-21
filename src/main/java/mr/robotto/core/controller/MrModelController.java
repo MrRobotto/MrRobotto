@@ -16,10 +16,10 @@ import mr.robotto.commons.MrDataType;
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.comp.MrTexture;
-import mr.robotto.components.data.bone.MrBone;
-import mr.robotto.components.data.bone.MrSkeleton;
+import mr.robotto.components.data.action.MrSkeletalAction;
+import mr.robotto.components.data.skeleton.MrBone;
+import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
-import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrModelData;
@@ -234,5 +234,9 @@ public class MrModelController extends MrObjectController {
 
     public MrSkeleton getSkeleton() {
         return ((MrModelData) mData).getSkeleton();
+    }
+
+    public Map<String, MrSkeletalAction> getSkeletalActions() {
+        return ((MrModelData)mData).getSkeletalActions();
     }
 }

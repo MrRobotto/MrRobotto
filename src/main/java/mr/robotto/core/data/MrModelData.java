@@ -10,12 +10,13 @@
 package mr.robotto.core.data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Map;
 
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.comp.MrTexture;
-import mr.robotto.components.data.bone.MrSkeleton;
+import mr.robotto.components.data.action.MrSkeletalAction;
+import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
@@ -75,5 +76,9 @@ public class MrModelData extends MrObjectData {
 
     public MrTexture[] getTextures() {
         return mTextures;
+    }
+
+    public Map<String, MrSkeletalAction> getSkeletalActions() {
+        return mSkeleton.getActions();
     }
 }

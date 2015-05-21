@@ -11,6 +11,7 @@ package mr.robotto.renderer;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -25,9 +26,10 @@ public class MrRenderer implements GLSurfaceView.Renderer {
     private boolean mInitialized;
     private long mEndTime;
     private long mStartTime;
+    private FPSCounter mFPSCounter;
 
     public MrRenderer() {
-
+        mFPSCounter = new FPSCounter();
     }
 
     public MrSceneTreeController getController() {
@@ -75,10 +77,33 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             }
             mStartTime = System.currentTimeMillis();
             mController.render();
+            mFPSCounter.logFrame();
         }
     }*/
 
     @Override
+    public void onDrawFrame(GL10 gl10) {
+        //TODO: Check this!
+        if (mController != null) {
+            mController.render();
+            mFPSCounter.logFrame();
+        }
+    }
+
+    private class FPSCounter {
+        long startTime = System.nanoTime();
+        int frames = 0;
+
+        public void logFrame() {
+            frames++;
+            if(System.nanoTime() - startTime >= 1000000000) {
+                Log.d("FPSCounter", "fps: " + frames);
+                frames = 0;
+                startTime = System.nanoTime();
+            }
+        }
+    }
+    /*@Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
@@ -94,7 +119,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
                 }
             }
         }
-    }
+    }*/
 
 
 }

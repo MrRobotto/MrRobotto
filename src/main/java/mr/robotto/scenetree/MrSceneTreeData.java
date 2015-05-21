@@ -17,6 +17,7 @@ import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.core.controller.MrSceneController;
 
 /**
  * Created by aaron on 12/05/2015.

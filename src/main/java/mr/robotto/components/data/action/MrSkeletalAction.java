@@ -13,7 +13,7 @@ package mr.robotto.components.data.action;
 import java.util.Iterator;
 import java.util.Map;
 
-import mr.robotto.components.data.bone.MrBone;
+import mr.robotto.components.data.skeleton.MrBone;
 
 /**
  * Created by aaron on 24/04/2015.

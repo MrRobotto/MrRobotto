@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import mr.robotto.MrRobotto;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
@@ -29,8 +30,11 @@ public abstract class MrObject {
     private MrObjectController mController;
     private MrSceneTree mTree;
 
+    protected MrRobotto mRobotto;
+
     protected MrObject(MrObjectController controller) {
         mController = controller;
+        mRobotto = MrRobotto.getInstance();
     }
 
     public MrObjectController getController() {
@@ -38,17 +42,8 @@ public abstract class MrObject {
     }
 
     /*******Controller******/
-    public void initializeRender(MrRenderingContext context) {
-        initializeUniforms(mController.getUniformGenerators());
-        mController.initializeRender(context);
-    }
-
-    public void initializeSizeDependant(int widthScreen, int heightScreen) {
-        mController.initializeSizeDependant(widthScreen, heightScreen);
-    }
-
-    public void render() {
-        mController.render();
+    protected void queueEvent(Runnable runnable) {
+        mRobotto.queueEvent(runnable);
     }
 
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {

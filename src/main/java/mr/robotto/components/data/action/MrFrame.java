@@ -12,7 +12,7 @@ package mr.robotto.components.data.action;
 import java.util.HashMap;
 import java.util.Map;
 
-import mr.robotto.components.data.bone.MrBone;
+import mr.robotto.components.data.skeleton.MrBone;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrVector3f;
 

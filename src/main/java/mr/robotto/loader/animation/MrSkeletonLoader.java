@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mr.robotto.components.data.action.MrSkeletalAction;
-import mr.robotto.components.data.bone.MrBone;
-import mr.robotto.components.data.bone.MrSkeleton;
+import mr.robotto.components.data.skeleton.MrBone;
+import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.loader.MrBaseLoader;
 
 /**

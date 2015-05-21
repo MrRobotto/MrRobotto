@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.components.data.bone;
+package mr.robotto.components.data.skeleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;

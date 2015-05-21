@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.core.MrModel;
+import mr.robotto.core.MrObject;
 import mr.robotto.loader.MrRobottoJsonLoader;
 import mr.robotto.loader.MrRobottoJson;
 import mr.robotto.loader.MrRobottoFileLoader;
@@ -67,6 +68,14 @@ public class MrRobotto {
 
     public void setContext(Context context) {
         mContext = context;
+    }
+
+    public MrSceneTree getSceneTree() {
+        return mSceneTree;
+    }
+
+    public MrObject getObject(String name) {
+        return mSceneTree.findByKey(name);
     }
 
     //TODO: Devolver un asynctask
@@ -188,5 +197,9 @@ public class MrRobotto {
                 }
             }
         });
+    }
+
+    public void queueEvent(Runnable runnable) {
+        mSurfaceView.queueEvent(runnable);
     }
 }

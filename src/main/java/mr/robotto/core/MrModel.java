@@ -14,7 +14,7 @@ import java.util.Map;
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.action.MrSkeletalAction;
-import mr.robotto.components.data.bone.MrSkeleton;
+import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrModelController;
@@ -48,12 +48,26 @@ public class MrModel extends MrObject {
         return getController().getSkeleton();
     }
 
-    public void playAction(String actionName) {
-        getSkeleton().playAction(actionName);
+    public Map<String, MrSkeletalAction> getSkeletalActions() {
+        return getController().getSkeletalActions();
     }
 
-    public void playActionContinuosly(String actionName) {
-        getSkeleton().playActionContinuosly(actionName);
+    public void playAction(final String actionName) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getSkeleton().playAction(actionName);
+            }
+        });
+    }
+
+    public void playActionContinuosly(final String actionName) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getSkeleton().playActionContinuosly(actionName);
+            }
+        });
     }
 
     public Map<String, MrSkeletalAction> getActions() {
