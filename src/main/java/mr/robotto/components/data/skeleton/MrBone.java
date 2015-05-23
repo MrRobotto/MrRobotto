@@ -17,11 +17,11 @@ import mr.robotto.linearalgebra.MrVector3f;
  * Created by aaron on 24/04/2015.
  */
 public class MrBone {
-    private String mName;
-    private MrVector3f mScale;
-    private MrVector3f mLocation;
-    private MrQuaternion mRotation;
-    private MrMatrix4f mMatrix;
+    private final String mName;
+    private final MrVector3f mScale;
+    private final MrVector3f mLocation;
+    private final MrQuaternion mRotation;
+    private final MrMatrix4f mMatrix;
 
     public MrBone(String name, MrVector3f location, MrQuaternion rotation, MrVector3f scale) {
         mName = name;
@@ -30,6 +30,7 @@ public class MrBone {
         mRotation = rotation;
         mMatrix = new MrMatrix4f();
     }
+
 
     public String getName() {
         return mName;

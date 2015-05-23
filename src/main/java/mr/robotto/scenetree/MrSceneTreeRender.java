@@ -9,6 +9,9 @@
 
 package mr.robotto.scenetree;
 
+import java.util.Collection;
+import java.util.List;
+
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
@@ -48,58 +51,27 @@ public class MrSceneTreeRender {
     //TODO: Check the visibility level
     //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
     private void updateUniforms(MrObjectController obj) {
-        /*MrShaderProgram program = obj.getShaderProgram();
-        if (program == null) {
-            return;
-        }
-        mUniforms.addAll(obj.getUniformKeys());
-        for (MrUniform uniform : program.getUniforms()) {
-            MrUniformKey key = obj.getUniformKeys().findByKey(uniform.getName());
-            if (key != null) {
-                mUniforms.setVisibility(key.getLevel());
-                obj.updateUniform(key, mContext.getUniforms().getObjectsDataTree(), mSceneObjectsTree);
-
-            }
-        }*/
-
-        //mContext.getUniforms().putAll();
-        //mContext.getUniforms().addAll(obj.getUniformKeys());
         mContext.getUniforms().putAll(obj.getUniformKeys());
         for (MrUniformKey key : obj.getUniformKeys().values()) {
             obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
         }
     }
 
-    private int i = 1;
     //TODO: This must be changed!!
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
-        /*for (MrObjectController scene : mSceneObjectsTree.getByType(MrSceneObjectType.SCENE)) {
-            //updateUniforms(scene);
-            scene.render();
-            for (MrObjectController camera : mSceneObjectsTree.getByType(MrSceneObjectType.CAMERA)) {
-                camera.render();
-                for (MrObjectController model : mSceneObjectsTree.getByType(MrSceneObjectType.MODEL)) {
-                    updateUniforms(model);
-                    updateUniforms(camera);
-                    updateUniforms(scene);
-                    model.render();
-                }
-            }
-        }*/
+        mContext.getUniforms().clear();
         MrSceneController scene = mSceneObjectsTree.getScene();
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
         scene.render();
         camera.render();
-        for (MrModelController model : mSceneObjectsTree.getModels()) {
-            //if (i == 1) {
-                updateUniforms(model);
-                updateUniforms(camera);
-                updateUniforms(scene);
-            //    i++;
-            //}
+        List<MrModelController> models = mSceneObjectsTree.getModels();
+        for (int i = 0; i < models.size(); i++) {
+            MrModelController model = models.get(i);
+            updateUniforms(model);
+            updateUniforms(camera);
+            updateUniforms(scene);
             model.render();
-            //mContext.getUniforms().clear();
         }
     }
 

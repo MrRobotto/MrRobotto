@@ -22,7 +22,6 @@ import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrModelData;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrModelRender;
@@ -44,28 +43,11 @@ public class MrModelController extends MrObjectController {
         super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
     }
 
-    private static MrUniformGenerator generateMaterialAmbientColor() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_COLOR) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.length, MrVector4f.SIZE);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setAlgebraObject(i, material.getAmbient().getColor());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class AmbientColorGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mAmbientColorUniform;
 
         public AmbientColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_COLOR);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_COLOR);
             mAmbientColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -80,28 +62,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateMaterialDiffuseColor() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_COLOR) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.length, MrVector4f.SIZE);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setAlgebraObject(i, material.getDiffuse().getColor());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class DiffuseColorGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mDiffuseColorUniform;
 
         public DiffuseColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_COLOR);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_COLOR);
             mDiffuseColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -116,28 +81,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateMaterialSpecularColor() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_COLOR) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, materials.length, MrVector4f.SIZE);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setAlgebraObject(i, material.getSpecular().getColor());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class SpecularColorGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mSpecularColorUniform;
 
         public SpecularColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_SPECULAR_COLOR);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_COLOR);
             mSpecularColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -152,28 +100,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateMaterialAmbientIntensity() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_INTENSITY) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, materials.length);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setValue(i, material.getAmbient().getIntensity());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class AmbientIntensityGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public AmbientIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_INTENSITY);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -188,28 +119,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateMaterialSpecularIntensity() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_SPECULAR_INTENSITY) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, materials.length);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setValue(i, material.getSpecular().getIntensity());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class SpecularIntensityGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public SpecularIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_SPECULAR_INTENSITY);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -224,28 +138,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateMaterialDiffuseIntensity() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_INTENSITY) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrMaterial[] materials = model.getMaterials();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, materials.length);
-                int  i = 0;
-                for (MrMaterial material : materials) {
-                    container.setValue(i, material.getDiffuse().getIntensity());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class DiffuseIntensityGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public DiffuseIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_INTENSITY);
+            super(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -260,33 +157,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-
-    //TODO: La primera pasada a es null, después ya no, en teoría el nivel de prioridad impide eso no?
-    private static MrUniformGenerator generateModelMatrix() {
-        return new MrUniformGenerator(MrUniformGenerator.MODEL_MATRIX) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrMatrix4f m = new MrMatrix4f();
-                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                Iterator<MrObjectData> it = tree.parentTraversalByKey(object.getName());
-
-                //MrTransform transform = it.next().getTransform();
-                //op.mult(m, transform.getAsMatrix(), m);
-                //transform = it.next().getTransform();
-                //op.mult(m, transform.getAsMatrix(), m);
-                while (it.hasNext()) {
-                    op.mult(m, it.next().getTransform().getAsMatrix(), m);
-                }
-                return m;
-            }
-        };
-    }
-
     private static class ModelGenerator extends MrUniformGenerator {
         private final MrMatrix4f mModel;
 
         public ModelGenerator() {
-            super(MrUniformGenerator.MODEL_MATRIX);
+            super(MrUniformGenerator.GENERATOR_MODEL_MATRIX);
             mModel = new MrMatrix4f();
         }
 
@@ -302,29 +177,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateBonesMatrices() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_BONE_MATRIX) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrSkeleton skeleton = model.getSkeleton();
-                MrBone[] bones = skeleton.getPose();
-                MrLinearAlgebraObjectContainer container = new MrLinearAlgebraObjectContainer(MrDataType.MAT4, bones.length);
-                int i = 0;
-                for (MrBone bone : bones) {
-                    container.setAlgebraObject(i, bone.getBoneMatrix());
-                    i++;
-                }
-                return container;
-            }
-        };
-    }
-
     private static class BoneMatricesGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mBones;
 
         public BoneMatricesGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_BONE_MATRIX);
+            super(MrUniformGenerator.GENERATOR_BONE_MATRIX);
             mBones = new MrLinearAlgebraObjectContainer(MrDataType.MAT4, model.getSkeleton().getNumBones());
         }
 
@@ -342,28 +199,11 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateTextureSamplerIndex() {
-        return new MrUniformGenerator(MrUniformGenerator.UNIFORM_TEXTURE) {
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrModelData model = (MrModelData) object;
-                MrTexture[] textures = model.getTextures();
-                MrSamplerIndices indices = new MrSamplerIndices(textures.length);
-                int i = 0;
-                for (MrTexture tex : textures) {
-                    indices.addTextureIndex(i, tex.getIndex());
-                    i++;
-                }
-                return indices;
-            }
-        };
-    }
-
     private static class TextureSamplerIndexGenerator extends MrUniformGenerator {
         private final MrSamplerIndices mIndices;
 
         public TextureSamplerIndexGenerator(MrModelController model) {
-            super(MrUniformGenerator.UNIFORM_TEXTURE);
+            super(MrUniformGenerator.GENERATOR_TEXTURE_SAMPLER);
             MrTexture[] textures = model.getTextures();
             mIndices = new MrSamplerIndices(textures.length);
             int i = 0;
@@ -379,22 +219,19 @@ public class MrModelController extends MrObjectController {
         }
     }
 
-    //public MrMatrix4f getModelMatrix() {
-    //    return getSceneTree().getTransform().getAsMatrix();
-    //}
 
     @Override
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniformGenerator.MODEL_MATRIX, new ModelGenerator());
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_BONE_MATRIX, new BoneMatricesGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_COLOR, new DiffuseColorGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_COLOR, new AmbientColorGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_SPECULAR_COLOR, new SpecularColorGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_AMBIENT_INTENSITY, new AmbientIntensityGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_DIFFUSE_INTENSITY, new DiffuseIntensityGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_MATERIAL_SPECULAR_INTENSITY, new SpecularIntensityGenerator(this));
-        uniformGenerators.put(MrUniformGenerator.UNIFORM_TEXTURE, new TextureSamplerIndexGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_MATRIX, new ModelGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_BONE_MATRIX, new BoneMatricesGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_COLOR, new DiffuseColorGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_COLOR, new AmbientColorGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_COLOR, new SpecularColorGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_INTENSITY, new AmbientIntensityGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_INTENSITY, new DiffuseIntensityGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_INTENSITY, new SpecularIntensityGenerator(this));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_TEXTURE_SAMPLER, new TextureSamplerIndexGenerator(this));
     }
 
     public MrMesh getMesh() {

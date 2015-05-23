@@ -74,8 +74,9 @@ public class MrModelRender implements MrObjectRender {
         //mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
         mModelData.getShaderProgram().bindUniforms(mContext.getUniforms());
         mModelData.getMesh().bind();
-        for (MrTexture texture : mModelData.getTextures()) {
-            texture.bind();
+        MrTexture[] textures = mModelData.getTextures();
+        for (int i = 0; i < textures.length; i++) {
+            textures[i].bind();
         }
         mBinded = true;
     }
@@ -86,8 +87,9 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void unbind() {
-        for (MrTexture texture : mModelData.getTextures()) {
-            texture.unbind();
+        MrTexture[] textures = mModelData.getTextures();
+        for (int i = 0; i < textures.length; i++) {
+            textures[i].unbind();
         }
         mModelData.getMesh().unbind();
         mModelData.getShaderProgram().unbind();

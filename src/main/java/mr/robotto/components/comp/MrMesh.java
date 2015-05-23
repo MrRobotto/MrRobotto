@@ -118,9 +118,17 @@ public class MrMesh extends MrComponent {
 
     protected class Render extends View {
 
+        private MrBufferKey[] mKeysList;
+
         public void initialize() {
             initialize(mData.getVertexBuffer());
             initialize(mData.getIndexBuffer());
+            mKeysList = new MrBufferKey[mData.mKeys.size()];
+            int i = 0;
+            for (MrBufferKey key : mData.mKeys.values()) {
+                mKeysList[i] = key;
+                i++;
+            }
         }
 
         private void initialize(MrBuffer buffer) {
@@ -135,16 +143,26 @@ public class MrMesh extends MrComponent {
         public void bind() {
             bind(mData.getVertexBuffer());
             bind(mData.getIndexBuffer());
-            for (MrBufferKey key : mData.getBufferKeys().values()) {
-                if (key.getIndex() >= 0)
+            //for (MrBufferKey key : mData.getBufferKeys().values()) {
+            //    if (key.getIndex() >= 0)
+            //        bind(key);
+            //}
+            for (MrBufferKey key : mKeysList) {
+                if (key.getIndex() >= 0) {
                     bind(key);
+                }
             }
         }
 
         public void unbind() {
-            for (MrBufferKey key : mData.getBufferKeys().values()) {
-                if (key.getIndex() >= 0)
+            //for (MrBufferKey key : mData.getBufferKeys().values()) {
+            //    if (key.getIndex() >= 0)
+            //        unbind(key);
+            //}
+            for (MrBufferKey key : mKeysList) {
+                if (key.getIndex() >= 0) {
                     unbind(key);
+                }
             }
         }
 

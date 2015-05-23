@@ -9,9 +9,15 @@
 
 package mr.robotto.components.data.action;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import mr.robotto.components.data.skeleton.MrBone;
+import mr.robotto.linearalgebra.MrQuaternion;
+import mr.robotto.linearalgebra.MrVector3f;
 
 
 /**
@@ -43,8 +49,9 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
 
     private class MrFrameIterator implements Iterator<MrFrame> {
 
-        private TreeMap<Integer, MrFrame> mKeyFrames;
+        private final TreeMap<Integer, MrFrame> mKeyFrames;
         private Set<Integer> mKeyFrameIndices;
+        private MrFrame mAuxFrame;
         private int mCurrent;
         private int mEnd;
         private int mStart;
@@ -55,6 +62,22 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
             mStart = mKeyFrames.firstKey();
             mEnd = mKeyFrames.lastKey();
             mCurrent = 0;
+            init();
+        }
+
+        private void init() {
+            if (mKeyFrames.isEmpty()) {
+                return;
+            }
+            MrFrame f = mKeyFrames.firstEntry().getValue();
+            mAuxFrame = new MrFrame(f.getFrameNumber());
+            Map<String, MrBone> bones = mAuxFrame.getBones();
+            for (String name : f.getBones().keySet()) {
+                MrVector3f l = new MrVector3f();
+                MrQuaternion q = new MrQuaternion();
+                MrVector3f s = new MrVector3f();
+                bones.put(name, new MrBone(name, l, q, s));
+            }
         }
 
         @Override
@@ -75,9 +98,10 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
             }
             MrFrame frame2 = mKeyFrames.higherEntry(mCurrent).getValue();
             MrFrame frame1 = mKeyFrames.lowerEntry(mCurrent).getValue();
-            MrFrame frame = MrFrame.interpolate(mCurrent, frame1, frame2);
+            //MrFrame frame = MrFrame.interpolate(mCurrent, frame1, frame2);
+            MrFrame.interpolate(mAuxFrame, mCurrent, frame1, frame2);
             mCurrent++;
-            return frame;
+            return mAuxFrame;
         }
 
         @Override

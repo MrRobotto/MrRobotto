@@ -142,6 +142,8 @@ public class MrShaderProgram extends MrComponent {
 
     protected class View extends MrComponent.View {
 
+        private MrUniform[] mUniformsList;
+
         @Override
         public void bind() {
             GLES20.glUseProgram(mData.getId());
@@ -154,7 +156,11 @@ public class MrShaderProgram extends MrComponent {
 
         //TODO: Intentar colocar esto en otro lugar
         public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
-            for (MrUniform uniform : mData.getUniforms().values()) {
+            //for (MrUniform uniform : mData.getUniforms().values()) {
+            //    MrUniformKey key = uniformKeys.get(uniform.getUniformType());
+            //    bindUniform(uniform, key.getValue());
+            //}
+            for (MrUniform uniform : mUniformsList) {
                 MrUniformKey key = uniformKeys.get(uniform.getUniformType());
                 bindUniform(uniform, key.getValue());
             }
@@ -237,8 +243,12 @@ public class MrShaderProgram extends MrComponent {
 
             GLES20.glLinkProgram(id);
 
+            mUniformsList = new MrUniform[mData.getUniforms().size()];
+            int i = 0;
             for (MrUniform uniform : mData.getUniforms().values()) {
                 initialize(uniform);
+                mUniformsList[i] = uniform;
+                i++;
             }
 
             final int[] linkStatus = new int[1];

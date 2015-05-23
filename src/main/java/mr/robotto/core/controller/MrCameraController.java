@@ -40,7 +40,7 @@ public class MrCameraController extends MrObjectController {
 
 
     private static MrUniformGenerator generateViewMatrix() {
-        return new MrUniformGenerator(MrUniformGenerator.VIEW_MATRIX) {
+        return new MrUniformGenerator(MrUniformGenerator.GENERATOR_VIEW_MATRIX) {
 
             @Override
             public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
@@ -65,7 +65,7 @@ public class MrCameraController extends MrObjectController {
         private final MrMatrix4f mView;
 
         public ViewMatrixGenerator() {
-            super(MrUniformGenerator.VIEW_MATRIX);
+            super(MrUniformGenerator.GENERATOR_VIEW_MATRIX);
             mView = new MrMatrix4f();
         }
 
@@ -82,7 +82,7 @@ public class MrCameraController extends MrObjectController {
     }
 
     private static MrUniformGenerator generateProjectionMatrix() {
-        return new MrUniformGenerator(MrUniformGenerator.PROJECTION_MATRIX) {
+        return new MrUniformGenerator(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX) {
             /*@Override
             public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
                 return camera.getLens().getProjectionMatrix();
@@ -105,7 +105,7 @@ public class MrCameraController extends MrObjectController {
 
     private static class ProjectionMatrixGenerator extends MrUniformGenerator {
         public ProjectionMatrixGenerator() {
-            super(MrUniformGenerator.PROJECTION_MATRIX);
+            super(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX);
         }
         @Override
         public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
@@ -117,8 +117,8 @@ public class MrCameraController extends MrObjectController {
     @Override
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
         super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniformGenerator.VIEW_MATRIX, new ViewMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.PROJECTION_MATRIX, new ProjectionMatrixGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_VIEW_MATRIX, new ViewMatrixGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX, new ProjectionMatrixGenerator());
     }
 
     @Override

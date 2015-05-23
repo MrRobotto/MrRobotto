@@ -20,7 +20,8 @@ import mr.robotto.scenetree.MrSceneTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
-    public static final int FPS = 24;
+    public static int FPS = 24;
+    private static int sTimeRate;
 
     private MrSceneTreeController mController;
     private boolean mInitialized;
@@ -48,6 +49,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         mInitialized = true;
+        sTimeRate = (int) Math.floor(1.0f/FPS * 1000);
         if (mController != null)
             mController.initializeRender();
     }
@@ -55,8 +57,6 @@ public class MrRenderer implements GLSurfaceView.Renderer {
     //TODO: De esto se encarga la camara en teoria
     @Override
     public void onSurfaceChanged(GL10 gl10, int width, int height) {
-        //width = 1920; height = 1080;
-        //width=1920;
         GLES20.glViewport(0, 0, width, height);
         if (mController != null)
             mController.initializeSizeDependant(width, height);
@@ -81,7 +81,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         }
     }*/
 
-    @Override
+    /*@Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
@@ -89,7 +89,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             mFPSCounter.logFrame();
             System.gc();
         }
-    }
+    }*/
 
     private class FPSCounter {
         long startTime = System.nanoTime();
@@ -104,7 +104,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             }
         }
     }
-    /*@Override
+    @Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
@@ -114,13 +114,15 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             long dt = mEndTime - mStartTime;
             if (dt < FPS) {
                 try {
-                    Thread.sleep(FPS - dt);
+                    Thread.sleep(sTimeRate - dt);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            mFPSCounter.logFrame();
+            System.gc();
         }
-    }*/
+    }
 
 
 }
