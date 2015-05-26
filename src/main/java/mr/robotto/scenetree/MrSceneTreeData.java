@@ -18,6 +18,7 @@ import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrModel;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrCameraController;
+import mr.robotto.core.controller.MrLightController;
 import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.core.controller.MrSceneController;
@@ -32,6 +33,7 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
     private MrSceneController mScene;
     private MrCameraController mActiveCamera;
     private List<MrModelController> mModels;
+    private List<MrLightController> mLights;
 
     public MrSceneTreeData() {
         super(createMapFunction());
@@ -59,6 +61,7 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
     private void init() {
         mTags = new HashMap<MrSceneObjectType, List<MrObjectController>>();
         mModels = new ArrayList<>();
+        mLights = new ArrayList<>();
         for (MrSceneObjectType type : MrSceneObjectType.values()) {
             mTags.put(type, new ArrayList<MrObjectController>());
         }
@@ -75,6 +78,8 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
             mActiveCamera = (MrCameraController) object;
         } else if (type == MrSceneObjectType.MODEL) {
             mModels.add((MrModelController) object);
+        } else if (type == MrSceneObjectType.LIGHT) {
+            mLights.add((MrLightController) object);
         }
         mTags.get(type).add(object);
     }
@@ -126,5 +131,9 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
 
     public List<MrModelController> getModels() {
         return mModels;
+    }
+
+    public List<MrLightController> getLights() {
+        return mLights;
     }
 }

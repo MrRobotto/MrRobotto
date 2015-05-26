@@ -144,11 +144,13 @@ public final class MrMatrix4f implements MrLinearAlgebraObject {
 
         //TODO: Check invertible Matrix
         public void invert(MrMatrix4f result, MrMatrix4f m) {
-            Matrix.invertM(result.mValues, 0, m.mValues, 0);
+            opMatChange.copyValues(m);
+            Matrix.invertM(result.mValues, 0, opMatChange.mValues, 0);
         }
 
         public void transpose(MrMatrix4f result, MrMatrix4f m) {
-            Matrix.transposeM(result.mValues, 0, m.mValues, 0);
+            opMatChange.copyValues(m);
+            Matrix.transposeM(result.mValues, 0, opMatChange.mValues, 0);
         }
 
         /**

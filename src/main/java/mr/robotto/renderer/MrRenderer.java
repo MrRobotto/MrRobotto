@@ -20,7 +20,7 @@ import mr.robotto.scenetree.MrSceneTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
-    public static int FPS = 24;
+    public static int FPS = 60;
     private static int sTimeRate;
 
     private MrSceneTreeController mController;
@@ -81,7 +81,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         }
     }*/
 
-    /*@Override
+    @Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
@@ -89,7 +89,7 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             mFPSCounter.logFrame();
             System.gc();
         }
-    }*/
+    }
 
     private class FPSCounter {
         long startTime = System.nanoTime();
@@ -104,8 +104,8 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             }
         }
     }
-    @Override
-    public void onDrawFrame(GL10 gl10) {
+
+    public void onDrawFrame2(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
             mStartTime = System.currentTimeMillis();

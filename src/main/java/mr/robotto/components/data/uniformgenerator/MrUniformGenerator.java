@@ -22,10 +22,12 @@ import mr.robotto.scenetree.MrObjectsDataTree;
  */
 public abstract class MrUniformGenerator {
 
-    public static final String GENERATOR_MODEL_MATRIX = "Generator_Matrix_Model";
-    public static final String GENERATOR_VIEW_MATRIX = "Generator_Matrix_View";
-    public static final String GENERATOR_PROJECTION_MATRIX = "Generator_Matrix_Projection";
-    public static final String GENERATOR_MODEL_VIEW_PROJECTION_MATRIX = "Generator_Matrix_Model_View_Projection";
+    public static final String GENERATOR_MODEL_MATRIX = "Generator_Model_Matrix";
+    public static final String GENERATOR_VIEW_MATRIX = "Generator_View_Matrix";
+    public static final String GENERATOR_PROJECTION_MATRIX = "Generator_Projection_Matrix";
+    public static final String GENERATOR_MODEL_VIEW_MATRIX = "Generator_Model_View_Matrix";
+    public static final String GENERATOR_NORMAL_MATRIX = "Generator_Normal_Matrix";
+    public static final String GENERATOR_MODEL_VIEW_PROJECTION_MATRIX = "Generator_Model_View_Projection_Matrix";
     public static final String GENERATOR_MATERIAL_AMBIENT_COLOR = "Generator_Ambient_Color";
     public static final String GENERATOR_MATERIAL_AMBIENT_INTENSITY = "Generator_Ambient_Intensity";
     public static final String GENERATOR_MATERIAL_DIFFUSE_COLOR = "Generator_Diffuse_Color";
@@ -34,15 +36,12 @@ public abstract class MrUniformGenerator {
     public static final String GENERATOR_MATERIAL_SPECULAR_INTENSITY = "Generator_Specular_Intensity";
     public static final String GENERATOR_BONE_MATRIX = "Generator_Bone_Matrix";
     public static final String GENERATOR_TEXTURE_SAMPLER = "Generator_Texture_Sampler";
+    public static final String UNIFORMGENERATOR_LIGHT_POSITION = "Generator_Light_Position";
+    public static final String UNIFORMGENERATOR_LIGHT_COLOR = "Generator_Light_Color";
 
-    private String mName;
 
-    public MrUniformGenerator(String name) {
-        mName = name;
-    }
+    public MrUniformGenerator() {
 
-    public String getName() {
-        return mName;
     }
 
     public abstract MrLinearAlgebraObject generateUniform(final MrObjectsDataTree tree, final Map<String, MrUniformKey> uniforms, final MrObjectData object);

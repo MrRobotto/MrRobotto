@@ -9,13 +9,19 @@
 
 package mr.robotto.scenetree;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrCameraController;
+import mr.robotto.core.controller.MrLightController;
 import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.core.controller.MrSceneController;
@@ -30,8 +36,13 @@ public class MrSceneTreeRender {
     private MrSceneTreeData mSceneObjectsTree;
     private MrRenderingContext mContext;
 
+    private final ArrayList<MrUniformKey> mSortedKeys;
+    private final HashMap<String, MrObjectController> mObjects;
+
     public MrSceneTreeRender() {
 
+        mSortedKeys = new ArrayList<>();
+        mObjects = new HashMap<>();
     }
 
     public void initializeRender(MrSceneTreeData objectsTree, MrRenderingContext context) {
@@ -48,6 +59,69 @@ public class MrSceneTreeRender {
         }
     }
 
+    private static class KeyObjNode implements Comparable<KeyObjNode>{
+        MrObjectController obj;
+        MrUniformKey key;
+        int level;
+
+        public KeyObjNode(MrObjectController obj, MrUniformKey key) {
+            this.obj = obj;
+            this.key = key;
+            level = key.getLevel();
+        }
+
+        @Override
+        public int compareTo(KeyObjNode another) {
+            if (another.level == this.level) {
+                return 0;
+            }
+            else if (another.level < this.level) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+    }
+
+    /*private void addUniforms(MrObjectController obj) {
+        for (MrUniformKey key : obj.getUniformKeys().values()) {
+            KeyObjNode keyObjNode = new KeyObjNode(obj, key);
+            mKeyObjNodes.add(keyObjNode);
+            mContext.getUniforms().put(key.getUniformType(), key);
+        }
+        //mContext.getUniforms().putAll(obj.getUniformKeys());
+    }
+
+    private void updateUniforms() {
+        Collections.sort(mKeyObjNodes);
+        for (KeyObjNode keyObjNode : mKeyObjNodes) {
+            MrObjectController obj = keyObjNode.obj;
+            MrUniformKey key = keyObjNode.key;
+            obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
+        }
+    }*/
+
+    private void addUniforms(MrObjectController obj) {
+        Map<String, MrUniformKey> keys = mContext.getUniforms();
+        for (MrUniformKey key : obj.getUniformKeys().values()) {
+            mSortedKeys.add(key);
+            mObjects.put(key.getUniformType(), obj);
+            keys.put(key.getUniformType(), key);
+        }
+    }
+
+    private void updateUniforms() {
+        //TODO: Use heap instead arraylist
+        Collections.sort(mSortedKeys);
+        Map<String, MrUniformKey> keys = mContext.getUniforms();
+        for (MrUniformKey key : mSortedKeys) {
+            MrObjectController obj = mObjects.get(key.getUniformType());
+            obj.updateUniform(key, keys, mSceneObjectsTree.getObjectsDataTree());
+        }
+        mSortedKeys.clear();
+    }
+
     //TODO: Check the visibility level
     //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
     private void updateUniforms(MrObjectController obj) {
@@ -61,6 +135,7 @@ public class MrSceneTreeRender {
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
         mContext.getUniforms().clear();
+        mObjects.clear();
         MrSceneController scene = mSceneObjectsTree.getScene();
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
         scene.render();
@@ -68,9 +143,16 @@ public class MrSceneTreeRender {
         List<MrModelController> models = mSceneObjectsTree.getModels();
         for (int i = 0; i < models.size(); i++) {
             MrModelController model = models.get(i);
-            updateUniforms(model);
-            updateUniforms(camera);
-            updateUniforms(scene);
+            for (MrLightController light : mSceneObjectsTree.getLights()) {
+                addUniforms(light);
+            }
+            //updateUniforms(model);
+            //updateUniforms(camera);
+            //updateUniforms(scene);
+            addUniforms(model);
+            addUniforms(camera);
+            addUniforms(scene);
+            updateUniforms();
             model.render();
         }
     }

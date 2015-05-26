@@ -86,4 +86,12 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
         if (mLevel > another.mLevel) return 1;
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "MrUniformKey{" +
+                "mUniformType='" + mUniformType + '\'' +
+                ", mGeneratorName='" + mGeneratorName + '\'' +
+                '}';
+    }
 }

@@ -57,6 +57,9 @@ public abstract class MrObjectController {
 
     public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {
         MrUniformGenerator generator = getUniformGenerators().get(uniform.getGeneratorName());
+        //if (generator == null) {
+        //    throw new RuntimeException("Can't find generator for " + uniform.toString());
+        //}
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));
     }

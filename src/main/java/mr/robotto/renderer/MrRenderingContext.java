@@ -11,6 +11,8 @@ package mr.robotto.renderer;
 
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
@@ -22,14 +24,13 @@ import mr.robotto.scenetree.MrSceneTreeData;
  */
 public class MrRenderingContext {
     private MrSceneTreeData mObjectsTree;
-    private HashMap<String,MrUniformKey> mUniforms;
+    private TreeMap<String,MrUniformKey> mUniforms;
     private int mWidth;
     private int mHeight;
 
     public MrRenderingContext(MrSceneTreeData objectsTree) {
         mObjectsTree = objectsTree;
-        //mUniforms = new MrUniformKeyMap();
-        mUniforms = new HashMap<>();
+        mUniforms = new TreeMap<>();
     }
 
     public MrSceneTreeData getObjectsTree() {
@@ -37,7 +38,7 @@ public class MrRenderingContext {
     }
 
 
-    public HashMap<String, MrUniformKey> getUniforms() {
+    public Map<String, MrUniformKey> getUniforms() {
         return mUniforms;
     }
 

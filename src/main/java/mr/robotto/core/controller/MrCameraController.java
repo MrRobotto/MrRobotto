@@ -38,34 +38,10 @@ public class MrCameraController extends MrObjectController {
         mView = new MrMatrix4f();
     }
 
-
-    private static MrUniformGenerator generateViewMatrix() {
-        return new MrUniformGenerator(MrUniformGenerator.GENERATOR_VIEW_MATRIX) {
-
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-                MrVector3f.Operator opv = MrVector3f.getOperator();
-                MrCameraData camera = (MrCameraData) object;
-                MrVector3f loc = camera.getTransform().getLocation();
-                MrVector3f lookat = camera.getLookAt();
-                MrMatrix4f view = new MrMatrix4f();
-                //opv.add(lookat, lookat, loc);
-                MrVector3f up = camera.getUp();
-                op.lookAt(view, loc, lookat, up);
-                MrVector3f right = camera.getTransform().getRight();
-                //op.lookAt(camera.mView, camera.getTransform().getLocation(), camera.getLookAt(), new MrVector3f(0,1,0));
-                //op.lookAt(camera.mView, camera.getTransform().getLocation(), new MrVector3f(x,y,z), new MrVector3f(0,1,0));
-                return view;
-            }
-        };
-    }
-
     private static class ViewMatrixGenerator extends MrUniformGenerator {
         private final MrMatrix4f mView;
 
         public ViewMatrixGenerator() {
-            super(MrUniformGenerator.GENERATOR_VIEW_MATRIX);
             mView = new MrMatrix4f();
         }
 
@@ -81,31 +57,8 @@ public class MrCameraController extends MrObjectController {
         }
     }
 
-    private static MrUniformGenerator generateProjectionMatrix() {
-        return new MrUniformGenerator(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX) {
-            /*@Override
-            public MrLinearAlgebraObject generateUniform(MrSceneObjectsTree tree, MrUniformGeneratorMapView uniforms, MrObjectData object) {
-                return camera.getLens().getProjectionMatrix();
-//                MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-//                MrPerspectiveLens lens = (MrPerspectiveLens) camera.getLens();
-//                float f = 1080.0f/1701.0f;
-//                float aspect = lens.getAspectRatio();
-//                //TODO: Set the aspect ratio correctly
-//                op.perspective(camera.mProjection, lens.getFovy(), aspect, lens.getClipStart(), lens.getClipEnd());
-//                return camera.mProjection;
-            }*/
-
-            @Override
-            public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-                MrCameraData camera = (MrCameraData) object;
-                return camera.getLens().getProjectionMatrix();
-            }
-        };
-    }
-
     private static class ProjectionMatrixGenerator extends MrUniformGenerator {
         public ProjectionMatrixGenerator() {
-            super(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX);
         }
         @Override
         public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {

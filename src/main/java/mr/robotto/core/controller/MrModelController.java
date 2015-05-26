@@ -47,7 +47,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mAmbientColorUniform;
 
         public AmbientColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_COLOR);
             mAmbientColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -66,7 +65,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mDiffuseColorUniform;
 
         public DiffuseColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_COLOR);
             mDiffuseColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -85,7 +83,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mSpecularColorUniform;
 
         public SpecularColorGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_COLOR);
             mSpecularColorUniform = new MrLinearAlgebraObjectContainer(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -104,7 +101,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public AmbientIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -123,7 +119,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public SpecularIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -142,7 +137,6 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mIntensity;
 
         public DiffuseIntensityGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_INTENSITY);
             mIntensity = new MrLinearAlgebraObjectContainer(MrDataType.FLOAT, model.getMaterials().length);
             int  i = 0;
             for (MrMaterial material : model.getMaterials()) {
@@ -161,7 +155,6 @@ public class MrModelController extends MrObjectController {
         private final MrMatrix4f mModel;
 
         public ModelGenerator() {
-            super(MrUniformGenerator.GENERATOR_MODEL_MATRIX);
             mModel = new MrMatrix4f();
         }
 
@@ -181,8 +174,10 @@ public class MrModelController extends MrObjectController {
         private final MrLinearAlgebraObjectContainer mBones;
 
         public BoneMatricesGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_BONE_MATRIX);
-            mBones = new MrLinearAlgebraObjectContainer(MrDataType.MAT4, model.getSkeleton().getNumBones());
+            if (model.getSkeleton() != null)
+                mBones = new MrLinearAlgebraObjectContainer(MrDataType.MAT4, model.getSkeleton().getNumBones());
+            else
+                mBones = null;
         }
 
         @Override
@@ -203,7 +198,6 @@ public class MrModelController extends MrObjectController {
         private final MrSamplerIndices mIndices;
 
         public TextureSamplerIndexGenerator(MrModelController model) {
-            super(MrUniformGenerator.GENERATOR_TEXTURE_SAMPLER);
             MrTexture[] textures = model.getTextures();
             mIndices = new MrSamplerIndices(textures.length);
             int i = 0;
