@@ -18,7 +18,6 @@ import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 public class MrShaderProgram extends MrComponent {

@@ -10,13 +10,10 @@
 package mr.robotto.renderer;
 
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeData;
 
 /**

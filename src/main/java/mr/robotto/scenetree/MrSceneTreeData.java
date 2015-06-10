@@ -15,7 +15,6 @@ import java.util.List;
 
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.core.MrModel;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrCameraController;
 import mr.robotto.core.controller.MrLightController;

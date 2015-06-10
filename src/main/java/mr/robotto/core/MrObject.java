@@ -17,12 +17,10 @@ import mr.robotto.MrRobotto;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores

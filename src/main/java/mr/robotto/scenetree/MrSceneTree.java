@@ -16,8 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import mr.robotto.collections.MrTreeMap;
-import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObjectController;

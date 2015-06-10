@@ -13,9 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
-import mr.robotto.MrRobotto;
 import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialLight;

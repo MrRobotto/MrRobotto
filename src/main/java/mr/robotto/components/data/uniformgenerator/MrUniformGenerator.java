@@ -12,7 +12,6 @@ package mr.robotto.components.data.uniformgenerator;
 import java.util.Map;
 
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 import mr.robotto.scenetree.MrObjectsDataTree;

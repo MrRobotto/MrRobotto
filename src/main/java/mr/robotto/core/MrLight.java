@@ -13,11 +13,9 @@ import java.util.Map;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.controller.MrLightController;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.linearalgebra.MrVector4f;
 
 /**
  * Created by aaron on 11/05/2015.

@@ -18,7 +18,6 @@ import java.util.Map;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
@@ -67,8 +66,7 @@ public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObject> {
             String uniformType = uniformKeyJson.getString("Uniform");
             String generator = uniformKeyJson.getString("Generator");
             int level = uniformKeyJson.getInt("Level");
-            int count = uniformKeyJson.getInt("Count");
-            MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, level, count);
+            MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, level);
             uniformKeyList.put(uniformType, uniformKey);
         }
         return uniformKeyList;

@@ -15,9 +15,7 @@ import org.json.JSONObject;
 
 import mr.robotto.core.MrLight;
 import mr.robotto.core.MrObject;
-import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.linearalgebra.MrVector4f;
 
 /**
  * Created by aaron on 17/05/2015.

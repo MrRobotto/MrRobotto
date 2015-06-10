@@ -49,7 +49,7 @@ public abstract class MrComponent {
 
     public void unbind() {
         if (isBound()) {
-            getView().unbind();
+            //getView().unbind();
             mBound = false;
         }
     }

@@ -21,14 +21,12 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.core.MrModel;
 import mr.robotto.core.MrObject;
-import mr.robotto.loader.MrRobottoJsonLoader;
-import mr.robotto.loader.MrRobottoJson;
 import mr.robotto.loader.MrRobottoFileLoader;
+import mr.robotto.loader.MrRobottoJson;
+import mr.robotto.loader.MrRobottoJsonLoader;
 import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
-import mr.robotto.scenetree.MrSceneTreeRender;
 import mr.robotto.ui.MrSurfaceView;
 import mr.robotto.utils.MrReader;
 

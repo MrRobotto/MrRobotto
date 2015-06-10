@@ -12,14 +12,12 @@ package mr.robotto.components.data.uniformkey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import mr.robotto.collections.MrHashMap;
 import mr.robotto.collections.core.MrMap;
 import mr.robotto.collections.core.MrMapFunction;
-import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
 /**
  * Created by Aarón on 23/11/2014.

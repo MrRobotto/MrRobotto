@@ -10,16 +10,12 @@
 package mr.robotto.scenetree;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
-import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrCameraController;
 import mr.robotto.core.controller.MrLightController;
 import mr.robotto.core.controller.MrModelController;
@@ -140,15 +136,12 @@ public class MrSceneTreeRender {
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
         scene.render();
         camera.render();
+        for (MrLightController light : mSceneObjectsTree.getLights()) {
+            addUniforms(light);
+        }
         List<MrModelController> models = mSceneObjectsTree.getModels();
         for (int i = 0; i < models.size(); i++) {
             MrModelController model = models.get(i);
-            for (MrLightController light : mSceneObjectsTree.getLights()) {
-                addUniforms(light);
-            }
-            //updateUniforms(model);
-            //updateUniforms(camera);
-            //updateUniforms(scene);
             addUniforms(model);
             addUniforms(camera);
             addUniforms(scene);

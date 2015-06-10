@@ -14,7 +14,6 @@ import java.util.Map;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
-import mr.robotto.components.data.uniformkey.MrUniformKeyMap;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -31,9 +30,18 @@ public class MrCameraData extends MrObjectData {
     public MrCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
         super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
         mLens = lens;
+        mLookAt = null;
+        mUp = null;
+    }
+
+    public void setLookAt(MrVector3f lookAt) {
+        mLookAt = lookAt;
     }
 
     public MrVector3f getLookAt() {
+        if (mLookAt != null) {
+            return mLookAt;
+        }
         MrVector3f v = new MrVector3f();
         float clipEnd = mLens.getClipEnd();
         v.copyValues(mTransform.getForward());
@@ -41,8 +49,15 @@ public class MrCameraData extends MrObjectData {
         return v;
     }
 
+    public void setUp(MrVector3f up) {
+        mUp = up;
+    }
+
 
     public MrVector3f getUp() {
+        if (mUp != null) {
+            return mUp;
+        }
         return mTransform.getUp();
     }
 

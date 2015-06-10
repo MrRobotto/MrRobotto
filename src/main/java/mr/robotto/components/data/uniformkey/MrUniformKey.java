@@ -21,14 +21,12 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
 
     private String mGeneratorName;
     private String mUniformType;
-    private int mCount;
     private int mLevel;
     private MrLinearAlgebraObject mValue;
 
-    public MrUniformKey(String generatorName, String uniformType, int level, int count) {
+    public MrUniformKey(String generatorName, String uniformType, int level) {
         mGeneratorName = generatorName;
         mUniformType = uniformType;
-        mCount = count;
         mLevel = level;
         mValue = null;
     }
@@ -49,10 +47,6 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
         return mUniformType;
     }
 
-    public int getCount() {
-        return mCount;
-    }
-
     public int getLevel() {
         return mLevel;
     }
@@ -64,7 +58,6 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
 
         MrUniformKey that = (MrUniformKey) o;
 
-        if (mCount != that.mCount) return false;
         if (mLevel != that.mLevel) return false;
         if (!mGeneratorName.equals(that.mGeneratorName)) return false;
         return mUniformType.equals(that.mUniformType);
@@ -75,7 +68,6 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     public int hashCode() {
         int result = mGeneratorName.hashCode();
         result = 31 * result + mUniformType.hashCode();
-        result = 31 * result + mCount;
         result = 31 * result + mLevel;
         return result;
     }
