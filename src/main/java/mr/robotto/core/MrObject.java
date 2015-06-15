@@ -159,36 +159,71 @@ public abstract class MrObject {
         return getTransform().getRotation();
     }
 
-    public void rotate(float angle, MrVector3f axis) {
-        getTransform().rotate(angle, axis);
+    public void rotate(final float angle, final MrVector3f axis) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().rotate(angle, axis);
+            }
+        });
     }
 
-    public void translate(float x, float y, float z) {
-        getTransform().translate(x, y, z);
+    public void translate(final float x, final float y, final float z) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().translate(x, y, z);
+            }
+        });
     }
 
-    public void scale(float s) {
-        getTransform().scale(s);
+    public void scale(final float s) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().scale(s);
+            }
+        });
     }
 
-    public void scale(MrVector3f s) {
-        getTransform().scale(s);
+    public void scale(final MrVector3f s) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().scale(s);
+            }
+        });
     }
 
     public MrVector3f getRight() {
         return getTransform().getRight();
     }
 
-    public void setLookAt(MrVector3f look, MrVector3f up) {
-        getTransform().setLookAt(look, up);
+    public void setLookAt(final MrVector3f look, final MrVector3f up) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().setLookAt(look, up);
+            }
+        });
     }
 
-    public void setLocation(MrVector3f location) {
-        getTransform().setLocation(location);
+    public void setLocation(final MrVector3f location) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().setLocation(location);
+            }
+        });
     }
 
-    public void scale(float sx, float sy, float sz) {
-        getTransform().scale(sx, sy, sz);
+    public void scale(final float sx, final float sy, final float sz) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().scale(sx, sy, sz);
+            }
+        });
     }
 
     public void setScale(float sx, float sy, float sz) {

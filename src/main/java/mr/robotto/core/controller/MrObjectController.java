@@ -17,6 +17,8 @@ import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
+import mr.robotto.events.MrDefaultEventListener;
+import mr.robotto.events.MrEventsListener;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.renderer.MrRenderingContext;
 import mr.robotto.scenetree.MrObjectsDataTree;
@@ -27,6 +29,7 @@ import mr.robotto.scenetree.MrObjectsDataTree;
 public abstract class MrObjectController {
     protected MrObjectData mData;
     protected MrObjectRender mRender;
+    protected MrEventsListener mEventsListener;
 
     protected boolean mInitialized;
 
@@ -34,11 +37,13 @@ public abstract class MrObjectController {
         mData = data;
         mRender = render;
         mInitialized = false;
+        setEventsListener(new MrDefaultEventListener());
     }
 
     protected MrObjectController(MrObjectData data) {
         mData = data;
         mInitialized = false;
+        setEventsListener(new MrDefaultEventListener());
     }
 
     protected void setData(MrObjectData data) {
@@ -54,19 +59,28 @@ public abstract class MrObjectController {
         return mData;
     }
 
+    public MrEventsListener getEventsListener() {
+        return mEventsListener;
+    }
+
+    public void setEventsListener(MrEventsListener eventsListener) {
+        mEventsListener.setAttachedObject(mData);
+        mEventsListener = eventsListener;
+    }
+
     public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {
         MrUniformGenerator generator = getUniformGenerators().get(uniform.getGeneratorName());
-        //if (generator == null) {
-        //    throw new RuntimeException("Can't find generator for " + uniform.toString());
-        //}
         if (generator != null)
             uniform.setValue(generator.generateUniform(tree, uniforms, mData));
     }
 
     //TODO: initializeRender(Context, data)
     public void initializeRender(MrRenderingContext context) {
-        mRender.initializeRender(context, mData);
-        initializeUniforms(mData.getUniformGenerators());
+        if (mRender != null) {
+            mRender.initializeRender(context, mData);
+            //initializeUniforms(mData.getUniformGenerators());
+            initializeUniforms();
+        }
         mInitialized = true;
     }
 
@@ -101,8 +115,8 @@ public abstract class MrObjectController {
         mData.setTransform(transform);
     }
 
-    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
-
+    public void initializeUniforms() {
+        mData.initializeUniforms();
     }
 
     public Map<String, MrUniformGenerator> getUniformGenerators() {

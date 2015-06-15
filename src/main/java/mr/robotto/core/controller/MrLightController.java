@@ -30,43 +30,4 @@ public class MrLightController extends MrObjectController {
     public MrLightController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
         super(new MrLightData(name, transform, program, uniformKeys, lightColor), new MrLightRender());
     }
-
-    private static class LightColorGenerator extends MrUniformGenerator {
-        private final MrVector4f mLightColor;
-
-        public LightColorGenerator() {
-            mLightColor = new MrVector4f();
-        }
-
-        @Override
-        public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-            MrLightData light = (MrLightData) object;
-            MrVector3f color = light.getColor();
-            mLightColor.setValues(color.x, color.y, color.z, 0.0f);
-            return mLightColor;
-        }
-    }
-
-    private static class LightPositionGenerator extends MrUniformGenerator {
-        private final MrVector4f mLightPosition;
-
-        public LightPositionGenerator() {
-            mLightPosition = new MrVector4f();
-        }
-
-        @Override
-        public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-            MrLightData light = (MrLightData) object;
-            MrVector3f pos = light.getTransform().getLocation();
-            mLightPosition.setValues(pos.x, pos.y, pos.z, 1.0f);
-            return mLightPosition;
-        }
-    }
-
-    @Override
-    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
-        super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniformGenerator.UNIFORMGENERATOR_LIGHT_COLOR, new LightColorGenerator());
-        uniformGenerators.put(MrUniformGenerator.UNIFORMGENERATOR_LIGHT_POSITION, new LightPositionGenerator());
-    }
 }

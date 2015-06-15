@@ -19,7 +19,6 @@ import mr.robotto.collections.core.MrMapFunction;
 
 public class MrHashMap<K, V> implements MrMap<K, V> {
 
-    //TODO: Convert map to sparsearray
     private HashMap<K, V> mElements;
     private MrMapFunction<K, V> mMapFunction;
 

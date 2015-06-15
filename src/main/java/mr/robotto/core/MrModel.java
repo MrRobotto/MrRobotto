@@ -13,6 +13,7 @@ import java.util.Map;
 
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.action.MrSkeletalAction;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.skeleton.MrSkeleton;
@@ -40,8 +41,16 @@ public class MrModel extends MrObject {
         return getController().getMesh();
     }
 
+    public boolean hasSkeleton() {
+        return getController().hasSkeleton();
+    }
+
     public MrSkeleton getSkeleton() {
         return getController().getSkeleton();
+    }
+
+    public MrTexture[] getTextures() {
+        return getController().getTextures();
     }
 
     public Map<String, MrSkeletalAction> getSkeletalActions() {

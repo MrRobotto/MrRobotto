@@ -13,6 +13,7 @@ import java.util.List;
 
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.events.MrEventDispatcher;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -22,11 +23,13 @@ public class MrSceneTreeController {
     private MrSceneTreeRender mRender;
     private MrSceneTreeData mData;
     private MrRenderingContext mRenderingContext;
+    private MrEventDispatcher mEventDispatcher;
 
     public MrSceneTreeController(MrSceneTreeData tree, MrSceneTreeRender render) {
         mRender = render;
         mData = tree;
         mRenderingContext = new MrRenderingContext(mData);
+        mEventDispatcher = new MrEventDispatcher();
     }
 
     public MrSceneTreeData getSceneTreeData() {
@@ -38,9 +41,19 @@ public class MrSceneTreeController {
         return mRenderingContext;
     }
 
+    public MrEventDispatcher getEventDispatcher() {
+        return mEventDispatcher;
+    }
+
+    public void setEventDispatcher(MrEventDispatcher eventDispatcher) {
+        mEventDispatcher = eventDispatcher;
+    }
 
     public void initializeRender() {
         mRender.initializeRender(mData, mRenderingContext);
+        for (MrObjectController obj : mData) {
+
+        }
     }
 
     public void initializeSizeDependant(int widthScreen, int heightScreen) {

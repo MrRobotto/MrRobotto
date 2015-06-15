@@ -24,6 +24,7 @@ public class MrSkeleton {
     private Map<String, MrSkeletalAction> mActions;
     private MrTreeMap<String, String> mBoneHierarchy;
     private Map<String, MrBone> mPose;
+    private Map<String, MrBone> mCurrentPose;
     private ArrayList<String> mBoneOrder;
 
     private MrSkeletalAction mCurrentAction;
@@ -92,14 +93,21 @@ public class MrSkeleton {
         return bones;
     }
 
+    public void updateSkeletonPose() {
+        if (mCurrentAction == null) {
+            return;
+        }
+        mCurrentPose = mCurrentAction.step();
+    }
+
     public MrBone[] getPose() {
         if (mCurrentAction == null) {
             return sortBones(mPose);
         }
-        Map<String, MrBone> boneMap = mCurrentAction.step();
-        if (boneMap == null) {
+        //Map<String, MrBone> boneMap = mCurrentAction.step();
+        if (mCurrentPose == null) {
             return sortBones(mPose);
         }
-        return sortBones(boneMap);
+        return sortBones(mCurrentPose);
     }
 }

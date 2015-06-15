@@ -14,11 +14,6 @@ import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 //TODO: Id for uniformkey and bufferkey in the same way!
 public class MrUniformKey implements Comparable<MrUniformKey> {
 
-    public final static int OBJECT_LEVEL = 0;
-    public final static int SCENE_LEVEL = 1;
-    public final static int TOP_SCENE_LEVEL = 2;
-    public final static int USER_LEVEL = 3;
-
     private String mGeneratorName;
     private String mUniformType;
     private int mLevel;

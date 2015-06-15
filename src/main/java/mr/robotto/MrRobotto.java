@@ -28,7 +28,7 @@ import mr.robotto.loader.MrRobottoJsonLoader;
 import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
 import mr.robotto.ui.MrSurfaceView;
-import mr.robotto.utils.MrReader;
+import mr.robotto.utils.MrStreamReader;
 
 /**
  * Created by aaron on 22/04/2015.
@@ -81,7 +81,7 @@ public class MrRobotto {
         AssetManager am = mContext.getAssets();
         try {
             InputStream stream = am.open(filename);
-            JSONTokener tokener = new JSONTokener(MrReader.read(stream));
+            JSONTokener tokener = new JSONTokener(MrStreamReader.read(stream));
             JSONObject jsonObject = (JSONObject) tokener.nextValue();
 
             MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
@@ -190,8 +190,6 @@ public class MrRobotto {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
                     freeResources();
-                    //MrModel model = (MrModel)mSceneTree.findByKey("soldier");
-                    //model.playActionContinuosly("fanfaria");
                 }
             }
         });

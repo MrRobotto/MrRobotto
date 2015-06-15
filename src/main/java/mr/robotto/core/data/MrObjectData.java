@@ -47,6 +47,10 @@ public abstract class MrObjectData {
         mUniformGenerators = new HashMap<>();
     }
 
+    public void initializeUniforms() {
+
+    }
+
     public String getName() {
         return mName;
     }

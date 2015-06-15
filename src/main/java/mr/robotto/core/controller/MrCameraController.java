@@ -38,42 +38,6 @@ public class MrCameraController extends MrObjectController {
         mView = new MrMatrix4f();
     }
 
-    private static class ViewMatrixGenerator extends MrUniformGenerator {
-        private final MrMatrix4f mView;
-
-        public ViewMatrixGenerator() {
-            mView = new MrMatrix4f();
-        }
-
-        @Override
-        public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-            MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-            MrCameraData camera = (MrCameraData) object;
-            MrVector3f loc = camera.getTransform().getLocation();
-            MrVector3f lookat = camera.getLookAt();
-            MrVector3f up = camera.getUp();
-            op.lookAt(mView, loc, lookat, up);
-            return mView;
-        }
-    }
-
-    private static class ProjectionMatrixGenerator extends MrUniformGenerator {
-        public ProjectionMatrixGenerator() {
-        }
-        @Override
-        public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
-            MrCameraData camera = (MrCameraData) object;
-            return camera.getLens().getProjectionMatrix();
-        }
-    }
-
-    @Override
-    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
-        super.initializeUniforms(uniformGenerators);
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_VIEW_MATRIX, new ViewMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX, new ProjectionMatrixGenerator());
-    }
-
     @Override
     public void initializeSizeDependant(int widthScreen, int heightScreen) {
         getLens().setDimension(widthScreen, heightScreen);

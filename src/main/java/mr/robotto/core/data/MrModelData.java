@@ -20,6 +20,7 @@ import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.data.uniformgenerators.MrModelUniformGenerators;
 import mr.robotto.linearalgebra.MrTransform;
 
 /**
@@ -43,6 +44,12 @@ public class MrModelData extends MrObjectData {
         getTexturesFromMaterials();
     }
 
+    @Override
+    public void initializeUniforms() {
+        super.initializeUniforms();
+        new MrModelUniformGenerators().initializeUniforms(this, mUniformGenerators);
+    }
+
     private void getTexturesFromMaterials() {
         ArrayList<MrTexture> textures = new ArrayList<MrTexture>();
         for (MrMaterial m : mMaterials) {
@@ -62,8 +69,16 @@ public class MrModelData extends MrObjectData {
         return mMaterials;
     }
 
+    public boolean hasSkeleton() {
+        return mSkeleton != null;
+    }
+
     public MrSkeleton getSkeleton() {
         return mSkeleton;
+    }
+
+    public boolean hasTextures() {
+        return mTextures.length > 0;
     }
 
     public MrTexture[] getTextures() {

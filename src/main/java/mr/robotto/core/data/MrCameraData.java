@@ -15,6 +15,7 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.lens.MrLens;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.data.uniformgenerators.MrCameraUniformGenerators;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 
@@ -32,6 +33,12 @@ public class MrCameraData extends MrObjectData {
         mLens = lens;
         mLookAt = null;
         mUp = null;
+    }
+
+    @Override
+    public void initializeUniforms() {
+        super.initializeUniforms();
+        new MrCameraUniformGenerators().initializeUniforms(this, mUniformGenerators);
     }
 
     public void setLookAt(MrVector3f lookAt) {

@@ -14,6 +14,7 @@ import java.util.Map;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.data.uniformgenerators.MrSceneUniformsGenerators;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector4f;
 
@@ -40,6 +41,12 @@ public class MrSceneData extends MrObjectData {
 
     private void init() {
 
+    }
+
+    @Override
+    public void initializeUniforms() {
+        super.initializeUniforms();
+        new MrSceneUniformsGenerators().initializeUniforms(this, mUniformGenerators);
     }
 
     public MrVector4f getClearColor() {
