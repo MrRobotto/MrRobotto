@@ -18,6 +18,7 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.events.MrEventsListener;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
@@ -32,6 +33,7 @@ public abstract class MrObject {
 
     protected MrObject(MrObjectController controller) {
         mController = controller;
+        mController.setAttachedObject(this);
         mRobotto = MrRobotto.getInstance();
     }
 
@@ -153,6 +155,15 @@ public abstract class MrObject {
         return mTree.parentKeyChildValueTraversal(this);
     }
 
+
+    /*******Events***********/
+    public MrEventsListener getEventsListener() {
+        return mController.getEventsListener();
+    }
+
+    public void setEventsListener(MrEventsListener eventsListener) {
+        mController.setEventsListener(eventsListener);
+    }
 
     /*******Transform*******/
     public MrQuaternion getRotation() {

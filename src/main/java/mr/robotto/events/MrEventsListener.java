@@ -12,14 +12,15 @@ package mr.robotto.events;
 import java.util.HashSet;
 import java.util.Set;
 
-import mr.robotto.core.data.MrObjectData;
+import mr.robotto.core.MrObject;
+import mr.robotto.core.controller.MrObjectController;
 
 /**
  * Created by aaron on 14/06/2015.
  */
 public abstract class MrEventsListener {
 
-    private MrObjectData mObject;
+    private MrObjectController mObjectController;
     private Set<String> mEvents;
 
     public MrEventsListener() {
@@ -27,12 +28,16 @@ public abstract class MrEventsListener {
         registerEvents(mEvents);
     }
 
-    public void setAttachedObject(MrObjectData object) {
-        mObject = object;
+    public void setObjectController(MrObjectController controller) {
+        mObjectController = controller;
     }
 
-    public MrObjectData getAttachedObject() {
-        return mObject;
+    public MrObjectController getObjectController() {
+        return mObjectController;
+    }
+
+    public MrObject getAttachedObject() {
+        return mObjectController.getAttachedObject();
     }
 
     public Set<String> getRegisteredEvents() {
@@ -40,4 +45,8 @@ public abstract class MrEventsListener {
     }
 
     protected abstract void registerEvents(Set<String> events);
+
+    protected void proccessEvent(String eventName, MrBundle eventBundle) {
+
+    }
 }

@@ -14,6 +14,7 @@ import java.util.Map;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
+import mr.robotto.core.MrObject;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrObjectRender;
@@ -27,6 +28,7 @@ import mr.robotto.scenetree.MrObjectsDataTree;
  * Created by aaron on 14/04/2015.
  */
 public abstract class MrObjectController {
+    protected MrObject mAttachedObject;
     protected MrObjectData mData;
     protected MrObjectRender mRender;
     protected MrEventsListener mEventsListener;
@@ -36,14 +38,13 @@ public abstract class MrObjectController {
     protected MrObjectController(MrObjectData data, MrObjectRender render) {
         mData = data;
         mRender = render;
+        mAttachedObject = null;
         mInitialized = false;
         setEventsListener(new MrDefaultEventListener());
     }
 
     protected MrObjectController(MrObjectData data) {
-        mData = data;
-        mInitialized = false;
-        setEventsListener(new MrDefaultEventListener());
+        this(data, null);
     }
 
     protected void setData(MrObjectData data) {
@@ -64,8 +65,16 @@ public abstract class MrObjectController {
     }
 
     public void setEventsListener(MrEventsListener eventsListener) {
-        mEventsListener.setAttachedObject(mData);
         mEventsListener = eventsListener;
+        mEventsListener.setObjectController(this);
+    }
+
+    public void setAttachedObject(MrObject object) {
+        mAttachedObject = object;
+    }
+
+    public MrObject getAttachedObject() {
+        return mAttachedObject;
     }
 
     public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {

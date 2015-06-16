@@ -52,7 +52,7 @@ public class MrSceneTreeController {
     public void initializeRender() {
         mRender.initializeRender(mData, mRenderingContext);
         for (MrObjectController obj : mData) {
-
+            mEventDispatcher.addObject(obj);
         }
     }
 

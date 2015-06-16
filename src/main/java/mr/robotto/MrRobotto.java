@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.core.MrObject;
+import mr.robotto.events.MrEventDispatcher;
 import mr.robotto.loader.MrRobottoFileLoader;
 import mr.robotto.loader.MrRobottoJson;
 import mr.robotto.loader.MrRobottoJsonLoader;
@@ -76,55 +77,12 @@ public class MrRobotto {
         return mSceneTree.findByKey(name);
     }
 
-    //TODO: Devolver un asynctask
-    public void loadScene(String filename) {
-        AssetManager am = mContext.getAssets();
-        try {
-            InputStream stream = am.open(filename);
-            JSONTokener tokener = new JSONTokener(MrStreamReader.read(stream));
-            JSONObject jsonObject = (JSONObject) tokener.nextValue();
-
-            MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
-            MrRobottoJson resources = loader.parse();
-            MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-            //MrSceneTree tree = builder.buildSceneObjectsTree();
-            //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
-            mSceneTree = builder.buildSceneObjectsTree();
-            mController = mSceneTree.getController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public MrEventDispatcher getEventDispatcher() {
+        return mController.getEventDispatcher();
     }
 
-    public void loadSceneTree(JSONObject jsonObject) {
-        AsyncTask<JSONObject, Void, MrSceneTree> task = new AsyncTask<JSONObject, Void, MrSceneTree>() {
-            @Override
-            protected MrSceneTree doInBackground(JSONObject... params) {
-                JSONObject jsonObject = params[0];
-                try {
-                    MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
-                    MrRobottoJson resources = loader.parse();
-                    MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-                    MrSceneTree tree = builder.buildSceneObjectsTree();
-                    return tree;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(MrSceneTree tree) {
-                super.onPostExecute(tree);
-                //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
-                mSceneTree = tree;
-                mController = mSceneTree.getController();
-                initialize();
-            }
-        };
-        task.execute(jsonObject);
+    public void setEventDispatcher(MrEventDispatcher eventDispatcher) {
+        mController.setEventDispatcher(eventDispatcher);
     }
 
     public void loadSceneTree(InputStream inputStream) {
@@ -175,17 +133,23 @@ public class MrRobotto {
         task.execute(inputStream);
     }
 
-    private void freeResources() {
+    private final void freeResources() {
         for (Bitmap bitmap : sResources.getTextureBitmaps().values()) {
             bitmap.recycle();
         }
     }
 
-    public void initialize() {
+    //TODO: Change this
+    public void onPreInitialize() {
+    }
+
+    public final void initialize() {
         mSurfaceView.queueEvent(new Runnable() {
             @Override
             public void run() {
+                onPreInitialize();
                 mSurfaceView.getRenderer().setController(mController);
+                mSurfaceView.setOnTouchListener(mController.getEventDispatcher());
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());

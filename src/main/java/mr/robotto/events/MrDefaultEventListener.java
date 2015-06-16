@@ -20,15 +20,26 @@ import java.util.Set;
  * Note that it implements some of usual Android event listeners interfaces, however you should
  * not modify the received view on this method because this method will be executed outside the UIThread
  */
-public class MrDefaultEventListener extends MrEventsListener implements View.OnTouchListener{
+public class MrDefaultEventListener extends MrEventsListener {
 
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
+    public static final String ON_TOUCH = "MrOnTouch";
+    public static final String ON_TOUCH_MOTIONEVENT = "MrMotionEvent";
+
+    public boolean onTouch(MotionEvent event) {
+        System.out.println("Hola desde "+getAttachedObject().getName());
         return false;
     }
 
     @Override
+    protected void proccessEvent(String eventName, MrBundle eventBundle) {
+        super.proccessEvent(eventName, eventBundle);
+        if (eventName.equals(ON_TOUCH)) {
+            onTouch(eventBundle.getMotionEvent(ON_TOUCH_MOTIONEVENT));
+        }
+    }
+
+    @Override
     protected void registerEvents(Set<String> events) {
-        events.add(MrEventDispatcher.ON_TOUCH);
+        events.add(ON_TOUCH);
     }
 }

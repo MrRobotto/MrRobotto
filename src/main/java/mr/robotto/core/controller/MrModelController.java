@@ -43,8 +43,6 @@ public class MrModelController extends MrObjectController {
         super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
     }
 
-
-
     public MrMesh getMesh() {
         return ((MrModelData) mData).getMesh();
     }

@@ -9,6 +9,7 @@
 
 package mr.robotto.core;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import mr.robotto.components.comp.MrMesh;
@@ -23,7 +24,7 @@ import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModel extends MrObject {
 
-    public MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+    protected MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(new MrModelController(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton));
     }
 
@@ -77,5 +78,54 @@ public class MrModel extends MrObject {
 
     public Map<String, MrSkeletalAction> getActions() {
         return getSkeleton().getActions();
+    }
+
+    public static class Builder {
+        private String mName;
+        private MrTransform mTransform = new MrTransform();
+        private Map<String, MrUniformKey> mUniformKeys = new HashMap<>();
+        private MrShaderProgram mShaderProgram;
+        private MrMesh mMesh;
+        private MrMaterial[] mMaterials = new MrMaterial[0];
+        private MrSkeleton mSkeleton = null;
+
+        public Builder setName(String name) {
+            mName = name;
+            return this;
+        }
+
+        public Builder setTransform(MrTransform transform) {
+            mTransform = transform;
+            return this;
+        }
+
+        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            mUniformKeys = uniformKeys;
+            return this;
+        }
+
+        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
+            mShaderProgram = shaderProgram;
+            return this;
+        }
+
+        public Builder setMesh(MrMesh mesh) {
+            mMesh = mesh;
+            return this;
+        }
+
+        public Builder setMaterials(MrMaterial[] materials) {
+            mMaterials = materials;
+            return this;
+        }
+
+        public Builder setSkeleton(MrSkeleton skeleton) {
+            mSkeleton = skeleton;
+            return this;
+        }
+
+        public MrModel createModel() {
+            return new MrModel(mName, mTransform, mUniformKeys, mShaderProgram, mMesh, mMaterials, mSkeleton);
+        }
     }
 }

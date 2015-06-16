@@ -28,7 +28,15 @@ public class MrModelLoader extends MrBaseObjectLoader {
 
     @Override
     public MrModel parse() throws JSONException {
-        return new MrModel(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), loadMesh(), loadMaterials(), loadSkeleton());
+        return new MrModel.Builder()
+                .setName(getName())
+                .setTransform(getTransform())
+                .setUniformKeys(getUniformKeyList())
+                .setShaderProgram(getShaderProgram())
+                .setMesh(loadMesh())
+                .setMaterials(loadMaterials())
+                .setSkeleton(loadSkeleton())
+                .createModel();
     }
 
     private MrMesh loadMesh() throws JSONException {

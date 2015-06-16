@@ -14,6 +14,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import mr.robotto.MrRobotto;
 import mr.robotto.core.controller.MrObjectController;
@@ -22,7 +23,6 @@ import mr.robotto.core.controller.MrObjectController;
  * Created by aaron on 14/06/2015.
  */
 public class MrEventDispatcher implements View.OnTouchListener {
-    public static final String ON_TOUCH = "onTouch";
 
     private HashMap<String, ArrayList<MrObjectController>> mObjects;
 
@@ -30,9 +30,21 @@ public class MrEventDispatcher implements View.OnTouchListener {
         mObjects = new HashMap<>();
     }
 
+    public void addObject(MrObjectController obj) {
+        Set<String> events = obj.getEventsListener().getRegisteredEvents();
+        for (String ev : events) {
+            if (mObjects.containsKey(ev)) {
+                mObjects.get(ev).add(obj);
+            } else {
+                mObjects.put(ev, new ArrayList<MrObjectController>());
+                mObjects.get(ev).add(obj);
+            }
+        }
+    }
+
     @Override
     public boolean onTouch(final View v, final MotionEvent event) {
-        final ArrayList<MrObjectController> objs = mObjects.get(ON_TOUCH);
+        final ArrayList<MrObjectController> objs = mObjects.get(MrDefaultEventListener.ON_TOUCH);
         if (objs == null || objs.size() == 0) {
             return false;
         }
@@ -40,7 +52,9 @@ public class MrEventDispatcher implements View.OnTouchListener {
             @Override
             public void run() {
                 for (MrObjectController obj : objs) {
-                    ((View.OnTouchListener)obj.getEventsListener()).onTouch(v, event);
+                    MrBundle bundle = new MrBundle();
+                    bundle.putMotionEvent(MrDefaultEventListener.ON_TOUCH_MOTIONEVENT, event);
+                    obj.getEventsListener().proccessEvent(MrDefaultEventListener.ON_TOUCH, bundle);
                 }
             }
         });
