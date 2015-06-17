@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +23,7 @@ public class MrSceneLoader extends MrBaseObjectLoader {
 
     @Override
     public MrScene parse() throws JSONException {
-        return new MrScene(getName(), getTransform(), getShaderProgram(), getUniformKeyList(), getClearColor());
+        return new MrScene.Builder().setName(getName()).setTransform(getTransform()).setShaderProgram(getShaderProgram()).setUniformKeys(getUniformKeyList()).setClearColor(getClearColor()).createScene();
     }
 
     private MrVector4f getClearColor() throws JSONException {

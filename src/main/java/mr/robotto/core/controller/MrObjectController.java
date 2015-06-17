@@ -47,10 +47,6 @@ public abstract class MrObjectController {
         this(data, null);
     }
 
-    protected void setData(MrObjectData data) {
-        mData = data;
-    }
-
     protected void setRender(MrObjectRender render) {
         mRender = render;
     }
@@ -58,6 +54,10 @@ public abstract class MrObjectController {
     //TODO: Delete
     public MrObjectData getData() {
         return mData;
+    }
+
+    protected void setData(MrObjectData data) {
+        mData = data;
     }
 
     public MrEventsListener getEventsListener() {
@@ -69,12 +69,12 @@ public abstract class MrObjectController {
         mEventsListener.setObjectController(this);
     }
 
-    public void setAttachedObject(MrObject object) {
-        mAttachedObject = object;
-    }
-
     public MrObject getAttachedObject() {
         return mAttachedObject;
+    }
+
+    public void setAttachedObject(MrObject object) {
+        mAttachedObject = object;
     }
 
     public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {
@@ -91,6 +91,10 @@ public abstract class MrObjectController {
             initializeUniforms();
         }
         mInitialized = true;
+    }
+
+    public void updateEvents() {
+        mEventsListener.updateEvents();
     }
 
     //TODO: initializeSizeDependant(Context, w, h)

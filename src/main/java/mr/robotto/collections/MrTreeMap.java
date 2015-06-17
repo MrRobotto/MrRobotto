@@ -17,27 +17,43 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import mr.robotto.collections.core.MrMapFunction;
-
 /**
- * Created by Aarón on 26/12/2014.
+ * Tree Structure. This tree can saves nodes in a hierarchically way.
+ * Moreover finding an element is done in O(1) because all ellements are hashed using a
+ * {@link MrMapFunction MrMapFuncion}
  */
 public class MrTreeMap<K, V> implements Iterable<V> {
 
+    /**
+     * Breadth first traversal mode
+     */
     public final static int BREADTH_TRAVERSAL = 0;
+    /**
+     * Depth first traversal mode
+     */
     public final static int DEPTH_TRAVERSAL = 1;
 
     private final MrMapFunction<K, V> mMapFunction;
-    private MrTreeMapNode mRoot;
     private final HashMap<K, MrTreeMapNode> mTree = new HashMap<K, MrTreeMapNode>();
+    private MrTreeMapNode mRoot;
     private int mTraversalMode;
 
+    /**
+     * Creates an empty MrTreeMap
+     *
+     * @param mapFunction map-function used for this tree
+     */
     public MrTreeMap(MrMapFunction<K, V> mapFunction) {
         mRoot = null;
         mMapFunction = mapFunction;
         mTraversalMode = BREADTH_TRAVERSAL;
     }
 
+    /**
+     * Creates a MrTreeMap with a root element
+     * @param root root element of tree
+     * @param mapFunction map-function used for this tree
+     */
     public MrTreeMap(V root, MrMapFunction<K, V> mapFunction) {
         mMapFunction = mapFunction;
         mRoot = new MrTreeMapNode(root);
@@ -54,49 +70,103 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         }
     }
 
+    /**
+     * Gets the current traversal mode
+     * @return
+     */
     public int getTraversalMode() {
         return mTraversalMode;
     }
 
+    /**
+     * Sets the current traversal mode
+     * @param traversalMode
+     */
     public void setTraversalMode(int traversalMode) {
         mTraversalMode = traversalMode;
     }
 
+    /**
+     * Gets the current map function of this tree
+     * @return
+     */
     public MrMapFunction<K, V> getMapFunction() {
         return mMapFunction;
     }
 
+    /**
+     * Gets the root object of this tree
+     * @return root object or null if the tree is empty
+     */
     public V getRoot() {
+        if (mRoot == null) {
+            return null;
+        }
         return mRoot.getData();
     }
 
+    /**
+     * Finds an object in this tree using its key
+     * @param key object key, this is the result of tree's map-function
+     * @return object or null if the key does not exists
+     */
     public V findByKey(K key) {
         MrTreeMapNode node = mTree.get(key);
+        if (node == null) {
+            return null;
+        }
         return node.getData();
     }
 
+    /**
+     * Checks if key exists
+     * @param key
+     * @return true if the key exists, if it does not, false
+     */
     public boolean containsKey(K key) {
         return mTree.containsKey(key);
     }
 
+    /**
+     * Checks if the key returned by map-function is in inside the tree
+     * @param data
+     * @return
+     */
     public boolean contains(V data) {
         K key = mMapFunction.getKeyOf(data);
         return mTree.containsKey(key);
     }
 
+    /**
+     * Clears all elements
+     */
     public void clear() {
         mRoot = null;
         mTree.clear();
     }
 
+    /**
+     * Gets the keys collection
+     * @return All keys already in use in this tree
+     */
     public Collection<K> keys() {
         return mTree.keySet();
     }
 
+    /**
+     * Number of elements in this tree
+     * @return number of elements
+     */
     public int size() {
         return mTree.size();
     }
 
+    /**
+     * Adds a child to the node
+     * @param parentKey parent node key
+     * @param data data to be used as a child
+     * @return true if the insertion has been done, false otherwise
+     */
     public boolean addChildByKey(K parentKey, V data) {
         if (mRoot == null && parentKey == null) {
             MrTreeMapNode node = new MrTreeMapNode(data);
@@ -116,6 +186,12 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return true;
     }
 
+    /**
+     * Adds a child to the node
+     * @param parent parent object
+     * @param data child object to be inserted
+     * @return true if the insertion has been done, false otherwise
+     */
     public boolean addChild(V parent, V data) {
         return addChildByKey(mMapFunction.getKeyOf(parent), data);
     }
@@ -131,6 +207,11 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         }
     }
 
+    /**
+     * Removes a certain element in this tree
+     * @param key of the element
+     * @return
+     */
     public boolean removeByKey(K key) {
         if (!mTree.containsKey(key))
             return false;
@@ -143,10 +224,20 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return true;
     }
 
+    /**
+     * Removes a certain element from this tree
+     * @param data data object to be removed
+     * @return true if the deletion has been done, false otherwise
+     */
     public boolean remove(V data) {
         return removeByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Gets the children of an object using its key
+     * @param key node
+     * @return the children of node
+     */
     public List<V> getChildrenOfByKey(K key) {
         Collection<MrTreeMapNode> nodes = mTree.get(key).getChildren();
         ArrayList<V> list = new ArrayList<>(nodes.size());
@@ -156,25 +247,58 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return list;
     }
 
+    /**
+     * Returns the parent of the element
+     * @param data element
+     * @return the parent of the element, null if it has no parent
+     */
     public V getParentOf(V data) {
         K key = mMapFunction.getKeyOf(data);
         MrTreeMapNode node = mTree.get(key);
+        MrTreeMapNode parent = node.getParent();
+        if (parent == null) {
+            return null;
+        }
         return node.getParent().getData();
     }
 
+    /**
+     * Gets the parent of an element using its key
+     * @param key key of the element
+     * @return the parent of the current element
+     */
     public V getParentOfByKey(K key) {
         MrTreeMapNode node = mTree.get(key);
+        MrTreeMapNode parent = node.getParent();
+        if (parent == null) {
+            return null;
+        }
         return node.getParent().getData();
     }
 
+    /**
+     * Gets the children of an element
+     * @param data the object
+     * @return the children of passed object
+     */
     public List<V> getChildrenOf(V data) {
         return getChildrenOfByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Gets the subtree from key element using key
+     * @param key key of object
+     * @return
+     */
     public MrTreeMap<K, V> getSubTreeByKey(K key) {
         return new MrTreeMap<K, V>(mTree.get(key), this);
     }
 
+    /**
+     * Gets the subtree from key element
+     * @param data object
+     * @return
+     */
     public MrTreeMap<K, V> getSubTree(V data) {
         return getSubTreeByKey(mMapFunction.getKeyOf(data));
     }

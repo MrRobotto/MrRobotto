@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,8 +30,14 @@ public class MrCameraLoader extends MrBaseObjectLoader {
         //TODO: Check all this, the unsupported operation and that null return
         JSONObject lensJson = mRoot.getJSONObject("Lens");
         if (lensJson.getString("Type").equals("Perspective")) {
-            return new MrCamera(getName(), getTransform(), getUniformKeyList(), getShaderProgram(), getPerspectiveLens(lensJson));
+            return new MrCamera.Builder()
+                    .setName(getName())
+                    .setTransform(getTransform())
+                    .setUniformKeys(getUniformKeyList())
+                    .setShaderProgram(getShaderProgram())
+                    .setLens(getPerspectiveLens(lensJson)).createCamera();
         } else if (lensJson.getString("Type").equals("Orthographic")) {
+            //TODO: Make this
             throw new UnsupportedOperationException("Not implemented yet");
         } else {
             return null;

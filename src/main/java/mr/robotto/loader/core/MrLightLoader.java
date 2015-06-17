@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +27,13 @@ public class MrLightLoader extends MrBaseObjectLoader {
 
     @Override
     public MrObject parse() throws JSONException {
-        return new MrLight(getName(), getTransform(), getShaderProgram(), getUniformKeyList(), getLightColor());
+        return new MrLight.Builder()
+                .setName(getName())
+                .setTransform(getTransform())
+                .setShaderProgram(getShaderProgram())
+                .setUniformKeys(getUniformKeyList())
+                .setLightColor(getLightColor())
+                .createLight();
     }
 
     private MrVector3f getLightColor() throws JSONException {

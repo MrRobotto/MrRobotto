@@ -10,26 +10,20 @@
 package mr.robotto;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import mr.robotto.core.MrObject;
 import mr.robotto.events.MrEventDispatcher;
-import mr.robotto.loader.MrRobottoFileLoader;
-import mr.robotto.loader.MrRobottoJson;
-import mr.robotto.loader.MrRobottoJsonLoader;
+import mr.robotto.loader.file.MrRobottoFileLoader;
 import mr.robotto.scenetree.MrSceneTree;
 import mr.robotto.scenetree.MrSceneTreeController;
 import mr.robotto.ui.MrSurfaceView;
-import mr.robotto.utils.MrStreamReader;
 
 /**
  * Created by aaron on 22/04/2015.

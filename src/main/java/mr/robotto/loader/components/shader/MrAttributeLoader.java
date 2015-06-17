@@ -14,19 +14,22 @@ import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.data.shader.MrAttribute;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
-public class MrAttributeLoader extends MrBaseLoader<MrAttribute> {
+/**
+ * Loads a {@link MrAttribute} from JSON.
+ */
+public class MrAttributeLoader extends MrJsonBaseLoader<MrAttribute> {
     public MrAttributeLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
     public MrAttribute parse() throws JSONException {
-        return new MrAttribute(getAttributeType(), getName(), getIndex(), getDataType());
+        return new MrAttribute(loadAttributeType(), loadName(), loadIndex(), loadDataType());
     }
 
-    private int getAttributeType() throws JSONException {
+    private int loadAttributeType() throws JSONException {
         String upper = mRoot.getString("Attribute").toUpperCase();
         switch (upper) {
             case "VERTICES":
@@ -48,16 +51,16 @@ public class MrAttributeLoader extends MrBaseLoader<MrAttribute> {
         }
     }
 
-    private MrDataType getDataType() throws JSONException {
+    private MrDataType loadDataType() throws JSONException {
         String dataTypeStr = mRoot.getString("DataType");
         return MrDataType.valueOf(dataTypeStr.toUpperCase());
     }
 
-    private int getIndex() throws JSONException {
+    private int loadIndex() throws JSONException {
         return mRoot.getInt("Index");
     }
 
-    private String getName() throws JSONException {
+    private String loadName() throws JSONException {
         return mRoot.getString("Name");
     }
 }

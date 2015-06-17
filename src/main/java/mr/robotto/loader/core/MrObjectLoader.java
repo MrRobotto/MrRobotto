@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +17,7 @@ import mr.robotto.core.MrSceneObjectType;
 
 //TODO: Aqui falta mucho trabajo de control de errores
 //TODO: Extiendo de esto para usar parse, pero aqui parse ya está implementado... meeeec
-public class MrObjectLoader extends MrBaseLoader<MrObject> {
+public class MrObjectLoader extends MrJsonBaseLoader<MrObject> {
     public MrObjectLoader(JSONObject obj) {
         super(obj);
     }

@@ -21,6 +21,7 @@ import mr.robotto.core.controller.MrLightController;
 import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.core.controller.MrSceneController;
+import mr.robotto.events.MrDefaultEventListener;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -29,11 +30,10 @@ import mr.robotto.renderer.MrRenderingContext;
 
 //TODO: SAcar el rendering context del objeto???
 public class MrSceneTreeRender {
-    private MrSceneTreeData mSceneObjectsTree;
-    private MrRenderingContext mContext;
-
     private final ArrayList<MrUniformKey> mSortedKeys;
     private final HashMap<String, MrObjectController> mObjects;
+    private MrSceneTreeData mSceneObjectsTree;
+    private MrRenderingContext mContext;
 
     public MrSceneTreeRender() {
 
@@ -55,28 +55,12 @@ public class MrSceneTreeRender {
         }
     }
 
-    private static class KeyObjNode implements Comparable<KeyObjNode>{
-        MrObjectController obj;
-        MrUniformKey key;
-        int level;
-
-        public KeyObjNode(MrObjectController obj, MrUniformKey key) {
-            this.obj = obj;
-            this.key = key;
-            level = key.getLevel();
-        }
-
-        @Override
-        public int compareTo(KeyObjNode another) {
-            if (another.level == this.level) {
-                return 0;
-            }
-            else if (another.level < this.level) {
-                return 1;
-            }
-            else {
-                return -1;
-            }
+    private void addUniforms(MrObjectController obj) {
+        Map<String, MrUniformKey> keys = mContext.getUniforms();
+        for (MrUniformKey key : obj.getUniformKeys().values()) {
+            mSortedKeys.add(key);
+            mObjects.put(key.getUniformType(), obj);
+            keys.put(key.getUniformType(), key);
         }
     }
 
@@ -97,15 +81,6 @@ public class MrSceneTreeRender {
             obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
         }
     }*/
-
-    private void addUniforms(MrObjectController obj) {
-        Map<String, MrUniformKey> keys = mContext.getUniforms();
-        for (MrUniformKey key : obj.getUniformKeys().values()) {
-            mSortedKeys.add(key);
-            mObjects.put(key.getUniformType(), obj);
-            keys.put(key.getUniformType(), key);
-        }
-    }
 
     private void updateUniforms() {
         //TODO: Use heap instead arraylist
@@ -134,14 +109,22 @@ public class MrSceneTreeRender {
         mObjects.clear();
         MrSceneController scene = mSceneObjectsTree.getScene();
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
+        scene.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
+        camera.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
+        scene.updateEvents();
+        camera.updateEvents();
         scene.render();
         camera.render();
         for (MrLightController light : mSceneObjectsTree.getLights()) {
+            light.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
+            light.updateEvents();
             addUniforms(light);
         }
         List<MrModelController> models = mSceneObjectsTree.getModels();
         for (int i = 0; i < models.size(); i++) {
             MrModelController model = models.get(i);
+            model.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
+            model.updateEvents();
             addUniforms(model);
             addUniforms(camera);
             addUniforms(scene);
@@ -153,5 +136,28 @@ public class MrSceneTreeRender {
     //TODO: Fill this
     public boolean isInitialized() {
         return false;
+    }
+
+    private static class KeyObjNode implements Comparable<KeyObjNode> {
+        MrObjectController obj;
+        MrUniformKey key;
+        int level;
+
+        public KeyObjNode(MrObjectController obj, MrUniformKey key) {
+            this.obj = obj;
+            this.key = key;
+            level = key.getLevel();
+        }
+
+        @Override
+        public int compareTo(KeyObjNode another) {
+            if (another.level == this.level) {
+                return 0;
+            } else if (another.level < this.level) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
     }
 }

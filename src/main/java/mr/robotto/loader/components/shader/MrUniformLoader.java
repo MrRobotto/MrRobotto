@@ -14,9 +14,9 @@ import org.json.JSONObject;
 
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.data.shader.MrUniform;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
-public class MrUniformLoader extends MrBaseLoader<MrUniform> {
+public class MrUniformLoader extends MrJsonBaseLoader<MrUniform> {
 
     public MrUniformLoader(JSONObject obj) {
         super(obj);

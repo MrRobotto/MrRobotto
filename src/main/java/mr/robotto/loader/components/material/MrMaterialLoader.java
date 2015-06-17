@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.components;
+package mr.robotto.loader.components.material;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,12 +17,13 @@ import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.material.MrMaterialLight;
 import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.components.texture.MrTextureLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
 /**
- * Created by aaron on 16/03/2015.
+ * Loads a {@link MrMaterial} from JSON
  */
-public class MrMaterialLoader extends MrBaseLoader<MrMaterial> {
+public class MrMaterialLoader extends MrJsonBaseLoader<MrMaterial> {
 
     public MrMaterialLoader(JSONObject obj) {
         super(obj);

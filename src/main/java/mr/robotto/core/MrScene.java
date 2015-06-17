@@ -27,15 +27,51 @@ public class MrScene extends MrObject {
         return (MrSceneController) super.getController();
     }
 
-    public void setClearColor(MrVector4f clearColor) {
-        getController().setClearColor(clearColor);
-    }
-
     public MrVector4f getClearColor() {
         return getController().getClearColor();
     }
 
+    public void setClearColor(MrVector4f clearColor) {
+        getController().setClearColor(clearColor);
+    }
+
     public void setClearColor(float r, float g, float b, float a) {
         getController().setClearColor(r, g, b, a);
+    }
+
+    /**
+     * Created by aaron on 16/06/2015.
+     */
+    public static class Builder extends MrObjectBuilder {
+        private MrVector4f mClearColor = new MrVector4f(0.5f, 0.5f, 0.5f, 0.5f);
+
+        @Override
+        public Builder setName(String name) {
+            return (Builder) super.setName(name);
+        }
+
+        @Override
+        public Builder setTransform(MrTransform transform) {
+            return (Builder) super.setTransform(transform);
+        }
+
+        @Override
+        public Builder setShaderProgram(MrShaderProgram program) {
+            return (Builder) super.setShaderProgram(program);
+        }
+
+        @Override
+        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            return (Builder) super.setUniformKeys(uniformKeys);
+        }
+
+        public Builder setClearColor(MrVector4f clearColor) {
+            mClearColor = clearColor;
+            return this;
+        }
+
+        public MrScene createScene() {
+            return new MrScene(mName, mTransform, mShaderProgram, mUniformKeys, mClearColor);
+        }
     }
 }

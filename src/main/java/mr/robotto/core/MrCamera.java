@@ -33,12 +33,12 @@ public class MrCamera extends MrObject {
         return (MrCameraController) super.getController();
     }
 
-    public void setLens(MrLens lens) {
-        getController().setLens(lens);
-    }
-
     public MrLens getLens() {
         return getController().getLens();
+    }
+
+    public void setLens(MrLens lens) {
+        getController().setLens(lens);
     }
 
     public MrMatrix4f getViewMatrix() {
@@ -47,5 +47,41 @@ public class MrCamera extends MrObject {
 
     public MrVector3f getLookAt() {
         return getController().getLookAt();
+    }
+
+    /**
+     * Created by aaron on 16/06/2015.
+     */
+    public static class Builder extends MrObjectBuilder {
+        private MrLens mLens;
+
+        @Override
+        public Builder setName(String name) {
+            return (Builder) super.setName(name);
+        }
+
+        @Override
+        public Builder setTransform(MrTransform transform) {
+            return (Builder) super.setTransform(transform);
+        }
+
+        @Override
+        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            return (Builder) super.setUniformKeys(uniformKeys);
+        }
+
+        @Override
+        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
+            return (Builder) super.setShaderProgram(shaderProgram);
+        }
+
+        public Builder setLens(MrLens lens) {
+            mLens = lens;
+            return this;
+        }
+
+        public MrCamera createCamera() {
+            return new MrCamera(mName, mTransform, mUniformKeys, mShaderProgram, mLens);
+        }
     }
 }

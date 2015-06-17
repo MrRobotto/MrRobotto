@@ -54,7 +54,7 @@ public class MrEventDispatcher implements View.OnTouchListener {
                 for (MrObjectController obj : objs) {
                     MrBundle bundle = new MrBundle();
                     bundle.putMotionEvent(MrDefaultEventListener.ON_TOUCH_MOTIONEVENT, event);
-                    obj.getEventsListener().proccessEvent(MrDefaultEventListener.ON_TOUCH, bundle);
+                    obj.getEventsListener().queueEvent(MrDefaultEventListener.ON_TOUCH, bundle);
                 }
             }
         });

@@ -17,9 +17,9 @@ import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
 import mr.robotto.components.data.shader.MrUniform;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
-public class MrShaderProgramLoader extends MrBaseLoader<MrShaderProgram> {
+public class MrShaderProgramLoader extends MrJsonBaseLoader<MrShaderProgram> {
 
     public MrShaderProgramLoader(JSONObject obj) {
         super(obj);

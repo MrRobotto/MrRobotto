@@ -9,7 +9,6 @@
 
 package mr.robotto.core;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import mr.robotto.components.comp.MrMesh;
@@ -24,7 +23,7 @@ import mr.robotto.linearalgebra.MrTransform;
 
 public class MrModel extends MrObject {
 
-    protected MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+    public MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(new MrModelController(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton));
     }
 
@@ -80,30 +79,28 @@ public class MrModel extends MrObject {
         return getSkeleton().getActions();
     }
 
-    public static class Builder {
-        private String mName;
-        private MrTransform mTransform = new MrTransform();
-        private Map<String, MrUniformKey> mUniformKeys = new HashMap<>();
+    public static class Builder extends MrObjectBuilder {
         private MrShaderProgram mShaderProgram;
         private MrMesh mMesh;
         private MrMaterial[] mMaterials = new MrMaterial[0];
         private MrSkeleton mSkeleton = null;
 
+        @Override
         public Builder setName(String name) {
-            mName = name;
-            return this;
+            return (Builder) super.setName(name);
         }
 
+        @Override
         public Builder setTransform(MrTransform transform) {
-            mTransform = transform;
-            return this;
+            return (Builder) super.setTransform(transform);
         }
 
+        @Override
         public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            mUniformKeys = uniformKeys;
-            return this;
+            return (Builder) super.setUniformKeys(uniformKeys);
         }
 
+        @Override
         public Builder setShaderProgram(MrShaderProgram shaderProgram) {
             mShaderProgram = shaderProgram;
             return this;

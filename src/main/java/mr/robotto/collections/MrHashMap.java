@@ -14,9 +14,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import mr.robotto.collections.core.MrMap;
-import mr.robotto.collections.core.MrMapFunction;
-
+/**
+ * Implementation of a custom hash-map with a map-function capacity to map objects to a certain directly
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class MrHashMap<K, V> implements MrMap<K, V> {
 
     private HashMap<K, V> mElements;
@@ -31,24 +34,11 @@ public class MrHashMap<K, V> implements MrMap<K, V> {
         mElements = new HashMap<K, V>();
     }
 
-    /**
-     * Adds v to this map, if the key returned by the assigned {@link mr.robotto.collections.core.MrMapFunction}
-     * already exists the existed value will be replaced
-     *
-     * @param v
-     * @return
-     */
     @Override
     public boolean add(V v) {
         return mElements.put(mMapFunction.getKeyOf(v), v) != null;
     }
 
-    /**
-     * Adds all elements from the given map {@code container} to this map
-     *
-     * @param container
-     * @return
-     */
     @Override
     public boolean addAll(MrMap<K, V> container) {
         boolean added = true;

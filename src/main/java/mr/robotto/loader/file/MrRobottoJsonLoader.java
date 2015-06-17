@@ -7,17 +7,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.file;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.MrRobotto;
+import mr.robotto.collections.MrMapFunction;
 import mr.robotto.collections.MrTreeMap;
-import mr.robotto.collections.core.MrMapFunction;
+import mr.robotto.core.MrObject;
+import mr.robotto.loader.MrObjectMap;
+import mr.robotto.loader.core.MrJsonBaseLoader;
+import mr.robotto.loader.core.MrObjectLoader;
 
 //TODO: Cambiar estos nombres taaaan feos
-public class MrRobottoJsonLoader extends MrBaseLoader<MrRobottoJson> {
+public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrRobottoJson> {
 
     public MrRobottoJsonLoader(JSONObject obj) {
         super(obj);
@@ -40,7 +45,9 @@ public class MrRobottoJsonLoader extends MrBaseLoader<MrRobottoJson> {
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
         for (int i = 0; i < jsonObjects.length(); i++) {
             MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));
-            objectDataList.add(objectLoader.parse());
+            MrObject obj = objectLoader.parse();
+            obj.setRobottoEngine(MrRobotto.getInstance());
+            objectDataList.add(obj);
         }
         return objectDataList;
     }

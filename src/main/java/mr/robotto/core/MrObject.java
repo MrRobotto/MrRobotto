@@ -9,6 +9,7 @@
 
 package mr.robotto.core;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,19 +27,22 @@ import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
 public abstract class MrObject {
+    protected MrRobotto mRobotto;
     private MrObjectController mController;
     private MrSceneTree mTree;
-
-    protected MrRobotto mRobotto;
 
     protected MrObject(MrObjectController controller) {
         mController = controller;
         mController.setAttachedObject(this);
-        mRobotto = MrRobotto.getInstance();
+        //mRobotto = MrRobotto.getInstance();
     }
 
     public MrObjectController getController() {
         return mController;
+    }
+
+    public void setRobottoEngine(MrRobotto robotto) {
+        mRobotto = robotto;
     }
 
     /*******Controller******/
@@ -82,14 +86,13 @@ public abstract class MrObject {
         return mController.getUniformKeys();
     }
 
+    public MrSceneTree getTree() {
+        return mTree;
+    }
 
     /*****Tree*****/
     public void setTree(MrSceneTree tree) {
         mTree = tree;
-    }
-
-    public MrSceneTree getTree() {
-        return mTree;
     }
 
     public boolean addChild(MrObject data) {
@@ -170,6 +173,10 @@ public abstract class MrObject {
         return getTransform().getRotation();
     }
 
+    public void setRotation(MrQuaternion rotation) {
+        getTransform().setRotation(rotation);
+    }
+
     public void rotate(final float angle, final MrVector3f axis) {
         queueEvent(new Runnable() {
             @Override
@@ -219,15 +226,6 @@ public abstract class MrObject {
         });
     }
 
-    public void setLocation(final MrVector3f location) {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                getTransform().setLocation(location);
-            }
-        });
-    }
-
     public void scale(final float sx, final float sy, final float sz) {
         queueEvent(new Runnable() {
             @Override
@@ -239,10 +237,6 @@ public abstract class MrObject {
 
     public void setScale(float sx, float sy, float sz) {
         getTransform().setScale(sx, sy, sz);
-    }
-
-    public void setScale(MrVector3f scale) {
-        getTransform().setScale(scale);
     }
 
     public void translate(MrVector3f v) {
@@ -257,8 +251,8 @@ public abstract class MrObject {
         return getTransform().getScale();
     }
 
-    public void setRotation(MrQuaternion rotation) {
-        getTransform().setRotation(rotation);
+    public void setScale(MrVector3f scale) {
+        getTransform().setScale(scale);
     }
 
     public void setLocation(float x, float y, float z) {
@@ -285,6 +279,15 @@ public abstract class MrObject {
         return getTransform().getLocation();
     }
 
+    public void setLocation(final MrVector3f location) {
+        queueEvent(new Runnable() {
+            @Override
+            public void run() {
+                getTransform().setLocation(location);
+            }
+        });
+    }
+
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis) {
         getTransform().rotateAround(angle, point, axis);
     }
@@ -299,5 +302,35 @@ public abstract class MrObject {
 
     public void rotate(float angle, float x, float y, float z) {
         getTransform().rotate(angle, x, y, z);
+    }
+
+    /**
+     * Created by aaron on 16/06/2015.
+     */
+    public static abstract class MrObjectBuilder {
+        protected String mName;
+        protected MrTransform mTransform = new MrTransform();
+        protected Map<String, MrUniformKey> mUniformKeys = new HashMap<>();
+        protected MrShaderProgram mShaderProgram = null;
+
+        public MrObjectBuilder setName(String name) {
+            mName = name;
+            return this;
+        }
+
+        public MrObjectBuilder setTransform(MrTransform transform) {
+            mTransform = transform;
+            return this;
+        }
+
+        public MrObjectBuilder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            mUniformKeys = uniformKeys;
+            return this;
+        }
+
+        public MrObjectBuilder setShaderProgram(MrShaderProgram shaderProgram) {
+            mShaderProgram = shaderProgram;
+            return this;
+        }
     }
 }

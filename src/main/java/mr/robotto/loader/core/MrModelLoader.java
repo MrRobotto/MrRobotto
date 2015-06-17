@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,9 +17,9 @@ import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.data.material.MrMaterial;
 import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.core.MrModel;
-import mr.robotto.loader.animation.MrSkeletonLoader;
-import mr.robotto.loader.components.MrMaterialLoader;
-import mr.robotto.loader.components.MrMeshLoader;
+import mr.robotto.loader.components.material.MrMaterialLoader;
+import mr.robotto.loader.components.mesh.MrMeshLoader;
+import mr.robotto.loader.components.skeleton.MrSkeletonLoader;
 
 public class MrModelLoader extends MrBaseObjectLoader {
     public MrModelLoader(JSONObject obj) {

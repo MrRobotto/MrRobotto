@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +27,7 @@ import mr.robotto.loader.components.shader.MrShaderProgramLoader;
 /**
  * Created by aaron on 03/03/2015.
  */
-public abstract class MrBaseObjectLoader extends MrBaseLoader<MrObject> {
+abstract class MrBaseObjectLoader extends MrJsonBaseLoader<MrObject> {
     public MrBaseObjectLoader(JSONObject obj) {
         super(obj);
     }

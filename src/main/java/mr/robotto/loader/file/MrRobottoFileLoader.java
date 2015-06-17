@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.file;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

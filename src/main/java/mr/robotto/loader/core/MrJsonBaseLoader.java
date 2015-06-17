@@ -7,18 +7,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader;
+package mr.robotto.loader.core;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class MrBaseLoader<T>
+public abstract class MrJsonBaseLoader<T>
 {
     //TODO: Cambiar el jsonobject al parse y pasar del constructor y convertir esto en una interfaz
     //TODO: Cambiar en los parser a la versión opt
     protected JSONObject mRoot;
 
-    public MrBaseLoader(JSONObject obj)
+    public MrJsonBaseLoader(JSONObject obj)
     {
         mRoot = obj;
     }

@@ -16,9 +16,9 @@ import org.json.JSONObject;
 import mr.robotto.linearalgebra.MrQuaternion;
 import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
-public class MrTransformLoader extends MrBaseLoader<MrTransform> {
+public class MrTransformLoader extends MrJsonBaseLoader<MrTransform> {
     public MrTransformLoader(JSONObject obj) {
         super(obj);
     }

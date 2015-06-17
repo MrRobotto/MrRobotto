@@ -7,20 +7,20 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.collections.core;
+package mr.robotto.collections;
 
 /**
- * Interface used for get the group G of the element V
+ * Interface used for get the map key of the element V
  *
- * @param <G> Class of the group of element v
+ * @param <K> Class of the key of element v
  * @param <V> Class of the element to be evaluated
  */
-public interface MrGroupingFunction<G, V> {
+public interface MrMapFunction<K, V> {
     /**
-     * Gets the group of v
+     * Gets the key of the given object v
      *
-     * @param v element to be evaluated
-     * @return the group of v
+     * @param v
+     * @return the key of v
      */
-    public G getGroupOf(V v);
+    K getKeyOf(V v);
 }

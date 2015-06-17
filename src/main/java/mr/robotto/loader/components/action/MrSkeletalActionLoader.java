@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.animation;
+package mr.robotto.loader.components.action;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,12 +16,13 @@ import org.json.JSONObject;
 import mr.robotto.components.data.action.MrFrame;
 import mr.robotto.components.data.action.MrSkeletalAction;
 import mr.robotto.components.data.skeleton.MrBone;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.components.skeleton.MrBoneLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
 /**
- * Created by aaron on 27/04/2015.
+ * Loads an {@link MrSkeletalAction} from JSON
  */
-public class MrSkeletalActionLoader extends MrBaseLoader<MrSkeletalAction> {
+public class MrSkeletalActionLoader extends MrJsonBaseLoader<MrSkeletalAction> {
     public MrSkeletalActionLoader(JSONObject obj) {
         super(obj);
     }

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.loader.components;
+package mr.robotto.loader.components.texture;
 
 import android.graphics.Bitmap;
 
@@ -16,12 +16,12 @@ import org.json.JSONObject;
 
 import mr.robotto.MrRobotto;
 import mr.robotto.components.comp.MrTexture;
-import mr.robotto.loader.MrBaseLoader;
+import mr.robotto.loader.core.MrJsonBaseLoader;
 
 /**
  * Created by aaron on 04/05/2015.
  */
-public class MrTextureLoader extends MrBaseLoader<MrTexture>{
+public class MrTextureLoader extends MrJsonBaseLoader<MrTexture> {
 
     public MrTextureLoader(JSONObject obj) {
         super(obj);

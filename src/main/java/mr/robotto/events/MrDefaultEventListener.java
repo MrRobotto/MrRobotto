@@ -10,7 +10,6 @@
 package mr.robotto.events;
 
 import android.view.MotionEvent;
-import android.view.View;
 
 import java.util.Set;
 
@@ -22,24 +21,36 @@ import java.util.Set;
  */
 public class MrDefaultEventListener extends MrEventsListener {
 
+    public static final String ON_TICK = "MrOnTick";
+
     public static final String ON_TOUCH = "MrOnTouch";
     public static final String ON_TOUCH_MOTIONEVENT = "MrMotionEvent";
 
+    private float alpha = 0.1f;
+
     public boolean onTouch(MotionEvent event) {
-        System.out.println("Hola desde "+getAttachedObject().getName());
         return false;
     }
 
+    public void onTick() {
+        if (getAttachedObject().getName().equals("link"))
+            getAttachedObject().rotate(0.2f, 0, 0, 1);
+    }
+
     @Override
-    protected void proccessEvent(String eventName, MrBundle eventBundle) {
-        super.proccessEvent(eventName, eventBundle);
+    protected void processEvent(String eventName, MrBundle eventBundle) {
+        super.processEvent(eventName, eventBundle);
         if (eventName.equals(ON_TOUCH)) {
             onTouch(eventBundle.getMotionEvent(ON_TOUCH_MOTIONEVENT));
+        }
+        if (eventName.equals(ON_TICK)) {
+            onTick();
         }
     }
 
     @Override
     protected void registerEvents(Set<String> events) {
         events.add(ON_TOUCH);
+        events.add(ON_TICK);
     }
 }

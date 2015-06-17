@@ -25,5 +25,36 @@ public class MrLight extends MrObject {
         super(new MrLightController(name, transform, program, uniformKeys, lightColor));
     }
 
+    public static class Builder extends MrObjectBuilder {
+        private MrVector3f mLightColor;
 
+        @Override
+        public Builder setName(String name) {
+            return (Builder) super.setName(name);
+        }
+
+        @Override
+        public Builder setTransform(MrTransform transform) {
+            return (Builder) super.setTransform(transform);
+        }
+
+        @Override
+        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            return (Builder) super.setUniformKeys(uniformKeys);
+        }
+
+        @Override
+        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
+            return (Builder) super.setShaderProgram(shaderProgram);
+        }
+
+        public Builder setLightColor(MrVector3f lightColor) {
+            mLightColor = lightColor;
+            return this;
+        }
+
+        public MrLight createLight() {
+            return new MrLight(mName, mTransform, mShaderProgram, mUniformKeys, mLightColor);
+        }
+    }
 }

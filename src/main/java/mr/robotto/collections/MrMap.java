@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.collections.core;
+package mr.robotto.collections;
 
 import java.util.Set;
 

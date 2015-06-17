@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mr.robotto.collections.MrMapFunction;
 import mr.robotto.collections.MrTreeMap;
-import mr.robotto.collections.core.MrMapFunction;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrCameraController;
 import mr.robotto.core.controller.MrLightController;
@@ -44,10 +44,6 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
         init();
     }
 
-    public MrObjectsDataTree getObjectsDataTree() {
-        return mObjectsDataTree;
-    }
-
     private static MrMapFunction<String, MrObjectController> createMapFunction() {
         return new MrMapFunction<String, MrObjectController>() {
             @Override
@@ -55,6 +51,10 @@ public class MrSceneTreeData extends MrTreeMap<String, MrObjectController> {
                 return mrObject.getName();
             }
         };
+    }
+
+    public MrObjectsDataTree getObjectsDataTree() {
+        return mObjectsDataTree;
     }
 
     private void init() {
