@@ -308,6 +308,14 @@ public abstract class MrObject {
         getTransform().rotate(angle, x, y, z);
     }
 
+    @Override
+    public String toString() {
+        return "MrObject{" +
+                "name=" + getName() +
+                ", type=" + getSceneObjectType() +
+                '}';
+    }
+
     /**
      * Created by aaron on 16/06/2015.
      */

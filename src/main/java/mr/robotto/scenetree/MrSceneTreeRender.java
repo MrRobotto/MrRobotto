@@ -34,6 +34,7 @@ public class MrSceneTreeRender {
     private final HashMap<String, MrObjectController> mObjects;
     private MrSceneTreeData mSceneObjectsTree;
     private MrRenderingContext mContext;
+    private List<MrModelController> mModels;
 
     public MrSceneTreeRender() {
 
@@ -47,6 +48,9 @@ public class MrSceneTreeRender {
         for (MrObjectController obj : mSceneObjectsTree) {
             obj.initializeRender(mContext);
         }
+        MrRenderingSorter sorter = new MrRenderingSorter(mSceneObjectsTree.getModels());
+        sorter.sort();
+        mModels = sorter.getSortedModels();
     }
 
     public void initializeSizeDependant(int w, int h) {
@@ -63,24 +67,6 @@ public class MrSceneTreeRender {
             keys.put(key.getUniformType(), key);
         }
     }
-
-    /*private void addUniforms(MrObjectController obj) {
-        for (MrUniformKey key : obj.getUniformKeys().values()) {
-            KeyObjNode keyObjNode = new KeyObjNode(obj, key);
-            mKeyObjNodes.add(keyObjNode);
-            mContext.getUniforms().put(key.getUniformType(), key);
-        }
-        //mContext.getUniforms().putAll(obj.getUniformKeys());
-    }
-
-    private void updateUniforms() {
-        Collections.sort(mKeyObjNodes);
-        for (KeyObjNode keyObjNode : mKeyObjNodes) {
-            MrObjectController obj = keyObjNode.obj;
-            MrUniformKey key = keyObjNode.key;
-            obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
-        }
-    }*/
 
     private void updateUniforms() {
         //TODO: Use heap instead arraylist
@@ -122,9 +108,9 @@ public class MrSceneTreeRender {
         for (MrLightController light : mSceneObjectsTree.getLights()) {
             addUniforms(light);
         }
-        List<MrModelController> models = mSceneObjectsTree.getModels();
-        for (int i = 0; i < models.size(); i++) {
-            MrModelController model = models.get(i);
+        mModels = mSceneObjectsTree.getModels();
+        for (int i = 0; i < mModels.size(); i++) {
+            MrModelController model = mModels.get(i);
             addUniforms(model);
             addUniforms(camera);
             addUniforms(scene);
@@ -138,26 +124,4 @@ public class MrSceneTreeRender {
         return false;
     }
 
-    private static class KeyObjNode implements Comparable<KeyObjNode> {
-        MrObjectController obj;
-        MrUniformKey key;
-        int level;
-
-        public KeyObjNode(MrObjectController obj, MrUniformKey key) {
-            this.obj = obj;
-            this.key = key;
-            level = key.getLevel();
-        }
-
-        @Override
-        public int compareTo(KeyObjNode another) {
-            if (another.level == this.level) {
-                return 0;
-            } else if (another.level < this.level) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-    }
 }

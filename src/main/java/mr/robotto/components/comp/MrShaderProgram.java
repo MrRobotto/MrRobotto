@@ -30,6 +30,11 @@ public class MrShaderProgram extends MrComponent {
     }
 
     @Override
+    public String getType() {
+        return MrComponent.TYPE_SHADERPROGRAM;
+    }
+
+    @Override
     public MrComponent.Data getData() {
         return mData;
     }

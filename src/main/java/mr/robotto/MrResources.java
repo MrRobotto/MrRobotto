@@ -60,4 +60,13 @@ public class MrResources {
     public void addTextureBitmap(String texName, Bitmap bitmap) {
         mTextureBitmaps.put(texName, bitmap);
     }
+
+    public void freeResources() {
+        for (Bitmap bitmap : getTextureBitmaps().values()) {
+            bitmap.recycle();
+        }
+        mTextureBitmaps.clear();
+        mPrograms.clear();
+        mTextures.clear();
+    }
 }

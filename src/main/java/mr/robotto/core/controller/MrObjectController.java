@@ -144,4 +144,11 @@ public abstract class MrObjectController {
         return mData.getUniformKeys();
     }
 
+    @Override
+    public String toString() {
+        return "MrObjectController{" +
+                "name=" + getName() +
+                ", type=" + getSceneObjectType() +
+                '}';
+    }
 }

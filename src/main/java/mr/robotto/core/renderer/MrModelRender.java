@@ -65,7 +65,7 @@ public class MrModelRender implements MrObjectRender {
         if (mModelData.isVisible()) {
             bind();
             draw();
-            unbind();
+            //unbind();
         }
     }
 
@@ -93,12 +93,12 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void unbind() {
-        //MrTexture[] textures = mModelData.getTextures();
-        //for (int i = 0; i < textures.length; i++) {
-        //    textures[i].unbind();
-        //}
+        MrTexture[] textures = mModelData.getTextures();
+        for (int i = 0; i < textures.length; i++) {
+            textures[i].unbind();
+        }
         mModelData.getMesh().unbind();
-        //mModelData.getShaderProgram().unbind();
+        mModelData.getShaderProgram().unbind();
         mBinded = false;
     }
 

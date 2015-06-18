@@ -30,6 +30,11 @@ public class MrMesh extends MrComponent {
     }
 
     @Override
+    public String getType() {
+        return MrComponent.TYPE_MESH;
+    }
+
+    @Override
     public String getName() {
         return mData.getName();
     }

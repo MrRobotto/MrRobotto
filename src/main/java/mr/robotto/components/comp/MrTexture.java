@@ -39,6 +39,11 @@ public class MrTexture extends MrComponent {
     }
 
     @Override
+    public String getType() {
+        return MrComponent.TYPE_TEXTURE;
+    }
+
+    @Override
     public String getName() {
         return mData.getName();
     }

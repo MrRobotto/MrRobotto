@@ -18,9 +18,21 @@ import mr.robotto.renderer.MrRenderingContext;
  * And the controller manages access to model and renderer layers from outside
  */
 public abstract class MrComponent {
+
+    public static final String TYPE_MESH = "Mesh";
+    public static final String TYPE_SHADERPROGRAM = "ShaderProgram";
+    public static final String TYPE_TEXTURE = "Texture";
+
     protected boolean mInitialized = false;
     protected boolean mBound = false;
     protected MrRenderingContext mRenderingContext;
+
+    /**
+     * Gets the type of this component
+     *
+     * @return type
+     */
+    public abstract String getType();
 
     /**
      * Gets the name of this component
