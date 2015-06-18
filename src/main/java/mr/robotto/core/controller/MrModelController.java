@@ -9,29 +9,18 @@
 
 package mr.robotto.core.controller;
 
-import java.util.Iterator;
 import java.util.Map;
 
-import mr.robotto.commons.MrDataType;
 import mr.robotto.components.comp.MrMesh;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.action.MrSkeletalAction;
 import mr.robotto.components.data.material.MrMaterial;
-import mr.robotto.components.data.skeleton.MrBone;
 import mr.robotto.components.data.skeleton.MrSkeleton;
-import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.core.data.MrModelData;
-import mr.robotto.core.data.MrObjectData;
 import mr.robotto.core.renderer.MrModelRender;
-import mr.robotto.linearalgebra.MrLinearAlgebraObject;
-import mr.robotto.linearalgebra.MrLinearAlgebraObjectContainer;
-import mr.robotto.linearalgebra.MrMatrix4f;
-import mr.robotto.linearalgebra.MrSamplerIndices;
 import mr.robotto.linearalgebra.MrTransform;
-import mr.robotto.linearalgebra.MrVector4f;
-import mr.robotto.scenetree.MrObjectsDataTree;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -43,27 +32,44 @@ public class MrModelController extends MrObjectController {
         super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
     }
 
-    public MrMesh getMesh() {
-        return ((MrModelData) mData).getMesh();
+    @Override
+    public MrModelData getData() {
+        return (MrModelData) mData;
     }
 
-    public MrMaterial[] getMaterials() {
-        return ((MrModelData) mData).getMaterials();
+    public MrMesh getMesh() {
+        return getData().getMesh();
     }
 
     public boolean hasSkeleton() {
-        return ((MrModelData) mData).hasSkeleton();
-    }
-
-    public MrSkeleton getSkeleton() {
-        return ((MrModelData) mData).getSkeleton();
+        return getData().hasSkeleton();
     }
 
     public MrTexture[] getTextures() {
-        return ((MrModelData) mData).getTextures();
+        return getData().getTextures();
+    }
+
+    public MrSkeleton getSkeleton() {
+        return getData().getSkeleton();
+    }
+
+    public MrMaterial[] getMaterials() {
+        return getData().getMaterials();
     }
 
     public Map<String, MrSkeletalAction> getSkeletalActions() {
-        return ((MrModelData)mData).getSkeletalActions();
+        return getData().getSkeletalActions();
+    }
+
+    public boolean isVisible() {
+        return getData().isVisible();
+    }
+
+    public void setVisibility(boolean isVisible) {
+        getData().setVisibility(isVisible);
+    }
+
+    public boolean hasTextures() {
+        return getData().hasTextures();
     }
 }

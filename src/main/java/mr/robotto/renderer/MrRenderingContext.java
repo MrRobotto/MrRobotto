@@ -13,6 +13,9 @@ package mr.robotto.renderer;
 import java.util.Map;
 import java.util.TreeMap;
 
+import mr.robotto.components.comp.MrMesh;
+import mr.robotto.components.comp.MrShaderProgram;
+import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.scenetree.MrSceneTreeData;
 
@@ -24,6 +27,10 @@ public class MrRenderingContext {
     private TreeMap<String,MrUniformKey> mUniforms;
     private int mWidth;
     private int mHeight;
+
+    private MrMesh mBoundMesh;
+    private MrShaderProgram mBoundShaderProgram;
+    private MrTexture mBoundTexture;
 
     public MrRenderingContext(MrSceneTreeData objectsTree) {
         mObjectsTree = objectsTree;
@@ -51,5 +58,29 @@ public class MrRenderingContext {
 
     public int getWidth() {
         return mWidth;
+    }
+
+    public MrMesh getBoundMesh() {
+        return mBoundMesh;
+    }
+
+    public void setMesh(MrMesh boundMesh) {
+        mBoundMesh = boundMesh;
+    }
+
+    public MrShaderProgram getBoundShaderProgram() {
+        return mBoundShaderProgram;
+    }
+
+    public void setShaderProgram(MrShaderProgram boundShaderProgram) {
+        mBoundShaderProgram = boundShaderProgram;
+    }
+
+    public MrTexture getBoundTexture() {
+        return mBoundTexture;
+    }
+
+    public void setTexture(MrTexture boundTexture) {
+        mBoundTexture = boundTexture;
     }
 }

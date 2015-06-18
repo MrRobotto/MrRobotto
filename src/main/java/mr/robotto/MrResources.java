@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.comp.MrTexture;
 
 /**
@@ -23,10 +24,12 @@ import mr.robotto.components.comp.MrTexture;
 public class MrResources {
 
     private HashMap<String, MrTexture> mTextures;
+    private HashMap<String, MrShaderProgram> mPrograms;
     private ConcurrentHashMap<String, Bitmap> mTextureBitmaps;
 
     public MrResources() {
         mTextures = new HashMap<>();
+        mPrograms = new HashMap<>();
         mTextureBitmaps = new ConcurrentHashMap<>();
     }
 
@@ -36,6 +39,18 @@ public class MrResources {
 
     public void addTexture(MrTexture texture) {
         mTextures.put(texture.getName(), texture);
+    }
+
+    public MrShaderProgram getProgram(String name) {
+        return mPrograms.get(name);
+    }
+
+    public HashMap<String, MrShaderProgram> getPrograms() {
+        return mPrograms;
+    }
+
+    public void addShaderProgram(MrShaderProgram program) {
+        mPrograms.put(program.getName(), program);
     }
 
     public Map<String, Bitmap> getTextureBitmaps() {

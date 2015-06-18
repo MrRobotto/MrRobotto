@@ -9,6 +9,8 @@
 
 package mr.robotto.components.comp;
 
+import mr.robotto.renderer.MrRenderingContext;
+
 /**
  * Base class for an element with a Model-Renderer-Controller architecture.
  * The model class allows access to data layer
@@ -18,6 +20,7 @@ package mr.robotto.components.comp;
 public abstract class MrComponent {
     protected boolean mInitialized = false;
     protected boolean mBound = false;
+    protected MrRenderingContext mRenderingContext;
 
     /**
      * Gets the name of this component
@@ -39,7 +42,7 @@ public abstract class MrComponent {
     public abstract View getView();
 
     /**
-     * Checks if {@link MrComponent#initialize()} has been already called
+     * Checks if {@link MrComponent#initialize(MrRenderingContext)} has been already called
      * @return true if it is initialized, false otherwise
      */
     public boolean isInitialized() {
@@ -55,10 +58,12 @@ public abstract class MrComponent {
     }
 
     /**
-     * Initializes the component
+     * Initializes the current component
+     * @param context Rendering context
      */
-    public void initialize() {
+    public void initialize(MrRenderingContext context) {
         if (!isInitialized()) {
+            mRenderingContext = context;
             getView().initialize();
             mInitialized = true;
         }
@@ -68,13 +73,11 @@ public abstract class MrComponent {
      * Binds the component
      */
     public void bind() {
-        if (!isInitialized()) {
-            initialize();
-        }
-        if (!isBound()) {
-            getView().bind();
-            mBound = true;
-        }
+        //if (!isInitialized()) {
+        //    initialize();
+        //}
+        getView().bind();
+        mBound = true;
     }
 
     /**
@@ -104,7 +107,7 @@ public abstract class MrComponent {
     protected static abstract class View {
         /**
          * Initializes the rendering layer.
-         * This method will be used in {@link MrComponent#initialize()}
+         * This method will be used in {@link MrComponent#initialize(MrRenderingContext)}
          */
         public abstract void initialize();
 

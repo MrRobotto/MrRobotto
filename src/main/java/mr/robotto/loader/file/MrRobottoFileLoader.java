@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
-import mr.robotto.MrRobotto;
+import mr.robotto.MrRobottoEngine;
 import mr.robotto.scenetree.MrSceneTree;
 
 /**
@@ -96,7 +96,7 @@ public class MrRobottoFileLoader {
         for (int i = 0; i < numTextures; i++) {
             String name = loadTextureName();
             Bitmap bitmap = loadTextureData();
-            MrRobotto.getsResources().addTextureBitmap(name, bitmap);
+            MrRobottoEngine.getResources().addTextureBitmap(name, bitmap);
         }
     }
 
@@ -120,9 +120,10 @@ public class MrRobottoFileLoader {
         JSONTokener tokener = new JSONTokener(json);
         JSONObject jsonObject = (JSONObject) tokener.nextValue();
         MrRobottoJsonLoader loader = new MrRobottoJsonLoader(jsonObject);
-        MrRobottoJson resources = loader.parse();
-        MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
-        MrSceneTree tree = builder.buildSceneObjectsTree();
+        //MrRobottoJson resources = loader.parse();
+        //MrRobottoJson.Builder builder = new MrRobottoJson.Builder(resources);
+        //MrSceneTree tree = builder.buildSceneObjectsTree();
+        MrSceneTree tree = loader.parse();
         return tree;
     }
 }

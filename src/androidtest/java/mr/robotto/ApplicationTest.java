@@ -25,8 +25,6 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.loader.file.MrRobottoJson;
-import mr.robotto.loader.file.MrRobottoJsonLoader;
 import mr.robotto.utils.MrStreamReader;
 
 /**
@@ -40,7 +38,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testLoaders() {
         Context context = getContext();
         AssetManager am = context.getAssets();
-        MrRobottoJson context1 = null;
         try {
             InputStream stream = am.open("kingVer3.json");
             JSONObject drac = (JSONObject) new JSONTokener(MrStreamReader.read(stream)).nextValue();
@@ -48,8 +45,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
             MrSceneData ob = (MrSceneData)loader.parse();
             getRenderer().setScene(ob);
             getRenderer().model = new MrModelController((MrModelData)ob.getChildren().findByKey(0), new MrModelRender());*/
-            MrRobottoJsonLoader loader = new MrRobottoJsonLoader(drac);
-            context1 = loader.parse();
+            //MrRobottoJsonLoader loader = new MrRobottoJsonLoader(drac);
+            //context1 = loader.parse();
             //getRenderer().setScene((MrSceneData)context1.getObjectsData().findByKey("Scene"));
             //getRenderer().model = new MrModelController((MrModelData)context1.getObjectsData().findByKey("Cube"), new MrModelRender());
         } catch (IOException e) {
@@ -57,7 +54,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        assertNotNull(context1);
+        assertNotNull(null);
     }
 
     public void testCollections() {

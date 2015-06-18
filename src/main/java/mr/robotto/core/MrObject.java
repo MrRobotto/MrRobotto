@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import mr.robotto.MrRobotto;
+import mr.robotto.MrRobottoEngine;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
@@ -27,7 +27,7 @@ import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar los objectdata y render a elementos de clases inferiores
 public abstract class MrObject {
-    protected MrRobotto mRobotto;
+    protected MrRobottoEngine mRobotto;
     private MrObjectController mController;
     private MrSceneTree mTree;
 
@@ -41,7 +41,11 @@ public abstract class MrObject {
         return mController;
     }
 
-    public void setRobottoEngine(MrRobotto robotto) {
+    public MrRobottoEngine getRobottoEngine() {
+        return mRobotto;
+    }
+
+    public void setRobottoEngine(MrRobottoEngine robotto) {
         mRobotto = robotto;
     }
 

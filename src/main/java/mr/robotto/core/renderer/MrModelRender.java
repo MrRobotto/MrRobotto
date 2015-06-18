@@ -23,7 +23,7 @@ import mr.robotto.renderer.MrRenderingContext;
  */
 public class MrModelRender implements MrObjectRender {
     private MrModelData mModelData;
-    private MrRenderingContext mContext;
+    private MrRenderingContext mRenderingContext;
     private boolean mInitialized = false;
     private boolean mBinded = false;
 
@@ -37,7 +37,7 @@ public class MrModelRender implements MrObjectRender {
 
     @Override
     public void initializeRender(MrRenderingContext context, MrObjectData link) {
-        mContext = context;
+        mRenderingContext = context;
         mModelData = (MrModelData) link;
 
         //Attribute index assignation to mesh
@@ -46,11 +46,11 @@ public class MrModelRender implements MrObjectRender {
             MrBufferKey key = keyMap.get(attribute.getAttributeType());
             key.setIndex(attribute.getIndex());
         }
-        mModelData.getMesh().initialize();
-        mModelData.getShaderProgram().initialize();
+        mModelData.getMesh().initialize(mRenderingContext);
+        mModelData.getShaderProgram().initialize(mRenderingContext);
 
         for (MrTexture texture : mModelData.getTextures()) {
-            texture.initialize();
+            texture.initialize(mRenderingContext);
         }
         mInitialized = true;
     }
@@ -62,17 +62,19 @@ public class MrModelRender implements MrObjectRender {
 
     @Override
     public void render() {
-        bind();
-        draw();
-        unbind();
+        if (mModelData.isVisible()) {
+            bind();
+            draw();
+            unbind();
+        }
     }
 
 
     private void bind() {
         mModelData.getShaderProgram().bind();
         //Assign of uniforms to the shader program
-        //mModelData.getShaderProgram().bindUniforms(mContext.getUniformGenerators());
-        mModelData.getShaderProgram().bindUniforms(mContext.getUniforms());
+        //mModelData.getShaderProgram().bindUniforms(mRenderingContext.getUniformGenerators());
+        mModelData.getShaderProgram().bindUniforms(mRenderingContext.getUniforms());
         mModelData.getMesh().bind();
         MrTexture[] textures = mModelData.getTextures();
         for (int i = 0; i < textures.length; i++) {
@@ -91,12 +93,12 @@ public class MrModelRender implements MrObjectRender {
 
 
     private void unbind() {
-        MrTexture[] textures = mModelData.getTextures();
-        for (int i = 0; i < textures.length; i++) {
-            textures[i].unbind();
-        }
+        //MrTexture[] textures = mModelData.getTextures();
+        //for (int i = 0; i < textures.length; i++) {
+        //    textures[i].unbind();
+        //}
         mModelData.getMesh().unbind();
-        mModelData.getShaderProgram().unbind();
+        //mModelData.getShaderProgram().unbind();
         mBinded = false;
     }
 

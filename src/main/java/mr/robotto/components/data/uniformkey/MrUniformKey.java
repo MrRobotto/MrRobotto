@@ -17,11 +17,13 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     private String mGeneratorName;
     private String mUniformType;
     private int mLevel;
+    private int mCount;
     private MrLinearAlgebraObject mValue;
 
-    public MrUniformKey(String generatorName, String uniformType, int level) {
+    public MrUniformKey(String generatorName, String uniformType, int count, int level) {
         mGeneratorName = generatorName;
         mUniformType = uniformType;
+        mCount = count;
         mLevel = level;
         mValue = null;
     }
@@ -40,6 +42,10 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
 
     public String getUniformType() {
         return mUniformType;
+    }
+
+    public int getCount() {
+        return mCount;
     }
 
     public int getLevel() {

@@ -44,6 +44,14 @@ public class MrMesh extends MrComponent {
         return mRender;
     }
 
+    @Override
+    public void bind() {
+        if (mRenderingContext.getBoundMesh() != this) {
+            super.bind();
+            mRenderingContext.setMesh(this);
+        }
+    }
+
     public MrBuffer getIndexBuffer() {
         return mData.getIndexBuffer();
     }

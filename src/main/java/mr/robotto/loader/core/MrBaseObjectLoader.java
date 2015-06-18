@@ -65,8 +65,9 @@ abstract class MrBaseObjectLoader extends MrJsonBaseLoader<MrObject> {
             JSONObject uniformKeyJson = jsonUniformKeyList.getJSONObject(i);
             String uniformType = uniformKeyJson.getString("Uniform");
             String generator = uniformKeyJson.getString("Generator");
+            int count = uniformKeyJson.getInt("Count");
             int level = uniformKeyJson.getInt("Level");
-            MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, level);
+            MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, count, level);
             uniformKeyList.put(uniformType, uniformKey);
         }
         return uniformKeyList;

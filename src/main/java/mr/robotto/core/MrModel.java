@@ -79,6 +79,18 @@ public class MrModel extends MrObject {
         return getSkeleton().getActions();
     }
 
+    public boolean isVisible() {
+        return getController().isVisible();
+    }
+
+    public void setVisibility(boolean isVisible) {
+        getController().setVisibility(isVisible);
+    }
+
+    public boolean hasTextures() {
+        return getController().hasTextures();
+    }
+
     public static class Builder extends MrObjectBuilder {
         private MrShaderProgram mShaderProgram;
         private MrMesh mMesh;

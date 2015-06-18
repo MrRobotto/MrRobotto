@@ -44,6 +44,14 @@ public class MrShaderProgram extends MrComponent {
         return mData.getName();
     }
 
+    @Override
+    public void bind() {
+        if (mRenderingContext.getBoundShaderProgram() != this) {
+            super.bind();
+            mRenderingContext.setShaderProgram(this);
+        }
+    }
+
     public int getId() {
         return mData.getId();
     }
@@ -164,13 +172,36 @@ public class MrShaderProgram extends MrComponent {
                 if (key == null) {
                     throw new RuntimeException("Can't find uniformkey for uniform: "+uniform.toString());
                 }
-                bindUniform(uniform, key.getValue());
+                //bindUniform(uniform, key.getValue());
+                bindUniform(uniform, key);
             }
         }
 
         public void bindUniform(MrUniformKey key) {
             MrUniform uniform = mData.getUniforms().get(key.getUniformType());
             bindUniform(uniform, key.getValue());
+        }
+
+        //TODO: Check uniform/element count, uniform/element datatype
+        private void bindUniform(MrUniform uniform, MrUniformKey key) {
+            int uniformId = uniform.getId();
+
+            int uniformCount = key.getCount();
+            MrLinearAlgebraObject element = key.getValue();
+            float[] values = element.getValues();
+            switch (element.getDataType()) {
+                case MAT4:
+                    GLES20.glUniformMatrix4fv(uniformId, uniformCount, false, values, 0);
+                    break;
+                case VEC3:
+                    GLES20.glUniform3fv(uniformId, uniformCount, values, 0);
+                    break;
+                case VEC4:
+                    GLES20.glUniform4fv(uniformId, uniformCount, values, 0);
+                    break;
+                case SAMPLER2D:
+                    GLES20.glUniform1i(uniformId, (int) values[0]);
+            }
         }
 
         //TODO: Check uniform/element count, uniform/element datatype

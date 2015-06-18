@@ -16,8 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import mr.robotto.MrRobotto;
+import mr.robotto.MrRobottoEngine;
 import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.scenetree.MrSceneTreeController;
 
 /**
  * Created by aaron on 14/06/2015.
@@ -25,12 +26,22 @@ import mr.robotto.core.controller.MrObjectController;
 public class MrEventDispatcher implements View.OnTouchListener {
 
     private HashMap<String, ArrayList<MrObjectController>> mObjects;
+    private MrSceneTreeController mController;
+    private MrRobottoEngine mRobottoEngine;
 
     public MrEventDispatcher() {
         mObjects = new HashMap<>();
     }
 
-    public void addObject(MrObjectController obj) {
+    public void initializeEventDispatcher(MrRobottoEngine robottoEngine, MrSceneTreeController controller) {
+        mController = controller;
+        mRobottoEngine = robottoEngine;
+        for (MrObjectController obj : controller.getSceneTreeData()) {
+            addObject(obj);
+        }
+    }
+
+    private void addObject(MrObjectController obj) {
         Set<String> events = obj.getEventsListener().getRegisteredEvents();
         for (String ev : events) {
             if (mObjects.containsKey(ev)) {
@@ -44,17 +55,17 @@ public class MrEventDispatcher implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(final View v, final MotionEvent event) {
-        final ArrayList<MrObjectController> objs = mObjects.get(MrDefaultEventListener.ON_TOUCH);
+        final ArrayList<MrObjectController> objs = mObjects.get(MrEventConstants.ON_TOUCH);
         if (objs == null || objs.size() == 0) {
             return false;
         }
-        MrRobotto.getInstance().queueEvent(new Runnable() {
+        mRobottoEngine.queueEvent(new Runnable() {
             @Override
             public void run() {
                 for (MrObjectController obj : objs) {
                     MrBundle bundle = new MrBundle();
-                    bundle.putMotionEvent(MrDefaultEventListener.ON_TOUCH_MOTIONEVENT, event);
-                    obj.getEventsListener().queueEvent(MrDefaultEventListener.ON_TOUCH, bundle);
+                    bundle.putMotionEvent(MrEventConstants.ON_TOUCH_ARG_MOTIONEVENT, event);
+                    obj.getEventsListener().queueEvent(MrEventConstants.ON_TOUCH, bundle);
                 }
             }
         });

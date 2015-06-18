@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.MrRobottoEngine;
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.shader.MrAttribute;
 import mr.robotto.components.data.shader.MrShader;
@@ -27,9 +28,15 @@ public class MrShaderProgramLoader extends MrJsonBaseLoader<MrShaderProgram> {
 
     @Override
     public MrShaderProgram parse() throws JSONException {
-        MrShaderProgram program = new MrShaderProgram(getShaderProgramName(), getVertexShader(), getFragmentShader());
+        String name = getShaderProgramName();
+        MrShaderProgram program = MrRobottoEngine.getResources().getProgram(name);
+        if (program != null) {
+            return program;
+        }
+        program = new MrShaderProgram(name, getVertexShader(), getFragmentShader());
         loadAttributes(program);
         loadUniforms(program);
+        MrRobottoEngine.getResources().addShaderProgram(program);
         return program;
     }
 

@@ -53,6 +53,14 @@ public class MrTexture extends MrComponent {
         return mView;
     }
 
+    @Override
+    public void bind() {
+        if (mRenderingContext.getBoundTexture() != this) {
+            super.bind();
+            mRenderingContext.setTexture(this);
+        }
+    }
+
     public int getIndex() {
         return mData.getIndex();
     }

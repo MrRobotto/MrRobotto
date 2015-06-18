@@ -21,36 +21,26 @@ import java.util.Set;
  */
 public class MrDefaultEventListener extends MrEventsListener {
 
-    public static final String ON_TICK = "MrOnTick";
-
-    public static final String ON_TOUCH = "MrOnTouch";
-    public static final String ON_TOUCH_MOTIONEVENT = "MrMotionEvent";
-
-    private float alpha = 0.1f;
-
     public boolean onTouch(MotionEvent event) {
         return false;
     }
 
     public void onTick() {
-        if (getAttachedObject().getName().equals("link"))
-            getAttachedObject().rotate(0.2f, 0, 0, 1);
     }
 
     @Override
     protected void processEvent(String eventName, MrBundle eventBundle) {
         super.processEvent(eventName, eventBundle);
-        if (eventName.equals(ON_TOUCH)) {
-            onTouch(eventBundle.getMotionEvent(ON_TOUCH_MOTIONEVENT));
+        if (eventName.equals(MrEventConstants.ON_TOUCH)) {
+            onTouch(eventBundle.getMotionEvent(MrEventConstants.ON_TOUCH_ARG_MOTIONEVENT));
         }
-        if (eventName.equals(ON_TICK)) {
+        if (eventName.equals(MrEventConstants.ON_TICK)) {
             onTick();
         }
     }
 
     @Override
     protected void registerEvents(Set<String> events) {
-        events.add(ON_TOUCH);
-        events.add(ON_TICK);
+
     }
 }

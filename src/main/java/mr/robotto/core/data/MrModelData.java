@@ -31,12 +31,14 @@ public class MrModelData extends MrObjectData {
     private MrMaterial[] mMaterials;
     private MrTexture[] mTextures;
     private MrSkeleton mSkeleton;
+    private boolean mIsVisible;
 
     public MrModelData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
         mMaterials = materials;
         mSkeleton = skeleton;
+        mIsVisible = true;
         init();
     }
 
@@ -87,5 +89,13 @@ public class MrModelData extends MrObjectData {
 
     public Map<String, MrSkeletalAction> getSkeletalActions() {
         return mSkeleton.getActions();
+    }
+
+    public boolean isVisible() {
+        return mIsVisible;
+    }
+
+    public void setVisibility(boolean isVisible) {
+        mIsVisible = isVisible;
     }
 }

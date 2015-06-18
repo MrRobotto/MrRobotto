@@ -29,25 +29,21 @@ import mr.robotto.ui.MrSurfaceView;
  * Created by aaron on 22/04/2015.
  */
 //TODO: Hay que tener cuidado con todos estos métodos, no sé si sin thread safe
-public class MrRobotto {
-    private static MrRobotto sEngine = new MrRobotto();
-    private static MrResources sResources = new MrResources();
+public class MrRobottoEngine {
 
-    private MrSurfaceView mSurfaceView;
-    private Context mContext;
-    private MrSceneTreeController mController;
-    private MrSceneTree mSceneTree;
+    protected static final MrResources sResources = new MrResources();
+    protected MrSurfaceView mSurfaceView;
+    protected Context mAndroidContext;
+    protected MrSceneTreeController mController;
+    protected MrSceneTree mSceneTree;
 
-    private MrRobotto() {
-
-    }
-
-    public static MrRobotto getInstance() {
-        return sEngine;
+    public MrRobottoEngine(Context androidContext, MrSurfaceView surfaceView) {
+        mAndroidContext = androidContext;
+        mSurfaceView = surfaceView;
     }
 
     //TODO: Esto es llamado desde los loaders pero... es thread safe??
-    public static MrResources getsResources() {
+    public static MrResources getResources() {
         return sResources;
     }
 
@@ -59,8 +55,8 @@ public class MrRobotto {
         mSurfaceView = surfaceView;
     }
 
-    public void setContext(Context context) {
-        mContext = context;
+    public void setAndroidContext(Context context) {
+        mAndroidContext = context;
     }
 
     public MrSceneTree getSceneTree() {
@@ -79,20 +75,23 @@ public class MrRobotto {
         mController.setEventDispatcher(eventDispatcher);
     }
 
-    public void loadSceneTree(InputStream inputStream) {
+    public MrSceneTree loadSceneTree(InputStream inputStream) {
         MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
         MrSceneTree tree = null;
         try {
             //tree = loader.parse();
             //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
             mSceneTree = loader.parse();
+            mSceneTree.setRobottoEngine(this);
             mController = mSceneTree.getController();
             initialize();
+            return tree;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void loadSceneTreeAsync(final InputStream inputStream) {
@@ -127,27 +126,33 @@ public class MrRobotto {
         task.execute(inputStream);
     }
 
-    private final void freeResources() {
+    private void freeResources() {
         for (Bitmap bitmap : sResources.getTextureBitmaps().values()) {
             bitmap.recycle();
         }
     }
 
-    //TODO: Change this
     public void onPreInitialize() {
+
+    }
+
+    public void onPostInitialize() {
+
     }
 
     public final void initialize() {
+        mController.initializeEventDispatcher(this);
+        mSurfaceView.setOnTouchListener(mController.getEventDispatcher());
+        onPreInitialize();
         mSurfaceView.queueEvent(new Runnable() {
             @Override
             public void run() {
-                onPreInitialize();
                 mSurfaceView.getRenderer().setController(mController);
-                mSurfaceView.setOnTouchListener(mController.getEventDispatcher());
                 if (mSurfaceView.getRenderer().isInitialized()) {
                     mController.initializeRender();
                     mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
                     freeResources();
+                    onPostInitialize();
                 }
             }
         });

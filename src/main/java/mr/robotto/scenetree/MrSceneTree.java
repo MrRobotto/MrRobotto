@@ -16,37 +16,31 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import mr.robotto.MrRobottoEngine;
+import mr.robotto.core.MrCamera;
+import mr.robotto.core.MrLight;
+import mr.robotto.core.MrModel;
 import mr.robotto.core.MrObject;
+import mr.robotto.core.MrScene;
 import mr.robotto.core.MrSceneObjectType;
+import mr.robotto.core.controller.MrLightController;
+import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
 
 /**
  * Created by Aarón on 31/12/2014.
  */
 //TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
-public class MrSceneTree  {
+public class MrSceneTree implements Iterable<MrObject> {
 
     private MrSceneTreeController mController;
     private MrSceneTreeData mData;
     private HashMap<String, MrObject> mObjects;
-
-    public MrSceneTree(MrSceneTreeController controller) {
-        mController = controller;
-        init();
-    }
-
-    public MrSceneTree(MrSceneTreeData object, MrSceneTreeRender render) {
-        mController = new MrSceneTreeController(object, render);
-        init();
-    }
-
-    public MrSceneTree() {
-        mController = new MrSceneTreeController(new MrSceneTreeData(), new MrSceneTreeRender());
-        init();
-    }
+    private MrRobottoEngine mRobottoEngine;
 
     public MrSceneTree(MrObject root) {
         mController = new MrSceneTreeController(new MrSceneTreeData(root.getController()), new MrSceneTreeRender());
+        //mController.setRobottoEngine(robottoEngine);
         init();
         addObject(root);
     }
@@ -54,6 +48,17 @@ public class MrSceneTree  {
     private void init() {
         mData = mController.getSceneTreeData();
         mObjects = new HashMap<>(mData.size());
+    }
+
+    public MrRobottoEngine getRobottoEngine() {
+        return mRobottoEngine;
+    }
+
+    public void setRobottoEngine(MrRobottoEngine robottoEngine) {
+        mRobottoEngine = robottoEngine;
+        for (MrObject obj : this) {
+            obj.setRobottoEngine(robottoEngine);
+        }
     }
 
     private void addObject(MrObject object) {
@@ -216,6 +221,35 @@ public class MrSceneTree  {
 
     public Iterator<MrObject> iterator() {
         return buildDelegateObjectsIterator(mData.iterator());
+    }
+
+    //TODO: Optimize these methods
+    public List<MrLight> getLights() {
+        ArrayList<MrLight> lights = new ArrayList<>();
+        for (MrLightController l : mData.getLights()) {
+            lights.add((MrLight) l.getAttachedObject());
+        }
+        return lights;
+    }
+
+    public List<MrModel> getModels() {
+        ArrayList<MrModel> models = new ArrayList<>();
+        for (MrModelController l : mData.getModels()) {
+            models.add((MrModel) l.getAttachedObject());
+        }
+        return models;
+    }
+
+    public MrScene getScene() {
+        return (MrScene) mData.getScene().getAttachedObject();
+    }
+
+    public MrCamera getActiveCamera() {
+        return (MrCamera) mData.getActiveCamera().getAttachedObject();
+    }
+
+    public void setActiveCamera(MrCamera camera) {
+        mData.setActiveCamera(camera.getController());
     }
 
     //TODO: Revisar los iteradores cuando se eliminan elementos en la iteracion

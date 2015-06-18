@@ -11,6 +11,7 @@ package mr.robotto.scenetree;
 
 import java.util.List;
 
+import mr.robotto.MrRobottoEngine;
 import mr.robotto.core.MrSceneObjectType;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.events.MrEventDispatcher;
@@ -36,7 +37,6 @@ public class MrSceneTreeController {
         return mData;
     }
 
-
     public MrRenderingContext getRenderingContext() {
         return mRenderingContext;
     }
@@ -49,11 +49,12 @@ public class MrSceneTreeController {
         mEventDispatcher = eventDispatcher;
     }
 
+    public void initializeEventDispatcher(MrRobottoEngine robottoEngine) {
+        mEventDispatcher.initializeEventDispatcher(robottoEngine, this);
+    }
+
     public void initializeRender() {
         mRender.initializeRender(mData, mRenderingContext);
-        for (MrObjectController obj : mData) {
-            mEventDispatcher.addObject(obj);
-        }
     }
 
     public void initializeSizeDependant(int widthScreen, int heightScreen) {

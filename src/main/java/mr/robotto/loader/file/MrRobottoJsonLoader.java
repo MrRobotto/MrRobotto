@@ -13,25 +13,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.MrRobotto;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import mr.robotto.collections.MrMapFunction;
 import mr.robotto.collections.MrTreeMap;
 import mr.robotto.core.MrObject;
-import mr.robotto.loader.MrObjectMap;
 import mr.robotto.loader.core.MrJsonBaseLoader;
 import mr.robotto.loader.core.MrObjectLoader;
+import mr.robotto.scenetree.MrSceneTree;
 
 //TODO: Cambiar estos nombres taaaan feos
-public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrRobottoJson> {
+public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrSceneTree> {
+
+    private MrTreeMap<String, String> mKeysTree;
+    private HashMap<String, MrObject> mObjects;
 
     public MrRobottoJsonLoader(JSONObject obj) {
         super(obj);
     }
 
     @Override
-    public MrRobottoJson parse() throws JSONException {
-        MrRobottoJson context = new MrRobottoJson(getObjectsData(), getHierarchy());
-        return context;
+    public MrSceneTree parse() throws JSONException {
+        mKeysTree = loadHierarchy();
+        mObjects = loadObjects();
+        return buildSceneObjectsTree();
+        //MrRobottoJson context = new MrRobottoJson(loadObjects(), loadHierarchy());
+        //return context;
     }
 
     /**
@@ -40,14 +49,13 @@ public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrRobottoJson> {
      * @return
      * @throws JSONException
      */
-    private MrObjectMap getObjectsData() throws JSONException {
-        MrObjectMap objectDataList = new MrObjectMap();
+    private HashMap<String, MrObject> loadObjects() throws JSONException {
+        HashMap<String, MrObject> objectDataList = new HashMap<>();
         JSONArray jsonObjects = mRoot.getJSONArray("SceneObjects");
         for (int i = 0; i < jsonObjects.length(); i++) {
             MrObjectLoader objectLoader = new MrObjectLoader(jsonObjects.getJSONObject(i));
             MrObject obj = objectLoader.parse();
-            obj.setRobottoEngine(MrRobotto.getInstance());
-            objectDataList.add(obj);
+            objectDataList.put(obj.getName(), obj);
         }
         return objectDataList;
     }
@@ -62,7 +70,7 @@ public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrRobottoJson> {
         }
     }
 
-    private MrTreeMap<String, String> getHierarchy() throws JSONException {
+    private MrTreeMap<String, String> loadHierarchy() throws JSONException {
         JSONObject root = mRoot.getJSONObject("Hierarchy");
         String rootKey = root.getString("Name");
         MrTreeMap<String, String> tree = new MrTreeMap<String, String>(rootKey, new MrMapFunction<String, String>() {
@@ -72,6 +80,23 @@ public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrRobottoJson> {
             }
         });
         getNodes(tree, rootKey, root);
+        return tree;
+    }
+
+    private MrSceneTree buildSceneObjectsTree() {
+        MrTreeMap<String, String> keyTree = mKeysTree;
+        HashMap<String, MrObject> objects = mObjects;
+        MrObject rootData = objects.get(keyTree.getRoot());
+        //MrObjectRender render = getRenderer(rootData);
+        MrSceneTree tree = new MrSceneTree(rootData);
+        Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
+        while (it.hasNext()) {
+            Map.Entry<String, String> entry = it.next();
+            //Gets the value
+            MrObject objectData = objects.get(entry.getValue());
+            //Gets the root key via entry.getKey
+            tree.addChildByKey(entry.getKey(), objectData);
+        }
         return tree;
     }
 }

@@ -57,11 +57,15 @@ public abstract class MrEventsListener {
 
     protected abstract void registerEvents(Set<String> events);
 
+    public void registerEvent(String eventName) {
+        mEvents.add(eventName);
+    }
+
     public void queueEvent(String eventName, MrBundle eventBundle) {
         if (eventName == null) {
             return;
         }
-        if (isEventRegistered(eventName)) {
+        if (mEvents.contains(eventName)) {
             mEventNamesQueue.add(eventName);
             if (eventBundle == null) {
                 mEventBundlesQueue.add(mAuxiliarBundle);

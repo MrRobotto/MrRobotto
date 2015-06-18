@@ -21,7 +21,7 @@ import mr.robotto.core.controller.MrLightController;
 import mr.robotto.core.controller.MrModelController;
 import mr.robotto.core.controller.MrObjectController;
 import mr.robotto.core.controller.MrSceneController;
-import mr.robotto.events.MrDefaultEventListener;
+import mr.robotto.events.MrEventConstants;
 import mr.robotto.renderer.MrRenderingContext;
 
 /**
@@ -102,29 +102,29 @@ public class MrSceneTreeRender {
         }
     }
 
+    private void updateEvents() {
+        for (MrObjectController obj : mSceneObjectsTree) {
+            obj.getEventsListener().queueEvent(MrEventConstants.ON_TICK, null);
+            obj.updateEvents();
+        }
+    }
+
     //TODO: This must be changed!!
     //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
         mContext.getUniforms().clear();
         mObjects.clear();
+        updateEvents();
         MrSceneController scene = mSceneObjectsTree.getScene();
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
-        scene.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
-        camera.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
-        scene.updateEvents();
-        camera.updateEvents();
         scene.render();
         camera.render();
         for (MrLightController light : mSceneObjectsTree.getLights()) {
-            light.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
-            light.updateEvents();
             addUniforms(light);
         }
         List<MrModelController> models = mSceneObjectsTree.getModels();
         for (int i = 0; i < models.size(); i++) {
             MrModelController model = models.get(i);
-            model.getEventsListener().queueEvent(MrDefaultEventListener.ON_TICK, null);
-            model.updateEvents();
             addUniforms(model);
             addUniforms(camera);
             addUniforms(scene);
