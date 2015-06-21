@@ -47,6 +47,10 @@ public class MrRobottoEngine {
         return sResources;
     }
 
+    public void setFps(int fps) {
+        mSurfaceView.getRenderer().setFPS(fps);
+    }
+
     public MrSurfaceView getSurfaceView() {
         return mSurfaceView;
     }
@@ -82,8 +86,6 @@ public class MrRobottoEngine {
             //tree = loader.parse();
             //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
             mSceneTree = loader.parse();
-            mSceneTree.setRobottoEngine(this);
-            mController = mSceneTree.getController();
             initialize();
             return tree;
         } catch (IOException e) {
@@ -130,34 +132,40 @@ public class MrRobottoEngine {
         sResources.freeResources();
     }
 
-    public void onPreInitialize() {
-
-    }
-
-    public void onPostInitialize() {
-
+    public void onInitialize() {
     }
 
     public final void initialize() {
-        mController.initializeEventDispatcher(this);
+        mSceneTree.setRobottoEngine(this);
+        mController = mSceneTree.getController();
+        mSceneTree.getController().initializeEventDispatcher(this);
+        mSurfaceView.getRenderer().setController(mController);
         mSurfaceView.setOnTouchListener(mController.getEventDispatcher());
-        onPreInitialize();
-        mSurfaceView.queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                MrRenderer renderer = mSurfaceView.getRenderer();
-                renderer.setController(mController);
-                if (renderer.isInitialized()) {
-                    mController.initializeRender();
-                    mController.initializeSizeDependant(mSurfaceView.getWidth(), mSurfaceView.getHeight());
-                    freeResources();
-                    onPostInitialize();
-                }
-            }
-        });
+        mSurfaceView.queueEvent(new RobottoInitializationRunnable(this));
+        onInitialize();
     }
 
     public void queueEvent(Runnable runnable) {
         mSurfaceView.queueEvent(runnable);
+    }
+
+    private static class RobottoInitializationRunnable implements Runnable {
+
+        private final MrRobottoEngine mEngine;
+
+        public RobottoInitializationRunnable(MrRobottoEngine robottoEngine) {
+            mEngine = robottoEngine;
+        }
+
+        @Override
+        public void run() {
+            MrRenderer renderer = mEngine.mSurfaceView.getRenderer();
+            renderer.setController(mEngine.mController);
+            if (renderer.isInitialized()) {
+                mEngine.mController.initializeRender();
+                mEngine.mController.initializeSizeDependant(mEngine.mSurfaceView.getWidth(), mEngine.mSurfaceView.getHeight());
+                mEngine.freeResources();
+            }
+        }
     }
 }

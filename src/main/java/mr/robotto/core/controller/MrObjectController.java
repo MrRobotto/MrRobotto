@@ -10,6 +10,7 @@
 package mr.robotto.core.controller;
 
 import java.util.Map;
+import java.util.Set;
 
 import mr.robotto.components.comp.MrShaderProgram;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
@@ -67,6 +68,22 @@ public abstract class MrObjectController {
     public void setEventsListener(MrEventsListener eventsListener) {
         mEventsListener = eventsListener;
         mEventsListener.setObjectController(this);
+    }
+
+    public boolean isEventRegistered(String evName) {
+        return mEventsListener.isEventRegistered(evName);
+    }
+
+    public Set<String> getRegisteredEvents() {
+        return mEventsListener.getRegisteredEvents();
+    }
+
+    public void registerEvent(String eventName) {
+        mEventsListener.registerEvent(eventName);
+    }
+
+    public void unregisterEvent(String eventName) {
+        mEventsListener.unregisterEvent(eventName);
     }
 
     public MrObject getAttachedObject() {

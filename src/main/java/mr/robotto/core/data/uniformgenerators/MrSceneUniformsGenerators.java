@@ -25,6 +25,14 @@ import mr.robotto.scenetree.MrObjectsDataTree;
  */
 public class MrSceneUniformsGenerators implements MrObjectUniformsGenerators {
 
+    @Override
+    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
+        MrSceneData scene = (MrSceneData) object;
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_PROJECTION_MATRIX, new MVPMatrixGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_MATRIX, new ModelViewMatrixGenerator());
+        //uniformGenerators.put(MrUniformGenerator.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
+    }
+
     private static class MVPMatrixGenerator extends MrUniformGenerator {
         private final MrMatrix4f mMvp;
 
@@ -76,13 +84,5 @@ public class MrSceneUniformsGenerators implements MrObjectUniformsGenerators {
             op.transpose(mNormal, mNormal);
             return mNormal;
         }
-    }
-
-    @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
-        MrSceneData scene = (MrSceneData) object;
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_PROJECTION_MATRIX, new MVPMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_MATRIX, new ModelViewMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
     }
 }

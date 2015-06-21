@@ -29,7 +29,14 @@ public class MrTextureLoader extends MrJsonBaseLoader<MrTexture> {
 
     @Override
     public MrTexture parse() throws JSONException {
-        return new MrTexture(loadName(), loadIndex(), loadMagFilter(), loadMinFilter(), loadBitmap());
+        String name = loadName();
+        MrTexture texture = MrRobottoEngine.getResources().getTexture(name);
+        if (texture != null) {
+            return texture;
+        }
+        texture = new MrTexture(loadName(), loadIndex(), loadMagFilter(), loadMinFilter(), loadBitmap());
+        MrRobottoEngine.getResources().addTexture(texture);
+        return texture;
     }
 
     private int loadIndex() throws JSONException {

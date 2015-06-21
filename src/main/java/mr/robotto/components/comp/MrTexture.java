@@ -60,7 +60,10 @@ public class MrTexture extends MrComponent {
 
     @Override
     public void bind() {
-        if (mRenderingContext.getBoundTexture() != this) {
+        MrTexture boundTexture = mRenderingContext.getBoundTexture();
+        if (boundTexture != this) {
+            if (boundTexture != null)
+                boundTexture.unbind();
             super.bind();
             mRenderingContext.setTexture(this);
         }

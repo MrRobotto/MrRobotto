@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mr.robotto.MrRobottoEngine;
 import mr.robotto.components.comp.MrShaderProgram;
@@ -170,6 +171,22 @@ public abstract class MrObject {
 
     public void setEventsListener(MrEventsListener eventsListener) {
         mController.setEventsListener(eventsListener);
+    }
+
+    public boolean isEventRegistered(String evName) {
+        return mController.isEventRegistered(evName);
+    }
+
+    public Set<String> getRegisteredEvents() {
+        return mController.getRegisteredEvents();
+    }
+
+    public void registerEvent(String eventName) {
+        mController.registerEvent(eventName);
+    }
+
+    public void unregisterEvent(String eventName) {
+        mController.unregisterEvent(eventName);
     }
 
     /*******Transform*******/

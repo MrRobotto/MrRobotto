@@ -15,6 +15,7 @@ import java.util.Map;
 import mr.robotto.commons.MrDataType;
 import mr.robotto.components.comp.MrTexture;
 import mr.robotto.components.data.material.MrMaterial;
+import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.skeleton.MrBone;
 import mr.robotto.components.data.skeleton.MrSkeleton;
 import mr.robotto.components.data.uniformgenerator.MrUniformGenerator;
@@ -32,6 +33,21 @@ import mr.robotto.scenetree.MrObjectsDataTree;
  * Created by aaron on 14/06/2015.
  */
 public class MrModelUniformGenerators implements MrObjectUniformsGenerators{
+
+    @Override
+    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
+        MrModelData model = (MrModelData) object;
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_MATRIX, new ModelGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_BONE_MATRIX, new BoneMatricesGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_COLOR, new DiffuseColorGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_COLOR, new AmbientColorGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_COLOR, new SpecularColorGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_INTENSITY, new AmbientIntensityGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_INTENSITY, new DiffuseIntensityGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_INTENSITY, new SpecularIntensityGenerator(model));
+        uniformGenerators.put(MrUniformGenerator.GENERATOR_TEXTURE_SAMPLER, new TextureSamplerIndexGenerator(model));
+    }
 
     private static class AmbientColorGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mAmbientColorUniform;
@@ -160,6 +176,19 @@ public class MrModelUniformGenerators implements MrObjectUniformsGenerators{
         }
     }
 
+    private static class NormalMatrixGenerator extends MrUniformGenerator {
+        private final MrMatrix4f mNormal = new MrMatrix4f();
+
+        @Override
+        public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
+            MrMatrix4f.Operator op = MrMatrix4f.getOperator();
+            MrMatrix4f model = (MrMatrix4f) uniforms.get(MrUniform.MODEL_MATRIX).getValue();
+            op.invert(mNormal, model);
+            op.transpose(mNormal, mNormal);
+            return mNormal;
+        }
+    }
+
     private static class BoneMatricesGenerator extends MrUniformGenerator {
         private final MrLinearAlgebraObjectContainer mBones;
 
@@ -201,19 +230,5 @@ public class MrModelUniformGenerators implements MrObjectUniformsGenerators{
         public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
             return mIndices;
         }
-    }
-
-    @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
-        MrModelData model = (MrModelData) object;
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_MATRIX, new ModelGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_BONE_MATRIX, new BoneMatricesGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_COLOR, new DiffuseColorGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_COLOR, new AmbientColorGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_COLOR, new SpecularColorGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_AMBIENT_INTENSITY, new AmbientIntensityGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_DIFFUSE_INTENSITY, new DiffuseIntensityGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MATERIAL_SPECULAR_INTENSITY, new SpecularIntensityGenerator(model));
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_TEXTURE_SAMPLER, new TextureSamplerIndexGenerator(model));
     }
 }

@@ -34,7 +34,8 @@ public class MrSceneTreeRender {
     private final HashMap<String, MrObjectController> mObjects;
     private MrSceneTreeData mSceneObjectsTree;
     private MrRenderingContext mContext;
-    private List<MrModelController> mModels;
+    private MrModelController[] mModels;
+    private MrLightController[] mLights;
 
     public MrSceneTreeRender() {
 
@@ -50,7 +51,13 @@ public class MrSceneTreeRender {
         }
         MrRenderingSorter sorter = new MrRenderingSorter(mSceneObjectsTree.getModels());
         sorter.sort();
-        mModels = sorter.getSortedModels();
+        List<MrModelController> models = sorter.getSortedModels();
+        mModels = new MrModelController[models.size()];
+        models.toArray(mModels);
+
+        List<MrLightController> lights = mSceneObjectsTree.getLights();
+        mLights = new MrLightController[lights.size()];
+        lights.toArray(mLights);
     }
 
     public void initializeSizeDependant(int w, int h) {
@@ -79,15 +86,6 @@ public class MrSceneTreeRender {
         mSortedKeys.clear();
     }
 
-    //TODO: Check the visibility level
-    //TODO: Solo necesitas pasar por los uniform del shader asociado al objeto si no pasas solo esos podría fallar, un modelo sin textura por ej
-    private void updateUniforms(MrObjectController obj) {
-        mContext.getUniforms().putAll(obj.getUniformKeys());
-        for (MrUniformKey key : obj.getUniformKeys().values()) {
-            obj.updateUniform(key, mContext.getUniforms(), mSceneObjectsTree.getObjectsDataTree());
-        }
-    }
-
     private void updateEvents() {
         for (MrObjectController obj : mSceneObjectsTree) {
             obj.getEventsListener().queueEvent(MrEventConstants.ON_TICK, null);
@@ -105,17 +103,18 @@ public class MrSceneTreeRender {
         MrCameraController camera = mSceneObjectsTree.getActiveCamera();
         scene.render();
         camera.render();
-        for (MrLightController light : mSceneObjectsTree.getLights()) {
-            addUniforms(light);
+        for (int i = 0; i < mLights.length; i++) {
+            addUniforms(mLights[i]);
         }
-        mModels = mSceneObjectsTree.getModels();
-        for (int i = 0; i < mModels.size(); i++) {
-            MrModelController model = mModels.get(i);
-            addUniforms(model);
-            addUniforms(camera);
-            addUniforms(scene);
-            updateUniforms();
-            model.render();
+        for (int i = 0; i < mModels.length; i++) {
+            MrModelController model = mModels[i];
+            if (model.isVisible()) {
+                addUniforms(model);
+                addUniforms(camera);
+                addUniforms(scene);
+                updateUniforms();
+                model.render();
+            }
         }
     }
 

@@ -20,9 +20,8 @@ import mr.robotto.scenetree.MrSceneTreeController;
 
 public class MrRenderer implements GLSurfaceView.Renderer {
 
-    public static int FPS = 60;
     private static int sTimeRate;
-
+    private int mFPS = 60;
     private MrSceneTreeController mController;
     private boolean mInitialized;
     private long mEndTime;
@@ -45,11 +44,19 @@ public class MrRenderer implements GLSurfaceView.Renderer {
         return mInitialized;
     }
 
+    public int getFPS() {
+        return mFPS;
+    }
+
+    public void setFPS(int FPS) {
+        mFPS = FPS;
+    }
+
     //TODO: En vez de mirar si es null establecer una escena vacia
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         mInitialized = true;
-        sTimeRate = (int) Math.floor(1.0f/FPS * 1000);
+        sTimeRate = (int) Math.floor(1.0f / mFPS * 1000);
         if (mController != null)
             mController.initializeRender();
     }
@@ -62,15 +69,14 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             mController.initializeSizeDependant(width, height);
     }
 
-    /*@Override
     public void onDrawFrame(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
             mEndTime = System.currentTimeMillis();
             long dt = mEndTime - mStartTime;
-            if (dt < FPS) {
+            if (dt < mFPS && sTimeRate - dt > 0) {
                 try {
-                    Thread.sleep(FPS - dt);
+                    Thread.sleep(sTimeRate - dt);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -79,13 +85,33 @@ public class MrRenderer implements GLSurfaceView.Renderer {
             mController.render();
             mFPSCounter.logFrame();
         }
-    }*/
+    }
 
-    @Override
-    public void onDrawFrame(GL10 gl10) {
+    public void onDrawFrame2(GL10 gl10) {
         //TODO: Check this!
         if (mController != null) {
             mController.render();
+            mFPSCounter.logFrame();
+            System.gc();
+        }
+    }
+
+    public void onDrawFrame3(GL10 gl10) {
+        //TODO: Check this!
+        if (mController != null) {
+            mStartTime = System.currentTimeMillis();
+            mController.render();
+            mEndTime = System.currentTimeMillis();
+            long dt = mEndTime - mStartTime;
+            if (dt < mFPS) {
+                try {
+                    if (sTimeRate - dt > 0) {
+                        Thread.sleep(sTimeRate - dt);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             mFPSCounter.logFrame();
             System.gc();
         }
@@ -97,30 +123,11 @@ public class MrRenderer implements GLSurfaceView.Renderer {
 
         public void logFrame() {
             frames++;
-            if(System.nanoTime() - startTime >= 1000000000) {
+            if (System.nanoTime() - startTime >= 1000000000) {
                 Log.d("FPSCounter", "fps: " + frames);
                 frames = 0;
                 startTime = System.nanoTime();
             }
-        }
-    }
-
-    public void onDrawFrame2(GL10 gl10) {
-        //TODO: Check this!
-        if (mController != null) {
-            mStartTime = System.currentTimeMillis();
-            mController.render();
-            mEndTime = System.currentTimeMillis();
-            long dt = mEndTime - mStartTime;
-            if (dt < FPS) {
-                try {
-                    Thread.sleep(sTimeRate - dt);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            mFPSCounter.logFrame();
-            System.gc();
         }
     }
 

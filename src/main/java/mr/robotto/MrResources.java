@@ -37,6 +37,10 @@ public class MrResources {
         return mTextures;
     }
 
+    public MrTexture getTexture(String name) {
+        return mTextures.get(name);
+    }
+
     public void addTexture(MrTexture texture) {
         mTextures.put(texture.getName(), texture);
     }

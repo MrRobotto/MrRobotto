@@ -44,5 +44,6 @@ public class MrSurfaceView extends GLSurfaceView {
         setEGLContextClientVersion(2);
         setRenderer(renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+        setPreserveEGLContextOnPause(true);
     }
 }

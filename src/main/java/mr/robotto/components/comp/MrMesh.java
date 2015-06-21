@@ -51,7 +51,10 @@ public class MrMesh extends MrComponent {
 
     @Override
     public void bind() {
-        if (mRenderingContext.getBoundMesh() != this) {
+        MrMesh boundMesh = mRenderingContext.getBoundMesh();
+        if (boundMesh != this) {
+            if (boundMesh != null)
+                boundMesh.unbind();
             super.bind();
             mRenderingContext.setMesh(this);
         }

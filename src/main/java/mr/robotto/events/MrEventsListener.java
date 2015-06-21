@@ -61,6 +61,10 @@ public abstract class MrEventsListener {
         mEvents.add(eventName);
     }
 
+    public void unregisterEvent(String eventName) {
+        mEvents.remove(eventName);
+    }
+
     public void queueEvent(String eventName, MrBundle eventBundle) {
         if (eventName == null) {
             return;
@@ -83,7 +87,9 @@ public abstract class MrEventsListener {
         while (!mEventNamesQueue.isEmpty()) {
             String evName = mEventNamesQueue.poll();
             MrBundle evBundle = mEventBundlesQueue.poll();
-            processEvent(evName, evBundle);
+            if (mEvents.contains(evName)) {
+                processEvent(evName, evBundle);
+            }
         }
     }
 }

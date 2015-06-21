@@ -51,7 +51,10 @@ public class MrShaderProgram extends MrComponent {
 
     @Override
     public void bind() {
-        if (mRenderingContext.getBoundShaderProgram() != this) {
+        MrShaderProgram boundProgram = mRenderingContext.getBoundShaderProgram();
+        if (boundProgram != this) {
+            if (boundProgram != null)
+                boundProgram.unbind();
             super.bind();
             mRenderingContext.setShaderProgram(this);
         }
@@ -172,19 +175,14 @@ public class MrShaderProgram extends MrComponent {
             //    MrUniformKey key = uniformKeys.get(uniform.getUniformType());
             //    bindUniform(uniform, key.getValue());
             //}
-            for (MrUniform uniform : mUniformsList) {
+            for (int i = 0; i < mUniformsList.length; i++) {
+                MrUniform uniform = mUniformsList[i];
                 MrUniformKey key = uniformKeys.get(uniform.getUniformType());
                 if (key == null) {
                     throw new RuntimeException("Can't find uniformkey for uniform: "+uniform.toString());
                 }
-                //bindUniform(uniform, key.getValue());
                 bindUniform(uniform, key);
             }
-        }
-
-        public void bindUniform(MrUniformKey key) {
-            MrUniform uniform = mData.getUniforms().get(key.getUniformType());
-            bindUniform(uniform, key.getValue());
         }
 
         //TODO: Check uniform/element count, uniform/element datatype
