@@ -10,11 +10,20 @@
 package mr.robotto.events;
 
 /**
- * Created by aaron on 17/06/2015.
+ * Default events provided by MrRobotto 3D Engine
  */
 public class MrEventConstants {
+    /**
+     * New frame rendered event
+     */
     public static final String ON_TICK = "MrOnTick";
+    /**
+     * New touch event
+     */
     public static final String ON_TOUCH = "MrOnTouch";
 
+    /**
+     * MotionEvent touch event argument name
+     */
     public static final String ON_TOUCH_ARG_MOTIONEVENT = "MrMotionEvent";
 }

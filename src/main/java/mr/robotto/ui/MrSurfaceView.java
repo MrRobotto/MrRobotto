@@ -15,6 +15,10 @@ import android.util.AttributeSet;
 
 import mr.robotto.renderer.MrRenderer;
 
+/**
+ * Specialized class of {@link GLSurfaceView} for using alongside MrRobotto 3D Engine.
+ * This view must be present in order to use MrRobotto 3D Engine.
+ */
 public class MrSurfaceView extends GLSurfaceView {
 
     private MrRenderer renderer;
@@ -35,6 +39,10 @@ public class MrSurfaceView extends GLSurfaceView {
         }
     }
 
+    /**
+     * Gets the Renderer used
+     * @return
+     */
     public MrRenderer getRenderer() {
         return renderer;
     }

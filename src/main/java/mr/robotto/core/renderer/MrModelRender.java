@@ -44,7 +44,7 @@ public class MrModelRender implements MrObjectRender {
         Map<Integer, MrBufferKey> keyMap = mModelData.getMesh().getBufferKeys();
         for (MrAttribute attribute : mModelData.getShaderProgram().getAttributes().values()) {
             MrBufferKey key = keyMap.get(attribute.getAttributeType());
-            key.setIndex(attribute.getIndex());
+            key.setId(attribute.getIndex());
         }
         mModelData.getMesh().initialize(mRenderingContext);
         mModelData.getShaderProgram().initialize(mRenderingContext);

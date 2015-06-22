@@ -20,10 +20,19 @@ import mr.robotto.components.data.shader.MrUniform;
 import mr.robotto.components.data.uniformkey.MrUniformKey;
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
+/**
+ * This class represents a Shader Program, it allows to bind a shader program and send data to the GPU
+ */
 public class MrShaderProgram extends MrComponent {
     private Data mData;
     private View mPresenter;
 
+    /**
+     * Creates a new Shader Program
+     * @param name Name of this shader program
+     * @param vertexShader Vertex Shader element
+     * @param fragmentShader Fragment Shader element
+     */
     public MrShaderProgram(String name, MrShader vertexShader, MrShader fragmentShader) {
         mData = new Data(name, vertexShader, fragmentShader);
         mPresenter = new View();
@@ -60,38 +69,66 @@ public class MrShaderProgram extends MrComponent {
         }
     }
 
+    /**
+     * Gets the ID of this Shader Program
+     * @return
+     */
     public int getId() {
         return mData.getId();
     }
 
-    public void setId(int id) {
-        mData.setId(id);
-    }
-
+    /**
+     * Gets the Vertex Shader linked to this program
+     * @return a vertex shader
+     */
     public MrShader getVertexShader() {
         return mData.getVertexShader();
     }
 
+    /**
+     * Gets the Fragment Shader linked to this program
+     * @return a fragment shader
+     */
     public MrShader getFragmentShader() {
         return mData.getFragmentShader();
     }
 
+    /**
+     * Gets all uniforms defined for this program
+     * @return
+     */
     public Map<String, MrUniform> getUniforms() {
         return mData.getUniforms();
     }
 
+    /**
+     * Adds a uniform to this shader program
+     * @param uniform new uniform
+     */
     public void addUniform(MrUniform uniform) {
         mData.addUniform(uniform);
     }
 
+    /**
+     * Adds an attribute to this shader program
+     * @param attribute new attribute
+     */
     public void addAttribute(MrAttribute attribute) {
         mData.addAttribute(attribute);
     }
 
+    /**
+     * Gets all attributes defined in this shader program
+     * @return
+     */
     public Map<Integer, MrAttribute> getAttributes() {
         return mData.getAttributes();
     }
 
+    /**
+     * Passes data to GPU from values in the uniform keys
+     * @param uniformKeys
+     */
     public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
         mPresenter.bindUniforms(uniformKeys);
     }

@@ -16,7 +16,7 @@ import android.opengl.GLUtils;
 import java.nio.IntBuffer;
 
 /**
- * Created by aaron on 02/05/2015.
+ * A class for representing a texture
  */
 public class MrTexture extends MrComponent {
 

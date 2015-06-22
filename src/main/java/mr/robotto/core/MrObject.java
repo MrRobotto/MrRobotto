@@ -26,76 +26,139 @@ import mr.robotto.linearalgebra.MrTransform;
 import mr.robotto.linearalgebra.MrVector3f;
 import mr.robotto.scenetree.MrSceneTree;
 
-//TODO: Cambiar los objectdata y render a elementos de clases inferiores
+/**
+ * Base class for MrRobotto Object hierarchy.
+ * This class provides access to the user to control an object.
+ */
 public abstract class MrObject {
-    protected MrRobottoEngine mRobotto;
+    private MrRobottoEngine mRobotto;
     private MrObjectController mController;
     private MrSceneTree mTree;
 
+    /**
+     * Creates an MrObject using a controller
+     * @param controller
+     */
     protected MrObject(MrObjectController controller) {
         mController = controller;
         mController.setAttachedObject(this);
-        //mRobotto = MrRobotto.getInstance();
+        initializeUniforms(mController.getUniformGenerators());
     }
 
+    /**
+     * Gets the object controller of this object
+     * @return The controller
+     */
     public MrObjectController getController() {
         return mController;
     }
 
+    /**
+     * Gets the reference to the engine used.
+     * @return
+     */
     public MrRobottoEngine getRobottoEngine() {
         return mRobotto;
     }
 
+    /**
+     * Sets the reference to the engine.
+     * This method should not be called directly by the user
+     * @param robotto
+     */
     public void setRobottoEngine(MrRobottoEngine robotto) {
         mRobotto = robotto;
     }
 
     /*******Controller******/
+
+    //TODO: Change runnable to custom class
+    /**
+     * Queues a runnable.
+     * Use when calling methods from the UI-Thread
+     * @param runnable
+     */
     protected void queueEvent(Runnable runnable) {
         mRobotto.queueEvent(runnable);
     }
 
+    /**
+     * Call this method if you want to create a new uniform generator for this object
+     * @param uniformGenerators
+     */
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
-
     }
 
+    /**
+     * Gets the type of this object
+     * @return
+     */
     public MrSceneObjectType getSceneObjectType() {
         return mController.getSceneObjectType();
     }
 
+    /**
+     * Checks if initialize has been called on this object
+     * @return
+     */
     public boolean isInitialized() {
         return mController.isInitialized();
     }
 
+    /**
+     * Gets the name of this object
+     * @return
+     */
     public String getName() {
         return mController.getName();
     }
 
+    /**
+     * Gets the transformation object of this object
+     * @return
+     */
     public MrTransform getTransform() {
         return mController.getTransform();
     }
 
+    /**
+     * Sets a new transform for this object
+     * @param transform
+     */
     public void setTransform(MrTransform transform) {
         mController.setTransform(transform);
     }
 
+    /**
+     * Gets the uniform generators associated to this object
+     * @return
+     */
     public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mController.getUniformGenerators();
     }
 
+    /**
+     * Gets the current shader program, if the object has any
+     * @return
+     */
     public MrShaderProgram getShaderProgram() {
         return mController.getShaderProgram();
     }
 
+    /**
+     * Gets the uniform keys provided by this object
+     * @return
+     */
     public Map<String, MrUniformKey> getUniformKeys() {
         return mController.getUniformKeys();
     }
+
+    /*****Tree*****/
 
     public MrSceneTree getTree() {
         return mTree;
     }
 
-    /*****Tree*****/
     public void setTree(MrSceneTree tree) {
         mTree = tree;
     }

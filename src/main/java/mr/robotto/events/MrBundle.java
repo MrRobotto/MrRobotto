@@ -16,15 +16,24 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by aaron on 16/06/2015.
+ * Bundle to store multiple types of data.
+ * Used to pass data between an Android event received in a {@link MrEventDispatcher} and
+ * processed in a {@link MrEventsListener}
  */
 public class MrBundle {
     private HashMap<String, Object> mBundle = new HashMap<>();
 
+    /**
+     * Clears the bundle
+     */
     public void clear() {
         mBundle.clear();
     }
 
+    /**
+     * Removes an element from this bundle
+     * @param key
+     */
     public void remove(String key) {
         mBundle.remove(key);
     }

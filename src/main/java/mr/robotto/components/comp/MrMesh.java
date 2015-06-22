@@ -17,13 +17,31 @@ import java.util.Map;
 import mr.robotto.components.data.mesh.MrBuffer;
 import mr.robotto.components.data.mesh.MrBufferKey;
 
+/**
+ * This class represents a 3D Mesh and allows to draw it
+ */
 public class MrMesh extends MrComponent {
+    /**
+     * Draws the mesh's faces as lines
+     */
     public static final int DRAWTYPE_LINES = GLES20.GL_LINES;
+    /**
+     * Draws the mesh's faces using triangles
+     */
     public static final int DRAWTYPE_TRIANGLES = GLES20.GL_TRIANGLES;
 
     private Data mData;
     private Render mRender;
 
+    /**
+     * Creates a new mesh
+     * @param name Name of the mesh
+     * @param count Number of faces
+     * @param drawType Used drawtype
+     * @param keys Buffer keys of this mesh
+     * @param vertexBuffer Vertex data as a buffer
+     * @param indexBuffer Vertex indices data as a buffer
+     */
     public MrMesh(String name, int count, int drawType, Map<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
         mData = new Data(name, count, drawType, keys, vertexBuffer, indexBuffer);
         mRender = new Render();
@@ -60,26 +78,49 @@ public class MrMesh extends MrComponent {
         }
     }
 
+    /**
+     * Gets the IBO linked to this mesh
+     * @return index array buffer object
+     */
     public MrBuffer getIndexBuffer() {
         return mData.getIndexBuffer();
     }
 
+    /**
+     * Gets all buffer-keys defined in this mesh
+     * @return buffer keys
+     */
     public Map<Integer, MrBufferKey> getBufferKeys() {
         return mData.getBufferKeys();
     }
 
+    /**
+     * Gets the number of faces of this mesh
+     * @return number of faces
+     */
     public int getCount() {
         return mData.getCount();
     }
 
+    /**
+     * Gets the VBO linked to this mesh
+     * @return vertex array buffer object
+     */
     public MrBuffer getVertexBuffer() {
         return mData.getVertexBuffer();
     }
 
+    /**
+     * Gets the current draw type for this mesh
+     * @return draw type
+     */
     public int getDrawType() {
         return mData.getDrawType();
     }
 
+    /**
+     * Draws the mesh
+     */
     public void draw() {
         mRender.draw();
     }
@@ -149,8 +190,8 @@ public class MrMesh extends MrComponent {
 
         private void initialize(MrBuffer buffer) {
             IntBuffer id = IntBuffer.allocate(1);
-            buffer.setBufferId(id);
             GLES20.glGenBuffers(1, id);
+            buffer.setId(id.get(0));
             GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getId());
             GLES20.glBufferData(buffer.getBufferTarget(), buffer.asBuffer().capacity(), buffer.asBuffer(), buffer.getBufferUsage());
             buffer.releaseBuffer();
@@ -160,11 +201,11 @@ public class MrMesh extends MrComponent {
             bind(mData.getVertexBuffer());
             bind(mData.getIndexBuffer());
             //for (MrBufferKey key : mData.getBufferKeys().values()) {
-            //    if (key.getIndex() >= 0)
+            //    if (key.getId() >= 0)
             //        bind(key);
             //}
             for (MrBufferKey key : mKeysList) {
-                if (key.getIndex() >= 0) {
+                if (key.getId() >= 0) {
                     bind(key);
                 }
             }
@@ -172,11 +213,11 @@ public class MrMesh extends MrComponent {
 
         public void unbind() {
             //for (MrBufferKey key : mData.getBufferKeys().values()) {
-            //    if (key.getIndex() >= 0)
+            //    if (key.getId() >= 0)
             //        unbind(key);
             //}
             for (MrBufferKey key : mKeysList) {
-                if (key.getIndex() >= 0) {
+                if (key.getId() >= 0) {
                     unbind(key);
                 }
             }
@@ -184,16 +225,16 @@ public class MrMesh extends MrComponent {
 
         //TODO: Mirar el false este con el normalized
         private void bind(MrBufferKey key) {
-            GLES20.glEnableVertexAttribArray(key.getIndex());
-            GLES20.glVertexAttribPointer(key.getIndex(), key.getSize(), key.getDataType().getValue(), false, key.getStride(), key.getPointer());
+            GLES20.glEnableVertexAttribArray(key.getId());
+            GLES20.glVertexAttribPointer(key.getId(), key.getSize(), key.getDataType().getValue(), false, key.getStride(), key.getPointer());
         }
 
         private void bind(MrBuffer buffer) {
-            GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getBufferId());
+            GLES20.glBindBuffer(buffer.getBufferTarget(), buffer.getId());
         }
 
         private void unbind(MrBufferKey key) {
-            GLES20.glDisableVertexAttribArray(key.getIndex());
+            GLES20.glDisableVertexAttribArray(key.getId());
         }
 
         //TODO: Check the cullface of objects

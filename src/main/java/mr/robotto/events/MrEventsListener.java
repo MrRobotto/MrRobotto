@@ -18,7 +18,7 @@ import mr.robotto.core.MrObject;
 import mr.robotto.core.controller.MrObjectController;
 
 /**
- * Created by aaron on 14/06/2015.
+ * Class for processing events linked to an object
  */
 public abstract class MrEventsListener {
 
@@ -28,6 +28,9 @@ public abstract class MrEventsListener {
     private Queue<String> mEventNamesQueue;
     private Queue<MrBundle> mEventBundlesQueue;
 
+    /**
+     * Creates a new Event Listener
+     */
     public MrEventsListener() {
         mEvents = new HashSet<>();
         mEventNamesQueue = new ArrayDeque<>();
@@ -35,37 +38,78 @@ public abstract class MrEventsListener {
         registerEvents(mEvents);
     }
 
+    /**
+     * Gets the object controller which this event listener is attached to
+     * @return
+     */
     public MrObjectController getObjectController() {
         return mObjectController;
     }
 
+    /**
+     * Sets the object controller
+     * @param controller
+     */
     public void setObjectController(MrObjectController controller) {
         mObjectController = controller;
     }
 
+    /**
+     * Gets the object which this event listener is attached to
+     * @return
+     */
     public MrObject getAttachedObject() {
         return mObjectController.getAttachedObject();
     }
 
+    /**
+     * Checks if the given event is registered to be processed
+     * @param evName
+     * @return
+     */
     public boolean isEventRegistered(String evName) {
         return mEvents.contains(evName);
     }
 
+    /**
+     * Gets all registered events
+     * @return
+     */
     public Set<String> getRegisteredEvents() {
         return mEvents;
     }
 
-    protected abstract void registerEvents(Set<String> events);
+    /**
+     * Register multiple events at once
+     * @param events
+     */
+    protected void registerEvents(Set<String> events) {
 
+    }
+
+    /**
+     * Registers a certain event
+     * @param eventName
+     */
     public void registerEvent(String eventName) {
         mEvents.add(eventName);
     }
 
+    /**
+     * Unregisters a certain event
+     * @param eventName
+     */
     public void unregisterEvent(String eventName) {
         mEvents.remove(eventName);
     }
 
-    public void queueEvent(String eventName, MrBundle eventBundle) {
+    /**
+     * Queues a new event to be processed on the OpenGL Thread
+     * This method should be always called from a {@link MrEventDispatcher} instance
+     * @param eventName
+     * @param eventBundle
+     */
+    public final void queueEvent(String eventName, MrBundle eventBundle) {
         if (eventName == null) {
             return;
         }
@@ -79,11 +123,21 @@ public abstract class MrEventsListener {
         }
     }
 
+    /**
+     * Process a certain event
+     * @param eventName event name received
+     * @param eventBundle bundle containing event data
+     */
     protected void processEvent(String eventName, MrBundle eventBundle) {
 
     }
 
-    public void updateEvents() {
+
+    /**
+     * Request to process all queued events
+     * This method should not be called by user
+     */
+    public final void updateEvents() {
         while (!mEventNamesQueue.isEmpty()) {
             String evName = mEventNamesQueue.poll();
             MrBundle evBundle = mEventBundlesQueue.poll();
@@ -91,5 +145,18 @@ public abstract class MrEventsListener {
                 processEvent(evName, evBundle);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        String s =
+                "MrEventsListener{" +
+                "Object=" + mObjectController.getName() +
+                ", RegisteredEvents=[";
+        for (String ev : mEvents) {
+            s += ev +",";
+        }
+        s += "]}";
+        return s;
     }
 }

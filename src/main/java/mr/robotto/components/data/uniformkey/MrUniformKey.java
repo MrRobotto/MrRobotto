@@ -11,7 +11,10 @@ package mr.robotto.components.data.uniformkey;
 
 import mr.robotto.linearalgebra.MrLinearAlgebraObject;
 
-//TODO: Id for uniformkey and bufferkey in the same way!
+/**
+ * Class to intermediate between unifom values stored as {@link mr.robotto.linearalgebra.MrLinearAlgebraObject} and
+ * {@link mr.robotto.components.data.shader.MrUniform} elements of {@link mr.robotto.components.comp.MrShaderProgram}
+ */
 public class MrUniformKey implements Comparable<MrUniformKey> {
 
     private String mGeneratorName;

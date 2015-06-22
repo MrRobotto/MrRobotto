@@ -29,8 +29,6 @@ public class MrAttributeKeyLoader extends MrJsonBaseLoader<MrBufferKey> {
     public MrBufferKey parse() throws JSONException {
         String attrstr = mRoot.getString("Attribute");
         int attribute = getAttributeTypeFromString(attrstr);
-        String name = mRoot.getString("Name");
-        int index = mRoot.getInt("Index");
         String dataTypeStr = mRoot.getString("DataType");
         int size = mRoot.getInt("Size");
         MrDataType dataType = getDataTypeFromString(dataTypeStr);
