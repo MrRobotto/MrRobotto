@@ -17,16 +17,17 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.core.MrObject;
-import mr.robotto.events.MrEventDispatcher;
-import mr.robotto.loader.file.MrRobottoFileLoader;
-import mr.robotto.renderer.MrRenderer;
+import mr.robotto.engine.events.MrEventDispatcher;
+import mr.robotto.engine.loader.MrResources;
+import mr.robotto.engine.loader.file.MrRobottoFileLoader;
+import mr.robotto.engine.renderer.MrRenderer;
+import mr.robotto.engine.scenetree.MrSceneTreeController;
+import mr.robotto.engine.ui.MrSurfaceView;
+import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.scenetree.MrSceneTree;
-import mr.robotto.scenetree.MrSceneTreeController;
-import mr.robotto.ui.MrSurfaceView;
 
 /**
- * Created by aaron on 22/04/2015.
+ * Main class of MrRobotto 3D Engine
  */
 //TODO: Hay que tener cuidado con todos estos métodos, no sé si sin thread safe
 public class MrRobottoEngine {
@@ -37,48 +38,82 @@ public class MrRobottoEngine {
     protected MrSceneTreeController mController;
     protected MrSceneTree mSceneTree;
 
+    /**
+     * Creates a new MrRobotto Engine instance
+     *
+     * @param androidContext Android context attached to the engine.
+     * @param surfaceView    Custom surface view used to render the scene.
+     */
     public MrRobottoEngine(Context androidContext, MrSurfaceView surfaceView) {
         mAndroidContext = androidContext;
         mSurfaceView = surfaceView;
     }
 
     //TODO: Esto es llamado desde los loaders pero... es thread safe??
+
+    /**
+     * Gets the resources used in scene loading time. Once the scene is loaded all resourcer are released.
+     * This method should not be called by the user.
+     * @return
+     */
     public static MrResources getResources() {
         return sResources;
     }
 
+    /**
+     * Sets the maximum FPS the engine will run
+     * @param fps maximum FPS
+     */
     public void setFps(int fps) {
         mSurfaceView.getRenderer().setFPS(fps);
     }
 
+    /**
+     * Gets the view where the engine is running
+     * @return The attached surface view
+     */
     public MrSurfaceView getSurfaceView() {
         return mSurfaceView;
     }
 
-    public void setSurfaceView(MrSurfaceView surfaceView) {
-        mSurfaceView = surfaceView;
-    }
-
-    public void setAndroidContext(Context context) {
-        mAndroidContext = context;
-    }
-
+    /**
+     * Gets the current scene
+     * @return the scene, null if the scene has not been loaded
+     */
     public MrSceneTree getSceneTree() {
         return mSceneTree;
     }
 
+    /**
+     * Searchs an object
+     * @param name name of object
+     * @return the object with the specified name, null if it does not exist
+     */
     public MrObject getObject(String name) {
         return mSceneTree.findByKey(name);
     }
 
+    /**
+     * Gets the attached event dispatcher
+     * @return the current event dispatcher
+     */
     public MrEventDispatcher getEventDispatcher() {
         return mController.getEventDispatcher();
     }
 
+    /**
+     * Sets a new event dispatcher
+     * @param eventDispatcher new event dispatcher to be used
+     */
     public void setEventDispatcher(MrEventDispatcher eventDispatcher) {
         mController.setEventDispatcher(eventDispatcher);
     }
 
+    /**
+     * Loads a new scene from stream
+     * @param inputStream stream containing the scene
+     * @return the loaded scene for chaining
+     */
     public MrSceneTree loadSceneTree(InputStream inputStream) {
         MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
         MrSceneTree tree = null;
@@ -96,6 +131,10 @@ public class MrRobottoEngine {
         return null;
     }
 
+    /**
+     * Loads the scene asynchronously
+     * @param inputStream stream containing the scene
+     */
     public void loadSceneTreeAsync(final InputStream inputStream) {
         AsyncTask<InputStream, Void, MrSceneTree> task = new AsyncTask<InputStream, Void, MrSceneTree>() {
             @Override
@@ -132,6 +171,10 @@ public class MrRobottoEngine {
         sResources.freeResources();
     }
 
+    /**
+     * Once the scene is loaded and initialized this method is called.
+     * This method can be overridden to manage all initialization code.
+     */
     public void onInitialize() {
     }
 
@@ -145,6 +188,10 @@ public class MrRobottoEngine {
         onInitialize();
     }
 
+    /**
+     * Queues a runnable to be executed on OpenGL Thread
+     * @param runnable code to be executed
+     */
     public void queueEvent(Runnable runnable) {
         mSurfaceView.queueEvent(runnable);
     }

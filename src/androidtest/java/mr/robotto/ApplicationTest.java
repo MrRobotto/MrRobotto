@@ -25,7 +25,7 @@ import org.json.JSONTokener;
 import java.io.IOException;
 import java.io.InputStream;
 
-import mr.robotto.utils.MrStreamReader;
+import mr.robotto.engine.utils.MrStreamReader;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

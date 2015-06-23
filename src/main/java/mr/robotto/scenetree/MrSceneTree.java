@@ -17,15 +17,18 @@ import java.util.List;
 import java.util.Map;
 
 import mr.robotto.MrRobottoEngine;
-import mr.robotto.core.MrCamera;
-import mr.robotto.core.MrLight;
-import mr.robotto.core.MrModel;
-import mr.robotto.core.MrObject;
-import mr.robotto.core.MrScene;
-import mr.robotto.core.MrSceneObjectType;
-import mr.robotto.core.controller.MrLightController;
-import mr.robotto.core.controller.MrModelController;
-import mr.robotto.core.controller.MrObjectController;
+import mr.robotto.engine.core.MrSceneObjectType;
+import mr.robotto.engine.core.controller.MrLightController;
+import mr.robotto.engine.core.controller.MrModelController;
+import mr.robotto.engine.core.controller.MrObjectController;
+import mr.robotto.engine.scenetree.MrSceneTreeController;
+import mr.robotto.engine.scenetree.MrSceneTreeData;
+import mr.robotto.engine.scenetree.MrSceneTreeRender;
+import mr.robotto.sceneobjects.MrCamera;
+import mr.robotto.sceneobjects.MrLight;
+import mr.robotto.sceneobjects.MrModel;
+import mr.robotto.sceneobjects.MrObject;
+import mr.robotto.sceneobjects.MrScene;
 
 /**
  * Created by Aarón on 31/12/2014.

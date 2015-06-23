@@ -11,7 +11,7 @@ package mr.robotto;
 
 import junit.framework.TestCase;
 
-import mr.robotto.linearalgebra.MrMatrix4f;
+import mr.robotto.engine.linearalgebra.MrMatrix4f;
 
 /**
  * Created by Aarón on 18/11/2014.

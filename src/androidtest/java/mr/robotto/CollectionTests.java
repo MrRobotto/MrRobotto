@@ -13,8 +13,8 @@ import junit.framework.TestCase;
 
 import java.util.Iterator;
 
-import mr.robotto.collections.MrMapFunction;
-import mr.robotto.collections.MrTreeMap;
+import mr.robotto.engine.collections.MrMapFunction;
+import mr.robotto.engine.collections.MrTreeMap;
 
 /**
  * Created by Aarón on 18/11/2014.
