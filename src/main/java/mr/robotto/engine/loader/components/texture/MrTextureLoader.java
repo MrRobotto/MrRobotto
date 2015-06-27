@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.MrRobottoEngine;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
 /**

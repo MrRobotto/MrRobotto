@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.comp;
+package mr.robotto.engine.components;
 
 import android.opengl.GLES20;
 
@@ -40,7 +40,7 @@ public class MrShaderProgram extends MrComponent {
 
     @Override
     public String getType() {
-        return MrComponent.TYPE_SHADERPROGRAM;
+        return TYPE_SHADERPROGRAM;
     }
 
     @Override
@@ -208,7 +208,7 @@ public class MrShaderProgram extends MrComponent {
 
         //TODO: Intentar colocar esto en otro lugar
         public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
-            //for (MrUniform uniform : mData.getUniforms().values()) {
+            //for (MrUniform uniform : mData.getUniformKeys().values()) {
             //    MrUniformKey key = uniformKeys.get(uniform.getUniformType());
             //    bindUniform(uniform, key.getValue());
             //}

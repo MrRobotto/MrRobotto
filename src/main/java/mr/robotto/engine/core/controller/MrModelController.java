@@ -11,9 +11,9 @@ package mr.robotto.engine.core.controller;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrMesh;
-import mr.robotto.engine.components.comp.MrShaderProgram;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrMesh;
+import mr.robotto.engine.components.MrShaderProgram;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.action.MrSkeletalAction;
 import mr.robotto.engine.components.data.material.MrMaterial;
 import mr.robotto.engine.components.data.skeleton.MrSkeleton;
@@ -59,6 +59,14 @@ public class MrModelController extends MrObjectController {
 
     public Map<String, MrSkeletalAction> getSkeletalActions() {
         return getData().getSkeletalActions();
+    }
+
+    public void playActionContinuosly(String actionName) {
+        getSkeleton().playActionContinuosly(actionName);
+    }
+
+    public void playAction(String actionName) {
+        getSkeleton().playAction(actionName);
     }
 
     public boolean isVisible() {

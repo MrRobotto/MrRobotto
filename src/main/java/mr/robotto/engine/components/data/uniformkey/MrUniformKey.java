@@ -9,11 +9,12 @@
 
 package mr.robotto.engine.components.data.uniformkey;
 
+import mr.robotto.engine.components.MrShaderProgram;
 import mr.robotto.engine.linearalgebra.MrLinearAlgebraObject;
 
 /**
  * Class to intermediate between unifom values stored as {@link mr.robotto.engine.linearalgebra.MrLinearAlgebraObject} and
- * {@link mr.robotto.engine.components.data.shader.MrUniform} elements of {@link mr.robotto.engine.components.comp.MrShaderProgram}
+ * {@link mr.robotto.engine.components.data.shader.MrUniform} elements of {@link MrShaderProgram}
  */
 public class MrUniformKey implements Comparable<MrUniformKey> {
 

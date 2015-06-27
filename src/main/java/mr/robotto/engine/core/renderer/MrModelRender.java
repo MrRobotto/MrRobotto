@@ -11,7 +11,7 @@ package mr.robotto.engine.core.renderer;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.mesh.MrBufferKey;
 import mr.robotto.engine.components.data.shader.MrAttribute;
 import mr.robotto.engine.core.data.MrModelData;
@@ -74,7 +74,7 @@ public class MrModelRender implements MrObjectRender {
         mModelData.getShaderProgram().bind();
         //Assign of uniforms to the shader program
         //mModelData.getShaderProgram().bindUniforms(mRenderingContext.getUniformGenerators());
-        mModelData.getShaderProgram().bindUniforms(mRenderingContext.getUniforms());
+        mModelData.getShaderProgram().bindUniforms(mRenderingContext.getUniformKeys());
         mModelData.getMesh().bind();
         MrTexture[] textures = mModelData.getTextures();
         for (int i = 0; i < textures.length; i++) {

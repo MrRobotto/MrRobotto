@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import mr.robotto.engine.components.comp.MrShaderProgram;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrShaderProgram;
+import mr.robotto.engine.components.MrTexture;
 
 /**
  * Temporal storage class for resources

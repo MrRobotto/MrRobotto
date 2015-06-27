@@ -11,7 +11,7 @@ package mr.robotto.sceneobjects;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrShaderProgram;
+import mr.robotto.engine.components.MrShaderProgram;
 import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.controller.MrSceneController;
 import mr.robotto.engine.linearalgebra.MrTransform;

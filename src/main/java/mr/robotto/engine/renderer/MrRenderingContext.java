@@ -10,12 +10,12 @@
 package mr.robotto.engine.renderer;
 
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
-import mr.robotto.engine.components.comp.MrMesh;
-import mr.robotto.engine.components.comp.MrShaderProgram;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrMesh;
+import mr.robotto.engine.components.MrShaderProgram;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
 import mr.robotto.engine.scenetree.MrSceneTreeData;
 
@@ -24,7 +24,7 @@ import mr.robotto.engine.scenetree.MrSceneTreeData;
  */
 public class MrRenderingContext {
     private MrSceneTreeData mObjectsTree;
-    private TreeMap<String,MrUniformKey> mUniforms;
+    private HashMap<String, MrUniformKey> mUniformKeys;
     private int mWidth;
     private int mHeight;
 
@@ -34,7 +34,7 @@ public class MrRenderingContext {
 
     public MrRenderingContext(MrSceneTreeData objectsTree) {
         mObjectsTree = objectsTree;
-        mUniforms = new TreeMap<>();
+        mUniformKeys = new HashMap<>();
     }
 
     public MrSceneTreeData getObjectsTree() {
@@ -42,8 +42,8 @@ public class MrRenderingContext {
     }
 
 
-    public Map<String, MrUniformKey> getUniforms() {
-        return mUniforms;
+    public Map<String, MrUniformKey> getUniformKeys() {
+        return mUniformKeys;
     }
 
     //TODO: Use this method to fill elements

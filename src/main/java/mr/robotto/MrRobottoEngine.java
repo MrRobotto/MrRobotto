@@ -11,6 +11,7 @@ package mr.robotto;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 
@@ -19,7 +20,7 @@ import java.io.InputStream;
 
 import mr.robotto.engine.events.MrEventDispatcher;
 import mr.robotto.engine.loader.MrResources;
-import mr.robotto.engine.loader.file.MrRobottoFileLoader;
+import mr.robotto.engine.loader.file.MrMrrLoader;
 import mr.robotto.engine.renderer.MrRenderer;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 import mr.robotto.engine.ui.MrSurfaceView;
@@ -115,13 +116,16 @@ public class MrRobottoEngine {
      * @return the loaded scene for chaining
      */
     public MrSceneTree loadSceneTree(InputStream inputStream) {
-        MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
+        long startTime = System.currentTimeMillis();
+        MrMrrLoader loader = new MrMrrLoader(inputStream);
         MrSceneTree tree = null;
         try {
             //tree = loader.parse();
             //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
             mSceneTree = loader.parse();
             initialize();
+            long stopTime = System.currentTimeMillis();
+            Log.v("Load Time(ms)", String.valueOf(stopTime - startTime));
             return tree;
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,7 +144,7 @@ public class MrRobottoEngine {
             @Override
             protected MrSceneTree doInBackground(InputStream... params) {
                 InputStream inputStream = params[0];
-                MrRobottoFileLoader loader = new MrRobottoFileLoader(inputStream);
+                MrMrrLoader loader = new MrMrrLoader(inputStream);
                 try {
                     MrSceneTree tree = loader.parse();
                     return tree;
@@ -178,7 +182,7 @@ public class MrRobottoEngine {
     public void onInitialize() {
     }
 
-    public final void initialize() {
+    protected final void initialize() {
         mSceneTree.setRobottoEngine(this);
         mController = mSceneTree.getController();
         mSceneTree.getController().initializeEventDispatcher(this);

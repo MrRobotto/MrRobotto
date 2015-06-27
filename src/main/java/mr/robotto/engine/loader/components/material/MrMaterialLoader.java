@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.material.MrMaterial;
 import mr.robotto.engine.components.data.material.MrMaterialLight;
 import mr.robotto.engine.linearalgebra.MrVector4f;

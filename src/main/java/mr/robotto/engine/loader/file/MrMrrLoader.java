@@ -27,11 +27,11 @@ import mr.robotto.scenetree.MrSceneTree;
 /**
  * Created by aaron on 03/05/2015.
  */
-public class MrRobottoFileLoader {
+public class MrMrrLoader {
 
     private DataInputStream mStream;
 
-    public MrRobottoFileLoader(InputStream inputStream) {
+    public MrMrrLoader(InputStream inputStream) {
         mStream = new DataInputStream(inputStream);
     }
 

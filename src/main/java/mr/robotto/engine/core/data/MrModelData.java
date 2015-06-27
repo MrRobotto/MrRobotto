@@ -12,9 +12,9 @@ package mr.robotto.engine.core.data;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrMesh;
-import mr.robotto.engine.components.comp.MrShaderProgram;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrMesh;
+import mr.robotto.engine.components.MrShaderProgram;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.action.MrSkeletalAction;
 import mr.robotto.engine.components.data.material.MrMaterial;
 import mr.robotto.engine.components.data.skeleton.MrSkeleton;

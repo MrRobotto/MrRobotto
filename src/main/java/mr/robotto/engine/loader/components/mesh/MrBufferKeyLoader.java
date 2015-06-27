@@ -20,8 +20,8 @@ import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 /**
  * Loads a {@link MrBufferKey} from JSON
  */
-public class MrAttributeKeyLoader extends MrJsonBaseLoader<MrBufferKey> {
-    public MrAttributeKeyLoader(JSONObject obj) {
+public class MrBufferKeyLoader extends MrJsonBaseLoader<MrBufferKey> {
+    public MrBufferKeyLoader(JSONObject obj) {
         super(obj);
     }
 

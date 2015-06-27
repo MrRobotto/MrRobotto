@@ -29,7 +29,6 @@ import mr.robotto.engine.renderer.MrRenderingSorter;
  * Created by Aarón on 18/01/2015.
  */
 
-//TODO: SAcar el rendering context del objeto???
 public class MrSceneTreeRender {
     private final ArrayList<MrUniformKey> mSortedKeys;
     private final HashMap<String, MrObjectController> mObjects;
@@ -37,11 +36,12 @@ public class MrSceneTreeRender {
     private MrRenderingContext mContext;
     private MrModelController[] mModels;
     private MrLightController[] mLights;
+    private boolean mInitialized;
 
     public MrSceneTreeRender() {
-
         mSortedKeys = new ArrayList<>();
         mObjects = new HashMap<>();
+        mInitialized = false;
     }
 
     public void initializeRender(MrSceneTreeData objectsTree, MrRenderingContext context) {
@@ -52,13 +52,17 @@ public class MrSceneTreeRender {
         }
         MrRenderingSorter sorter = new MrRenderingSorter(mSceneObjectsTree.getModels());
         sorter.sort();
-        List<MrModelController> models = sorter.getSortedModels();
-        mModels = new MrModelController[models.size()];
-        models.toArray(mModels);
-
-        List<MrLightController> lights = mSceneObjectsTree.getLights();
-        mLights = new MrLightController[lights.size()];
-        lights.toArray(mLights);
+        {
+            List<MrModelController> models = sorter.getSortedModels();
+            mModels = new MrModelController[models.size()];
+            models.toArray(mModels);
+        }
+        {
+            List<MrLightController> lights = mSceneObjectsTree.getLights();
+            mLights = new MrLightController[lights.size()];
+            lights.toArray(mLights);
+        }
+        mInitialized = true;
     }
 
     public void initializeSizeDependant(int w, int h) {
@@ -67,8 +71,8 @@ public class MrSceneTreeRender {
         }
     }
 
-    private void addUniforms(MrObjectController obj) {
-        Map<String, MrUniformKey> keys = mContext.getUniforms();
+    private void addUniformKeys(MrObjectController obj) {
+        Map<String, MrUniformKey> keys = mContext.getUniformKeys();
         for (MrUniformKey key : obj.getUniformKeys().values()) {
             mSortedKeys.add(key);
             mObjects.put(key.getUniformType(), obj);
@@ -76,10 +80,9 @@ public class MrSceneTreeRender {
         }
     }
 
-    private void updateUniforms() {
-        //TODO: Use heap instead arraylist
+    private void updateUniformKeys() {
         Collections.sort(mSortedKeys);
-        Map<String, MrUniformKey> keys = mContext.getUniforms();
+        Map<String, MrUniformKey> keys = mContext.getUniformKeys();
         for (MrUniformKey key : mSortedKeys) {
             MrObjectController obj = mObjects.get(key.getUniformType());
             obj.updateUniform(key, keys, mSceneObjectsTree.getObjectsDataTree());
@@ -94,10 +97,8 @@ public class MrSceneTreeRender {
         }
     }
 
-    //TODO: This must be changed!!
-    //TODO: Esta sección devora memoria como ella sola y está en el updateUniforms
     public void render() {
-        mContext.getUniforms().clear();
+        mContext.getUniformKeys().clear();
         mObjects.clear();
         updateEvents();
         MrSceneController scene = mSceneObjectsTree.getScene();
@@ -105,15 +106,15 @@ public class MrSceneTreeRender {
         scene.render();
         camera.render();
         for (int i = 0; i < mLights.length; i++) {
-            addUniforms(mLights[i]);
+            addUniformKeys(mLights[i]);
         }
         for (int i = 0; i < mModels.length; i++) {
             MrModelController model = mModels[i];
             if (model.isVisible()) {
-                addUniforms(model);
-                addUniforms(camera);
-                addUniforms(scene);
-                updateUniforms();
+                addUniformKeys(model);
+                addUniformKeys(camera);
+                addUniformKeys(scene);
+                updateUniformKeys();
                 model.render();
             }
         }

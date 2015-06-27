@@ -24,7 +24,6 @@ import mr.robotto.engine.loader.core.MrObjectLoader;
 import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.scenetree.MrSceneTree;
 
-//TODO: Cambiar estos nombres taaaan feos
 public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrSceneTree> {
 
     private MrTreeMap<String, String> mKeysTree;

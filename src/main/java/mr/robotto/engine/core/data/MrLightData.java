@@ -11,7 +11,7 @@ package mr.robotto.engine.core.data;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrShaderProgram;
+import mr.robotto.engine.components.MrShaderProgram;
 import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.data.uniformgenerators.MrLightUniformsGenerators;

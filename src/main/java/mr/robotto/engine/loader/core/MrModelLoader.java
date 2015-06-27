@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.comp.MrMesh;
+import mr.robotto.engine.components.MrMesh;
 import mr.robotto.engine.components.data.material.MrMaterial;
 import mr.robotto.engine.components.data.skeleton.MrSkeleton;
 import mr.robotto.engine.loader.components.material.MrMaterialLoader;

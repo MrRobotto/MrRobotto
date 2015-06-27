@@ -9,7 +9,7 @@
 
 package mr.robotto.engine.components.data.material;
 
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrTexture;
 
 /**
  * Created by aaron on 11/03/2015.

@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.comp;
+package mr.robotto.engine.components;
 
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
@@ -40,7 +40,7 @@ public class MrTexture extends MrComponent {
 
     @Override
     public String getType() {
-        return MrComponent.TYPE_TEXTURE;
+        return TYPE_TEXTURE;
     }
 
     @Override

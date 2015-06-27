@@ -35,7 +35,7 @@ public class MrSkeletalActionLoader extends MrJsonBaseLoader<MrSkeletalAction> {
     }
 
     private int loadFps() throws JSONException {
-        return mRoot.getInt("mFPS");
+        return mRoot.getInt("FPS");
     }
 
     private String loadActionName() throws JSONException {

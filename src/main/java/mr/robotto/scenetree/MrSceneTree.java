@@ -31,9 +31,8 @@ import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.sceneobjects.MrScene;
 
 /**
- * Created by Aarón on 31/12/2014.
+ * Main class for storing hierarchically, retrieve and traversal scene objects.
  */
-//TODO: Check all names, it should be a MrTreeMap, and others should be MrHashMap and MrSortedMap
 public class MrSceneTree implements Iterable<MrObject> {
 
     private MrSceneTreeController mController;
@@ -41,6 +40,11 @@ public class MrSceneTree implements Iterable<MrObject> {
     private HashMap<String, MrObject> mObjects;
     private MrRobottoEngine mRobottoEngine;
 
+    /**
+     * Creates a new Scene Tree using the given object as root
+     *
+     * @param root
+     */
     public MrSceneTree(MrObject root) {
         mController = new MrSceneTreeController(new MrSceneTreeData(root.getController()), new MrSceneTreeRender());
         //mController.setRobottoEngine(robottoEngine);
@@ -53,10 +57,18 @@ public class MrSceneTree implements Iterable<MrObject> {
         mObjects = new HashMap<>(mData.size());
     }
 
+    /**
+     * Gets the RobottoEngine instance this SceneTree is attached to
+     * @return
+     */
     public MrRobottoEngine getRobottoEngine() {
         return mRobottoEngine;
     }
 
+    /**
+     * Sets the RobottoEngine attached to this SceneTree
+     * @param robottoEngine
+     */
     public void setRobottoEngine(MrRobottoEngine robottoEngine) {
         mRobottoEngine = robottoEngine;
         for (MrObject obj : this) {

@@ -1,7 +1,7 @@
 mr.robotto
 mr.robotto.engine.collections
 mr.robotto.engine.commons
-mr.robotto.engine.components.comp
+mr.robotto.engine.components
 mr.robotto.engine.components.data.action
 mr.robotto.engine.components.data.lens
 mr.robotto.engine.components.data.material

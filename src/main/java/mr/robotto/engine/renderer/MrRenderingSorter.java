@@ -15,9 +15,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import mr.robotto.engine.components.comp.MrComponent;
-import mr.robotto.engine.components.comp.MrShaderProgram;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrComponent;
+import mr.robotto.engine.components.MrShaderProgram;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.core.controller.MrModelController;
 
 /**

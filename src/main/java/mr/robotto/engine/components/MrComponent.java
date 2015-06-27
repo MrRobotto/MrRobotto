@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.comp;
+package mr.robotto.engine.components;
 
 import mr.robotto.engine.renderer.MrRenderingContext;
 

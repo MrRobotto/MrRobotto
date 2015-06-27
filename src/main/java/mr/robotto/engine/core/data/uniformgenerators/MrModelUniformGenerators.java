@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import mr.robotto.engine.commons.MrDataType;
-import mr.robotto.engine.components.comp.MrTexture;
+import mr.robotto.engine.components.MrTexture;
 import mr.robotto.engine.components.data.material.MrMaterial;
 import mr.robotto.engine.components.data.shader.MrUniform;
 import mr.robotto.engine.components.data.skeleton.MrBone;

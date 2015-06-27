@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import mr.robotto.engine.components.comp.MrMesh;
+import mr.robotto.engine.components.MrMesh;
 import mr.robotto.engine.components.data.mesh.MrBuffer;
 import mr.robotto.engine.components.data.mesh.MrBufferKey;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
@@ -83,7 +83,7 @@ public class MrMeshLoader extends MrJsonBaseLoader<MrMesh> {
     private void loadKeys(Map<Integer, MrBufferKey> list, JSONArray keys) throws JSONException {
         for (int i = 0; i < keys.length(); i++) {
             JSONObject jsonKey = keys.getJSONObject(i);
-            MrAttributeKeyLoader loader = new MrAttributeKeyLoader(jsonKey);
+            MrBufferKeyLoader loader = new MrBufferKeyLoader(jsonKey);
             MrBufferKey key = loader.parse();
             //list.addAttributeKey(key);
             list.put(key.getAttributeType(), key);
