@@ -25,7 +25,7 @@ import mr.robotto.engine.renderer.MrRenderer;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 import mr.robotto.engine.ui.MrSurfaceView;
 import mr.robotto.sceneobjects.MrObject;
-import mr.robotto.scenetree.MrSceneTree;
+import mr.robotto.sceneobjects.MrSceneTree;
 
 /**
  * Main class of MrRobotto 3D Engine

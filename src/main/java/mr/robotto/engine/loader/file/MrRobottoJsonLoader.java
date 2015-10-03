@@ -22,7 +22,7 @@ import mr.robotto.engine.collections.MrTreeMap;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 import mr.robotto.engine.loader.core.MrObjectLoader;
 import mr.robotto.sceneobjects.MrObject;
-import mr.robotto.scenetree.MrSceneTree;
+import mr.robotto.sceneobjects.MrSceneTree;
 
 public class MrRobottoJsonLoader extends MrJsonBaseLoader<MrSceneTree> {
 

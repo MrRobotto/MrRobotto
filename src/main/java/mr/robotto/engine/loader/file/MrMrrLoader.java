@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 import mr.robotto.MrRobottoEngine;
-import mr.robotto.scenetree.MrSceneTree;
+import mr.robotto.sceneobjects.MrSceneTree;
 
 /**
  * Created by aaron on 03/05/2015.

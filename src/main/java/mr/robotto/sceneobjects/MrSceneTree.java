@@ -7,7 +7,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.scenetree;
+package mr.robotto.sceneobjects;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,11 +24,6 @@ import mr.robotto.engine.core.controller.MrObjectController;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 import mr.robotto.engine.scenetree.MrSceneTreeData;
 import mr.robotto.engine.scenetree.MrSceneTreeRender;
-import mr.robotto.sceneobjects.MrCamera;
-import mr.robotto.sceneobjects.MrLight;
-import mr.robotto.sceneobjects.MrModel;
-import mr.robotto.sceneobjects.MrObject;
-import mr.robotto.sceneobjects.MrScene;
 
 /**
  * Main class for storing hierarchically, retrieve and traversal scene objects.

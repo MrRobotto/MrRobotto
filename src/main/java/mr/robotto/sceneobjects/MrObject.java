@@ -25,7 +25,6 @@ import mr.robotto.engine.events.MrEventsListener;
 import mr.robotto.engine.linearalgebra.MrQuaternion;
 import mr.robotto.engine.linearalgebra.MrTransform;
 import mr.robotto.engine.linearalgebra.MrVector3f;
-import mr.robotto.scenetree.MrSceneTree;
 
 /**
  * Base class for MrRobotto Object hierarchy.
