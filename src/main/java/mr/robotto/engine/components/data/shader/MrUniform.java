@@ -19,12 +19,12 @@ public class MrUniform {
     public static final String MODEL_VIEW_MATRIX = "Model_View_Matrix";
     public static final String NORMAL_MATRIX = "Normal_Matrix";
     public static final String MODEL_VIEW_PROJECTION_MATRIX = "Model_View_Projection_Matrix";
-    public static final String UNIFORM_MATERIAL_AMBIENT_COLOR = "Ambient_Color";
-    public static final String UNIFORM_MATERIAL_AMBIENT_INTENSITY = "Ambient_Intensity";
-    public static final String UNIFORM_MATERIAL_DIFFUSE_COLOR = "Diffuse_Color";
-    public static final String UNIFORM_MATERIAL_DIFFUSE_INTENSITY = "Diffuse_Intensity";
-    public static final String UNIFORM_MATERIAL_SPECULAR_COLOR = "Specular_Color";
-    public static final String UNIFORM_MATERIAL_SPECULAR_INTENSITY = "Specular_Intensity";
+    public static final String UNIFORM_MATERIAL_AMBIENT_COLOR = "Material_Ambient_Color";
+    public static final String UNIFORM_MATERIAL_AMBIENT_INTENSITY = "Material_Ambient_Intensity";
+    public static final String UNIFORM_MATERIAL_DIFFUSE_COLOR = "Material_Diffuse_Color";
+    public static final String UNIFORM_MATERIAL_DIFFUSE_INTENSITY = "Material_Diffuse_Intensity";
+    public static final String UNIFORM_MATERIAL_SPECULAR_COLOR = "Material_Specular_Color";
+    public static final String UNIFORM_MATERIAL_SPECULAR_INTENSITY = "Material_Specular_Intensity";
     public static final String UNIFORM_BONE_MATRIX = "Bone_Matrix";
     public static final String UNIFORM_TEXTURE = "Texture_Sampler";
 

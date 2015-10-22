@@ -24,7 +24,18 @@ import mr.robotto.engine.linearalgebra.MrVector4f;
 public class MrSceneController extends MrObjectController {
 
     public MrSceneController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
-        super(new MrSceneData(name, transform, program, uniformKeys, clearColor), new MrSceneRender());
+        super(createSceneData(name, transform, program, uniformKeys, clearColor), new MrSceneRender());
+    }
+
+    private static MrSceneData createSceneData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
+        MrSceneData.Builder builder = new MrSceneData.Builder();
+        builder
+                .setClearColor(clearColor)
+                .setName(name)
+                .setTransform(transform)
+                .setProgram(program)
+                .setUniformKeys(uniformKeys);
+        return builder.build();
     }
 
     public MrVector4f getClearColor() {

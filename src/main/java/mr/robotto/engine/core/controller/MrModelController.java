@@ -27,9 +27,22 @@ import mr.robotto.engine.linearalgebra.MrTransform;
  */
 public class MrModelController extends MrObjectController {
 
-
     public MrModelController(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
-        super(new MrModelData(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
+        super(createModel(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
+    }
+
+    private static MrModelData createModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+        MrModelData.Builder builder = new MrModelData.Builder();
+        builder
+                .setName(name)
+                .setTransform(transform)
+                .setUniformKeys(uniformKeys)
+                .setProgram(shaderProgram);
+        builder
+                .setMesh(mesh)
+                .setMaterials(materials)
+                .setSkeleton(skeleton);
+        return builder.build();
     }
 
     @Override

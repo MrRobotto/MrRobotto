@@ -28,17 +28,16 @@ public class MrCameraData extends MrObjectData {
     private MrVector3f mUp;
     private MrLens mLens;
 
-    public MrCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
-        super(name, MrSceneObjectType.CAMERA, transform, shaderProgram, uniformKeys);
+    private MrCameraData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lookAt, MrVector3f up, MrLens lens) {
+        super(name, MrSceneObjectType.CAMERA, transform, program, uniformKeys);
+        mLookAt = lookAt;
+        mUp = up;
         mLens = lens;
-        mLookAt = null;
-        mUp = null;
+        init();
     }
 
-    @Override
-    public void initializeUniforms() {
-        super.initializeUniforms();
-        new MrCameraUniformGenerators().initializeUniforms(this, mUniformGenerators);
+    private void init() {
+        mObjectUniformsGenerators = new MrCameraUniformGenerators();
     }
 
     public MrVector3f getLookAt() {
@@ -73,5 +72,30 @@ public class MrCameraData extends MrObjectData {
 
     public void setLens(MrLens lens) {
         mLens = lens;
+    }
+
+    public static class Builder extends MrObjectData.BuilderBase {
+        private MrVector3f mLookAt;
+        private MrVector3f mUp;
+        private MrLens mLens;
+
+        public Builder setLookAt(MrVector3f lookAt) {
+            mLookAt = lookAt;
+            return this;
+        }
+
+        public Builder setUp(MrVector3f up) {
+            mUp = up;
+            return this;
+        }
+
+        public Builder setLens(MrLens lens) {
+            mLens = lens;
+            return this;
+        }
+
+        public MrCameraData build() {
+            return new MrCameraData(mName, mTransform, mProgram, mUniformKeys, mLookAt, mUp, mLens);
+        }
     }
 }

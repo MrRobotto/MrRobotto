@@ -23,6 +23,17 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
  */
 public class MrLightController extends MrObjectController {
     public MrLightController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
-        super(new MrLightData(name, transform, program, uniformKeys, lightColor), new MrLightRender());
+        super(createLight(name, transform, program, uniformKeys, lightColor), new MrLightRender());
+    }
+
+    private static MrLightData createLight(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
+        MrLightData.Builder builder = new MrLightData.Builder();
+        builder
+                .setColor(lightColor)
+                .setName(name)
+                .setTransform(transform)
+                .setProgram(program)
+                .setUniformKeys(uniformKeys);
+        return builder.build();
     }
 }

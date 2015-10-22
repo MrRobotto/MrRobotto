@@ -25,15 +25,14 @@ public class MrLightData extends MrObjectData {
 
     private MrVector3f mColor;
 
-    public MrLightData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
+    private MrLightData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
         super(name, MrSceneObjectType.LIGHT, transform, program, uniformKeys);
         mColor = lightColor;
+        init();
     }
 
-    @Override
-    public void initializeUniforms() {
-        super.initializeUniforms();
-        new MrLightUniformsGenerators().initializeUniforms(this, mUniformGenerators);
+    private void init() {
+        mObjectUniformsGenerators = new MrLightUniformsGenerators();
     }
 
     public MrVector3f getColor() {
@@ -45,6 +44,19 @@ public class MrLightData extends MrObjectData {
     }
 
     public void setColor(float r, float g, float b) {
-        mColor.setValues(r,g,b);
+        mColor.setValues(r, g, b);
+    }
+
+    public static class Builder extends MrObjectData.BuilderBase {
+        private MrVector3f mColor;
+
+        public Builder setColor(MrVector3f color) {
+            mColor = color;
+            return this;
+        }
+
+        public MrLightData build() {
+            return new MrLightData(mName, mTransform, mProgram, mUniformKeys, mColor);
+        }
     }
 }

@@ -24,29 +24,14 @@ import mr.robotto.engine.linearalgebra.MrVector4f;
 public class MrSceneData extends MrObjectData {
     private MrVector4f mClearColor;
 
-    public MrSceneData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
+    private MrSceneData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
         super(name, MrSceneObjectType.SCENE, transform, program, uniformKeys);
-        mClearColor = clearColor;
-    }
-
-    public MrSceneData(String name, MrVector4f clearColor) {
-        super(name, MrSceneObjectType.SCENE);
         mClearColor = clearColor;
         init();
     }
 
-    public MrSceneData(String name) {
-        this(name, new MrVector4f(0.5f));
-    }
-
     private void init() {
-
-    }
-
-    @Override
-    public void initializeUniforms() {
-        super.initializeUniforms();
-        new MrSceneUniformsGenerators().initializeUniforms(this, mUniformGenerators);
+        mObjectUniformsGenerators = new MrSceneUniformsGenerators();
     }
 
     public MrVector4f getClearColor() {
@@ -59,5 +44,18 @@ public class MrSceneData extends MrObjectData {
 
     public void setClearColor(float r, float g, float b, float a) {
         mClearColor = new MrVector4f(r, g, b, a);
+    }
+
+    public static class Builder extends MrObjectData.BuilderBase {
+        private MrVector4f mclearColor = new MrVector4f(0.5f);
+
+        public Builder setClearColor(MrVector4f clearColor) {
+            mclearColor = clearColor;
+            return this;
+        }
+
+        public MrSceneData build() {
+            return new MrSceneData(mName, mTransform, mProgram, mUniformKeys, mclearColor);
+        }
     }
 }

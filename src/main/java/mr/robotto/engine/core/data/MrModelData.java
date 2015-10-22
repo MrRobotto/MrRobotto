@@ -33,7 +33,7 @@ public class MrModelData extends MrObjectData {
     private MrSkeleton mSkeleton;
     private boolean mIsVisible;
 
-    public MrModelData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
+    private MrModelData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
         mMesh = mesh;
         mMaterials = materials;
@@ -43,13 +43,8 @@ public class MrModelData extends MrObjectData {
     }
 
     private void init() {
+        mObjectUniformsGenerators = new MrModelUniformGenerators();
         getTexturesFromMaterials();
-    }
-
-    @Override
-    public void initializeUniforms() {
-        super.initializeUniforms();
-        new MrModelUniformGenerators().initializeUniforms(this, mUniformGenerators);
     }
 
     private void getTexturesFromMaterials() {
@@ -97,5 +92,36 @@ public class MrModelData extends MrObjectData {
 
     public void setVisibility(boolean isVisible) {
         mIsVisible = isVisible;
+    }
+
+    public static class Builder extends MrObjectData.BuilderBase {
+        private MrMesh mMesh;
+        private MrMaterial[] mMaterials = null;
+        private MrTexture[] mTextures = null;
+        private MrSkeleton mSkeleton = null;
+
+        public Builder setMesh(MrMesh mesh) {
+            mMesh = mesh;
+            return this;
+        }
+
+        public Builder setMaterials(MrMaterial[] materials) {
+            mMaterials = materials;
+            return this;
+        }
+
+        public Builder setTextures(MrTexture[] textures) {
+            mTextures = textures;
+            return this;
+        }
+
+        public Builder setSkeleton(MrSkeleton skeleton) {
+            mSkeleton = skeleton;
+            return this;
+        }
+
+        public MrModelData build() {
+            return new MrModelData(mName, mTransform, mUniformKeys, mProgram, mMesh, mMaterials, mSkeleton);
+        }
     }
 }

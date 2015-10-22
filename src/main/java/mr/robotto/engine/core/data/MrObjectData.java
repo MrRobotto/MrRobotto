@@ -16,20 +16,22 @@ import mr.robotto.engine.components.MrShaderProgram;
 import mr.robotto.engine.components.data.uniformgenerator.MrUniformGenerator;
 import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
+import mr.robotto.engine.core.data.uniformgenerators.MrObjectUniformsGenerators;
 import mr.robotto.engine.linearalgebra.MrTransform;
 
 /**
  * Created by aaron on 14/04/2015.
  */
-public abstract class MrObjectData {
+public class MrObjectData {
     protected String mName;
     protected MrSceneObjectType mSceneObjType;
     protected MrTransform mTransform;
     protected MrShaderProgram mShaderProgram;
+    protected MrObjectUniformsGenerators mObjectUniformsGenerators;
     protected Map<String, MrUniformGenerator> mUniformGenerators;
     protected Map<String, MrUniformKey> mUniformKeys;
 
-    public MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, Map<String,MrUniformKey> uniformKeys) {
+    protected MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys) {
         mName = name;
         mTransform = transform;
         mSceneObjType = sceneObjType;
@@ -38,17 +40,16 @@ public abstract class MrObjectData {
         init();
     }
 
-    //TODO: Review this constructor
-    public MrObjectData(String name, MrSceneObjectType sceneObjType) {
+    protected MrObjectData(String name, MrSceneObjectType sceneObjType) {
         this(name, sceneObjType, new MrTransform(), null, new HashMap<String, MrUniformKey>());
+    }
+
+    public void initializeUniforms() {
+        mObjectUniformsGenerators.initializeUniforms(this, mUniformGenerators);
     }
 
     private void init() {
         mUniformGenerators = new HashMap<>();
-    }
-
-    public void initializeUniforms() {
-
     }
 
     public String getName() {
@@ -85,5 +86,40 @@ public abstract class MrObjectData {
 
     public void setUniformGenerators(Map<String, MrUniformGenerator> uniformGenerators) {
         mUniformGenerators = uniformGenerators;
+    }
+
+    public static abstract class BuilderBase {
+        protected String mName;
+        protected MrSceneObjectType mSceneObjType;
+        protected MrTransform mTransform = new MrTransform();
+        protected MrShaderProgram mProgram = null;
+        protected Map<String, MrUniformKey> mUniformKeys = new HashMap<String, MrUniformKey>();
+
+        public BuilderBase setName(String name) {
+            mName = name;
+            return this;
+        }
+
+        public BuilderBase setSceneObjType(MrSceneObjectType sceneObjType) {
+            mSceneObjType = sceneObjType;
+            return this;
+        }
+
+        public BuilderBase setTransform(MrTransform transform) {
+            mTransform = transform;
+            return this;
+        }
+
+        public BuilderBase setProgram(MrShaderProgram program) {
+            mProgram = program;
+            return this;
+        }
+
+        public BuilderBase setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
+            mUniformKeys = uniformKeys;
+            return this;
+        }
+
+        public abstract MrObjectData build();
     }
 }

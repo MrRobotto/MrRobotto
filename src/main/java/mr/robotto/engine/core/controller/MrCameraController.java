@@ -27,11 +27,21 @@ public class MrCameraController extends MrObjectController {
 
     private MrMatrix4f mView;
     private MrMatrix4f mProjection;
-
     public MrCameraController(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
-        super(new MrCameraData(name, transform, uniformKeys, shaderProgram, lens), new MrCameraRender());
+        super(createCameraData(name, transform, uniformKeys, shaderProgram, lens), new MrCameraRender());
         mProjection = new MrMatrix4f();
         mView = new MrMatrix4f();
+    }
+
+    private static MrCameraData createCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram program, MrLens lens) {
+        MrCameraData.Builder builder = new MrCameraData.Builder();
+        builder
+                .setLens(lens)
+                .setName(name)
+                .setTransform(transform)
+                .setProgram(program)
+                .setUniformKeys(uniformKeys);
+        return builder.build();
     }
 
     @Override
