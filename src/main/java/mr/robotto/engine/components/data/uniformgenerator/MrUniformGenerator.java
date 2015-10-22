@@ -35,6 +35,7 @@ public abstract class MrUniformGenerator {
     public static final String GENERATOR_MATERIAL_SPECULAR_INTENSITY = "Generator_Material_Specular_Intensity";
     public static final String GENERATOR_BONE_MATRIX = "Generator_Bone_Matrix";
     public static final String GENERATOR_TEXTURE_SAMPLER = "Generator_Texture_Sampler";
+    //TODO: Change these names
     public static final String UNIFORMGENERATOR_LIGHT_POSITION = "Generator_Light_Position";
     public static final String UNIFORMGENERATOR_LIGHT_COLOR = "Generator_Light_Color";
 

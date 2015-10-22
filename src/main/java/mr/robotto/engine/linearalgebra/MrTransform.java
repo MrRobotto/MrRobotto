@@ -22,12 +22,18 @@ public class MrTransform {
     private MrVector3f mRight;
 
     private boolean mChange;
+    private MrQuaternion mAuxQuaternion;
+    private MrMatrix4f mAuxMatrix;
+    private MrVector3f mAuxVector3;
 
     public MrTransform() {
         this.mMatrix = new MrMatrix4f();
         this.mRotation = new MrQuaternion();
         this.mLocation = new MrVector3f(0);
         this.mScale = new MrVector3f(1);
+
+        mAuxQuaternion = new MrQuaternion();
+        mAuxMatrix = new MrMatrix4f();
 
         //This seems to work
         //this.mRight = new MrVector3f(1, 0, 0);
@@ -125,25 +131,21 @@ public class MrTransform {
 
     public void setRotation(float angle, float x, float y, float z) {
         MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
-        MrQuaternion q = new MrQuaternion();
-        quatOp.fromAngleAxis(q, angle, x, y, z);
-        setRotation(q);
+        quatOp.fromAngleAxis(mAuxQuaternion, angle, x, y, z);
+        setRotation(mAuxQuaternion);
     }
 
     public void setRotation(float angle, MrVector3f axis) {
         MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
-        MrQuaternion q = new MrQuaternion();
-        quatOp.fromAngleAxis(q, angle, axis);
-        setRotation(q);
+        quatOp.fromAngleAxis(mAuxQuaternion, angle, axis);
+        setRotation(mAuxQuaternion);
     }
 
     public void setLookAt(MrVector3f look, MrVector3f up) {
         MrMatrix4f.Operator mat4Op = MrMatrix4f.getOperator();
         MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
-        MrMatrix4f m = new MrMatrix4f();
-        MrQuaternion q = new MrQuaternion();
-        mat4Op.lookAt(m, mLocation, look, up);
-        quatOp.fromMatrix4(mRotation, m);
+        mat4Op.lookAt(mAuxMatrix, mLocation, look, up);
+        quatOp.fromMatrix4(mRotation, mAuxMatrix);
         flipChange();
     }
 
@@ -186,9 +188,8 @@ public class MrTransform {
 
     public void rotate(float angle, float x, float y, float z) {
         MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
-        MrQuaternion q = new MrQuaternion();
-        quatOp.fromAngleAxis(q, angle, x, y, z);
-        rotate(q);
+        quatOp.fromAngleAxis(mAuxQuaternion, angle, x, y, z);
+        rotate(mAuxQuaternion);
     }
 
     public void rotate(float angle, MrVector3f axis) {
@@ -198,17 +199,16 @@ public class MrTransform {
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis, MrVector3f through) {
         MrQuaternion.Operator quatOp = MrQuaternion.getOperator();
         MrVector3f.Operator vec3Op = MrVector3f.getOperator();
-        MrQuaternion q = new MrQuaternion();
-        quatOp.fromAngleAxis(q, angle, axis);
-        quatOp.mult(mRotation, mRotation, q);
+        quatOp.fromAngleAxis(mAuxQuaternion, angle, axis);
+        quatOp.mult(mRotation, mRotation, mAuxQuaternion);
 
-        MrVector3f aux = new MrVector3f();
+
         //V-P
-        vec3Op.substract(aux, through, point);
+        vec3Op.substract(mAuxVector3, through, point);
         //R(V-P)
-        vec3Op.rotateVector(aux, mRotation, aux);
+        vec3Op.rotateVector(mAuxVector3, mRotation, mAuxVector3);
         //Loc = P + R(V-P)
-        vec3Op.add(mLocation, point, aux);
+        vec3Op.add(mLocation, point, mAuxVector3);
         flipChange();
     }
 

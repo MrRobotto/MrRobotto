@@ -9,11 +9,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName 'C3P0'
     }
@@ -23,9 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/androidtest/assets/'] } }
-    productFlavors {
-    }
+    //sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/androidtest/assets/'] } }
+    //productFlavors {
+    //}
 }
 
 dependencies {

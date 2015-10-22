@@ -215,7 +215,7 @@ public class MrShaderProgram extends MrComponent {
             for (int i = 0; i < mUniformsList.length; i++) {
                 MrUniform uniform = mUniformsList[i];
                 MrUniformKey key = uniformKeys.get(uniform.getUniformType());
-                if (key == null) {
+                if (key == null || key.getValue() == null) {
                     throw new RuntimeException("Can't find uniformkey for uniform: "+uniform.toString());
                 }
                 bindUniform(uniform, key);

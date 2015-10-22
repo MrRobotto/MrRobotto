@@ -98,6 +98,7 @@ public class MrSceneTreeRender {
     }
 
     public void render() {
+        long start = System.nanoTime();
         mContext.getUniformKeys().clear();
         mObjects.clear();
         updateEvents();
@@ -111,13 +112,21 @@ public class MrSceneTreeRender {
         for (int i = 0; i < mModels.length; i++) {
             MrModelController model = mModels[i];
             if (model.isVisible()) {
+                //long start = System.nanoTime();
                 addUniformKeys(model);
                 addUniformKeys(camera);
                 addUniformKeys(scene);
                 updateUniformKeys();
+                //long stop = System.nanoTime();
+                //System.out.println("Tardo1: "+(stop-start));
+                //start = System.nanoTime();
                 model.render();
+                //stop = System.nanoTime();
+                //System.out.println("Tardo2: "+(stop-start));
             }
         }
+        long stop = System.nanoTime();
+        //System.out.println("Tardo: "+(stop-start)/1000000.0);
     }
 
     //TODO: Fill this

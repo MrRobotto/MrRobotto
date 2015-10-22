@@ -120,7 +120,7 @@ public abstract class MrObjectController {
     }
 
     //TODO: render(Context, data)
-    public void render() {
+    public synchronized void render() {
         //if (!mInitialized) initializeRender(context, mData);
         mRender.render();
     }
