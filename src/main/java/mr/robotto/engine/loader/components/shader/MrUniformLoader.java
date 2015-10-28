@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.engine.commons.MrDataType;
-import mr.robotto.engine.components.data.shader.MrUniform;
+import mr.robotto.engine.components.shader.MrUniform;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
 public class MrUniformLoader extends MrJsonBaseLoader<MrUniform> {

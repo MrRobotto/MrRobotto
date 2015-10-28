@@ -12,7 +12,7 @@ package mr.robotto.engine.loader.core;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.data.lens.MrPerspectiveLens;
+import mr.robotto.engine.components.lens.MrPerspectiveLens;
 import mr.robotto.engine.linearalgebra.MrVector3f;
 import mr.robotto.sceneobjects.MrCamera;
 import mr.robotto.sceneobjects.MrObject;

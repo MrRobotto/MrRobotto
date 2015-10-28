@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.data.skeleton.MrBone;
+import mr.robotto.engine.components.skeleton.MrBone;
 import mr.robotto.engine.linearalgebra.MrQuaternion;
 import mr.robotto.engine.linearalgebra.MrVector3f;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;

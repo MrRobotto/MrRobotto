@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import mr.robotto.engine.components.data.action.MrSkeletalAction;
-import mr.robotto.engine.components.data.skeleton.MrBone;
-import mr.robotto.engine.components.data.skeleton.MrSkeleton;
+import mr.robotto.engine.components.action.MrSkeletalAction;
+import mr.robotto.engine.components.skeleton.MrBone;
+import mr.robotto.engine.components.skeleton.MrSkeleton;
 import mr.robotto.engine.loader.components.action.MrSkeletalActionLoader;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 

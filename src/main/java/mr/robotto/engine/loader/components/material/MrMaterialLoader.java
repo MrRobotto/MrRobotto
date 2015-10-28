@@ -13,9 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.MrTexture;
-import mr.robotto.engine.components.data.material.MrMaterial;
-import mr.robotto.engine.components.data.material.MrMaterialLight;
+import mr.robotto.engine.components.material.MrMaterial;
+import mr.robotto.engine.components.material.MrMaterialLight;
+import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.linearalgebra.MrVector4f;
 import mr.robotto.engine.loader.components.texture.MrTextureLoader;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;

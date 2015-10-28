@@ -15,9 +15,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import mr.robotto.engine.components.MrComponent;
-import mr.robotto.engine.components.MrShaderProgram;
-import mr.robotto.engine.components.MrTexture;
+import mr.robotto.engine.components.MrSharedComponent;
+import mr.robotto.engine.components.material.MrTexture;
+import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.core.controller.MrModelController;
 
 /**
@@ -35,7 +35,7 @@ public class MrRenderingSorter {
         mComponents = new HashMap<>();
     }
 
-    private void addComponentModelPair(MrComponent component, MrModelController model) {
+    private void addComponentModelPair(MrSharedComponent component, MrModelController model) {
         String key = component.getType() + component.getName();
         if (mComponents.containsKey(key)) {
             mComponents.get(key).add(model);

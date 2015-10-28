@@ -11,9 +11,9 @@ package mr.robotto.engine.core.renderer;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.MrTexture;
-import mr.robotto.engine.components.data.mesh.MrBufferKey;
-import mr.robotto.engine.components.data.shader.MrAttribute;
+import mr.robotto.engine.components.material.MrTexture;
+import mr.robotto.engine.components.mesh.MrBufferKey;
+import mr.robotto.engine.components.shader.MrAttribute;
 import mr.robotto.engine.core.data.MrModelData;
 import mr.robotto.engine.core.data.MrObjectData;
 import mr.robotto.engine.renderer.MrRenderingContext;

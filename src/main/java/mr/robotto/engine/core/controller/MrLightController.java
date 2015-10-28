@@ -11,8 +11,8 @@ package mr.robotto.engine.core.controller;
 
 import java.util.Map;
 
-import mr.robotto.engine.components.MrShaderProgram;
-import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrLightData;
 import mr.robotto.engine.core.renderer.MrLightRender;
 import mr.robotto.engine.linearalgebra.MrTransform;

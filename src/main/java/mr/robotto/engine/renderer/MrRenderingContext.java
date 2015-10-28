@@ -13,10 +13,10 @@ package mr.robotto.engine.renderer;
 import java.util.HashMap;
 import java.util.Map;
 
-import mr.robotto.engine.components.MrMesh;
-import mr.robotto.engine.components.MrShaderProgram;
-import mr.robotto.engine.components.MrTexture;
-import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.material.MrTexture;
+import mr.robotto.engine.components.mesh.MrMesh;
+import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.scenetree.MrSceneTreeData;
 
 /**

@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.Set;
 
 import mr.robotto.MrRobottoEngine;
-import mr.robotto.engine.components.MrShaderProgram;
-import mr.robotto.engine.components.data.uniformgenerator.MrUniformGenerator;
-import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformgenerators.MrUniformGenerator;
+import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.controller.MrObjectController;
 import mr.robotto.engine.events.MrEventsListener;

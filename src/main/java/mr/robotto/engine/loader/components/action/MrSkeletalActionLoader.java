@@ -13,9 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.engine.components.data.action.MrFrame;
-import mr.robotto.engine.components.data.action.MrSkeletalAction;
-import mr.robotto.engine.components.data.skeleton.MrBone;
+import mr.robotto.engine.components.action.MrFrame;
+import mr.robotto.engine.components.action.MrSkeletalAction;
+import mr.robotto.engine.components.skeleton.MrBone;
 import mr.robotto.engine.loader.components.skeleton.MrBoneLoader;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 

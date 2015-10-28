@@ -12,15 +12,15 @@ package mr.robotto.engine.core.data;
 import java.util.ArrayList;
 import java.util.Map;
 
-import mr.robotto.engine.components.MrMesh;
-import mr.robotto.engine.components.MrShaderProgram;
-import mr.robotto.engine.components.MrTexture;
-import mr.robotto.engine.components.data.action.MrSkeletalAction;
-import mr.robotto.engine.components.data.material.MrMaterial;
-import mr.robotto.engine.components.data.skeleton.MrSkeleton;
-import mr.robotto.engine.components.data.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.action.MrSkeletalAction;
+import mr.robotto.engine.components.material.MrMaterial;
+import mr.robotto.engine.components.material.MrTexture;
+import mr.robotto.engine.components.mesh.MrMesh;
+import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.skeleton.MrSkeleton;
+import mr.robotto.engine.components.uniformgenerators.MrModelUniformGenerators;
+import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
-import mr.robotto.engine.core.data.uniformgenerators.MrModelUniformGenerators;
 import mr.robotto.engine.linearalgebra.MrTransform;
 
 /**
