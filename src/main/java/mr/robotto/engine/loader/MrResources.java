@@ -23,14 +23,20 @@ import mr.robotto.engine.components.shader.MrShaderProgram;
  */
 public class MrResources {
 
+    private static MrResources sResources = new MrResources();
+
     private HashMap<String, MrTexture> mTextures;
     private HashMap<String, MrShaderProgram> mPrograms;
     private ConcurrentHashMap<String, Bitmap> mTextureBitmaps;
 
-    public MrResources() {
+    private MrResources() {
         mTextures = new HashMap<>();
         mPrograms = new HashMap<>();
         mTextureBitmaps = new ConcurrentHashMap<>();
+    }
+
+    public static MrResources getInstance() {
+        return sResources;
     }
 
     /**

@@ -12,8 +12,10 @@ package mr.robotto.engine.loader.core;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class MrJsonBaseLoader<T>
-{
+import mr.robotto.engine.loader.proposed.MrBaseLoader;
+
+
+public abstract class MrJsonBaseLoader<T> extends MrBaseLoader {
     //TODO: Cambiar el jsonobject al parse y pasar del constructor y convertir esto en una interfaz
     //TODO: Cambiar en los parser a la versión opt
     protected JSONObject mRoot;

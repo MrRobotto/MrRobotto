@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import mr.robotto.MrRobottoEngine;
 import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
@@ -30,12 +29,12 @@ public class MrTextureLoader extends MrJsonBaseLoader<MrTexture> {
     @Override
     public MrTexture parse() throws JSONException {
         String name = loadName();
-        MrTexture texture = MrRobottoEngine.getResources().getTexture(name);
+        MrTexture texture = getResources().getTexture(name);
         if (texture != null) {
             return texture;
         }
         texture = new MrTexture(loadName(), loadIndex(), loadMagFilter(), loadMinFilter(), loadBitmap());
-        MrRobottoEngine.getResources().addTexture(texture);
+        getResources().addTexture(texture);
         return texture;
     }
 
@@ -77,6 +76,6 @@ public class MrTextureLoader extends MrJsonBaseLoader<MrTexture> {
 
     private Bitmap loadBitmap() throws JSONException {
         String name = loadName();
-        return MrRobottoEngine.getResources().getTextureBitmaps().get(name);
+        return getResources().getTextureBitmaps().get(name);
     }
 }

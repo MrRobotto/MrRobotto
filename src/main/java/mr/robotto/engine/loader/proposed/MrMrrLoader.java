@@ -2,12 +2,7 @@ package mr.robotto.engine.loader.proposed;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import mr.robotto.MrRobottoEngine;
-import mr.robotto.engine.collections.MrTreeMap;
-import mr.robotto.engine.exceptions.MrParseException;
-import mr.robotto.engine.loader.core.MrObjectLoader;
-import mr.robotto.sceneobjects.MrObject;
-import mr.robotto.sceneobjects.MrSceneTree;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -19,16 +14,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import mr.robotto.engine.collections.MrTreeMap;
+import mr.robotto.engine.exceptions.MrParseException;
+import mr.robotto.engine.loader.core.MrObjectLoader;
+import mr.robotto.sceneobjects.MrObject;
+import mr.robotto.sceneobjects.MrSceneTree;
+
 /**
  * Created by aaron on 03/11/2015.
  */
-public class MrMrrLoader2 {
+public class MrMrrLoader extends MrBaseLoader {
 
     private DataInputStream mStream;
     private MrMrrMetadata mMetadata;
     private boolean mIsValid;
 
-    public MrMrrLoader2(InputStream stream) {
+    public MrMrrLoader(InputStream stream) {
         mStream = new DataInputStream(stream);
     }
 
@@ -144,7 +145,7 @@ public class MrMrrLoader2 {
             String name = textureTag.getIdentifier();
             Bitmap bitmap = loadTexture(numBytes);
             //TODO: Has de cambiar esta guarrada... mejor pasárselos al objeto luego
-            MrRobottoEngine.getResources().addTextureBitmap(name, bitmap);
+            getResources().addTextureBitmap(name, bitmap);
         }
     }
 

@@ -12,20 +12,21 @@ package mr.robotto;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import mr.robotto.engine.events.MrEventDispatcher;
 import mr.robotto.engine.exceptions.MrParseException;
 import mr.robotto.engine.loader.MrResources;
-import mr.robotto.engine.loader.file.MrMrrLoader;
-import mr.robotto.engine.loader.proposed.MrMrrLoader2;
+import mr.robotto.engine.loader.proposed.MrMrrLoader;
 import mr.robotto.engine.renderer.MrRenderer;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 import mr.robotto.engine.ui.MrSurfaceView;
 import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.sceneobjects.MrSceneTree;
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Main class of MrRobotto 3D Engine
@@ -33,7 +34,6 @@ import java.io.InputStream;
 //TODO: Hay que tener cuidado con todos estos métodos, no sé si sin thread safe
 public class MrRobottoEngine {
 
-    protected static final MrResources sResources = new MrResources();
     protected MrSurfaceView mSurfaceView;
     protected Context mAndroidContext;
     protected MrSceneTreeController mController;
@@ -51,15 +51,6 @@ public class MrRobottoEngine {
     }
 
     //TODO: Esto es llamado desde los loaders pero... es thread safe??
-
-    /**
-     * Gets the resources used in scene loading time. Once the scene is loaded all resourcer are released.
-     * This method should not be called by the user.
-     * @return
-     */
-    public static MrResources getResources() {
-        return sResources;
-    }
 
     /**
      * Sets the maximum FPS the engine will run
@@ -117,15 +108,13 @@ public class MrRobottoEngine {
      */
     public MrSceneTree loadSceneTree(InputStream inputStream) {
         long startTime = System.currentTimeMillis();
-        MrMrrLoader2 loader = new MrMrrLoader2(inputStream);
+        MrMrrLoader loader = new MrMrrLoader(inputStream);
         MrSceneTree tree = null;
         try {
             loader.check();
             if (!loader.isValid()) {
                 return null;
             }
-            //tree = loader.parse();
-            //mController = new MrSceneTreeController(tree, new MrSceneTreeRender());
             mSceneTree = loader.parseSceneTree();
             initialize();
             long stopTime = System.currentTimeMillis();
@@ -152,13 +141,15 @@ public class MrRobottoEngine {
                 InputStream inputStream = params[0];
                 MrMrrLoader loader = new MrMrrLoader(inputStream);
                 try {
-                    MrSceneTree tree = loader.parse();
+                    MrSceneTree tree = loader.parseSceneTree();
                     return tree;
                 } catch (IOException e) {
                     cancel(true);
                     e.printStackTrace();
                 } catch (JSONException e) {
                     cancel(true);
+                    e.printStackTrace();
+                } catch (MrParseException e) {
                     e.printStackTrace();
                 }
                 return null;
@@ -175,10 +166,6 @@ public class MrRobottoEngine {
             }
         };
         task.execute(inputStream);
-    }
-
-    private void freeResources() {
-        sResources.freeResources();
     }
 
     /**
@@ -218,10 +205,11 @@ public class MrRobottoEngine {
         public void run() {
             MrRenderer renderer = mEngine.mSurfaceView.getRenderer();
             renderer.setController(mEngine.mController);
+            //TODO: Make this call to initialized wait?
             if (renderer.isInitialized()) {
                 mEngine.mController.initializeRender();
                 mEngine.mController.initializeSizeDependant(mEngine.mSurfaceView.getWidth(), mEngine.mSurfaceView.getHeight());
-                mEngine.freeResources();
+                MrResources.getInstance().freeResources();
             }
         }
     }
