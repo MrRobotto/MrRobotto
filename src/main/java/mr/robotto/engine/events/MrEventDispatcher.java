@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import mr.robotto.MrRobottoEngine;
+import mr.robotto.MrEngine;
 import mr.robotto.engine.core.controller.MrObjectController;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 
@@ -27,13 +27,13 @@ public class MrEventDispatcher implements View.OnTouchListener {
 
     private HashMap<String, ArrayList<MrObjectController>> mObjects;
     private MrSceneTreeController mController;
-    private MrRobottoEngine mRobottoEngine;
+    private MrEngine mRobottoEngine;
 
     public MrEventDispatcher() {
         mObjects = new HashMap<>();
     }
 
-    public void initializeEventDispatcher(MrRobottoEngine robottoEngine, MrSceneTreeController controller) {
+    public void initializeEventDispatcher(MrEngine robottoEngine, MrSceneTreeController controller) {
         mController = controller;
         mRobottoEngine = robottoEngine;
         for (MrObjectController obj : controller.getSceneTreeData()) {

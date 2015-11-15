@@ -1,4 +1,4 @@
-package mr.robotto.engine.proposed.renderingdata;
+package mr.robotto.engine.proposed;
 
 /**
  * Created by aaron on 04/10/2015.

@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import mr.robotto.MrRobottoEngine;
+import mr.robotto.MrEngine;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.controller.MrLightController;
 import mr.robotto.engine.core.controller.MrModelController;
@@ -33,7 +33,7 @@ public class MrSceneTree implements Iterable<MrObject> {
     private MrSceneTreeController mController;
     private MrSceneTreeData mData;
     private HashMap<String, MrObject> mObjects;
-    private MrRobottoEngine mRobottoEngine;
+    private MrEngine mRobottoEngine;
 
     /**
      * Creates a new Scene Tree using the given object as root
@@ -56,7 +56,7 @@ public class MrSceneTree implements Iterable<MrObject> {
      * Gets the RobottoEngine instance this SceneTree is attached to
      * @return
      */
-    public MrRobottoEngine getRobottoEngine() {
+    public MrEngine getRobottoEngine() {
         return mRobottoEngine;
     }
 
@@ -64,7 +64,7 @@ public class MrSceneTree implements Iterable<MrObject> {
      * Sets the RobottoEngine attached to this SceneTree
      * @param robottoEngine
      */
-    public void setRobottoEngine(MrRobottoEngine robottoEngine) {
+    public void setRobottoEngine(MrEngine robottoEngine) {
         mRobottoEngine = robottoEngine;
         for (MrObject obj : this) {
             obj.setRobottoEngine(robottoEngine);

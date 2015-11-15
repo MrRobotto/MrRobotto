@@ -1,4 +1,4 @@
-package mr.robotto.engine.loader.proposed;
+package mr.robotto.engine.loader.file;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,12 +10,13 @@ import org.json.JSONTokener;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import mr.robotto.engine.collections.MrTreeMap;
 import mr.robotto.engine.exceptions.MrParseException;
+import mr.robotto.engine.loader.base.MrBaseLoader;
 import mr.robotto.engine.loader.core.MrObjectLoader;
 import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.sceneobjects.MrSceneTree;
@@ -107,46 +108,61 @@ public class MrMrrLoader extends MrBaseLoader {
         return loader.parse();
     }
 
-    private MrObject loadObject() throws IOException, MrParseException, JSONException {
+    private void loadObject(final ConcurrentHashMap<String, MrObject> objects) throws IOException, MrParseException, JSONException {
         ComposedTag nameTag = readComposedTag();
         if (!nameTag.getTagName().equals("NAME")) throw new MrParseException();
         int size = nameTag.getTagSize();
-        String jsonStr = readString(size);
-        JSONObject objJson = convertToJsonObject(jsonStr);
-        MrObjectLoader loader = new MrObjectLoader(objJson);
-        return loader.parse();
+        final String jsonStr = readString(size);
+        //TODO: Check exceptions in runnable
+        getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject objJson = convertToJsonObject(jsonStr);
+                    MrObjectLoader loader = new MrObjectLoader(objJson);
+                    MrObject object = loader.parse();
+                    objects.put(object.getName(), object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
-    private Map<String, MrObject> loadObjects() throws JSONException, IOException, MrParseException {
-        HashMap<String, MrObject> objectDataList = new HashMap<>();
+    private Map<String, MrObject> loadObjects() throws JSONException, IOException, MrParseException, InterruptedException {
+        ConcurrentHashMap<String, MrObject> objects = new ConcurrentHashMap<>();
         Tag sceneObjectsTag = readTag();
         if (!sceneObjectsTag.getTagName().equals("SOBJ")) throw new MrParseException();
         for (int i = 0; i < sceneObjectsTag.getTagSize(); i++) {
-            MrObject object = loadObject();
-            objectDataList.put(object.getName(), object);
+            loadObject(objects);
         }
-        return objectDataList;
+        getThreadPool().awaitAll();
+        return objects;
     }
 
-    private Bitmap loadTexture(int numBytes) throws IOException {
-        byte[] image = new byte[numBytes];
+    private void loadTexture() throws IOException {
+        ComposedTag textureTag = readComposedTag();
+        int numBytes = textureTag.getTagSize();
+        final String name = textureTag.getIdentifier();
+        final byte[] image = new byte[numBytes];
         mStream.readFully(image);
         readEOL();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-        return bitmap;
+        getThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                getResources().addTextureBitmap(name, bitmap);
+            }
+        });
     }
 
-    private void loadTextures() throws IOException, MrParseException {
+    private void loadTextures() throws IOException, MrParseException, InterruptedException {
         Tag texturesTag = readTag();
         if (!texturesTag.getTagName().equals("TEXT")) throw new MrParseException();
         for (int i = 0; i < texturesTag.getTagSize(); i++) {
-            ComposedTag textureTag = readComposedTag();
-            int numBytes = textureTag.getTagSize();
-            String name = textureTag.getIdentifier();
-            Bitmap bitmap = loadTexture(numBytes);
-            //TODO: Has de cambiar esta guarrada... mejor pasárselos al objeto luego
-            getResources().addTextureBitmap(name, bitmap);
+            loadTexture();
         }
+        getThreadPool().awaitAll();
     }
 
     private void loadFinish() throws IOException, MrParseException {
@@ -154,7 +170,7 @@ public class MrMrrLoader extends MrBaseLoader {
         if (!finish.equals("FNSH")) throw new MrParseException();
     }
 
-    public MrSceneTree parseSceneTree() throws IOException, MrParseException, JSONException {
+    public MrSceneTree parseSceneTree() throws IOException, MrParseException, JSONException, InterruptedException {
         MrTreeMap<String, String> keyTree = loadHierarchy();
         loadTextures();
         Map<String, MrObject> objects = loadObjects();

@@ -16,8 +16,8 @@ import org.json.JSONObject;
 import mr.robotto.engine.components.action.MrFrame;
 import mr.robotto.engine.components.action.MrSkeletalAction;
 import mr.robotto.engine.components.skeleton.MrBone;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 import mr.robotto.engine.loader.components.skeleton.MrBoneLoader;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
 /**
  * Loads an {@link MrSkeletalAction} from JSON

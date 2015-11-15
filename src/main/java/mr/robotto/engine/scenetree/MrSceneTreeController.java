@@ -11,7 +11,7 @@ package mr.robotto.engine.scenetree;
 
 import java.util.List;
 
-import mr.robotto.MrRobottoEngine;
+import mr.robotto.MrEngine;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.controller.MrObjectController;
 import mr.robotto.engine.events.MrEventDispatcher;
@@ -49,7 +49,7 @@ public class MrSceneTreeController {
         mEventDispatcher = eventDispatcher;
     }
 
-    public void initializeEventDispatcher(MrRobottoEngine robottoEngine) {
+    public void initializeEventDispatcher(MrEngine robottoEngine) {
         mEventDispatcher.initializeEventDispatcher(robottoEngine, this);
     }
 

@@ -17,8 +17,8 @@ import mr.robotto.engine.components.material.MrMaterial;
 import mr.robotto.engine.components.material.MrMaterialLight;
 import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.linearalgebra.MrVector4f;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 import mr.robotto.engine.loader.components.texture.MrTextureLoader;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
 /**
  * Loads a {@link MrMaterial} from JSON

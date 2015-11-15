@@ -17,7 +17,7 @@ import mr.robotto.engine.components.shader.MrAttribute;
 import mr.robotto.engine.components.shader.MrShader;
 import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.shader.MrUniform;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 
 public class MrShaderProgramLoader extends MrJsonBaseLoader<MrShaderProgram> {
 

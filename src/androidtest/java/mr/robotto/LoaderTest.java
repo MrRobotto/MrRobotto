@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 import java.io.InputStream;
 
-import mr.robotto.engine.loader.proposed.MrMrrLoader;
+import mr.robotto.engine.loader.file.MrMrrLoader;
 import mr.robotto.sceneobjects.MrObject;
 import mr.robotto.sceneobjects.MrSceneTree;
 

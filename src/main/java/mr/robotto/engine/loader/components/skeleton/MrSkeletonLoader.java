@@ -20,8 +20,8 @@ import java.util.Map;
 import mr.robotto.engine.components.action.MrSkeletalAction;
 import mr.robotto.engine.components.skeleton.MrBone;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 import mr.robotto.engine.loader.components.action.MrSkeletalActionLoader;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 
 /**
  * Created by aaron on 27/04/2015.

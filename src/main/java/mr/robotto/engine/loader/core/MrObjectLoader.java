@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import mr.robotto.engine.core.MrSceneObjectType;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 import mr.robotto.sceneobjects.MrObject;
 
 //TODO: Aqui falta mucho trabajo de control de errores

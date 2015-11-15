@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import mr.robotto.engine.commons.MrDataType;
 import mr.robotto.engine.components.shader.MrUniform;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 
 public class MrUniformLoader extends MrJsonBaseLoader<MrUniform> {
 

@@ -19,7 +19,7 @@ import java.util.Map;
 import mr.robotto.engine.components.mesh.MrBuffer;
 import mr.robotto.engine.components.mesh.MrBufferKey;
 import mr.robotto.engine.components.mesh.MrMesh;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 
 /**
  * Loads a {@link MrMesh} from JSON

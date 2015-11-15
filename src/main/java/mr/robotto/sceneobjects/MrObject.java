@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mr.robotto.MrRobottoEngine;
+import mr.robotto.MrEngine;
 import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.uniformgenerators.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
@@ -31,7 +31,7 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
  * This class provides access to the user to control an object.
  */
 public abstract class MrObject {
-    private MrRobottoEngine mRobotto;
+    private MrEngine mRobotto;
     private MrObjectController mController;
     private MrSceneTree mTree;
 
@@ -57,7 +57,7 @@ public abstract class MrObject {
      * Gets the reference to the engine used.
      * @return gets the RobottoEngine instance this object is attached to
      */
-    public MrRobottoEngine getRobottoEngine() {
+    public MrEngine getRobottoEngine() {
         return mRobotto;
     }
 
@@ -66,7 +66,7 @@ public abstract class MrObject {
      * This method should not be called directly by the user
      * @param robotto the engine which contains this object
      */
-    public void setRobottoEngine(MrRobottoEngine robotto) {
+    public void setRobottoEngine(MrEngine robotto) {
         mRobotto = robotto;
     }
 

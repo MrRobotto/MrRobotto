@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import mr.robotto.engine.commons.MrDataType;
 import mr.robotto.engine.components.shader.MrAttribute;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 
 /**
  * Loads a {@link MrAttribute} from JSON.

@@ -7,12 +7,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.loader.core;
+package mr.robotto.engine.loader.base;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import mr.robotto.engine.loader.proposed.MrBaseLoader;
 
 
 public abstract class MrJsonBaseLoader<T> extends MrBaseLoader {

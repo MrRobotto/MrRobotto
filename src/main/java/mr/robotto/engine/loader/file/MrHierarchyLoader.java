@@ -1,16 +1,17 @@
-package mr.robotto.engine.loader.proposed;
+package mr.robotto.engine.loader.file;
 
-import mr.robotto.engine.collections.MrMapFunction;
-import mr.robotto.engine.collections.MrTreeMap;
-import mr.robotto.engine.loader.core.MrJsonBaseLoader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import mr.robotto.engine.collections.MrMapFunction;
+import mr.robotto.engine.collections.MrTreeMap;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
+
 /**
  * Created by aaron on 03/11/2015.
  */
-public class MrHierarchyLoader extends MrJsonBaseLoader<MrTreeMap<String, String>> {
+class MrHierarchyLoader extends MrJsonBaseLoader<MrTreeMap<String, String>> {
 
     public MrHierarchyLoader(JSONObject obj) {
         super(obj);

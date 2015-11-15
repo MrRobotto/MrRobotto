@@ -1,9 +1,9 @@
-package mr.robotto.engine.loader.proposed;
+package mr.robotto.engine.loader.file;
 
 /**
  * Created by aaron on 03/11/2015.
  */
-public class MrMrrMetadata {
+class MrMrrMetadata {
     private String mVersion;
     private boolean mHasHierarchy;
 

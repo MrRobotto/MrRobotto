@@ -1,4 +1,4 @@
-package mr.robotto.engine.proposed.renderingdata;
+package mr.robotto.engine.proposed;
 
 import java.util.HashMap;
 import java.util.Map;

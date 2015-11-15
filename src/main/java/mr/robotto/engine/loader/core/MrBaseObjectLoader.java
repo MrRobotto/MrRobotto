@@ -20,6 +20,7 @@ import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
+import mr.robotto.engine.loader.base.MrJsonBaseLoader;
 import mr.robotto.engine.loader.components.MrTransformLoader;
 import mr.robotto.engine.loader.components.shader.MrShaderProgramLoader;
 import mr.robotto.sceneobjects.MrObject;

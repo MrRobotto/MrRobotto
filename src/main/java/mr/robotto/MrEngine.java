@@ -21,7 +21,7 @@ import java.io.InputStream;
 import mr.robotto.engine.events.MrEventDispatcher;
 import mr.robotto.engine.exceptions.MrParseException;
 import mr.robotto.engine.loader.MrResources;
-import mr.robotto.engine.loader.proposed.MrMrrLoader;
+import mr.robotto.engine.loader.file.MrMrrLoader;
 import mr.robotto.engine.renderer.MrRenderer;
 import mr.robotto.engine.scenetree.MrSceneTreeController;
 import mr.robotto.engine.ui.MrSurfaceView;
@@ -32,7 +32,7 @@ import mr.robotto.sceneobjects.MrSceneTree;
  * Main class of MrRobotto 3D Engine
  */
 //TODO: Hay que tener cuidado con todos estos métodos, no sé si sin thread safe
-public class MrRobottoEngine {
+public class MrEngine {
 
     protected MrSurfaceView mSurfaceView;
     protected Context mAndroidContext;
@@ -45,7 +45,7 @@ public class MrRobottoEngine {
      * @param androidContext Android context attached to the engine.
      * @param surfaceView    Custom surface view used to render the scene.
      */
-    public MrRobottoEngine(Context androidContext, MrSurfaceView surfaceView) {
+    public MrEngine(Context androidContext, MrSurfaceView surfaceView) {
         mAndroidContext = androidContext;
         mSurfaceView = surfaceView;
     }
@@ -126,6 +126,8 @@ public class MrRobottoEngine {
             e.printStackTrace();
         } catch (MrParseException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -150,6 +152,8 @@ public class MrRobottoEngine {
                     cancel(true);
                     e.printStackTrace();
                 } catch (MrParseException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 return null;
@@ -195,9 +199,9 @@ public class MrRobottoEngine {
 
     private static class RobottoInitializationRunnable implements Runnable {
 
-        private final MrRobottoEngine mEngine;
+        private final MrEngine mEngine;
 
-        public RobottoInitializationRunnable(MrRobottoEngine robottoEngine) {
+        public RobottoInitializationRunnable(MrEngine robottoEngine) {
             mEngine = robottoEngine;
         }
 
