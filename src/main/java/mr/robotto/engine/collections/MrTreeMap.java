@@ -303,51 +303,107 @@ public class MrTreeMap<K, V> implements Iterable<V> {
         return getSubTreeByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Tree traversal from the given key to the root
+     *
+     * @param key
+     * @return
+     */
     public Iterator<V> parentTraversalByKey(K key) {
         return new MrParentTraversalIterator(mTree.get(key));
     }
 
+    /**
+     * Breadth tree traversal from the element in the given key
+     * @param key
+     * @return
+     */
     public Iterator<V> breadthTraversalByKey(K key) {
         return new MrBreadthTraversalIterator(mTree.get(key));
     }
 
+    /**
+     * Depth tree traversal from the element in the given key
+     * @param key
+     * @return
+     */
     public Iterator<V> depthTraversalByKey(K key) {
         return new MrDepthTraversalIterator(mTree.get(key));
     }
 
+    /**
+     * Traverse the tree from the element in the given key to the root returning the value and its parent key
+     * @param key
+     * @return
+     */
     public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversalByKey(K key) {
         return new MrParentKeyChildValueTraversalIterator(mTree.get(key));
     }
 
+    /**
+     * Tree traversal from the given element to the root
+     * @param data
+     * @return
+     */
     public Iterator<V> parentTraversal(V data) {
         return parentTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Breadth tree traversal from the given element
+     * @param data
+     * @return
+     */
     public Iterator<V> breadthTraversal(V data) {
         return breadthTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Depth tree traversal from the given element
+     * @param data
+     * @return
+     */
     public Iterator<V> depthTraversal(V data) {
         return depthTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Traverse the tree from the given value to the root returning the value and its parent key
+     * @param data
+     * @return
+     */
     public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal(V data) {
         return parentKeyChildValueTraversalByKey(mMapFunction.getKeyOf(data));
     }
 
+    /**
+     * Breadth traversal of the entire tree
+     * @return
+     */
     public Iterator<V> breadthTraversal() {
         return new MrBreadthTraversalIterator(mRoot);
     }
 
+    /**
+     * Depth traversal of the entire tree
+     * @return
+     */
     public Iterator<V> depthTraversal() {
         return new MrDepthTraversalIterator(mRoot);
     }
 
+    /**
+     * Traversal of the whole tree giving returning the element and its parent key
+     * @return
+     */
     public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal() {
         return new MrParentKeyChildValueTraversalIterator(mRoot);
     }
 
     @Override
+    /**
+     * Iterates through the tree in the given order defined in {@link #getTraversalMode()}
+     */
     public Iterator<V> iterator() {
         if (mTraversalMode == BREADTH_TRAVERSAL)
             return breadthTraversal();

@@ -20,27 +20,48 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
 
 
 /**
- * Created by aaron on 26/04/2015.
+ * A specialized list for storing keyframes
  */
 public class MrKeyFrameList implements Iterable<MrFrame>{
     private TreeMap<Integer, MrFrame> mKeyFrames;
 
+    /**
+     * Creates a KeyFrameList
+     */
     public MrKeyFrameList() {
         mKeyFrames = new TreeMap<>();
     }
 
-    public void addKeyFrame(MrFrame frame) {
-        mKeyFrames.put(frame.getFrameNumber(), frame);
+    /**
+     * Adds a new keyframe to the list
+     *
+     * @param frame
+     */
+    public MrFrame addKeyFrame(MrFrame frame) {
+        return mKeyFrames.put(frame.getFrameNumber(), frame);
     }
 
-    public void removeKeyFrame(int numberFrame) {
-        mKeyFrames.remove(numberFrame);
+    /**
+     * Removes a certain keyframe from the list
+     *
+     * @param numberFrame
+     */
+    public MrFrame removeKeyFrame(int numberFrame) {
+        return mKeyFrames.remove(numberFrame);
     }
 
+    /**
+     * Return all the keyframe indices
+     * @return
+     */
     public Set<Integer> getKeyFrameIndices() {
         return mKeyFrames.navigableKeySet();
     }
 
+    /**
+     * Iterates over all the frames contained in the keyframe list
+     * @return
+     */
     @Override
     public Iterator<MrFrame> iterator() {
         return new MrFrameIterator(mKeyFrames);

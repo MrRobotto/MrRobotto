@@ -29,13 +29,13 @@ public class MrSkeletalActionLoader extends MrJsonBaseLoader<MrSkeletalAction> {
 
     @Override
     public MrSkeletalAction parse() throws JSONException {
-        MrSkeletalAction action = new MrSkeletalAction(loadActionName(), loadFps());
+        MrSkeletalAction action = new MrSkeletalAction(loadActionName(), loadSpeed());
         loadKeyFrames(action);
         return action;
     }
 
-    private int loadFps() throws JSONException {
-        return mRoot.getInt("FPS");
+    private int loadSpeed() throws JSONException {
+        return mRoot.getInt("Speed");
     }
 
     private String loadActionName() throws JSONException {

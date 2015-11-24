@@ -16,13 +16,15 @@ import java.util.Map;
 import mr.robotto.engine.components.skeleton.MrBone;
 
 /**
- * Created by aaron on 24/04/2015.
+ * This class represents a skeletal animation, its based on KeyFrames, represented as {@link MrFrame}
+ * and stored inside an instance of {@link MrKeyFrameList} and it must be related to an {@link mr.robotto.engine.components.skeleton.MrSkeleton}
  */
 public class MrSkeletalAction {
+    //TODO: Move this to a more generic action class
     public static final int ACTIONTYPE_SKELETAL = 1;
 
     private String mName;
-    private float mFps;
+    private float mSpeed;
     private MrKeyFrameList mKeyFrames;
     private int mActionType;
 
@@ -30,58 +32,107 @@ public class MrSkeletalAction {
     private boolean mContinuosly;
     private Iterator<MrFrame> mFrameIterator;
 
-    public MrSkeletalAction(String name, float fps) {
+    /**
+     * Creates an skeletal animation
+     *
+     * @param name  Name of this animation
+     * @param speed Speed of this animation
+     */
+    public MrSkeletalAction(String name, float speed) {
         mName = name;
-        mFps = fps;
+        mSpeed = speed;
         mActionType = MrSkeletalAction.ACTIONTYPE_SKELETAL;
         mKeyFrames = new MrKeyFrameList();
         mPlaying = false;
         mContinuosly = false;
     }
 
+    /**
+     * The name of this action
+     * @return
+     */
     public String getName() {
         return mName;
     }
 
+    /**
+     * Returns the type of this action
+     * @return
+     */
     public int getActionType() {
         return mActionType;
     }
 
-    public float getFps() {
-        return mFps;
+    /**
+     * Gets the speed which this action will be run
+     *
+     * @return
+     */
+    public float getSpeed() {
+        return mSpeed;
     }
 
-    public void setFps(float fps) {
-        mFps = fps;
+    /**
+     * Sets the speed of this action
+     *
+     * @param speed
+     */
+    public void setSpeed(float speed) {
+        mSpeed = speed;
     }
 
+    /**
+     * Adds a new keyframe to this action
+     * @param frame
+     */
     public void addKeyFrame(MrFrame frame) {
         mKeyFrames.addKeyFrame(frame);
     }
 
+    /**
+     * Checks if this action is being playing
+     * @return
+     */
     public boolean isPlaying() {
         return mPlaying;
     }
 
+    /**
+     * Plays this action
+     */
     public void play() {
         mPlaying = true;
         mFrameIterator = mKeyFrames.iterator();
     }
 
+    /**
+     * Plays this action in loop
+     */
     public void playContinuosly() {
         mPlaying = true;
         mContinuosly = true;
         mFrameIterator = mKeyFrames.iterator();
     }
 
+    /**
+     * Pauses this action
+     */
     public void pause() {
 
     }
 
+    /**
+     * Stops this action
+     */
     public void stop() {
         mPlaying = false;
     }
 
+    /**
+     * This method steps the action
+     * This user usually don't need to call this method directly
+     * @return
+     */
     public Map<String, MrBone> step() {
         if (mFrameIterator.hasNext()) {
             return mFrameIterator.next().getBones();
