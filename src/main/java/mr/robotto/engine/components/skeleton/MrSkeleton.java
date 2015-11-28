@@ -104,7 +104,6 @@ public class MrSkeleton {
         if (mCurrentAction == null) {
             return sortBones(mPose);
         }
-        //Map<String, MrBone> boneMap = mCurrentAction.step();
         if (mCurrentPose == null) {
             return sortBones(mPose);
         }

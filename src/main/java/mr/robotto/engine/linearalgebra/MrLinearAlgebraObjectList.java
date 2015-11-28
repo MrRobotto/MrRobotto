@@ -12,21 +12,21 @@ package mr.robotto.engine.linearalgebra;
 import mr.robotto.engine.commons.MrDataType;
 
 
-public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
+public class MrLinearAlgebraObjectList implements MrLinearAlgebraObject {
     private MrLinearAlgebraObject[] mAlgebraObjects;
     private float[] mValues;
     private int mCount;
     private int mSize;
     private MrDataType mDataType;
 
-    public MrLinearAlgebraObjectContainer(MrDataType dataType, int count, int size) {
+    public MrLinearAlgebraObjectList(MrDataType dataType, int count, int size) {
         mDataType = dataType;
         mCount = count;
         mSize = size;
         init();
     }
 
-    public MrLinearAlgebraObjectContainer(MrDataType dataType, int count) {
+    public MrLinearAlgebraObjectList(MrDataType dataType, int count) {
         mDataType = dataType;
         mCount = count;
         mSize = dataType.getCount();
@@ -38,19 +38,19 @@ public class MrLinearAlgebraObjectContainer implements MrLinearAlgebraObject {
         mValues = new float[mSize*mCount];
     }
 
-    public void setAlgebraObject(int index, MrLinearAlgebraObject algebraObject) {
+    public void insert(int index, MrLinearAlgebraObject algebraObject) {
         //TODO: Add asserts here
         mAlgebraObjects[index] = algebraObject;
-        setValues(index, algebraObject.getValues());
+        insert(index, algebraObject.getValues());
     }
 
-    public void setValues(int index, float[] values) {
+    public void insert(int index, float[] values) {
         //TODO: Check if this is index*mCount or it needs a -1
         //System.arraycopy(values, 0, mValues, index*mCount, values.length);
         System.arraycopy(values, 0, mValues, index*mSize, values.length);
     }
 
-    public void setValue(int index, float value) {
+    public void insert(int index, float value) {
         mValues[index*mSize] = value;
     }
 

@@ -20,6 +20,10 @@ import mr.robotto.engine.components.skeleton.MrBone;
  * and stored inside an instance of {@link MrKeyFrameList} and it must be related to an {@link mr.robotto.engine.components.skeleton.MrSkeleton}
  */
 public class MrSkeletalAction {
+    public static enum State {
+        PLAYING, LOOP, STOPPED, PAUSED
+    }
+
     //TODO: Move this to a more generic action class
     public static final int ACTIONTYPE_SKELETAL = 1;
 
@@ -28,8 +32,7 @@ public class MrSkeletalAction {
     private MrKeyFrameList mKeyFrames;
     private int mActionType;
 
-    private boolean mPlaying;
-    private boolean mContinuosly;
+    private State mState;
     private Iterator<MrFrame> mFrameIterator;
 
     /**
@@ -43,8 +46,7 @@ public class MrSkeletalAction {
         mSpeed = speed;
         mActionType = MrSkeletalAction.ACTIONTYPE_SKELETAL;
         mKeyFrames = new MrKeyFrameList();
-        mPlaying = false;
-        mContinuosly = false;
+        mState = State.STOPPED;
     }
 
     /**
@@ -94,14 +96,14 @@ public class MrSkeletalAction {
      * @return
      */
     public boolean isPlaying() {
-        return mPlaying;
+        return mState == State.PLAYING;
     }
 
     /**
      * Plays this action
      */
     public void play() {
-        mPlaying = true;
+        mState = State.PLAYING;
         mFrameIterator = mKeyFrames.iterator();
     }
 
@@ -109,8 +111,7 @@ public class MrSkeletalAction {
      * Plays this action in loop
      */
     public void playContinuosly() {
-        mPlaying = true;
-        mContinuosly = true;
+        mState = State.LOOP;
         mFrameIterator = mKeyFrames.iterator();
     }
 
@@ -118,14 +119,14 @@ public class MrSkeletalAction {
      * Pauses this action
      */
     public void pause() {
-
+        mState = State.PAUSED;
     }
 
     /**
      * Stops this action
      */
     public void stop() {
-        mPlaying = false;
+        mState = State.STOPPED;
     }
 
     /**
@@ -134,9 +135,12 @@ public class MrSkeletalAction {
      * @return
      */
     public Map<String, MrBone> step() {
+        //if (mState == State.STOPPED || mState == State.PAUSED) {
+        //    return null;
+        //}
         if (mFrameIterator.hasNext()) {
             return mFrameIterator.next().getBones();
-        } else if (mContinuosly){
+        } else if (mState == State.LOOP){
             mFrameIterator = mKeyFrames.iterator();
             return step();
         }
