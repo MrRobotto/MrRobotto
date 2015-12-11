@@ -44,7 +44,7 @@ public class MrResources {
      *
      * @return map of texture name - texture
      */
-    public HashMap<String, MrTexture> getTextures() {
+    public Map<String, MrTexture> getTextures() {
         return mTextures;
     }
 
@@ -78,7 +78,7 @@ public class MrResources {
      * Gets the loaded shader programs
      * @return a map of shader program name - shader program
      */
-    public HashMap<String, MrShaderProgram> getPrograms() {
+    public Map<String, MrShaderProgram> getPrograms() {
         return mPrograms;
     }
 

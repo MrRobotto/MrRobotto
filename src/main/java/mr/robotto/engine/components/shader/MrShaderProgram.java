@@ -242,27 +242,6 @@ public class MrShaderProgram extends MrSharedComponent {
             }
         }
 
-        //TODO: Check uniform/element count, uniform/element datatype
-        private void bindUniform(MrUniform uniform, MrLinearAlgebraObject element) {
-            int uniformId = uniform.getId();
-
-            int uniformCount = uniform.getCount();
-            float[] values = element.getValues();
-            switch (element.getDataType()) {
-                case MAT4:
-                    GLES20.glUniformMatrix4fv(uniformId, uniformCount, false, values, 0);
-                    break;
-                case VEC3:
-                    GLES20.glUniform3fv(uniformId, uniformCount,values, 0);
-                    break;
-                case VEC4:
-                    GLES20.glUniform4fv(uniformId, uniformCount,values, 0);
-                    break;
-                case SAMPLER2D:
-                    GLES20.glUniform1i(uniformId, (int)values[0]);
-            }
-        }
-
         private void initialize(MrShader shader) {
             int id = GLES20.glCreateShader(shader.getShaderType());
 

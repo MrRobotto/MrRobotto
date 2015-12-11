@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -108,12 +109,25 @@ public class MrMrrLoader extends MrBaseLoader {
         return loader.parse();
     }
 
-    private void loadObject(final ConcurrentHashMap<String, MrObject> objects) throws IOException, MrParseException, JSONException {
+    private void loadJsonObject(Map<String, String> objects) throws IOException, MrParseException {
         ComposedTag nameTag = readComposedTag();
         if (!nameTag.getTagName().equals("NAME")) throw new MrParseException();
         int size = nameTag.getTagSize();
         final String jsonStr = readString(size);
-        //TODO: Check exceptions in runnable
+        objects.put(nameTag.getIdentifier(), jsonStr);
+    }
+
+    private Map<String, String> loadJsonObjects() throws IOException, MrParseException {
+        HashMap<String, String> objects = new HashMap<>();
+        Tag sceneObjectsTag = readTag();
+        if (!sceneObjectsTag.getTagName().equals("SOBJ")) throw new MrParseException();
+        for (int i = 0; i < sceneObjectsTag.getTagSize(); i++) {
+            loadJsonObject(objects);
+        }
+        return objects;
+    }
+
+    private void loadObject(final ConcurrentHashMap<String, MrObject> objects, final String jsonStr) throws IOException, MrParseException, JSONException {
         getThreadPool().execute(new Runnable() {
             @Override
             public void run() {
@@ -129,12 +143,11 @@ public class MrMrrLoader extends MrBaseLoader {
         });
     }
 
-    private Map<String, MrObject> loadObjects() throws JSONException, IOException, MrParseException, InterruptedException {
+    private Map<String, MrObject> loadObjects(Map<String, String> jsonObjects) throws JSONException, IOException, MrParseException, InterruptedException {
         ConcurrentHashMap<String, MrObject> objects = new ConcurrentHashMap<>();
-        Tag sceneObjectsTag = readTag();
-        if (!sceneObjectsTag.getTagName().equals("SOBJ")) throw new MrParseException();
-        for (int i = 0; i < sceneObjectsTag.getTagSize(); i++) {
-            loadObject(objects);
+        for (String key : jsonObjects.keySet()) {
+            String jsonStr = jsonObjects.get(key);
+            loadObject(objects, jsonStr);
         }
         getThreadPool().awaitAll();
         return objects;
@@ -172,9 +185,10 @@ public class MrMrrLoader extends MrBaseLoader {
 
     public MrSceneTree parseSceneTree() throws IOException, MrParseException, JSONException, InterruptedException {
         MrTreeMap<String, String> keyTree = loadHierarchy();
+        Map<String, String> jsonObjects = loadJsonObjects();
         loadTextures();
-        Map<String, MrObject> objects = loadObjects();
         loadFinish();
+        Map<String, MrObject> objects = loadObjects(jsonObjects);
         MrObject rootData = objects.get(keyTree.getRoot());
         MrSceneTree tree = new MrSceneTree(rootData);
         Iterator<Map.Entry<String, String>> it = keyTree.parentKeyChildValueTraversal();
@@ -185,6 +199,7 @@ public class MrMrrLoader extends MrBaseLoader {
             //Gets the root key via entry.getKey
             tree.addChildByKey(entry.getKey(), objectData);
         }
+        jsonObjects.clear();
         mStream.close();
         return tree;
     }

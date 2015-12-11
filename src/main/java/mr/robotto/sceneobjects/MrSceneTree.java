@@ -266,9 +266,9 @@ public class MrSceneTree implements Iterable<MrObject> {
     private static class DelegateControllerIterator implements Iterator<MrObject> {
 
         private Iterator<MrObjectController> mIt;
-        private HashMap<String, MrObject> mObjects;
+        private Map<String, MrObject> mObjects;
 
-        public DelegateControllerIterator(Iterator<MrObjectController> it, HashMap<String, MrObject> objects) {
+        public DelegateControllerIterator(Iterator<MrObjectController> it, Map<String, MrObject> objects) {
             mIt = it;
             mObjects = objects;
         }
@@ -293,9 +293,9 @@ public class MrSceneTree implements Iterable<MrObject> {
     private static class DelegateParentValueIterator implements Iterator<Map.Entry<String, MrObject>> {
 
         private Iterator<Map.Entry<String, MrObjectController>> mIt;
-        private HashMap<String, MrObject> mObjects;
+        private Map<String, MrObject> mObjects;
 
-        public DelegateParentValueIterator(Iterator<Map.Entry<String, MrObjectController>> controllersIterators, HashMap<String, MrObject> objectsMap) {
+        public DelegateParentValueIterator(Iterator<Map.Entry<String, MrObjectController>> controllersIterators, Map<String, MrObject> objectsMap) {
             mIt = controllersIterators;
             mObjects = objectsMap;
         }
