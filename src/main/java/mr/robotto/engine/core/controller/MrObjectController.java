@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrUniformGenerator;
+import mr.robotto.engine.components.uniformgenerators.MrUniformsGeneratorManager;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.data.MrObjectData;
@@ -32,6 +32,7 @@ public abstract class MrObjectController {
     protected MrObject mAttachedObject;
     protected MrObjectData mData;
     protected MrObjectRender mRender;
+    protected MrUniformsGeneratorManager mObjectUniformsGenerators;
     protected MrEventsListener mEventsListener;
 
     protected boolean mInitialized;
@@ -94,17 +95,14 @@ public abstract class MrObjectController {
         mAttachedObject = object;
     }
 
-    public final void updateUniform(MrUniformKey uniform, Map<String, MrUniformKey> uniforms, MrObjectsDataTree tree) {
-        MrUniformGenerator generator = getUniformGenerators().get(uniform.getGeneratorName());
-        if (generator != null)
-            uniform.setValue(generator.generateUniform(tree, uniforms, mData));
+    public final void updateUniform(MrUniformKey uniformKey, MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms) {
+        uniformKey.generate(tree, uniforms, mData);
     }
 
     //TODO: initializeRender(Context, data)
     public void initializeRender(MrRenderingContext context) {
         if (mRender != null) {
             mRender.initializeRender(context, mData);
-            //initializeUniforms(mData.getUniformGenerators());
             initializeUniforms();
         }
         mInitialized = true;
@@ -146,15 +144,25 @@ public abstract class MrObjectController {
     }
 
     public void initializeUniforms() {
-        mData.initializeUniforms();
-    }
-
-    public Map<String, MrUniformGenerator> getUniformGenerators() {
-        return mData.getUniformGenerators();
+        Map<String, MrUniformKey.Generator> uniformGenerators = mData.getUniformGenerators();
+        Map<String, MrUniformKey> uniformKeys = mData.getUniformKeys();
+        mObjectUniformsGenerators.initializeUniforms(mData, uniformGenerators);
+        for (MrUniformKey key : uniformKeys.values()) {
+            MrUniformKey.Generator generator = uniformGenerators.get(key.getGeneratorName());
+            key.setGenerator(generator);
+        }
     }
 
     public MrShaderProgram getShaderProgram() {
         return mData.getShaderProgram();
+    }
+
+    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
+        return mData.getUniformGenerators();
+    }
+
+    public void addUniformGenerators(String uniformGeneratorName, MrUniformKey.Generator generator) {
+        mData.addUniformGenerators(uniformGeneratorName, generator);
     }
 
     public Map<String, MrUniformKey> getUniformKeys() {

@@ -85,7 +85,7 @@ public class MrSceneTreeRender {
         Map<String, MrUniformKey> keys = mContext.getUniformKeys();
         for (MrUniformKey key : mSortedKeys) {
             MrObjectController obj = mObjects.get(key.getUniformType());
-            obj.updateUniform(key, keys, mSceneObjectsTree.getObjectsDataTree());
+            obj.updateUniform(key, mSceneObjectsTree.getObjectsDataTree(), keys);
         }
         mSortedKeys.clear();
     }

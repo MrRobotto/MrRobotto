@@ -22,17 +22,17 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
 /**
  * Created by aaron on 14/06/2015.
  */
-public class MrSceneUniformsGenerators implements MrObjectUniformsGenerators {
+public class MrSceneUniformsGeneratorManager implements MrUniformsGeneratorManager {
 
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
+    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
         MrSceneData scene = (MrSceneData) object;
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_PROJECTION_MATRIX, new MVPMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_MODEL_VIEW_MATRIX, new ModelViewMatrixGenerator());
+        uniformGenerators.put(MrUniformKey.GENERATOR_MODEL_VIEW_PROJECTION_MATRIX, new MVPMatrixGenerator());
+        uniformGenerators.put(MrUniformKey.GENERATOR_MODEL_VIEW_MATRIX, new ModelViewMatrixGenerator());
         //uniformGenerators.put(MrUniformGenerator.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
     }
 
-    private static class MVPMatrixGenerator extends MrUniformGenerator {
+    private static class MVPMatrixGenerator implements MrUniformKey.Generator {
         private final MrMatrix4f mMvp;
 
         public MVPMatrixGenerator() {
@@ -51,7 +51,7 @@ public class MrSceneUniformsGenerators implements MrObjectUniformsGenerators {
         }
     }
 
-    private static class ModelViewMatrixGenerator extends MrUniformGenerator {
+    private static class ModelViewMatrixGenerator implements MrUniformKey.Generator {
         private final MrMatrix4f mModelView;
 
         public ModelViewMatrixGenerator() {
@@ -68,7 +68,7 @@ public class MrSceneUniformsGenerators implements MrObjectUniformsGenerators {
         }
     }
 
-    private static class NormalMatrixGenerator extends MrUniformGenerator {
+    private static class NormalMatrixGenerator implements MrUniformKey.Generator {
         private final MrMatrix4f mNormal;
 
         public NormalMatrixGenerator() {

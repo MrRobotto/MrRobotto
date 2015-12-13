@@ -12,6 +12,7 @@ package mr.robotto.engine.core.controller;
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformgenerators.MrSceneUniformsGeneratorManager;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrSceneData;
 import mr.robotto.engine.core.renderer.MrSceneRender;
@@ -25,6 +26,7 @@ public class MrSceneController extends MrObjectController {
 
     public MrSceneController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
         super(createSceneData(name, transform, program, uniformKeys, clearColor), new MrSceneRender());
+        init();
     }
 
     private static MrSceneData createSceneData(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector4f clearColor) {
@@ -36,6 +38,10 @@ public class MrSceneController extends MrObjectController {
                 .setProgram(program)
                 .setUniformKeys(uniformKeys);
         return builder.build();
+    }
+
+    private void init() {
+        mObjectUniformsGenerators = new MrSceneUniformsGeneratorManager();
     }
 
     public MrVector4f getClearColor() {

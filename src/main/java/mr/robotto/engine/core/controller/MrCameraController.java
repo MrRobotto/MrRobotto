@@ -13,6 +13,7 @@ import java.util.Map;
 
 import mr.robotto.engine.components.lens.MrLens;
 import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformgenerators.MrCameraUniformsGeneratorManager;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrCameraData;
 import mr.robotto.engine.core.renderer.MrCameraRender;
@@ -31,6 +32,7 @@ public class MrCameraController extends MrObjectController {
         super(createCameraData(name, transform, uniformKeys, shaderProgram, lens), new MrCameraRender());
         mProjection = new MrMatrix4f();
         mView = new MrMatrix4f();
+        init();
     }
 
     private static MrCameraData createCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram program, MrLens lens) {
@@ -42,6 +44,10 @@ public class MrCameraController extends MrObjectController {
                 .setProgram(program)
                 .setUniformKeys(uniformKeys);
         return builder.build();
+    }
+
+    private void init() {
+        mObjectUniformsGenerators = new MrCameraUniformsGeneratorManager();
     }
 
     @Override
@@ -69,6 +75,4 @@ public class MrCameraController extends MrObjectController {
     public void setLens(MrLens lens) {
         ((MrCameraData)mData).setLens(lens);
     }
-
-
 }

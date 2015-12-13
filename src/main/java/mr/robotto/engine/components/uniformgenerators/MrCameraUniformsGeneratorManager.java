@@ -22,16 +22,16 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
 /**
  * Created by aaron on 14/06/2015.
  */
-public class MrCameraUniformGenerators implements MrObjectUniformsGenerators{
+public class MrCameraUniformsGeneratorManager implements MrUniformsGeneratorManager {
 
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformGenerator> uniformGenerators) {
+    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
         MrCameraData camera = (MrCameraData) object;
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_VIEW_MATRIX, new ViewMatrixGenerator());
-        uniformGenerators.put(MrUniformGenerator.GENERATOR_PROJECTION_MATRIX, new ProjectionMatrixGenerator());
+        uniformGenerators.put(MrUniformKey.GENERATOR_VIEW_MATRIX, new ViewMatrixGenerator());
+        uniformGenerators.put(MrUniformKey.GENERATOR_PROJECTION_MATRIX, new ProjectionMatrixGenerator());
     }
 
-    private static class ViewMatrixGenerator extends MrUniformGenerator {
+    private static class ViewMatrixGenerator implements MrUniformKey.Generator {
         private final MrMatrix4f mView;
 
         public ViewMatrixGenerator() {
@@ -50,7 +50,7 @@ public class MrCameraUniformGenerators implements MrObjectUniformsGenerators{
         }
     }
 
-    private static class ProjectionMatrixGenerator extends MrUniformGenerator {
+    private static class ProjectionMatrixGenerator implements MrUniformKey.Generator {
         public ProjectionMatrixGenerator() {
         }
         @Override

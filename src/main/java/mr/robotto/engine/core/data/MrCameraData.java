@@ -13,7 +13,6 @@ import java.util.Map;
 
 import mr.robotto.engine.components.lens.MrLens;
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrCameraUniformGenerators;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
@@ -37,7 +36,7 @@ public class MrCameraData extends MrObjectData {
     }
 
     private void init() {
-        mObjectUniformsGenerators = new MrCameraUniformGenerators();
+
     }
 
     public MrVector3f getLookAt() {

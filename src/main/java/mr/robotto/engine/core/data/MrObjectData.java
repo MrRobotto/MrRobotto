@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrObjectUniformsGenerators;
-import mr.robotto.engine.components.uniformgenerators.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
@@ -22,13 +20,12 @@ import mr.robotto.engine.linearalgebra.MrTransform;
 /**
  * Created by aaron on 14/04/2015.
  */
-public class MrObjectData {
+public abstract class MrObjectData {
     protected String mName;
     protected MrSceneObjectType mSceneObjType;
     protected MrTransform mTransform;
     protected MrShaderProgram mShaderProgram;
-    protected MrObjectUniformsGenerators mObjectUniformsGenerators;
-    protected Map<String, MrUniformGenerator> mUniformGenerators;
+    protected HashMap<String, MrUniformKey.Generator> mUniformGenerators;
     protected Map<String, MrUniformKey> mUniformKeys;
 
     protected MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys) {
@@ -44,8 +41,12 @@ public class MrObjectData {
         this(name, sceneObjType, new MrTransform(), null, new HashMap<String, MrUniformKey>());
     }
 
-    public void initializeUniforms() {
-        mObjectUniformsGenerators.initializeUniforms(this, mUniformGenerators);
+    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
+        return mUniformGenerators;
+    }
+
+    public void addUniformGenerators(String uniformGeneratorName, MrUniformKey.Generator generator) {
+        mUniformGenerators.put(uniformGeneratorName, generator);
     }
 
     private void init() {
@@ -78,14 +79,6 @@ public class MrObjectData {
 
     public void setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
         this.mUniformKeys = uniformKeys;
-    }
-
-    public Map<String, MrUniformGenerator> getUniformGenerators() {
-        return mUniformGenerators;
-    }
-
-    public void setUniformGenerators(Map<String, MrUniformGenerator> uniformGenerators) {
-        mUniformGenerators = uniformGenerators;
     }
 
     public static abstract class BuilderBase {

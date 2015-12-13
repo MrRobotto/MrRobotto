@@ -12,6 +12,7 @@ package mr.robotto.engine.core.controller;
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformgenerators.MrLightUniformsGeneratorManager;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrLightData;
 import mr.robotto.engine.core.renderer.MrLightRender;
@@ -24,6 +25,7 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
 public class MrLightController extends MrObjectController {
     public MrLightController(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
         super(createLight(name, transform, program, uniformKeys, lightColor), new MrLightRender());
+        init();
     }
 
     private static MrLightData createLight(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
@@ -35,5 +37,9 @@ public class MrLightController extends MrObjectController {
                 .setProgram(program)
                 .setUniformKeys(uniformKeys);
         return builder.build();
+    }
+
+    private void init() {
+        mObjectUniformsGenerators = new MrLightUniformsGeneratorManager();
     }
 }

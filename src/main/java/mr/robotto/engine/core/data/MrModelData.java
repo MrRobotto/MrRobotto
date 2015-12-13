@@ -18,7 +18,6 @@ import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.components.mesh.MrMesh;
 import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
-import mr.robotto.engine.components.uniformgenerators.MrModelUniformGenerators;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
@@ -43,7 +42,6 @@ public class MrModelData extends MrObjectData {
     }
 
     private void init() {
-        mObjectUniformsGenerators = new MrModelUniformGenerators();
         getTexturesFromMaterials();
     }
 

@@ -12,7 +12,6 @@ package mr.robotto.engine.core.data;
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrLightUniformsGenerators;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
@@ -32,7 +31,7 @@ public class MrLightData extends MrObjectData {
     }
 
     private void init() {
-        mObjectUniformsGenerators = new MrLightUniformsGenerators();
+
     }
 
     public MrVector3f getColor() {

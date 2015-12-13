@@ -17,6 +17,7 @@ import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.components.mesh.MrMesh;
 import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
+import mr.robotto.engine.components.uniformgenerators.MrModelUniformsGeneratorManager;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrModelData;
 import mr.robotto.engine.core.renderer.MrModelRender;
@@ -29,6 +30,7 @@ public class MrModelController extends MrObjectController {
 
     public MrModelController(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
         super(createModel(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton), new MrModelRender());
+        init();
     }
 
     private static MrModelData createModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
@@ -43,6 +45,10 @@ public class MrModelController extends MrObjectController {
                 .setMaterials(materials)
                 .setSkeleton(skeleton);
         return builder.build();
+    }
+
+    private void init() {
+        mObjectUniformsGenerators = new MrModelUniformsGeneratorManager();
     }
 
     @Override

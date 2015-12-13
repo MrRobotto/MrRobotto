@@ -17,7 +17,6 @@ import java.util.Set;
 
 import mr.robotto.MrEngine;
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.controller.MrObjectController;
@@ -86,7 +85,7 @@ public abstract class MrObject {
      * Call this method if you want to create a new uniform generator for this object
      * @param uniformGenerators uniform generator map to add new generators
      */
-    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformKey.Generator> uniformGenerators) {
     }
 
     /**
@@ -133,7 +132,7 @@ public abstract class MrObject {
      * Gets the uniform generators associated to this object
      * @return a map containing generator name - generator items
      */
-    public Map<String, MrUniformGenerator> getUniformGenerators() {
+    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
         return mController.getUniformGenerators();
     }
 
