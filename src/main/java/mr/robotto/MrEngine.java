@@ -109,7 +109,6 @@ public class MrEngine {
     public MrSceneTree loadSceneTree(InputStream inputStream) {
         long startTime = System.currentTimeMillis();
         MrMrrLoader loader = new MrMrrLoader(inputStream);
-        MrSceneTree tree = null;
         try {
             loader.check();
             if (!loader.isValid()) {
@@ -119,17 +118,10 @@ public class MrEngine {
             initialize();
             long stopTime = System.currentTimeMillis();
             Log.v("Load Time(ms)", String.valueOf(stopTime - startTime));
-            return tree;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (MrParseException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            return mSceneTree;
+        } catch (IOException | JSONException | InterruptedException | MrParseException e) {
+            throw new RuntimeException(e.getMessage());
         }
-        return null;
     }
 
     /**

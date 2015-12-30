@@ -27,6 +27,7 @@ android {
     //sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/androidtest/assets/'] } }
     //productFlavors {
     //}
+    sourceSets { debug { assets.srcDirs = ['src/debug/assets', 'src/debug/assets/'] } }
 }
 
 dependencies {

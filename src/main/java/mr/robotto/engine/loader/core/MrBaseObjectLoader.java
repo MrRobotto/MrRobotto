@@ -18,6 +18,7 @@ import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.uniformkey.MrUniformKeySchema;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
 import mr.robotto.engine.loader.base.MrJsonBaseLoader;
@@ -61,14 +62,16 @@ abstract class MrBaseObjectLoader extends MrJsonBaseLoader<MrObject> {
     protected Map<String, MrUniformKey> getUniformKeyList() throws JSONException {
         //MrUniformKeyMap uniformKeyList = new MrUniformKeyMap();
         HashMap<String, MrUniformKey> uniformKeyList = new HashMap<>();
-        JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeys");
+        JSONArray jsonUniformKeyList = mRoot.getJSONArray("UniformKeySchemas");
         for (int i = 0; i < jsonUniformKeyList.length(); i++) {
             JSONObject uniformKeyJson = jsonUniformKeyList.getJSONObject(i);
             String uniformType = uniformKeyJson.getString("Uniform");
             String generator = uniformKeyJson.getString("Generator");
             int count = uniformKeyJson.getInt("Count");
             int level = uniformKeyJson.getInt("Level");
-            MrUniformKey uniformKey = new MrUniformKey(generator, uniformType, count, level);
+            MrUniformKeySchema schema = new MrUniformKeySchema(uniformType, generator, count, level);
+            //MrUniformKey uniformKey = new MrUniformKey(uniformType, generator, count, level);
+            MrUniformKey uniformKey = new MrUniformKey(schema);
             uniformKeyList.put(uniformType, uniformKey);
         }
         return uniformKeyList;

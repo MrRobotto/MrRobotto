@@ -75,8 +75,8 @@ public class MrSceneTreeRender {
         Map<String, MrUniformKey> keys = mContext.getUniformKeys();
         for (MrUniformKey key : obj.getUniformKeys().values()) {
             mSortedKeys.add(key);
-            mObjects.put(key.getUniformType(), obj);
-            keys.put(key.getUniformType(), key);
+            mObjects.put(key.getUniform(), obj);
+            keys.put(key.getUniform(), key);
         }
     }
 
@@ -84,7 +84,7 @@ public class MrSceneTreeRender {
         Collections.sort(mSortedKeys);
         Map<String, MrUniformKey> keys = mContext.getUniformKeys();
         for (MrUniformKey key : mSortedKeys) {
-            MrObjectController obj = mObjects.get(key.getUniformType());
+            MrObjectController obj = mObjects.get(key.getUniform());
             obj.updateUniform(key, mSceneObjectsTree.getObjectsDataTree(), keys);
         }
         mSortedKeys.clear();

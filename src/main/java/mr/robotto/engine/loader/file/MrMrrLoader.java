@@ -35,9 +35,10 @@ public class MrMrrLoader extends MrBaseLoader {
         mStream = new DataInputStream(stream);
     }
 
-    public void check() throws JSONException, IOException, MrParseException {
+    public boolean check() throws JSONException, IOException, MrParseException {
         mIsValid = checkMagicNumber();
         mMetadata = loadMetaData();
+        return mIsValid;
     }
 
     public boolean isValid() {
@@ -184,6 +185,9 @@ public class MrMrrLoader extends MrBaseLoader {
     }
 
     public MrSceneTree parseSceneTree() throws IOException, MrParseException, JSONException, InterruptedException {
+        if (!mIsValid) {
+            throw new MrParseException("Loading without checking before is not allowed. Check you have called check() before call this method");
+        }
         MrTreeMap<String, String> keyTree = loadHierarchy();
         Map<String, String> jsonObjects = loadJsonObjects();
         loadTextures();

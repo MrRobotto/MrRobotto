@@ -207,7 +207,7 @@ public class MrShaderProgram extends MrSharedComponent {
         //TODO: Intentar colocar esto en otro lugar
         public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
             //for (MrUniform uniform : mData.getUniformKeys().values()) {
-            //    MrUniformKey key = uniformKeys.get(uniform.getUniformType());
+            //    MrUniformKey key = uniformKeys.get(uniform.getUniform());
             //    bindUniform(uniform, key.getValue());
             //}
             for (int i = 0; i < mUniformsList.length; i++) {

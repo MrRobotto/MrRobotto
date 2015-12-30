@@ -40,18 +40,25 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     public static final String GENERATOR_LIGHT_COLOR = "Generator_Light_Color";
 
     private String mGeneratorName;
-    private String mUniformType;
+    private String mUniform;
     private int mLevel;
     private int mCount;
     private MrLinearAlgebraObject mValue;
     private Generator mGenerator;
 
-    public MrUniformKey(String generatorName, String uniformType, int count, int level) {
+    public MrUniformKey(String uniform, String generatorName, int count, int level) {
         mGeneratorName = generatorName;
-        mUniformType = uniformType;
+        mUniform = uniform;
         mCount = count;
         mLevel = level;
         mValue = null;
+    }
+
+    public MrUniformKey(MrUniformKeySchema schema) {
+        mGeneratorName = schema.getGeneratorName();
+        mUniform = schema.getUniform();
+        mCount = schema.getCount();
+        mLevel = schema.getLevel();
     }
 
     /**
@@ -107,11 +114,11 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     }
 
     /**
-     * Gets the data type of this uniform key
+     * Gets the uniform name which this uniform key generates
      * @return
      */
-    public String getUniformType() {
-        return mUniformType;
+    public String getUniform() {
+        return mUniform;
     }
 
     /**
@@ -144,14 +151,13 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
 
         if (mLevel != that.mLevel) return false;
         if (!mGeneratorName.equals(that.mGeneratorName)) return false;
-        return mUniformType.equals(that.mUniformType);
-
+        return mUniform.equals(that.mUniform);
     }
 
     @Override
     public int hashCode() {
         int result = mGeneratorName.hashCode();
-        result = 31 * result + mUniformType.hashCode();
+        result = 31 * result + mUniform.hashCode();
         result = 31 * result + mLevel;
         return result;
     }
@@ -166,7 +172,7 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     @Override
     public String toString() {
         return "MrUniformKey{" +
-                "mUniformType='" + mUniformType + '\'' +
+                "mUniform='" + mUniform + '\'' +
                 ", mGeneratorName='" + mGeneratorName + '\'' +
                 '}';
     }
