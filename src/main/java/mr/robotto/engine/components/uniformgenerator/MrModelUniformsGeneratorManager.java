@@ -54,7 +54,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public AmbientColorGenerator(MrModelData model) {
             mAmbientColorUniform = new MrLinearAlgebraObjectList(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mAmbientColorUniform.insert(i, material.getAmbient().getColor());
                 i++;
@@ -72,7 +72,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public DiffuseColorGenerator(MrModelData model) {
             mDiffuseColorUniform = new MrLinearAlgebraObjectList(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mDiffuseColorUniform.insert(i, material.getDiffuse().getColor());
                 i++;
@@ -90,7 +90,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public SpecularColorGenerator(MrModelData model) {
             mSpecularColorUniform = new MrLinearAlgebraObjectList(MrDataType.VEC4, model.getMaterials().length, MrVector4f.SIZE);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mSpecularColorUniform.insert(i, material.getSpecular().getColor());
                 i++;
@@ -108,7 +108,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public AmbientIntensityGenerator(MrModelData model) {
             mIntensity = new MrLinearAlgebraObjectList(MrDataType.FLOAT, model.getMaterials().length);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mIntensity.insert(i, material.getAmbient().getIntensity());
                 i++;
@@ -126,7 +126,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public SpecularIntensityGenerator(MrModelData model) {
             mIntensity = new MrLinearAlgebraObjectList(MrDataType.FLOAT, model.getMaterials().length);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mIntensity.insert(i, material.getSpecular().getIntensity());
                 i++;
@@ -144,7 +144,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
 
         public DiffuseIntensityGenerator(MrModelData model) {
             mIntensity = new MrLinearAlgebraObjectList(MrDataType.FLOAT, model.getMaterials().length);
-            int  i = 0;
+            int i = 0;
             for (MrMaterial material : model.getMaterials()) {
                 mIntensity.insert(i, material.getDiffuse().getIntensity());
                 i++;

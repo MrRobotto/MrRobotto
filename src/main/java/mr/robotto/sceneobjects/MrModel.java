@@ -42,6 +42,7 @@ public class MrModel extends MrObject {
 
     /**
      * Gets the mesh attached to this model
+     *
      * @return
      */
     public MrMesh getMesh() {
@@ -50,6 +51,7 @@ public class MrModel extends MrObject {
 
     /**
      * Checks if this model has a skeleton
+     *
      * @return
      */
     public boolean hasSkeleton() {
@@ -58,6 +60,7 @@ public class MrModel extends MrObject {
 
     /**
      * Gets the skeleton of this model
+     *
      * @return the skeleton, null if it does not have any
      */
     public MrSkeleton getSkeleton() {
@@ -66,6 +69,7 @@ public class MrModel extends MrObject {
 
     /**
      * Gets the textures used by this model
+     *
      * @return
      */
     public MrTexture[] getTextures() {
@@ -74,6 +78,7 @@ public class MrModel extends MrObject {
 
     /**
      * Gets the skeletal actions of this model
+     *
      * @return
      */
     public Map<String, MrSkeletalAction> getSkeletalActions() {
@@ -82,6 +87,7 @@ public class MrModel extends MrObject {
 
     /**
      * Plays an action if it exists
+     *
      * @param actionName
      */
     public void playAction(final String actionName) {
@@ -90,6 +96,7 @@ public class MrModel extends MrObject {
 
     /**
      * Plays an action infinitely
+     *
      * @param actionName
      */
     public void playActionContinuosly(final String actionName) {
@@ -98,6 +105,7 @@ public class MrModel extends MrObject {
 
     /**
      * Checks if this model is visible
+     *
      * @return
      */
     public boolean isVisible() {
@@ -106,6 +114,7 @@ public class MrModel extends MrObject {
 
     /**
      * Sets the visibility of this model
+     *
      * @param isVisible
      */
     public void setVisibility(boolean isVisible) {
@@ -114,6 +123,7 @@ public class MrModel extends MrObject {
 
     /**
      * Checks if this model has textures
+     *
      * @return
      */
     public boolean hasTextures() {
@@ -136,6 +146,7 @@ public class MrModel extends MrObject {
 
         /**
          * Sets the mesh of this model. Required
+         *
          * @param mesh
          * @return
          */
@@ -146,6 +157,7 @@ public class MrModel extends MrObject {
 
         /**
          * Sets the materials of this model. Optional
+         *
          * @param materials
          * @return
          */
@@ -156,6 +168,7 @@ public class MrModel extends MrObject {
 
         /**
          * Sets the skeleton of this model. Optional
+         *
          * @param skeleton
          * @return
          */
@@ -171,6 +184,7 @@ public class MrModel extends MrObject {
 
         /**
          * Creates a new {@link MrModel} instance from this builder
+         *
          * @return
          */
         public MrModel build() {

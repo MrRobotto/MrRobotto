@@ -32,6 +32,7 @@ public class MrBundle {
 
     /**
      * Removes an element from this bundle
+     *
      * @param key
      */
     public void remove(String key) {
@@ -139,7 +140,7 @@ public class MrBundle {
     }
 
     public double getDouble(String key) {
-        return (Double)mBundle.get(key);
+        return (Double) mBundle.get(key);
     }
 
     public String[] getStringArray(String key) {
@@ -163,23 +164,23 @@ public class MrBundle {
     }
 
     public short getShort(String key) {
-        return (Short)mBundle.get(key);
+        return (Short) mBundle.get(key);
     }
 
     public float[] getFloatArray(String key) {
-        return (float[])mBundle.get(key);
+        return (float[]) mBundle.get(key);
     }
 
     public byte[] getByteArray(String key) {
-        return (byte[])mBundle.get(key);
+        return (byte[]) mBundle.get(key);
     }
 
     public boolean[] getBooleanArray(String key) {
-        return (boolean[])mBundle.get(key);
+        return (boolean[]) mBundle.get(key);
     }
 
     public String getString(String key) {
-        return (String)mBundle.get(key);
+        return (String) mBundle.get(key);
     }
 
     public int getInt(String key) {
@@ -187,7 +188,7 @@ public class MrBundle {
     }
 
     public float getFloat(String key) {
-        return (Float)mBundle.get(key);
+        return (Float) mBundle.get(key);
     }
 
     public short[] getShortArray(String key) {
@@ -211,7 +212,7 @@ public class MrBundle {
     }
 
     public long getLong(String key) {
-        return (Long)mBundle.get(key);
+        return (Long) mBundle.get(key);
     }
 
     @Override

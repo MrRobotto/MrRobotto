@@ -40,18 +40,18 @@ public class MrCameraController extends MrObjectController {
     }
 
     public MrVector3f getLookAt() {
-        return ((MrCameraData)mData).getLookAt();
+        return ((MrCameraData) mData).getLookAt();
     }
 
     public MrVector3f getUp() {
-        return ((MrCameraData)mData).getUp();
+        return ((MrCameraData) mData).getUp();
     }
 
     public MrLens getLens() {
-        return ((MrCameraData)mData).getLens();
+        return ((MrCameraData) mData).getLens();
     }
 
     public void setLens(MrLens lens) {
-        ((MrCameraData)mData).setLens(lens);
+        ((MrCameraData) mData).setLens(lens);
     }
 }

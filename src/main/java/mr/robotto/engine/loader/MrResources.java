@@ -50,6 +50,7 @@ public class MrResources {
 
     /**
      * Gets a certain texture
+     *
      * @param name texture name
      * @return the texture, null if it does not exist
      */
@@ -59,6 +60,7 @@ public class MrResources {
 
     /**
      * Adds a new texture to resources
+     *
      * @param texture the new texture
      */
     public void addTexture(MrTexture texture) {
@@ -67,6 +69,7 @@ public class MrResources {
 
     /**
      * Gets a certain shader program
+     *
      * @param name shader program name
      * @return the shader program, null if it does not exist
      */
@@ -76,6 +79,7 @@ public class MrResources {
 
     /**
      * Gets the loaded shader programs
+     *
      * @return a map of shader program name - shader program
      */
     public Map<String, MrShaderProgram> getPrograms() {
@@ -84,6 +88,7 @@ public class MrResources {
 
     /**
      * Adds a new shader program to resources
+     *
      * @param program shader program to be added
      */
     public void addShaderProgram(MrShaderProgram program) {
@@ -92,6 +97,7 @@ public class MrResources {
 
     /**
      * Gets the loaded bitmaps
+     *
      * @return a map of bitmap file name - bitmap
      */
     public Map<String, Bitmap> getTextureBitmaps() {
@@ -100,8 +106,9 @@ public class MrResources {
 
     /**
      * Adds a new bitmap to resources
+     *
      * @param texName bitmap filename
-     * @param bitmap bitmap
+     * @param bitmap  bitmap
      */
     public void addTextureBitmap(String texName, Bitmap bitmap) {
         mTextureBitmaps.put(texName, bitmap);

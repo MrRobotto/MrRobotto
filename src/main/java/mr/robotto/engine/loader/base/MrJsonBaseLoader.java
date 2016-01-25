@@ -18,8 +18,7 @@ public abstract class MrJsonBaseLoader<T> extends MrBaseLoader {
     //TODO: Cambiar en los parser a la versión opt
     protected JSONObject mRoot;
 
-    public MrJsonBaseLoader(JSONObject obj)
-    {
+    public MrJsonBaseLoader(JSONObject obj) {
         mRoot = obj;
     }
 

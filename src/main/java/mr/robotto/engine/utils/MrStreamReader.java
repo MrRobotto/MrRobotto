@@ -17,15 +17,15 @@ import java.io.InputStreamReader;
 /**
  * Class for converting an Stream to String
  */
-public class MrStreamReader
-{
+public class MrStreamReader {
     /**
      * Reads the string data contained in stream
+     *
      * @param stream
      * @return
      * @throws IOException
      */
-	public static String read(InputStream stream) throws IOException {
+    public static String read(InputStream stream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         StringBuilder builder = new StringBuilder();
         String line;
@@ -33,6 +33,6 @@ public class MrStreamReader
             builder.append(line);
         }
         return builder.toString();
-	}
+    }
 
 }

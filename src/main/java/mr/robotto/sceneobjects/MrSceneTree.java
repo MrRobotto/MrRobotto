@@ -54,6 +54,7 @@ public class MrSceneTree implements Iterable<MrObject> {
 
     /**
      * Gets the RobottoEngine instance this SceneTree is attached to
+     *
      * @return
      */
     public MrEngine getRobottoEngine() {
@@ -62,6 +63,7 @@ public class MrSceneTree implements Iterable<MrObject> {
 
     /**
      * Sets the RobottoEngine attached to this SceneTree
+     *
      * @param robottoEngine
      */
     public void setRobottoEngine(MrEngine robottoEngine) {
@@ -95,7 +97,7 @@ public class MrSceneTree implements Iterable<MrObject> {
         return new DelegateControllerIterator(controllerIterator, mObjects);
     }
 
-    private Iterator<Map.Entry<String,MrObject>> buildDelegateParentObjectsIterator(Iterator<Map.Entry<String,MrObjectController>> controllerIterator) {
+    private Iterator<Map.Entry<String, MrObject>> buildDelegateParentObjectsIterator(Iterator<Map.Entry<String, MrObjectController>> controllerIterator) {
         return new DelegateParentValueIterator(controllerIterator, mObjects);
     }
 
@@ -109,18 +111,18 @@ public class MrSceneTree implements Iterable<MrObject> {
         return mData.addChildByKey(parentKey, object.getController());
     }
 
-    
+
     public boolean addChild(MrObject parent, MrObject object) {
         addObject(object);
         return mData.addChild(parent.getController(), object.getController());
     }
 
-    
+
     public boolean removeByKey(String parentKey) {
         return mData.removeByKey(parentKey);
     }
 
-    
+
     public boolean remove(MrObject object) {
         removeObject(object);
         return mData.remove(object.getController());

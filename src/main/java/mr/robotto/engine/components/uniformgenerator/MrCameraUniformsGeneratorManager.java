@@ -55,6 +55,7 @@ public class MrCameraUniformsGeneratorManager implements MrUniformsGeneratorMana
     private static class ProjectionMatrixGenerator implements MrUniformGenerator {
         public ProjectionMatrixGenerator() {
         }
+
         @Override
         public MrLinearAlgebraObject generateUniform(MrObjectsDataTree tree, Map<String, MrUniformKey> uniforms, MrObjectData object) {
             MrCameraData camera = (MrCameraData) object;

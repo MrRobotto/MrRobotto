@@ -136,7 +136,7 @@ public class MrObjectsDataTree {
 
         private Iterator<MrObjectController> mIt;
 
-        public  DelegateIterator(Iterator<MrObjectController> it) {
+        public DelegateIterator(Iterator<MrObjectController> it) {
             mIt = it;
         }
 
@@ -185,6 +185,7 @@ public class MrObjectsDataTree {
     private static class StringObjectDataEntry implements Map.Entry<String, MrObjectData> {
 
         private Map.Entry<String, MrObjectController> mEntry;
+
         public StringObjectDataEntry(Map.Entry<String, MrObjectController> entry) {
             mEntry = entry;
         }

@@ -81,7 +81,7 @@ public class MrModelRender implements MrObjectRender {
             textures[i].bind();
         }
         //TODO: Quitar esto de aqui
-        if (mModelData.hasSkeleton()){
+        if (mModelData.hasSkeleton()) {
             mModelData.getSkeleton().updateSkeletonPose();
         }
         mBinded = true;

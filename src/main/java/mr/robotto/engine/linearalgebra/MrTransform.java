@@ -41,7 +41,7 @@ public class MrTransform {
         //this.mForward = new MrVector3f(0, 0, -1);
 
         //This is not opengl
-        mRight = new MrVector3f(1,0,0);
+        mRight = new MrVector3f(1, 0, 0);
         mUp = new MrVector3f(0, 0, 1);
         mForward = new MrVector3f(0, 1, 0);
 

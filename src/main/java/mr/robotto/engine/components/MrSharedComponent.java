@@ -43,18 +43,21 @@ public abstract class MrSharedComponent {
 
     /**
      * Gets the data layer linked to this object
+     *
      * @return the data layer
      */
     public abstract Data getData();
 
     /**
      * Gets the rendering layer linked to this object
+     *
      * @return the rendering layer
      */
     public abstract View getView();
 
     /**
      * Checks if {@link MrSharedComponent#initialize(MrRenderingContext)} has been already called
+     *
      * @return true if it is initialized, false otherwise
      */
     public boolean isInitialized() {
@@ -63,6 +66,7 @@ public abstract class MrSharedComponent {
 
     /**
      * Checks if {@link MrSharedComponent#bind()} has been called
+     *
      * @return true if the component is bound, false otherwise
      */
     public boolean isBound() {
@@ -71,6 +75,7 @@ public abstract class MrSharedComponent {
 
     /**
      * Initializes the current component
+     *
      * @param context Rendering context
      */
     public void initialize(MrRenderingContext context) {
@@ -108,6 +113,7 @@ public abstract class MrSharedComponent {
     protected static abstract class Data {
         /**
          * Gets the name, it will be used in {@link MrSharedComponent#getName()}
+         *
          * @return
          */
         public abstract String getName();

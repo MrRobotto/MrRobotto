@@ -35,7 +35,7 @@ public class MrLinearAlgebraObjectList implements MrLinearAlgebraObject {
 
     private void init() {
         mAlgebraObjects = new MrLinearAlgebraObject[mCount];
-        mValues = new float[mSize*mCount];
+        mValues = new float[mSize * mCount];
     }
 
     public void insert(int index, MrLinearAlgebraObject algebraObject) {
@@ -47,11 +47,11 @@ public class MrLinearAlgebraObjectList implements MrLinearAlgebraObject {
     public void insert(int index, float[] values) {
         //TODO: Check if this is index*mCount or it needs a -1
         //System.arraycopy(values, 0, mValues, index*mCount, values.length);
-        System.arraycopy(values, 0, mValues, index*mSize, values.length);
+        System.arraycopy(values, 0, mValues, index * mSize, values.length);
     }
 
     public void insert(int index, float value) {
-        mValues[index*mSize] = value;
+        mValues[index * mSize] = value;
     }
 
     @Override

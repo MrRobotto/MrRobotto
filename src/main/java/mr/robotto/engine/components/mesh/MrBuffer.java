@@ -47,10 +47,11 @@ public class MrBuffer {
 
     /**
      * Creates a new buffer
+     *
      * @param capacity capacity of this buffer, required to memory initialization
      * @param dataType Type of data will be stored, usually short or float
-     * @param target Target type for VBO or IBO
-     * @param usage Usage of this buffer, usually it will not change, so STATIC_DRAW is used
+     * @param target   Target type for VBO or IBO
+     * @param usage    Usage of this buffer, usually it will not change, so STATIC_DRAW is used
      */
     public MrBuffer(int capacity, MrDataType dataType, int target, int usage) {
         mBufferPosition = 0;
@@ -64,6 +65,7 @@ public class MrBuffer {
 
     /**
      * Creates an IBO with the given capacity
+     *
      * @param capacity
      * @return new IBO
      */
@@ -73,6 +75,7 @@ public class MrBuffer {
 
     /**
      * Creates a VBO with the given capacity
+     *
      * @param capacity
      * @return new VBO
      */
@@ -82,6 +85,7 @@ public class MrBuffer {
 
     /**
      * Gets the GPU id of this buffer
+     *
      * @return
      */
     public int getId() {
@@ -90,6 +94,7 @@ public class MrBuffer {
 
     /**
      * Sets the GPU id given to this buffer
+     *
      * @param id
      */
     public void setId(int id) {
@@ -98,6 +103,7 @@ public class MrBuffer {
 
     /**
      * Gets the buffer target
+     *
      * @return
      */
     public int getBufferTarget() {
@@ -107,6 +113,7 @@ public class MrBuffer {
     /**
      * Sets the buffer target to be used.
      * This must be set before initialization to take effect
+     *
      * @param bufferTarget
      */
     public void setBufferTarget(int bufferTarget) {
@@ -115,6 +122,7 @@ public class MrBuffer {
 
     /**
      * Gets the data type used in this buffer
+     *
      * @return
      */
     public MrDataType getBufferDataType() {
@@ -123,6 +131,7 @@ public class MrBuffer {
 
     /**
      * Gets the buffer usage
+     *
      * @return
      */
     public int getBufferUsage() {
@@ -132,6 +141,7 @@ public class MrBuffer {
     /**
      * Sets the buffer usage.
      * This must be set before initialization to take effect
+     *
      * @param bufferUsage
      */
     public void setBufferUsage(int bufferUsage) {
@@ -140,6 +150,7 @@ public class MrBuffer {
 
     /**
      * Returns the capacity of this buffer
+     *
      * @return
      */
     public int getBufferSize() {
@@ -148,6 +159,7 @@ public class MrBuffer {
 
     /**
      * Returns this buffer as a Java buffer object
+     *
      * @return
      */
     public Buffer asBuffer() {
@@ -156,6 +168,7 @@ public class MrBuffer {
     }
 
     //TODO: Make buffer invariant once it is "released", change the name...
+
     /**
      * Removes and releases the data of this buffer
      */
@@ -169,6 +182,7 @@ public class MrBuffer {
 
     /**
      * Puts a byte in this buffer
+     *
      * @param b
      */
     public void putByte(Byte b) {
@@ -179,6 +193,7 @@ public class MrBuffer {
 
     /**
      * Puts a char in this buffer
+     *
      * @param c
      */
     public void putChar(char c) {
@@ -189,6 +204,7 @@ public class MrBuffer {
 
     /**
      * Puts a double in this buffer
+     *
      * @param d
      */
     public void putDouble(double d) {
@@ -199,6 +215,7 @@ public class MrBuffer {
 
     /**
      * Puts a float in this buffer
+     *
      * @param f
      */
     public void putFloat(float f) {
@@ -209,6 +226,7 @@ public class MrBuffer {
 
     /**
      * Puts an integer in this buffer
+     *
      * @param i
      */
     public void putInt(int i) {
@@ -219,6 +237,7 @@ public class MrBuffer {
 
     /**
      * Puts a long in this buffer
+     *
      * @param l
      */
     public void putLong(long l) {
@@ -229,6 +248,7 @@ public class MrBuffer {
 
     /**
      * Puts a short in this buffer
+     *
      * @param s
      */
     public void putShort(short s) {
@@ -239,6 +259,7 @@ public class MrBuffer {
 
     /**
      * Puts a byte array in this buffer
+     *
      * @param bytes
      */
     public void putBytes(byte[] bytes) {
@@ -249,6 +270,7 @@ public class MrBuffer {
 
     /**
      * Puts a char array in this buffer
+     *
      * @param chars
      */
     public void putChars(char[] chars) {
@@ -259,6 +281,7 @@ public class MrBuffer {
 
     /**
      * Puts a double array in this buffer
+     *
      * @param doubles
      */
     public void putDoubles(double[] doubles) {
@@ -269,6 +292,7 @@ public class MrBuffer {
 
     /**
      * Puts a float array in this buffer
+     *
      * @param floats
      */
     public void putFloats(float[] floats) {
@@ -279,6 +303,7 @@ public class MrBuffer {
 
     /**
      * Puts an integer array in this buffer
+     *
      * @param ints
      */
     public void putInts(int[] ints) {
@@ -289,6 +314,7 @@ public class MrBuffer {
 
     /**
      * Puts a long array in this buffer
+     *
      * @param longs
      */
     public void putLongs(long[] longs) {
@@ -299,6 +325,7 @@ public class MrBuffer {
 
     /**
      * Puts a short array in this buffer
+     *
      * @param shorts
      */
     public void putShorts(short[] shorts) {

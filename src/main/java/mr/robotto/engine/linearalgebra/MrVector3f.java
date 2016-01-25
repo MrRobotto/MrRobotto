@@ -22,32 +22,25 @@ public final class MrVector3f implements MrLinearAlgebraObject {
 
     private float values[];
 
-    public MrVector3f()
-    {
+    public MrVector3f() {
         values = new float[3];
         setValues(x, y, z);
     }
 
-    public MrVector3f(float x, float y, float z)
-    {
+    public MrVector3f(float x, float y, float z) {
         values = new float[3];
-        setValues(x,y,z);
+        setValues(x, y, z);
     }
 
-    public MrVector3f(float v)
-    {
-        this(v,v,v);
+    public MrVector3f(float v) {
+        this(v, v, v);
     }
 
-    public MrVector3f(float[] values)
-    {
-        if (values.length == 3)
-        {
+    public MrVector3f(float[] values) {
+        if (values.length == 3) {
             this.values = new float[3];
-            setValues(values[0],values[1],values[2]);
-        }
-        else
-        {
+            setValues(values[0], values[1], values[2]);
+        } else {
             MrLinearAlgebraException.throwInvalidVectorDimensionException();
         }
     }
@@ -70,8 +63,7 @@ public final class MrVector3f implements MrLinearAlgebraObject {
         return 1;
     }
 
-    public void setValues(float x, float y, float z)
-    {
+    public void setValues(float x, float y, float z) {
         this.x = x;
         this.y = y;
         this.z = z;

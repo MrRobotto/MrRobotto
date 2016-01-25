@@ -27,8 +27,9 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Creates a new Shader Program
-     * @param name Name of this shader program
-     * @param vertexShader Vertex Shader element
+     *
+     * @param name           Name of this shader program
+     * @param vertexShader   Vertex Shader element
      * @param fragmentShader Fragment Shader element
      */
     public MrShaderProgram(String name, MrShader vertexShader, MrShader fragmentShader) {
@@ -69,6 +70,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Gets the ID of this Shader Program
+     *
      * @return
      */
     public int getId() {
@@ -77,6 +79,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Gets the Vertex Shader linked to this program
+     *
      * @return a vertex shader
      */
     public MrShader getVertexShader() {
@@ -85,6 +88,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Gets the Fragment Shader linked to this program
+     *
      * @return a fragment shader
      */
     public MrShader getFragmentShader() {
@@ -93,6 +97,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Gets all uniforms defined for this program
+     *
      * @return
      */
     public Map<String, MrUniform> getUniforms() {
@@ -101,6 +106,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Adds a uniform to this shader program
+     *
      * @param uniform new uniform
      */
     public void addUniform(MrUniform uniform) {
@@ -109,6 +115,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Adds an attribute to this shader program
+     *
      * @param attribute new attribute
      */
     public void addAttribute(MrAttribute attribute) {
@@ -117,6 +124,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Gets all attributes defined in this shader program
+     *
      * @return
      */
     public Map<Integer, MrAttribute> getAttributes() {
@@ -125,6 +133,7 @@ public class MrShaderProgram extends MrSharedComponent {
 
     /**
      * Passes data to GPU from values in the uniform keys
+     *
      * @param uniformKeys
      */
     public void bindUniforms(Map<String, MrUniformKey> uniformKeys) {
@@ -214,7 +223,7 @@ public class MrShaderProgram extends MrSharedComponent {
                 MrUniform uniform = mUniformsList[i];
                 MrUniformKey key = uniformKeys.get(uniform.getUniformType());
                 if (key == null || key.getValue() == null) {
-                    throw new RuntimeException("Can't find uniformkey for uniform: "+uniform.toString());
+                    throw new RuntimeException("Can't find uniformkey for uniform: " + uniform.toString());
                 }
                 bindUniform(uniform, key);
             }

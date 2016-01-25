@@ -51,7 +51,8 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Creates a MrTreeMap with a root element
-     * @param root root element of tree
+     *
+     * @param root        root element of tree
      * @param mapFunction map-function used for this tree
      */
     public MrTreeMap(V root, MrMapFunction<K, V> mapFunction) {
@@ -72,6 +73,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the current traversal mode
+     *
      * @return
      */
     public int getTraversalMode() {
@@ -80,6 +82,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Sets the current traversal mode
+     *
      * @param traversalMode
      */
     public void setTraversalMode(int traversalMode) {
@@ -88,6 +91,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the current map function of this tree
+     *
      * @return
      */
     public MrMapFunction<K, V> getMapFunction() {
@@ -96,6 +100,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the root object of this tree
+     *
      * @return root object or null if the tree is empty
      */
     public V getRoot() {
@@ -107,6 +112,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Finds an object in this tree using its key
+     *
      * @param key object key, this is the result of tree's map-function
      * @return object or null if the key does not exists
      */
@@ -120,6 +126,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Checks if key exists
+     *
      * @param key
      * @return true if the key exists, if it does not, false
      */
@@ -129,6 +136,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Checks if the key returned by map-function is in inside the tree
+     *
      * @param data
      * @return
      */
@@ -147,6 +155,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the keys collection
+     *
      * @return All keys already in use in this tree
      */
     public Collection<K> keys() {
@@ -155,6 +164,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Number of elements in this tree
+     *
      * @return number of elements
      */
     public int size() {
@@ -163,8 +173,9 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Adds a child to the node
+     *
      * @param parentKey parent node key
-     * @param data data to be used as a child
+     * @param data      data to be used as a child
      * @return true if the insertion has been done, false otherwise
      */
     public boolean addChildByKey(K parentKey, V data) {
@@ -188,8 +199,9 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Adds a child to the node
+     *
      * @param parent parent object
-     * @param data child object to be inserted
+     * @param data   child object to be inserted
      * @return true if the insertion has been done, false otherwise
      */
     public boolean addChild(V parent, V data) {
@@ -209,6 +221,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Removes a certain element in this tree
+     *
      * @param key of the element
      * @return
      */
@@ -226,6 +239,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Removes a certain element from this tree
+     *
      * @param data data object to be removed
      * @return true if the deletion has been done, false otherwise
      */
@@ -235,6 +249,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the children of an object using its key
+     *
      * @param key node
      * @return the children of node
      */
@@ -249,6 +264,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Returns the parent of the element
+     *
      * @param data element
      * @return the parent of the element, null if it has no parent
      */
@@ -264,6 +280,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the parent of an element using its key
+     *
      * @param key key of the element
      * @return the parent of the current element
      */
@@ -278,6 +295,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the children of an element
+     *
      * @param data the object
      * @return the children of passed object
      */
@@ -287,6 +305,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the subtree from key element using key
+     *
      * @param key key of object
      * @return
      */
@@ -296,6 +315,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Gets the subtree from key element
+     *
      * @param data object
      * @return
      */
@@ -315,6 +335,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Breadth tree traversal from the element in the given key
+     *
      * @param key
      * @return
      */
@@ -324,6 +345,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Depth tree traversal from the element in the given key
+     *
      * @param key
      * @return
      */
@@ -333,6 +355,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Traverse the tree from the element in the given key to the root returning the value and its parent key
+     *
      * @param key
      * @return
      */
@@ -342,6 +365,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Tree traversal from the given element to the root
+     *
      * @param data
      * @return
      */
@@ -351,6 +375,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Breadth tree traversal from the given element
+     *
      * @param data
      * @return
      */
@@ -360,6 +385,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Depth tree traversal from the given element
+     *
      * @param data
      * @return
      */
@@ -369,6 +395,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Traverse the tree from the given value to the root returning the value and its parent key
+     *
      * @param data
      * @return
      */
@@ -378,6 +405,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Breadth traversal of the entire tree
+     *
      * @return
      */
     public Iterator<V> breadthTraversal() {
@@ -386,6 +414,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Depth traversal of the entire tree
+     *
      * @return
      */
     public Iterator<V> depthTraversal() {
@@ -394,6 +423,7 @@ public class MrTreeMap<K, V> implements Iterable<V> {
 
     /**
      * Traversal of the whole tree giving returning the element and its parent key
+     *
      * @return
      */
     public Iterator<Map.Entry<K, V>> parentKeyChildValueTraversal() {

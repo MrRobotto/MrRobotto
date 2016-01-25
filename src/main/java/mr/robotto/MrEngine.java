@@ -54,6 +54,7 @@ public class MrEngine {
 
     /**
      * Sets the maximum FPS the engine will run
+     *
      * @param fps maximum FPS
      */
     public void setFps(int fps) {
@@ -62,6 +63,7 @@ public class MrEngine {
 
     /**
      * Gets the view where the engine is running
+     *
      * @return The attached surface view
      */
     public MrSurfaceView getSurfaceView() {
@@ -70,6 +72,7 @@ public class MrEngine {
 
     /**
      * Gets the current scene
+     *
      * @return the scene, null if the scene has not been loaded
      */
     public MrSceneTree getSceneTree() {
@@ -78,6 +81,7 @@ public class MrEngine {
 
     /**
      * Searchs an object
+     *
      * @param name name of object
      * @return the object with the specified name, null if it does not exist
      */
@@ -87,6 +91,7 @@ public class MrEngine {
 
     /**
      * Gets the attached event dispatcher
+     *
      * @return the current event dispatcher
      */
     public MrEventDispatcher getEventDispatcher() {
@@ -95,6 +100,7 @@ public class MrEngine {
 
     /**
      * Sets a new event dispatcher
+     *
      * @param eventDispatcher new event dispatcher to be used
      */
     public void setEventDispatcher(MrEventDispatcher eventDispatcher) {
@@ -103,6 +109,7 @@ public class MrEngine {
 
     /**
      * Loads a new scene from stream
+     *
      * @param inputStream stream containing the scene
      * @return the loaded scene for chaining
      */
@@ -126,6 +133,7 @@ public class MrEngine {
 
     /**
      * Loads the scene asynchronously
+     *
      * @param inputStream stream containing the scene
      */
     public void loadSceneTreeAsync(final InputStream inputStream) {
@@ -150,6 +158,7 @@ public class MrEngine {
                 }
                 return null;
             }
+
             @Override
             protected void onPostExecute(MrSceneTree tree) {
                 super.onPostExecute(tree);
@@ -183,6 +192,7 @@ public class MrEngine {
 
     /**
      * Queues a runnable to be executed on OpenGL Thread
+     *
      * @param runnable code to be executed
      */
     public void queueEvent(Runnable runnable) {

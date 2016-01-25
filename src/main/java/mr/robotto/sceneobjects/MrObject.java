@@ -41,6 +41,7 @@ public abstract class MrObject {
 
     /**
      * Creates an MrObject using a controller
+     *
      * @param controller controller for this object
      */
     protected MrObject(MrObjectController controller) {
@@ -51,6 +52,7 @@ public abstract class MrObject {
 
     /**
      * Gets the object controller of this object
+     *
      * @return The controller
      */
     public MrObjectController getController() {
@@ -59,6 +61,7 @@ public abstract class MrObject {
 
     /**
      * Gets the reference to the engine used.
+     *
      * @return gets the RobottoEngine instance this object is attached to
      */
     public MrEngine getRobottoEngine() {
@@ -68,6 +71,7 @@ public abstract class MrObject {
     /**
      * Sets the reference to the engine.
      * This method should not be called directly by the user
+     *
      * @param robotto the engine which contains this object
      */
     public void setRobottoEngine(MrEngine robotto) {
@@ -77,9 +81,11 @@ public abstract class MrObject {
     /*******Controller******/
 
     //TODO: Change runnable to custom class
+
     /**
      * Queues a runnable.
      * Use when calling methods from the UI-Thread
+     *
      * @param runnable runnable to be executed
      */
     protected void queueEvent(Runnable runnable) {
@@ -88,6 +94,7 @@ public abstract class MrObject {
 
     /**
      * Call this method if you want to create a new uniform generator for this object
+     *
      * @param uniformGenerators uniform generator map to add new generators
      */
     public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
@@ -95,6 +102,7 @@ public abstract class MrObject {
 
     /**
      * Gets the type of this object
+     *
      * @return
      */
     public MrSceneObjectType getSceneObjectType() {
@@ -103,6 +111,7 @@ public abstract class MrObject {
 
     /**
      * Checks if initialize has been called on this object
+     *
      * @return true if the object is initialized, false otherwise
      */
     public boolean isInitialized() {
@@ -111,6 +120,7 @@ public abstract class MrObject {
 
     /**
      * Gets the name of this object
+     *
      * @return
      */
     public String getName() {
@@ -119,6 +129,7 @@ public abstract class MrObject {
 
     /**
      * Gets the transformation object of this object
+     *
      * @return
      */
     public MrTransform getTransform() {
@@ -127,6 +138,7 @@ public abstract class MrObject {
 
     /**
      * Sets a new transform for this object
+     *
      * @param transform
      */
     public void setTransform(MrTransform transform) {
@@ -135,6 +147,7 @@ public abstract class MrObject {
 
     /**
      * Gets the uniform generators associated to this object
+     *
      * @return a map containing generator name - generator items
      */
     public Map<String, MrUniformGenerator> getUniformGenerators() {
@@ -143,6 +156,7 @@ public abstract class MrObject {
 
     /**
      * Gets the current shader program, if the object has any
+     *
      * @return
      */
     public MrShaderProgram getShaderProgram() {
@@ -151,6 +165,7 @@ public abstract class MrObject {
 
     /**
      * Gets the uniform keys provided by this object
+     *
      * @return a map containing uniform key type - uniform key items
      */
     public Map<String, MrUniformKey> getUniformKeys() {
@@ -240,6 +255,7 @@ public abstract class MrObject {
 
     /**
      * Gets the current event listener
+     *
      * @return
      */
     public MrEventsListener getEventsListener() {
@@ -248,6 +264,7 @@ public abstract class MrObject {
 
     /**
      * Sets a new event listener
+     *
      * @param eventsListener
      */
     public void setEventsListener(MrEventsListener eventsListener) {
@@ -256,6 +273,7 @@ public abstract class MrObject {
 
     /**
      * Checks if the event is register in the event listener of this object
+     *
      * @param evName event name
      * @return
      */
@@ -265,6 +283,7 @@ public abstract class MrObject {
 
     /**
      * Gets a set of all registered events
+     *
      * @return
      */
     public Set<String> getRegisteredEvents() {
@@ -273,6 +292,7 @@ public abstract class MrObject {
 
     /**
      * Registers an event
+     *
      * @param eventName
      */
     public void registerEvent(String eventName) {
@@ -281,6 +301,7 @@ public abstract class MrObject {
 
     /**
      * Unregisters an event
+     *
      * @param eventName
      */
     public void unregisterEvent(String eventName) {
@@ -291,6 +312,7 @@ public abstract class MrObject {
 
     /**
      * Gets the rotation quaternion
+     *
      * @return
      */
     public MrQuaternion getRotation() {
@@ -299,6 +321,7 @@ public abstract class MrObject {
 
     /**
      * Sets the rotation of this object using a quaternion
+     *
      * @param rotation
      */
     public void setRotation(MrQuaternion rotation) {
@@ -307,8 +330,9 @@ public abstract class MrObject {
 
     /**
      * Rotates the object by a certain angle around the given axis
+     *
      * @param angle angle of rotation in degrees
-     * @param axis axis in world coordinates
+     * @param axis  axis in world coordinates
      */
     public void rotate(final float angle, final MrVector3f axis) {
         getTransform().rotate(angle, axis);
@@ -316,6 +340,7 @@ public abstract class MrObject {
 
     /**
      * Translates an object by x, y, z for every axis in world coordinates
+     *
      * @param x translation in x
      * @param y translation in y
      * @param z translation in z
@@ -326,6 +351,7 @@ public abstract class MrObject {
 
     /**
      * Scales the object in all axis
+     *
      * @param s scale factor
      */
     public void scale(final float s) {
@@ -334,6 +360,7 @@ public abstract class MrObject {
 
     /**
      * Scales every axis by given values
+     *
      * @param s scale vector
      */
     public void scale(final MrVector3f s) {
@@ -342,6 +369,7 @@ public abstract class MrObject {
 
     /**
      * Gets the positive X axis of this object local axis in world coordinates
+     *
      * @return
      */
     public MrVector3f getRight() {
@@ -350,6 +378,7 @@ public abstract class MrObject {
 
     /**
      * Points this object to look with the given up vector
+     *
      * @param look
      * @param up
      */
@@ -359,6 +388,7 @@ public abstract class MrObject {
 
     /**
      * Scales every axis by given values
+     *
      * @param sx scale in X axis
      * @param sy scale in Y axis
      * @param sz scale in Z axis
@@ -369,6 +399,7 @@ public abstract class MrObject {
 
     /**
      * Sets the scale of this object. This method operates in place
+     *
      * @param sx
      * @param sy
      * @param sz
@@ -379,6 +410,7 @@ public abstract class MrObject {
 
     /**
      * Translates an object by the given vector in world coordinates
+     *
      * @param v
      */
     public void translate(MrVector3f v) {
@@ -387,6 +419,7 @@ public abstract class MrObject {
 
     /**
      * Gets the positive Y axis of this object local axis in world coordinates
+     *
      * @return
      */
     public MrVector3f getForward() {
@@ -395,6 +428,7 @@ public abstract class MrObject {
 
     /**
      * Gets the scale vector of this object
+     *
      * @return
      */
     public MrVector3f getScale() {
@@ -403,6 +437,7 @@ public abstract class MrObject {
 
     /**
      * Sets the scale of this object. This method operates in place
+     *
      * @param scale
      */
     public void setScale(MrVector3f scale) {
@@ -411,6 +446,7 @@ public abstract class MrObject {
 
     /**
      * Sets the location of this object. This method operates in place
+     *
      * @param x
      * @param y
      * @param z
@@ -421,8 +457,9 @@ public abstract class MrObject {
 
     /**
      * Sets the rotation of this object. This method operates in place
+     *
      * @param angle angle of rotation in degrees
-     * @param axis axis to rotate around in world coordinates
+     * @param axis  axis to rotate around in world coordinates
      */
     public void setRotation(float angle, MrVector3f axis) {
         getTransform().setRotation(angle, axis);
@@ -430,6 +467,7 @@ public abstract class MrObject {
 
     /**
      * Gets the positive Z axis of this object local axis in world coordinates
+     *
      * @return
      */
     public MrVector3f getUp() {
@@ -438,6 +476,7 @@ public abstract class MrObject {
 
     /**
      * Sets where this object will point to. This method operates in place
+     *
      * @param look
      */
     public void setLookAt(MrVector3f look) {
@@ -446,6 +485,7 @@ public abstract class MrObject {
 
     /**
      * Sets the rotation of this object. This method operates in place
+     *
      * @param angle angle of rotation in degrees
      * @param x
      * @param y
@@ -457,6 +497,7 @@ public abstract class MrObject {
 
     /**
      * Gets the location of this object
+     *
      * @return
      */
     public MrVector3f getLocation() {
@@ -465,6 +506,7 @@ public abstract class MrObject {
 
     /**
      * Sets the location of this object. This method operates in place
+     *
      * @param location
      */
     public void setLocation(final MrVector3f location) {
@@ -473,9 +515,10 @@ public abstract class MrObject {
 
     /**
      * Rotates this object by the given angle, around the given axis, located at the given point
+     *
      * @param angle angle of rotation in degrees
      * @param point point where the object will be located
-     * @param axis axis of rotation in world coordinates
+     * @param axis  axis of rotation in world coordinates
      */
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis) {
         getTransform().rotateAround(angle, point, axis);
@@ -483,6 +526,7 @@ public abstract class MrObject {
 
     /**
      * Rotates this object by the given rotation
+     *
      * @param q
      */
     public void rotate(MrQuaternion q) {
@@ -491,9 +535,10 @@ public abstract class MrObject {
 
     /**
      * Rotates this object by the given angle, around the given axis and passing through the given point
-     * @param angle angle of rotation in degrees
-     * @param point point where the object will be located
-     * @param axis axis of rotation in world coordinates
+     *
+     * @param angle   angle of rotation in degrees
+     * @param point   point where the object will be located
+     * @param axis    axis of rotation in world coordinates
      * @param through point to pass through when rotates in world coordinates
      */
     public void rotateAround(float angle, MrVector3f point, MrVector3f axis, MrVector3f through) {
@@ -502,6 +547,7 @@ public abstract class MrObject {
 
     /**
      * Rotates this object by the given angle around the given axis
+     *
      * @param angle
      * @param x
      * @param y
@@ -533,6 +579,7 @@ public abstract class MrObject {
 
         /**
          * Sets the name of this object. Required
+         *
          * @param name
          * @return
          */
@@ -543,6 +590,7 @@ public abstract class MrObject {
 
         /**
          * Sets the transform of this object. Optional
+         *
          * @param transform
          * @return
          */
@@ -553,6 +601,7 @@ public abstract class MrObject {
 
         /**
          * Sets the shader shaderProgram of this object. Optional
+         *
          * @param shaderProgram
          * @return
          */
@@ -563,6 +612,7 @@ public abstract class MrObject {
 
         /**
          * Sets the uniformkeyschemas of this object. Optional
+         *
          * @param uniformKeySchemas
          * @return
          */

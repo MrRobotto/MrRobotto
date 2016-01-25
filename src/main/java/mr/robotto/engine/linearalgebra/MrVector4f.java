@@ -34,17 +34,17 @@ public final class MrVector4f implements MrLinearAlgebraObject {
 
     public MrVector4f(float w, float x, float y, float z) {
         values = new float[4];
-        setValues(w,x,y,z);
+        setValues(w, x, y, z);
     }
 
     public MrVector4f(float v) {
-        this(v,v,v,v);
+        this(v, v, v, v);
     }
 
     public MrVector4f(float[] values) {
         this.values = new float[4];
         if (values.length == 4) {
-            setValues(values[0],values[1],values[2],values[3]);
+            setValues(values[0], values[1], values[2], values[3]);
         } else {
             MrLinearAlgebraException.throwInvalidVectorDimensionException();
         }
@@ -83,8 +83,7 @@ public final class MrVector4f implements MrLinearAlgebraObject {
         return MrDataType.VEC4;
     }
 
-    public void setValues(float w, float x, float y, float z)
-    {
+    public void setValues(float w, float x, float y, float z) {
         this.w = w;
         this.x = x;
         this.y = y;
@@ -102,8 +101,7 @@ public final class MrVector4f implements MrLinearAlgebraObject {
 
         }
 
-        public void setZero(MrVector4f result)
-        {
+        public void setZero(MrVector4f result) {
             result.w = 0;
             result.x = 0;
             result.y = 0;
@@ -151,14 +149,12 @@ public final class MrVector4f implements MrLinearAlgebraObject {
             result.z = (1 - t) * op1.z + t * op2.z;
         }
 
-        public void vectorFromVec3(MrVector4f result, MrVector3f v)
-        {
-            result.setValues(v.x,v.y,v.z,0);
+        public void vectorFromVec3(MrVector4f result, MrVector3f v) {
+            result.setValues(v.x, v.y, v.z, 0);
         }
 
-        public void pointFromVec3(MrVector4f result, MrVector3f v)
-        {
-            result.setValues(v.x,v.y,v.z,1);
+        public void pointFromVec3(MrVector4f result, MrVector3f v) {
+            result.setValues(v.x, v.y, v.z, 1);
         }
     }
 }

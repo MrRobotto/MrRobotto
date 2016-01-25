@@ -34,6 +34,7 @@ public abstract class MrLens {
 
     /**
      * Sets the start and end clipping planes
+     *
      * @param start
      * @param end
      */
@@ -44,6 +45,7 @@ public abstract class MrLens {
 
     /**
      * Gets the near clipping plane
+     *
      * @return
      */
     public float getClipStart() {
@@ -52,6 +54,7 @@ public abstract class MrLens {
 
     /**
      * Gets the far clipping plane
+     *
      * @return
      */
     public float getClipEnd() {
@@ -60,14 +63,16 @@ public abstract class MrLens {
 
     /**
      * Gets the aspect ratio of this lens
+     *
      * @return
      */
     public float getAspectRatio() {
-        return mWidth/mHeight;
+        return mWidth / mHeight;
     }
 
     /**
      * Gets the width of the window
+     *
      * @return
      */
     public float getWidth() {
@@ -76,6 +81,7 @@ public abstract class MrLens {
 
     /**
      * Gets the height of the window
+     *
      * @return
      */
     public float getHeight() {
@@ -84,6 +90,7 @@ public abstract class MrLens {
 
     /**
      * Returns projection matrix
+     *
      * @return
      */
     public abstract MrMatrix4f getProjectionMatrix();

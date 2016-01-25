@@ -22,7 +22,7 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
 /**
  * A specialized list for storing keyframes
  */
-public class MrKeyFrameList implements Iterable<MrFrame>{
+public class MrKeyFrameList implements Iterable<MrFrame> {
     private TreeMap<Integer, MrFrame> mKeyFrames;
 
     /**
@@ -52,6 +52,7 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
 
     /**
      * Return all the keyframe indices
+     *
      * @return
      */
     public Set<Integer> getKeyFrameIndices() {
@@ -60,6 +61,7 @@ public class MrKeyFrameList implements Iterable<MrFrame>{
 
     /**
      * Iterates over all the frames contained in the keyframe list
+     *
      * @return
      */
     @Override

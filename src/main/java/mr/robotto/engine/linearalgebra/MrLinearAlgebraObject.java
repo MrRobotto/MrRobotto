@@ -18,18 +18,21 @@ public interface MrLinearAlgebraObject {
 
     /**
      * Gets the values contained
+     *
      * @return
      */
     float[] getValues();
 
     /**
      * Gets the number of instances of this type stored
+     *
      * @return
      */
     int getCount();
 
     /**
      * Returns the {@link MrDataType} of this object
+     *
      * @return
      */
     MrDataType getDataType();

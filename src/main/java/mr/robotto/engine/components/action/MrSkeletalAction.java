@@ -28,6 +28,7 @@ public class MrSkeletalAction {
     private int mActionType;
     private State mState;
     private Iterator<MrFrame> mFrameIterator;
+
     /**
      * Creates an skeletal animation
      *
@@ -44,6 +45,7 @@ public class MrSkeletalAction {
 
     /**
      * The name of this action
+     *
      * @return
      */
     public String getName() {
@@ -52,6 +54,7 @@ public class MrSkeletalAction {
 
     /**
      * Returns the type of this action
+     *
      * @return
      */
     public int getActionType() {
@@ -78,6 +81,7 @@ public class MrSkeletalAction {
 
     /**
      * Adds a new keyframe to this action
+     *
      * @param frame
      */
     public void addKeyFrame(MrFrame frame) {
@@ -86,6 +90,7 @@ public class MrSkeletalAction {
 
     /**
      * Checks if this action is being playing
+     *
      * @return
      */
     public boolean isPlaying() {
@@ -125,6 +130,7 @@ public class MrSkeletalAction {
     /**
      * This method steps the action
      * This user usually don't need to call this method directly
+     *
      * @return
      */
     public Map<String, MrBone> step() {
@@ -133,7 +139,7 @@ public class MrSkeletalAction {
         //}
         if (mFrameIterator.hasNext()) {
             return mFrameIterator.next().getBones();
-        } else if (mState == State.LOOP){
+        } else if (mState == State.LOOP) {
             mFrameIterator = mKeyFrames.iterator();
             return step();
         }

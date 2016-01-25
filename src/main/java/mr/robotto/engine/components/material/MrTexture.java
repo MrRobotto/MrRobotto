@@ -174,7 +174,7 @@ public class MrTexture extends MrSharedComponent {
 
         @Override
         public void bind() {
-            GLES20.glActiveTexture(GLES20.GL_TEXTURE0+mData.mIndex);
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + mData.mIndex);
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, mData.getId());
         }
 

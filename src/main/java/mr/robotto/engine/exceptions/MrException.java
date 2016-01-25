@@ -9,15 +9,12 @@
 
 package mr.robotto.engine.exceptions;
 
-public class MrException extends Exception
-{
-    private MrException(String msg)
-    {
+public class MrException extends Exception {
+    private MrException(String msg) {
         super(msg);
     }
 
-    public static void throwTypeMismatchException() throws MrException
-    {
+    public static void throwTypeMismatchException() throws MrException {
         throw new MrException("The targetBuffer doesn't match");
     }
 

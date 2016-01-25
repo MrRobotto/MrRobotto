@@ -34,12 +34,13 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Creates a new mesh
-     * @param name Name of the mesh
-     * @param count Number of faces
-     * @param drawType Used drawtype
-     * @param keys Buffer keys of this mesh
+     *
+     * @param name         Name of the mesh
+     * @param count        Number of faces
+     * @param drawType     Used drawtype
+     * @param keys         Buffer keys of this mesh
      * @param vertexBuffer Vertex data as a buffer
-     * @param indexBuffer Vertex indices data as a buffer
+     * @param indexBuffer  Vertex indices data as a buffer
      */
     public MrMesh(String name, int count, int drawType, Map<Integer, MrBufferKey> keys, MrBuffer vertexBuffer, MrBuffer indexBuffer) {
         mData = new Data(name, count, drawType, keys, vertexBuffer, indexBuffer);
@@ -79,6 +80,7 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Gets the IBO linked to this mesh
+     *
      * @return index array buffer object
      */
     public MrBuffer getIndexBuffer() {
@@ -87,6 +89,7 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Gets all buffer-keys defined in this mesh
+     *
      * @return buffer keys
      */
     public Map<Integer, MrBufferKey> getBufferKeys() {
@@ -95,6 +98,7 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Gets the number of faces of this mesh
+     *
      * @return number of faces
      */
     public int getCount() {
@@ -103,6 +107,7 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Gets the VBO linked to this mesh
+     *
      * @return vertex array buffer object
      */
     public MrBuffer getVertexBuffer() {
@@ -111,6 +116,7 @@ public class MrMesh extends MrSharedComponent {
 
     /**
      * Gets the current draw type for this mesh
+     *
      * @return draw type
      */
     public int getDrawType() {

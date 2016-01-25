@@ -40,6 +40,7 @@ public abstract class MrEventsListener {
 
     /**
      * Gets the object controller which this event listener is attached to
+     *
      * @return
      */
     public MrObjectController getObjectController() {
@@ -48,6 +49,7 @@ public abstract class MrEventsListener {
 
     /**
      * Sets the object controller
+     *
      * @param controller
      */
     public void setObjectController(MrObjectController controller) {
@@ -56,6 +58,7 @@ public abstract class MrEventsListener {
 
     /**
      * Gets the object which this event listener is attached to
+     *
      * @return
      */
     public MrObject getAttachedObject() {
@@ -64,6 +67,7 @@ public abstract class MrEventsListener {
 
     /**
      * Checks if the given event is registered to be processed
+     *
      * @param evName
      * @return
      */
@@ -73,6 +77,7 @@ public abstract class MrEventsListener {
 
     /**
      * Gets all registered events
+     *
      * @return
      */
     public Set<String> getRegisteredEvents() {
@@ -81,6 +86,7 @@ public abstract class MrEventsListener {
 
     /**
      * Register multiple events at once
+     *
      * @param events
      */
     protected void registerEvents(Set<String> events) {
@@ -89,6 +95,7 @@ public abstract class MrEventsListener {
 
     /**
      * Registers a certain event
+     *
      * @param eventName
      */
     public void registerEvent(String eventName) {
@@ -97,6 +104,7 @@ public abstract class MrEventsListener {
 
     /**
      * Unregisters a certain event
+     *
      * @param eventName
      */
     public void unregisterEvent(String eventName) {
@@ -106,6 +114,7 @@ public abstract class MrEventsListener {
     /**
      * Queues a new event to be processed on the OpenGL Thread
      * This method should be always called from a {@link MrEventDispatcher} instance
+     *
      * @param eventName
      * @param eventBundle
      */
@@ -125,7 +134,8 @@ public abstract class MrEventsListener {
 
     /**
      * Process a certain event
-     * @param eventName event name received
+     *
+     * @param eventName   event name received
      * @param eventBundle bundle containing event data
      */
     protected void processEvent(String eventName, MrBundle eventBundle) {
@@ -151,10 +161,10 @@ public abstract class MrEventsListener {
     public String toString() {
         String s =
                 "MrEventsListener{" +
-                "Object=" + mObjectController.getName() +
-                ", RegisteredEvents=[";
+                        "Object=" + mObjectController.getName() +
+                        ", RegisteredEvents=[";
         for (String ev : mEvents) {
-            s += ev +",";
+            s += ev + ",";
         }
         s += "]}";
         return s;

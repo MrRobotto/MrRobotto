@@ -21,19 +21,16 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
     public float w;
     private float[] values;
 
-    public MrQuaternion()
-    {
+    public MrQuaternion() {
         init();
     }
 
-    public MrQuaternion(float w, float x, float y, float z)
-    {
+    public MrQuaternion(float w, float x, float y, float z) {
         init();
         setValues(w, x, y, z);
     }
 
-    public MrQuaternion(MrQuaternion q)
-    {
+    public MrQuaternion(MrQuaternion q) {
         this(q.w, q.x, q.y, q.z);
     }
 
@@ -60,8 +57,7 @@ public final class MrQuaternion implements MrLinearAlgebraObject {
         return 1;
     }
 
-    public void setValues(float w, float x, float y, float z)
-    {
+    public void setValues(float w, float x, float y, float z) {
         this.w = w;
         this.x = x;
         this.y = y;

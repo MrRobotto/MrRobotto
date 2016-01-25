@@ -18,8 +18,8 @@ public interface MrUniformsGeneratorManager {
 
     /**
      * Given an object and its uniform generator map this method will fill the map with the necessary uniform generators
-     *  @param object
      *
+     * @param object
      */
     void setUniformGenerators(MrObjectData object);
 }

@@ -58,7 +58,7 @@ public class MrMaterialLoader extends MrJsonBaseLoader<MrMaterial> {
         color.y = (float) colorJson.getDouble(2);
         color.z = (float) colorJson.getDouble(3);
         return color;
-     }
+    }
 
     private MrTexture loadTexture() throws JSONException {
         JSONObject textureJson = mRoot.optJSONObject("Texture");

@@ -24,11 +24,12 @@ public class MrBufferKey {
 
     /**
      * Creates a new Buffer Key
+     *
      * @param attribute which attribute it is linked to
-     * @param dataType Type stored, it will be usually a numeric type such as float, short,...
-     * @param size Lenght of data. For example, if data is stored as a vector, the lenght of that vector
-     * @param stride Number of elements between an element of this attribute and the next one
-     * @param pointer Index inside the buffer where this element starts
+     * @param dataType  Type stored, it will be usually a numeric type such as float, short,...
+     * @param size      Lenght of data. For example, if data is stored as a vector, the lenght of that vector
+     * @param stride    Number of elements between an element of this attribute and the next one
+     * @param pointer   Index inside the buffer where this element starts
      */
     public MrBufferKey(int attribute, MrDataType dataType, int size, int stride, int pointer) {
         this.mAttributeType = attribute;
@@ -41,6 +42,7 @@ public class MrBufferKey {
 
     /**
      * Gets the attribute type
+     *
      * @return See {@link mr.robotto.engine.components.shader.MrAttribute} to see returned values
      */
     public int getAttributeType() {
@@ -49,6 +51,7 @@ public class MrBufferKey {
 
     /**
      * Lenght of data. For example, if data is stored as a vector, the lenght of that vector
+     *
      * @return
      */
     public int getSize() {
@@ -57,6 +60,7 @@ public class MrBufferKey {
 
     /**
      * Number of elements between an element of this attribute and the next one
+     *
      * @return
      */
     public int getStride() {
@@ -65,6 +69,7 @@ public class MrBufferKey {
 
     /**
      * Gets the attribute id obtained from GPU
+     *
      * @return
      */
     public int getId() {
@@ -73,6 +78,7 @@ public class MrBufferKey {
 
     /**
      * Sets the GPU id for this attribute
+     *
      * @param index
      */
     public void setId(int index) {
@@ -81,6 +87,7 @@ public class MrBufferKey {
 
     /**
      * Index inside the buffer where this element starts
+     *
      * @return
      */
     public int getPointer() {
@@ -89,6 +96,7 @@ public class MrBufferKey {
 
     /**
      * Type stored, it will be usually a numeric type such as float, short,...
+     *
      * @return
      */
     public MrDataType getDataType() {

@@ -41,6 +41,7 @@ public class MrSurfaceView extends GLSurfaceView {
 
     /**
      * Gets the Renderer used
+     *
      * @return
      */
     public MrRenderer getRenderer() {

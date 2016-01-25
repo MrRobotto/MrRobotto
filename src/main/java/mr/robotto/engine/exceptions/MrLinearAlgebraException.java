@@ -9,25 +9,20 @@
 
 package mr.robotto.engine.exceptions;
 
-public class MrLinearAlgebraException extends RuntimeException
-{
-    public MrLinearAlgebraException(String msg)
-    {
+public class MrLinearAlgebraException extends RuntimeException {
+    public MrLinearAlgebraException(String msg) {
         super(msg);
     }
 
-    public static void throwMissMatchVectorDimensionException()
-    {
+    public static void throwMissMatchVectorDimensionException() {
         throw new MrLinearAlgebraException("The dimension doesn't match");
     }
 
-    public static void throwInvalidVectorDimensionException()
-    {
+    public static void throwInvalidVectorDimensionException() {
         throw new MrLinearAlgebraException("The dimension of vector is invalid");
     }
 
-    public static void throwInvalidHomogeneusCoordinateException()
-    {
+    public static void throwInvalidHomogeneusCoordinateException() {
         throw new MrLinearAlgebraException("A Vec4 with W=0 can't be converted to Vec3");
     }
 }

@@ -25,6 +25,7 @@ public class MrFrame {
 
     /**
      * Creates the frame number
+     *
      * @param number Frame number
      */
     public MrFrame(int number) {
@@ -34,16 +35,17 @@ public class MrFrame {
 
     /**
      * Interpolates two frames
-     * @param frame Result frame. The frame number and bones will be overriden
+     *
+     * @param frame    Result frame. The frame number and bones will be overriden
      * @param numFrame Number of the result frame. It requires frame1.numFrame < numFrame < frame2.numFrame
-     * @param frame1 The first frame.
-     * @param frame2 The second frame
+     * @param frame1   The first frame.
+     * @param frame2   The second frame
      */
     public static void interpolate(MrFrame frame, int numFrame, MrFrame frame1, MrFrame frame2) {
         frame.setNumber(numFrame);
         Map<String, MrBone> outBones = frame.getBones();
         float e1 = frame1.getFrameNumber(), e2 = frame2.getFrameNumber();
-        float t = -1/(e1 - e2) * (numFrame - e1);
+        float t = -1 / (e1 - e2) * (numFrame - e1);
         Map<String, MrBone> f2Bones = frame2.getBones();
         for (MrBone bone1 : frame1.getBones().values()) {
             MrBone bone = outBones.get(bone1.getName());

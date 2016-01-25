@@ -31,7 +31,7 @@ public class MrPerspectiveLens extends MrLens {
             return mProjectionMatrix;
         } else {
             MrMatrix4f.Operator op = MrMatrix4f.getOperator();
-            op.perspective(mProjectionMatrix, mFovy, mWidth/mHeight, mClipStart, mClipEnd);
+            op.perspective(mProjectionMatrix, mFovy, mWidth / mHeight, mClipStart, mClipEnd);
             mChanged = false;
             return mProjectionMatrix;
         }
