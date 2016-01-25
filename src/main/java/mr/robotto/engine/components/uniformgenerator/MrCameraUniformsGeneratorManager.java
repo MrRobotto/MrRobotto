@@ -1,16 +1,17 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.uniformgenerators;
+package mr.robotto.engine.components.uniformgenerator;
 
 import java.util.Map;
 
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrCameraData;
 import mr.robotto.engine.core.data.MrObjectData;
@@ -25,13 +26,14 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
 public class MrCameraUniformsGeneratorManager implements MrUniformsGeneratorManager {
 
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
+    public void setUniformGenerators(MrObjectData object) {
         MrCameraData camera = (MrCameraData) object;
+        Map<String, MrUniformGenerator> uniformGenerators = object.getUniformGenerators();
         uniformGenerators.put(MrUniformKey.GENERATOR_VIEW_MATRIX, new ViewMatrixGenerator());
         uniformGenerators.put(MrUniformKey.GENERATOR_PROJECTION_MATRIX, new ProjectionMatrixGenerator());
     }
 
-    private static class ViewMatrixGenerator implements MrUniformKey.Generator {
+    private static class ViewMatrixGenerator implements MrUniformGenerator {
         private final MrMatrix4f mView;
 
         public ViewMatrixGenerator() {
@@ -50,7 +52,7 @@ public class MrCameraUniformsGeneratorManager implements MrUniformsGeneratorMana
         }
     }
 
-    private static class ProjectionMatrixGenerator implements MrUniformKey.Generator {
+    private static class ProjectionMatrixGenerator implements MrUniformGenerator {
         public ProjectionMatrixGenerator() {
         }
         @Override

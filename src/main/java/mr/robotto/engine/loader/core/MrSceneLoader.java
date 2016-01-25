@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.loader.core;
@@ -23,7 +23,13 @@ public class MrSceneLoader extends MrBaseObjectLoader {
 
     @Override
     public MrScene parse() throws JSONException {
-        return new MrScene.Builder().setName(getName()).setTransform(getTransform()).setShaderProgram(getShaderProgram()).setUniformKeys(getUniformKeyList()).setClearColor(getClearColor()).createScene();
+        return new MrScene.Builder()
+                .setName(loadName())
+                .setTransform(loadTransform())
+                .setShaderProgram(loadShaderProgram())
+                .setUniformKeySchemas(loadUniformKeySchemaList())
+                .setClearColor(getClearColor())
+                .build();
     }
 
     private MrVector4f getClearColor() throws JSONException {

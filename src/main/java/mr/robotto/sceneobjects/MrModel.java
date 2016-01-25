@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.sceneobjects;
@@ -15,18 +15,16 @@ import mr.robotto.engine.components.action.MrSkeletalAction;
 import mr.robotto.engine.components.material.MrMaterial;
 import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.components.mesh.MrMesh;
-import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.controller.MrModelController;
-import mr.robotto.engine.linearalgebra.MrTransform;
+import mr.robotto.engine.core.data.MrModelData;
+import mr.robotto.engine.core.renderer.MrModelRender;
 
 public class MrModel extends MrObject {
 
-    public MrModel(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
-        super(new MrModelController(name, transform, uniformKeys, shaderProgram, mesh, materials, skeleton));
+    public MrModel(MrModelController controller) {
+        super(controller);
     }
-
 
     @Override
     public MrModelController getController() {
@@ -125,35 +123,14 @@ public class MrModel extends MrObject {
     /**
      * Builder used to construct a {@link MrModel} instance
      */
-    public static class Builder extends MrObjectBuilder {
-        private MrShaderProgram mShaderProgram;
+    public static class Builder extends MrObject.Builder<Builder> {
         private MrMesh mMesh;
-        private MrMaterial[] mMaterials = new MrMaterial[0];
+        private MrMaterial[] mMaterials = null;
         private MrSkeleton mSkeleton = null;
+        private MrModelRender mRender = new MrModelRender();
 
         @Override
-        public Builder setName(String name) {
-            return (Builder) super.setName(name);
-        }
-
-        @Override
-        public Builder setTransform(MrTransform transform) {
-            return (Builder) super.setTransform(transform);
-        }
-
-        @Override
-        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            return (Builder) super.setUniformKeys(uniformKeys);
-        }
-
-        /**
-         * Sets the shader program of this model. Required
-         * @param shaderProgram
-         * @return
-         */
-        @Override
-        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
-            mShaderProgram = shaderProgram;
+        protected Builder getThis() {
             return this;
         }
 
@@ -187,12 +164,23 @@ public class MrModel extends MrObject {
             return this;
         }
 
+        public Builder setRender(MrModelRender render) {
+            mRender = render;
+            return this;
+        }
+
         /**
-         * Creates a new model instance from this builder
+         * Creates a new {@link MrModel} instance from this builder
          * @return
          */
-        public MrModel createModel() {
-            return new MrModel(mName, mTransform, mUniformKeys, mShaderProgram, mMesh, mMaterials, mSkeleton);
+        public MrModel build() {
+            MrModelData data = new MrModelData(mName);
+            setObjectAttributes(data);
+            data.setMesh(mMesh);
+            data.setMaterials(mMaterials);
+            data.setSkeleton(mSkeleton);
+            MrModelController controller = new MrModelController(data, mRender);
+            return new MrModel(controller);
         }
     }
 }

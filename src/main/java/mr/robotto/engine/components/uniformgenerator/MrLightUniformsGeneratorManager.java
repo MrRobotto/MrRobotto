@@ -1,16 +1,17 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.uniformgenerators;
+package mr.robotto.engine.components.uniformgenerator;
 
 import java.util.Map;
 
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrLightData;
 import mr.robotto.engine.core.data.MrObjectData;
@@ -24,13 +25,14 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
  */
 public class MrLightUniformsGeneratorManager implements MrUniformsGeneratorManager {
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
+    public void setUniformGenerators(MrObjectData object) {
         MrLightData light = (MrLightData) object;
+        Map<String, MrUniformGenerator> uniformGenerators = object.getUniformGenerators();
         uniformGenerators.put(MrUniformKey.GENERATOR_LIGHT_COLOR, new LightColorGenerator());
         uniformGenerators.put(MrUniformKey.GENERATOR_LIGHT_POSITION, new LightPositionGenerator());
     }
 
-    private static class LightColorGenerator implements MrUniformKey.Generator {
+    private static class LightColorGenerator implements MrUniformGenerator {
         private final MrVector4f mLightColor;
 
         public LightColorGenerator() {
@@ -46,7 +48,7 @@ public class MrLightUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class LightPositionGenerator implements MrUniformKey.Generator {
+    private static class LightPositionGenerator implements MrUniformGenerator {
         private final MrVector4f mLightPosition;
 
         public LightPositionGenerator() {

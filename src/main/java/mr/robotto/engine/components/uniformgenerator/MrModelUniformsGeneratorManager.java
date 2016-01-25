@@ -1,13 +1,13 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.uniformgenerators;
+package mr.robotto.engine.components.uniformgenerator;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +18,7 @@ import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.components.shader.MrUniform;
 import mr.robotto.engine.components.skeleton.MrBone;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrModelData;
 import mr.robotto.engine.core.data.MrObjectData;
@@ -33,8 +34,9 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
 public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManager {
 
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
+    public void setUniformGenerators(MrObjectData object) {
         MrModelData model = (MrModelData) object;
+        Map<String, MrUniformGenerator> uniformGenerators = object.getUniformGenerators();
         uniformGenerators.put(MrUniformKey.GENERATOR_MODEL_MATRIX, new ModelGenerator());
         uniformGenerators.put(MrUniformKey.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
         uniformGenerators.put(MrUniformKey.GENERATOR_BONE_MATRIX, new BoneMatricesGenerator(model));
@@ -47,7 +49,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         uniformGenerators.put(MrUniformKey.GENERATOR_TEXTURE_SAMPLER, new TextureSamplerIndexGenerator(model));
     }
 
-    private static class AmbientColorGenerator implements MrUniformKey.Generator {
+    private static class AmbientColorGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mAmbientColorUniform;
 
         public AmbientColorGenerator(MrModelData model) {
@@ -65,7 +67,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class DiffuseColorGenerator implements MrUniformKey.Generator {
+    private static class DiffuseColorGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mDiffuseColorUniform;
 
         public DiffuseColorGenerator(MrModelData model) {
@@ -83,7 +85,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class SpecularColorGenerator implements MrUniformKey.Generator {
+    private static class SpecularColorGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mSpecularColorUniform;
 
         public SpecularColorGenerator(MrModelData model) {
@@ -101,7 +103,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class AmbientIntensityGenerator implements MrUniformKey.Generator {
+    private static class AmbientIntensityGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mIntensity;
 
         public AmbientIntensityGenerator(MrModelData model) {
@@ -119,7 +121,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class SpecularIntensityGenerator implements MrUniformKey.Generator {
+    private static class SpecularIntensityGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mIntensity;
 
         public SpecularIntensityGenerator(MrModelData model) {
@@ -137,7 +139,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class DiffuseIntensityGenerator implements MrUniformKey.Generator {
+    private static class DiffuseIntensityGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mIntensity;
 
         public DiffuseIntensityGenerator(MrModelData model) {
@@ -155,7 +157,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class ModelGenerator implements MrUniformKey.Generator {
+    private static class ModelGenerator implements MrUniformGenerator {
         private final MrMatrix4f mModel;
 
         public ModelGenerator() {
@@ -174,7 +176,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class NormalMatrixGenerator implements MrUniformKey.Generator {
+    private static class NormalMatrixGenerator implements MrUniformGenerator {
         private final MrMatrix4f mNormal = new MrMatrix4f();
 
         @Override
@@ -187,7 +189,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class BoneMatricesGenerator implements MrUniformKey.Generator {
+    private static class BoneMatricesGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mBones;
 
         public BoneMatricesGenerator(MrModelData model) {
@@ -211,7 +213,7 @@ public class MrModelUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class TextureSamplerIndexGenerator implements MrUniformKey.Generator {
+    private static class TextureSamplerIndexGenerator implements MrUniformGenerator {
         private final MrLinearAlgebraObjectList mIndices;
 
         public TextureSamplerIndexGenerator(MrModelData model) {

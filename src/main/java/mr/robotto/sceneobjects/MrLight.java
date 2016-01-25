@@ -1,51 +1,35 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.sceneobjects;
 
-import java.util.Map;
-
-import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.controller.MrLightController;
-import mr.robotto.engine.linearalgebra.MrTransform;
+import mr.robotto.engine.core.data.MrLightData;
+import mr.robotto.engine.core.renderer.MrLightRender;
 import mr.robotto.engine.linearalgebra.MrVector3f;
 
 /**
  * Created by aaron on 11/05/2015.
  */
 public class MrLight extends MrObject {
-    public MrLight(String name, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys, MrVector3f lightColor) {
-        super(new MrLightController(name, transform, program, uniformKeys, lightColor));
+
+    public MrLight(MrLightController controller) {
+        super(controller);
     }
 
-    public static class Builder extends MrObjectBuilder {
+    public static class Builder extends MrObject.Builder<Builder> {
         private MrVector3f mLightColor;
+        private MrLightRender mRender = new MrLightRender();
 
         @Override
-        public Builder setName(String name) {
-            return (Builder) super.setName(name);
-        }
-
-        @Override
-        public Builder setTransform(MrTransform transform) {
-            return (Builder) super.setTransform(transform);
-        }
-
-        @Override
-        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            return (Builder) super.setUniformKeys(uniformKeys);
-        }
-
-        @Override
-        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
-            return (Builder) super.setShaderProgram(shaderProgram);
+        protected Builder getThis() {
+            return this;
         }
 
         public Builder setLightColor(MrVector3f lightColor) {
@@ -53,8 +37,18 @@ public class MrLight extends MrObject {
             return this;
         }
 
-        public MrLight createLight() {
-            return new MrLight(mName, mTransform, mShaderProgram, mUniformKeys, mLightColor);
+        public Builder setRender(MrLightRender render) {
+            mRender = render;
+            return this;
+        }
+
+        @Override
+        public MrLight build() {
+            MrLightData lightData = new MrLightData(mName);
+            setObjectAttributes(lightData);
+            lightData.setColor(mLightColor);
+            MrLightController controller = new MrLightController(lightData, mRender);
+            return new MrLight(controller);
         }
     }
 }

@@ -1,22 +1,19 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.sceneobjects;
 
-import java.util.Map;
-
 import mr.robotto.engine.components.lens.MrLens;
-import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.controller.MrCameraController;
+import mr.robotto.engine.core.data.MrCameraData;
+import mr.robotto.engine.core.renderer.MrCameraRender;
 import mr.robotto.engine.linearalgebra.MrMatrix4f;
-import mr.robotto.engine.linearalgebra.MrTransform;
 import mr.robotto.engine.linearalgebra.MrVector3f;
 
 /**
@@ -24,8 +21,8 @@ import mr.robotto.engine.linearalgebra.MrVector3f;
  */
 public class MrCamera extends MrObject {
 
-    public MrCamera(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
-        super(new MrCameraController(name, transform, uniformKeys, shaderProgram, lens));
+    public MrCamera(MrCameraController controller) {
+        super(controller);
     }
 
     @Override
@@ -49,30 +46,20 @@ public class MrCamera extends MrObject {
         return getController().getLookAt();
     }
 
-    /**
-     * Created by aaron on 16/06/2015.
-     */
-    public static class Builder extends MrObjectBuilder {
+    public static class Builder extends MrObject.Builder<Builder> {
+        private MrVector3f mLookAt;
+        private MrVector3f mUp;
         private MrLens mLens;
+        private MrCameraRender mRender = new MrCameraRender();
 
-        @Override
-        public Builder setName(String name) {
-            return (Builder) super.setName(name);
+        public Builder setLookAt(MrVector3f lookAt) {
+            mLookAt = lookAt;
+            return this;
         }
 
-        @Override
-        public Builder setTransform(MrTransform transform) {
-            return (Builder) super.setTransform(transform);
-        }
-
-        @Override
-        public Builder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            return (Builder) super.setUniformKeys(uniformKeys);
-        }
-
-        @Override
-        public Builder setShaderProgram(MrShaderProgram shaderProgram) {
-            return (Builder) super.setShaderProgram(shaderProgram);
+        public Builder setUp(MrVector3f up) {
+            mUp = up;
+            return this;
         }
 
         public Builder setLens(MrLens lens) {
@@ -80,8 +67,25 @@ public class MrCamera extends MrObject {
             return this;
         }
 
-        public MrCamera createCamera() {
-            return new MrCamera(mName, mTransform, mUniformKeys, mShaderProgram, mLens);
+        public Builder setRender(MrCameraRender render) {
+            mRender = render;
+            return this;
+        }
+
+        @Override
+        protected Builder getThis() {
+            return this;
+        }
+
+        @Override
+        public MrCamera build() {
+            MrCameraData cameraData = new MrCameraData(mName);
+            setObjectAttributes(cameraData);
+            cameraData.setLens(mLens);
+            cameraData.setLookAt(mLookAt);
+            cameraData.setUp(mUp);
+            MrCameraController controller = new MrCameraController(cameraData, mRender);
+            return new MrCamera(controller);
         }
     }
 }

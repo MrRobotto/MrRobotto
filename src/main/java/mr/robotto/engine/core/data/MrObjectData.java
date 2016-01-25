@@ -1,19 +1,21 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.core.data;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
+import mr.robotto.engine.components.uniformkey.MrUniformKeySchema;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.linearalgebra.MrTransform;
 
@@ -25,32 +27,12 @@ public abstract class MrObjectData {
     protected MrSceneObjectType mSceneObjType;
     protected MrTransform mTransform;
     protected MrShaderProgram mShaderProgram;
-    protected HashMap<String, MrUniformKey.Generator> mUniformGenerators;
-    protected Map<String, MrUniformKey> mUniformKeys;
+    protected Map<String, MrUniformGenerator> mUniformGenerators = new HashMap<>();
+    protected Map<String, MrUniformKeySchema> mUniformKeySchemas = new HashMap<>();
 
-    protected MrObjectData(String name, MrSceneObjectType sceneObjType, MrTransform transform, MrShaderProgram program, Map<String, MrUniformKey> uniformKeys) {
+    public MrObjectData(String name, MrSceneObjectType sceneObjType) {
         mName = name;
-        mTransform = transform;
         mSceneObjType = sceneObjType;
-        mShaderProgram = program;
-        mUniformKeys = uniformKeys;
-        init();
-    }
-
-    protected MrObjectData(String name, MrSceneObjectType sceneObjType) {
-        this(name, sceneObjType, new MrTransform(), null, new HashMap<String, MrUniformKey>());
-    }
-
-    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
-        return mUniformGenerators;
-    }
-
-    public void addUniformGenerators(String uniformGeneratorName, MrUniformKey.Generator generator) {
-        mUniformGenerators.put(uniformGeneratorName, generator);
-    }
-
-    private void init() {
-        mUniformGenerators = new HashMap<>();
     }
 
     public String getName() {
@@ -73,46 +55,30 @@ public abstract class MrObjectData {
         return mShaderProgram;
     }
 
-    public Map<String, MrUniformKey> getUniformKeys() {
-        return mUniformKeys;
+    public void setShaderProgram(MrShaderProgram shaderProgram) {
+        mShaderProgram = shaderProgram;
     }
 
-    public void setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-        this.mUniformKeys = uniformKeys;
+    public Map<String, MrUniformKeySchema> getUniformKeySchemas() {
+        return mUniformKeySchemas;
     }
 
-    public static abstract class BuilderBase {
-        protected String mName;
-        protected MrSceneObjectType mSceneObjType;
-        protected MrTransform mTransform = new MrTransform();
-        protected MrShaderProgram mProgram = null;
-        protected Map<String, MrUniformKey> mUniformKeys = new HashMap<String, MrUniformKey>();
+    public void addUniformKeySchema(MrUniformKeySchema schema) {
+        mUniformKeySchemas.put(schema.getUniform(), schema);
+    }
 
-        public BuilderBase setName(String name) {
-            mName = name;
-            return this;
+    //TODO: Add delete methods for schemas and uniform keys
+    public void addUniformKeySchema(Collection<MrUniformKeySchema> schemas) {
+        for (MrUniformKeySchema schema : schemas) {
+            addUniformKeySchema(schema);
         }
+    }
 
-        public BuilderBase setSceneObjType(MrSceneObjectType sceneObjType) {
-            mSceneObjType = sceneObjType;
-            return this;
-        }
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
+        return mUniformGenerators;
+    }
 
-        public BuilderBase setTransform(MrTransform transform) {
-            mTransform = transform;
-            return this;
-        }
-
-        public BuilderBase setProgram(MrShaderProgram program) {
-            mProgram = program;
-            return this;
-        }
-
-        public BuilderBase setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            mUniformKeys = uniformKeys;
-            return this;
-        }
-
-        public abstract MrObjectData build();
+    public void putUniformGenerators(String uniformGeneratorName, MrUniformGenerator generator) {
+        mUniformGenerators.put(uniformGeneratorName, generator);
     }
 }

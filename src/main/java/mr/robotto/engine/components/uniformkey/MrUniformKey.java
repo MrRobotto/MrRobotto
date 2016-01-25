@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.components.uniformkey;
@@ -44,7 +44,7 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
     private int mLevel;
     private int mCount;
     private MrLinearAlgebraObject mValue;
-    private Generator mGenerator;
+    private MrUniformGenerator mGenerator;
 
     public MrUniformKey(String uniform, String generatorName, int count, int level) {
         mGeneratorName = generatorName;
@@ -59,6 +59,14 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
         mUniform = schema.getUniform();
         mCount = schema.getCount();
         mLevel = schema.getLevel();
+    }
+
+    public MrUniformKey(MrUniformKeySchema schema, MrUniformGenerator generator) {
+        mGeneratorName = schema.getGeneratorName();
+        mUniform = schema.getUniform();
+        mCount = schema.getCount();
+        mLevel = schema.getLevel();
+        mGenerator = generator;
     }
 
     /**
@@ -91,7 +99,7 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
      *
      * @return
      */
-    public Generator getGenerator() {
+    public MrUniformGenerator getGenerator() {
         return mGenerator;
     }
 
@@ -100,7 +108,7 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
      *
      * @param generator
      */
-    public void setGenerator(Generator generator) {
+    public void setGenerator(MrUniformGenerator generator) {
         mGenerator = generator;
     }
 
@@ -177,19 +185,4 @@ public class MrUniformKey implements Comparable<MrUniformKey> {
                 '}';
     }
 
-    /**
-     * Generator for uniform keys
-     */
-    public interface Generator {
-
-        /**
-         * Returns the value generated for this uniform key
-         *
-         * @param tree
-         * @param uniforms
-         * @param object
-         * @return
-         */
-        MrLinearAlgebraObject generateUniform(final MrObjectsDataTree tree, final Map<String, MrUniformKey> uniforms, final MrObjectData object);
-    }
 }

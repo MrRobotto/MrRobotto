@@ -1,20 +1,23 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.core.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrUniformsGeneratorManager;
+import mr.robotto.engine.components.uniformgenerator.MrUniformsGeneratorManager;
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.uniformkey.MrUniformKeySchema;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.data.MrObjectData;
 import mr.robotto.engine.core.renderer.MrObjectRender;
@@ -32,10 +35,13 @@ public abstract class MrObjectController {
     protected MrObject mAttachedObject;
     protected MrObjectData mData;
     protected MrObjectRender mRender;
+    //TODO: UniformsGeneratorManager should be accessible and editable!!
     protected MrUniformsGeneratorManager mObjectUniformsGenerators;
     protected MrEventsListener mEventsListener;
 
     protected boolean mInitialized;
+    //TODO: Delete these three code blocks
+    private Map<String, MrUniformKey> mUniformKeys = new HashMap<>();
 
     protected MrObjectController(MrObjectData data, MrObjectRender render) {
         mData = data;
@@ -45,15 +51,10 @@ public abstract class MrObjectController {
         setEventsListener(new MrDefaultEventListener());
     }
 
-    protected MrObjectController(MrObjectData data) {
-        this(data, null);
-    }
-
     protected void setRender(MrObjectRender render) {
         mRender = render;
     }
 
-    //TODO: Delete
     public MrObjectData getData() {
         return mData;
     }
@@ -139,35 +140,53 @@ public abstract class MrObjectController {
         return mData.getTransform();
     }
 
+    /*public void setUniformGenerators() {
+        Map<String, MrUniformGenerator> uniformGenerators = mData.getUniformGenerators();
+        Map<String, MrUniformKey> uniformKeys = mData.getUniformKeys();
+        mObjectUniformsGenerators.setUniformGenerators(mData, uniformGenerators);
+        for (MrUniformKey key : uniformKeys.values()) {
+            MrUniformGenerator generator = uniformGenerators.get(key.getGeneratorName());
+            key.setGenerator(generator);
+        }
+    }*/
+
     public void setTransform(MrTransform transform) {
         mData.setTransform(transform);
     }
 
+    private MrUniformGenerator getGeneratorForSchema(MrUniformKeySchema schema) {
+        return mData.getUniformGenerators().get(schema.getGeneratorName());
+    }
+
     public void initializeUniforms() {
-        Map<String, MrUniformKey.Generator> uniformGenerators = mData.getUniformGenerators();
-        Map<String, MrUniformKey> uniformKeys = mData.getUniformKeys();
-        mObjectUniformsGenerators.initializeUniforms(mData, uniformGenerators);
-        for (MrUniformKey key : uniformKeys.values()) {
-            MrUniformKey.Generator generator = uniformGenerators.get(key.getGeneratorName());
-            key.setGenerator(generator);
+        Map<String, MrUniformKeySchema> uniformKeySchemas = mData.getUniformKeySchemas();
+        mObjectUniformsGenerators.setUniformGenerators(mData);
+        for (MrUniformKeySchema schema : uniformKeySchemas.values()) {
+            MrUniformGenerator generator = getGeneratorForSchema(schema);
+            MrUniformKey key = new MrUniformKey(schema, generator);
+            mUniformKeys.put(key.getUniform(), key);
         }
+    }
+
+    public Map<String, MrUniformKey> getUniformKeys() {
+        return mUniformKeys;
     }
 
     public MrShaderProgram getShaderProgram() {
         return mData.getShaderProgram();
     }
 
-    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mData.getUniformGenerators();
     }
 
-    public void addUniformGenerators(String uniformGeneratorName, MrUniformKey.Generator generator) {
-        mData.addUniformGenerators(uniformGeneratorName, generator);
+    public void addUniformGenerators(String uniformGeneratorName, MrUniformGenerator generator) {
+        mData.putUniformGenerators(uniformGeneratorName, generator);
     }
 
-    public Map<String, MrUniformKey> getUniformKeys() {
+    /*public Map<String, MrUniformKey> getUniformKeys() {
         return mData.getUniformKeys();
-    }
+    }*/
 
     @Override
     public String toString() {

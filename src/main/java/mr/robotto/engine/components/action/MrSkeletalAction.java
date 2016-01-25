@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.components.action;
@@ -20,21 +20,14 @@ import mr.robotto.engine.components.skeleton.MrBone;
  * and stored inside an instance of {@link MrKeyFrameList} and it must be related to an {@link mr.robotto.engine.components.skeleton.MrSkeleton}
  */
 public class MrSkeletalAction {
-    public static enum State {
-        PLAYING, LOOP, STOPPED, PAUSED
-    }
-
     //TODO: Move this to a more generic action class
     public static final int ACTIONTYPE_SKELETAL = 1;
-
     private String mName;
     private float mSpeed;
     private MrKeyFrameList mKeyFrames;
     private int mActionType;
-
     private State mState;
     private Iterator<MrFrame> mFrameIterator;
-
     /**
      * Creates an skeletal animation
      *
@@ -145,5 +138,9 @@ public class MrSkeletalAction {
             return step();
         }
         return null;
+    }
+
+    public enum State {
+        PLAYING, LOOP, STOPPED, PAUSED
     }
 }

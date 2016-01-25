@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.core.data;
@@ -16,11 +16,8 @@ import mr.robotto.engine.components.action.MrSkeletalAction;
 import mr.robotto.engine.components.material.MrMaterial;
 import mr.robotto.engine.components.material.MrTexture;
 import mr.robotto.engine.components.mesh.MrMesh;
-import mr.robotto.engine.components.shader.MrShaderProgram;
 import mr.robotto.engine.components.skeleton.MrSkeleton;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.MrSceneObjectType;
-import mr.robotto.engine.linearalgebra.MrTransform;
 
 /**
  * Created by aaron on 14/04/2015.
@@ -30,21 +27,17 @@ public class MrModelData extends MrObjectData {
     private MrMaterial[] mMaterials;
     private MrTexture[] mTextures;
     private MrSkeleton mSkeleton;
-    private boolean mIsVisible;
+    private boolean mIsVisible = true;
 
-    private MrModelData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrMesh mesh, MrMaterial[] materials, MrSkeleton skeleton) {
-        super(name, MrSceneObjectType.MODEL, transform, shaderProgram, uniformKeys);
-        mMesh = mesh;
-        mMaterials = materials;
-        mSkeleton = skeleton;
-        mIsVisible = true;
-        init();
+    public MrModelData(String name) {
+        super(name, MrSceneObjectType.MODEL);
     }
 
     private void init() {
         getTexturesFromMaterials();
     }
 
+    //TODO: Given a material extract the texture
     private void getTexturesFromMaterials() {
         ArrayList<MrTexture> textures = new ArrayList<MrTexture>();
         for (MrMaterial m : mMaterials) {
@@ -60,8 +53,17 @@ public class MrModelData extends MrObjectData {
         return mMesh;
     }
 
+    public void setMesh(MrMesh mesh) {
+        mMesh = mesh;
+    }
+
     public MrMaterial[] getMaterials() {
         return mMaterials;
+    }
+
+    public void setMaterials(MrMaterial[] materials) {
+        mMaterials = materials;
+        getTexturesFromMaterials();
     }
 
     public boolean hasSkeleton() {
@@ -70,6 +72,10 @@ public class MrModelData extends MrObjectData {
 
     public MrSkeleton getSkeleton() {
         return mSkeleton;
+    }
+
+    public void setSkeleton(MrSkeleton skeleton) {
+        mSkeleton = skeleton;
     }
 
     public boolean hasTextures() {
@@ -90,36 +96,5 @@ public class MrModelData extends MrObjectData {
 
     public void setVisibility(boolean isVisible) {
         mIsVisible = isVisible;
-    }
-
-    public static class Builder extends MrObjectData.BuilderBase {
-        private MrMesh mMesh;
-        private MrMaterial[] mMaterials = null;
-        private MrTexture[] mTextures = null;
-        private MrSkeleton mSkeleton = null;
-
-        public Builder setMesh(MrMesh mesh) {
-            mMesh = mesh;
-            return this;
-        }
-
-        public Builder setMaterials(MrMaterial[] materials) {
-            mMaterials = materials;
-            return this;
-        }
-
-        public Builder setTextures(MrTexture[] textures) {
-            mTextures = textures;
-            return this;
-        }
-
-        public Builder setSkeleton(MrSkeleton skeleton) {
-            mSkeleton = skeleton;
-            return this;
-        }
-
-        public MrModelData build() {
-            return new MrModelData(mName, mTransform, mUniformKeys, mProgram, mMesh, mMaterials, mSkeleton);
-        }
     }
 }

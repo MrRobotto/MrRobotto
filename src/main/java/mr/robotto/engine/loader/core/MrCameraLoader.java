@@ -1,10 +1,10 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.loader.core;
@@ -31,11 +31,11 @@ public class MrCameraLoader extends MrBaseObjectLoader {
         JSONObject lensJson = mRoot.getJSONObject("Lens");
         if (lensJson.getString("Type").equals("Perspective")) {
             return new MrCamera.Builder()
-                    .setName(getName())
-                    .setTransform(getTransform())
-                    .setUniformKeys(getUniformKeyList())
-                    .setShaderProgram(getShaderProgram())
-                    .setLens(getPerspectiveLens(lensJson)).createCamera();
+                    .setName(loadName())
+                    .setTransform(loadTransform())
+                    .setUniformKeySchemas(loadUniformKeySchemaList())
+                    .setShaderProgram(loadShaderProgram())
+                    .setLens(getPerspectiveLens(lensJson)).build();
         } else if (lensJson.getString("Type").equals("Orthographic")) {
             //TODO: Make this
             throw new UnsupportedOperationException("Not implemented yet");

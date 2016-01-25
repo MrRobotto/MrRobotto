@@ -1,24 +1,19 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.engine.core.controller;
 
-import java.util.Map;
-
 import mr.robotto.engine.components.lens.MrLens;
-import mr.robotto.engine.components.shader.MrShaderProgram;
-import mr.robotto.engine.components.uniformgenerators.MrCameraUniformsGeneratorManager;
-import mr.robotto.engine.components.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.uniformgenerator.MrCameraUniformsGeneratorManager;
 import mr.robotto.engine.core.data.MrCameraData;
 import mr.robotto.engine.core.renderer.MrCameraRender;
 import mr.robotto.engine.linearalgebra.MrMatrix4f;
-import mr.robotto.engine.linearalgebra.MrTransform;
 import mr.robotto.engine.linearalgebra.MrVector3f;
 
 /**
@@ -28,25 +23,9 @@ public class MrCameraController extends MrObjectController {
 
     private MrMatrix4f mView;
     private MrMatrix4f mProjection;
-    public MrCameraController(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram shaderProgram, MrLens lens) {
-        super(createCameraData(name, transform, uniformKeys, shaderProgram, lens), new MrCameraRender());
-        mProjection = new MrMatrix4f();
-        mView = new MrMatrix4f();
-        init();
-    }
 
-    private static MrCameraData createCameraData(String name, MrTransform transform, Map<String, MrUniformKey> uniformKeys, MrShaderProgram program, MrLens lens) {
-        MrCameraData.Builder builder = new MrCameraData.Builder();
-        builder
-                .setLens(lens)
-                .setName(name)
-                .setTransform(transform)
-                .setProgram(program)
-                .setUniformKeys(uniformKeys);
-        return builder.build();
-    }
-
-    private void init() {
+    public MrCameraController(MrCameraData cameraData, MrCameraRender cameraRender) {
+        super(cameraData, cameraRender);
         mObjectUniformsGenerators = new MrCameraUniformsGeneratorManager();
     }
 

@@ -1,15 +1,16 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
 package mr.robotto.sceneobjects;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,13 @@ import java.util.Set;
 
 import mr.robotto.MrEngine;
 import mr.robotto.engine.components.shader.MrShaderProgram;
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
+import mr.robotto.engine.components.uniformkey.MrUniformKeySchema;
 import mr.robotto.engine.core.MrSceneObjectType;
 import mr.robotto.engine.core.controller.MrObjectController;
+import mr.robotto.engine.core.data.MrObjectData;
+import mr.robotto.engine.core.renderer.MrObjectRender;
 import mr.robotto.engine.events.MrEventsListener;
 import mr.robotto.engine.linearalgebra.MrQuaternion;
 import mr.robotto.engine.linearalgebra.MrTransform;
@@ -85,7 +90,7 @@ public abstract class MrObject {
      * Call this method if you want to create a new uniform generator for this object
      * @param uniformGenerators uniform generator map to add new generators
      */
-    public void initializeUniforms(Map<String, MrUniformKey.Generator> uniformGenerators) {
+    public void initializeUniforms(Map<String, MrUniformGenerator> uniformGenerators) {
     }
 
     /**
@@ -132,7 +137,7 @@ public abstract class MrObject {
      * Gets the uniform generators associated to this object
      * @return a map containing generator name - generator items
      */
-    public Map<String, MrUniformKey.Generator> getUniformGenerators() {
+    public Map<String, MrUniformGenerator> getUniformGenerators() {
         return mController.getUniformGenerators();
     }
 
@@ -517,20 +522,23 @@ public abstract class MrObject {
     /**
      * Builder base class for MrObject creation
      */
-    public static abstract class MrObjectBuilder {
+    public static abstract class Builder<T extends Builder<T>> {
         protected String mName;
         protected MrTransform mTransform = new MrTransform();
-        protected Map<String, MrUniformKey> mUniformKeys = new HashMap<>();
         protected MrShaderProgram mShaderProgram = null;
+        protected Set<MrUniformKeySchema> mUniformKeySchemas = new HashSet<>();
+        protected MrObjectRender mRender;
+
+        protected abstract T getThis();
 
         /**
          * Sets the name of this object. Required
          * @param name
          * @return
          */
-        public MrObjectBuilder setName(String name) {
+        public T setName(String name) {
             mName = name;
-            return this;
+            return getThis();
         }
 
         /**
@@ -538,29 +546,42 @@ public abstract class MrObject {
          * @param transform
          * @return
          */
-        public MrObjectBuilder setTransform(MrTransform transform) {
+        public T setTransform(MrTransform transform) {
             mTransform = transform;
-            return this;
+            return getThis();
         }
 
         /**
-         * Sets the uniformkeys of this object. Optional
-         * @param uniformKeys
-         * @return
-         */
-        public MrObjectBuilder setUniformKeys(Map<String, MrUniformKey> uniformKeys) {
-            mUniformKeys = uniformKeys;
-            return this;
-        }
-
-        /**
-         * Sets the shader program of this object. Optional
+         * Sets the shader shaderProgram of this object. Optional
          * @param shaderProgram
          * @return
          */
-        public MrObjectBuilder setShaderProgram(MrShaderProgram shaderProgram) {
+        public T setShaderProgram(MrShaderProgram shaderProgram) {
             mShaderProgram = shaderProgram;
-            return this;
+            return getThis();
         }
+
+        /**
+         * Sets the uniformkeyschemas of this object. Optional
+         * @param uniformKeySchemas
+         * @return
+         */
+        public T setUniformKeySchemas(Collection<MrUniformKeySchema> uniformKeySchemas) {
+            mUniformKeySchemas.addAll(uniformKeySchemas);
+            return getThis();
+        }
+
+        public T setRender(MrObjectRender render) {
+            mRender = render;
+            return getThis();
+        }
+
+        protected void setObjectAttributes(MrObjectData data) {
+            data.setShaderProgram(mShaderProgram);
+            data.setTransform(mTransform);
+            data.addUniformKeySchema(mUniformKeySchemas);
+        }
+
+        public abstract MrObject build();
     }
 }

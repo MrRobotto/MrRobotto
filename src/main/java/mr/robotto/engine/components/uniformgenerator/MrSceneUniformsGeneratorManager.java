@@ -1,17 +1,18 @@
 /*
- * MrRobotto Engine
- * Copyright (c) 2015, Aarón Negrín, All rights reserved.
+ *  MrRobotto 3D Engine
+ *  Copyright (c) 2016, Aarón Negrín, All rights reserved.
  *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *  This Source Code Form is subject to the terms of the Mozilla Public
+ *  License, v. 2.0. If a copy of the MPL was not distributed with this
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package mr.robotto.engine.components.uniformgenerators;
+package mr.robotto.engine.components.uniformgenerator;
 
 import java.util.Map;
 
 import mr.robotto.engine.components.shader.MrUniform;
+import mr.robotto.engine.components.uniformkey.MrUniformGenerator;
 import mr.robotto.engine.components.uniformkey.MrUniformKey;
 import mr.robotto.engine.core.data.MrObjectData;
 import mr.robotto.engine.core.data.MrSceneData;
@@ -25,14 +26,15 @@ import mr.robotto.engine.scenetree.MrObjectsDataTree;
 public class MrSceneUniformsGeneratorManager implements MrUniformsGeneratorManager {
 
     @Override
-    public void initializeUniforms(MrObjectData object, Map<String, MrUniformKey.Generator> uniformGenerators) {
+    public void setUniformGenerators(MrObjectData object) {
         MrSceneData scene = (MrSceneData) object;
+        Map<String, MrUniformGenerator> uniformGenerators = object.getUniformGenerators();
         uniformGenerators.put(MrUniformKey.GENERATOR_MODEL_VIEW_PROJECTION_MATRIX, new MVPMatrixGenerator());
         uniformGenerators.put(MrUniformKey.GENERATOR_MODEL_VIEW_MATRIX, new ModelViewMatrixGenerator());
         //uniformGenerators.put(MrUniformGenerator.GENERATOR_NORMAL_MATRIX, new NormalMatrixGenerator());
     }
 
-    private static class MVPMatrixGenerator implements MrUniformKey.Generator {
+    private static class MVPMatrixGenerator implements MrUniformGenerator {
         private final MrMatrix4f mMvp;
 
         public MVPMatrixGenerator() {
@@ -51,7 +53,7 @@ public class MrSceneUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class ModelViewMatrixGenerator implements MrUniformKey.Generator {
+    private static class ModelViewMatrixGenerator implements MrUniformGenerator {
         private final MrMatrix4f mModelView;
 
         public ModelViewMatrixGenerator() {
@@ -68,7 +70,7 @@ public class MrSceneUniformsGeneratorManager implements MrUniformsGeneratorManag
         }
     }
 
-    private static class NormalMatrixGenerator implements MrUniformKey.Generator {
+    private static class NormalMatrixGenerator implements MrUniformGenerator {
         private final MrMatrix4f mNormal;
 
         public NormalMatrixGenerator() {
